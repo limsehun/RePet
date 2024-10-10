@@ -5,6 +5,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .mainImage {
+      max-width: 1500px;
+      width: 75%;
+      height: 500px;
+
+      margin: 0 100px;
+    }
+    .content-2{
+      border: 1px solid black;
+      max-width: 1500px;
+      width: 75%;
+      height: 600px;
+
+      margin: 0 100px;
+    }
+
+    .animal , .sup {
+      border: 1px solid black;
+      max-width: 1500px;
+      width: 80%;
+      height: 300px;
+      display: flex;
+      margin: 10px 100px;
+    }
+
+    .animal-img, .sup-img {
+      border: 1px solid black;
+
+      width: 200px;
+      height: 200px;
+
+      display: flex;
+      justify-content: center;
+
+      margin: 50px 30px;
+    }
+    .name{
+      border: 1px solid black;
+      width: 50px;
+      height: 20px;
+      display: flex;
+
+      padding: 0 20px;
+      margin: 5px 100px;
+    }
+
+    .content-3{
+      border: 1px solid black;
+      max-width: 1500px;
+      width: 75%;
+      height: 600px;
+
+      display: flex;
+      flex-direction:row;
+      margin: 0 100px;
+    }
+
+    .content-3 > div{
+      border: 1px solid black;
+      height: 100%;
+      width: 50%;
+    }
+
+    .content-4{
+      border: 1px solid black;
+      max-width: 1500px;
+      width: 75%;
+      height: 600px;
+
+      margin: 0 100px;
+    }
+
+    .content-5{
+      border: 1px solid black;
+      max-width: 1500px;
+      width: 75%;
+      height: 600px;
+
+      display: flex;
+      flex-direction:row;
+      margin: 0 100px;
+    }
+
+    .content-5 > div{
+      border: 1px solid black;
+      height: 100%;
+      width: 50%;
+    }
+    
+  </style>
 </head>
 
 <body>
@@ -12,64 +103,146 @@
   <th:block th:replace="~{common/header}"></th:block>
 
   <section class="content">
+
+
+    <table border="1" class="mainImage">메인 사진
+      <img src="" alt="">
+    </table>
+
     <section class="content-2">
 
-      <table border="1" class="mainImage">
-        <img src="" alt="">
+      <table class="animal-table">
+
+        <div>유기 도물 메인 제목</div>
+
+      <div>
+        <div>
+          <button>분양정보 보기</button>
+        </div>
+      </div>
+
+
+      <div class="animal">
+        <div class="animal-img"><img src="" alt="">분양 이미지</div>
+        <div class="animal-img"><img src="" alt="">분양 이미지</div>
+        <div class="animal-img"><img src="" alt="">분양 이미지</div>
+        <div class="animal-img"><img src="" alt="">분양 이미지</div>
+      </div>
+
+
+      <div id="name-box">
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+      </div>
+
+      <tr>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+      </tr>
+
       </table>
 
-      <table>
-        <thead>
-          <tr>
-            <th>유기동물 로고 사진</th>
-            <th>유기동물</th>
-          </tr>
+    </section>
 
-          <tr>
-            <th>
-              <form action="">분양정보 보기</form>
-            </th>
-          </tr>
 
-          <tr>
-            <th>
-              <div id="ab animals-image">
-                <img src="" alt="">
-              </div>
-            </th>
-
-            <th>
-              <div id="ab animals-image">
-                <img src="" alt="">
-              </div>
-            </th>
-
-            <th>
-              <div id="ab animals-image">
-                <img src="" alt="">
-              </div>
-            </th>
-            
-            <th>
-              <div id="ab animals-image">
-                <img src="" alt="">
-              </div>
-            </th>
-
-          </tr>
-
-        </thead>
-
-      </table>
+    <section class="content-3">
+      <div><img src="" alt=""></div>
+      <div></div>
 
 
     </section>
 
 
+    <section class="content-4">
+
+      <table class="animal-table">
+
+        <div>유기 도물 메인 제목</div>
+
+      <div>
+        <div>
+          <button>분양정보 보기</button>
+        </div>
+      </div>
 
 
+      <div class="sup">
+        <div class="sup-img"><img src="" alt="">용품 이미지</div>
+        <div class="sup-img"><img src="" alt="">용품 이미지</div>
+        <div class="sup-img"><img src="" alt="">용품 이미지</div>
+        <div class="sup-img"><img src="" alt="">용품 이미지</div>
+
+      </div>
+
+
+      <div id="name-box">
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+        <th>
+          <div class="name">콩떡이</div>
+        </th>
+      </div>
+
+      <tr>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+        <th>
+          <div><button>상세정보</button></div>
+        </th>
+      </tr>
+
+      </table>
+
+    </section>
+
+    <section class="content-5">
+      <div></div>
+      <div><img src="" alt=""></div>
+
+
+
+    </section>
 
   </section>
+
+
+    <!-- common/footer.html 추가 -->
+    <th:block th:replace="~{common/footer}"></th:block>
+
 </body>
 
 </html>

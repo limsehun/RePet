@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 팝업</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .popup {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h2 {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 40px 0;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: calc(100% - 90px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border: none;
+      border-bottom: 1px solid #ccc;
+
+      outline: none;
+    }
+
+    /* .underline {
+      border-bottom: 1px solid #ccc;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    } */
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .link-button {
+      background-color: transparent;
+      color: #007BFF;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .loginBtn,
+    .signUpBtn {
+      margin: 50px 0 20px 0;
+    }
+
+    .find {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="popup">
+    <h2>로그인</h2>
+    <div class="input-group">
+      <input type="text" placeholder="아이디" required>
+      <div class="underline"></div>
+    </div>
+    <div class="input-group">
+      <input type="password" placeholder="비밀번호" required>
+      <div class="underline"></div>
+    </div>
+    <button type="submit" class="loginBtn">로그인</button>
+    <button type="submit" class="signUpBtn">회원가입</button>
+    <div class="find">
+      <button class="link-button">아이디 찾기</button>
+      <button class="link-button">비밀번호 찾기</button>
+
+    </div>
+  </div>
+</body>
+
+</html>

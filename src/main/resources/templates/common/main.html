@@ -26,6 +26,9 @@
     body {
       font-family: 'Arial', sans-serif;
       line-height: 1.6;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
     /* ---------------------------------------------------------------------------------- */
@@ -174,6 +177,7 @@
       justify-content: center;
       align-items: center;
       margin: 0 10px;
+      border-radius : 20px
     }
 
     .animal-name, .sup-cost {
@@ -244,6 +248,17 @@
       height: auto;
     }
 
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      background-color: rgb(241, 172, 22);
+      color: white;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
     /* 푸터 스타일 */
     footer {
       padding: 20px;
@@ -271,7 +286,7 @@
       <h2>입양중인 동물</h2>
 
       <div class="imfo-animal-all">
-        <div><button>분양정보 보기</button></div>
+        <div><button type="submit">분양정보 보기</button></div>
       </div>
           
 

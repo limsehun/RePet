@@ -7,6 +7,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import edu.kh.repet.adopt.dto.Adopt;
 
 public class AdoptApp {
 
@@ -23,11 +31,11 @@ public class AdoptApp {
 		url += "?serviceKey=" + serviceKey;
 		url += "&numOfRows=10";
 		url += "&pageNo=1";
-		url += "&dataType=json";
+		url += "&_type=json";
 		LocalDateTime datetime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		url += "&endde=" + datetime.format(formatter);
-//		System.out.println(url);
+		System.out.println(url);
 
 		URL requestUrl = new URL(url);
 		
@@ -50,11 +58,59 @@ public class AdoptApp {
 		
 //		System.out.println(responseText);
 		
-		// gson 다운로드 [아키텍쳐 -29p-]
 		
+		// responseText에 담긴 문자열을 
+		// (gson 라이브러리)JsonObject/JsonArray, JsonElement를 이용해서 데이터 추출
+		JsonObject totalObj = JsonParser.parseString(responseText).getAsJsonObject();		
 		
+		// totalObj 안에 Json 객체 존재
+		JsonObject responseObj = totalObj.getAsJsonObject("response");
 		
+		// response 속성 접근 -> 응답데이터에 있는 내용들을 JsonObject화
+		JsonObject bodyObj = responseObj.getAsJsonObject("body").getAsJsonObject("items");
 		
+//		System.out.println(bodyObj);
+		
+		JsonArray itemArr = bodyObj.getAsJsonArray("item");
+		
+//		System.out.println(itemArr);
+		
+		ArrayList<Adopt> list = new ArrayList<>();
+		for(int i=0; i<itemArr.size();i++) {
+			JsonObject item = itemArr.get(i).getAsJsonObject();
+			
+//			System.out.println(item);
+			
+//			ObjectMapper mapper = new ObjectMapper();
+//			Adopt adopt = mapper.convertValue(item, Adopt.class);
+//			System.out.println(adopt);
+			
+			Adopt adopt = new Adopt();
+			adopt.setPopfile(item.get("popfile").getAsString());
+			adopt.setAge(item.get("age").getAsString());
+			adopt.setNeuterYn(item.get("neuterYn").getAsString());
+			adopt.setSexCd(item.get("sexCd").getAsString());
+			adopt.setCareNm(item.get("careNm").getAsString());
+			adopt.setCareTel(item.get("careTel").getAsString());
+			adopt.setCareAddr(item.get("careAddr").getAsString());
+			adopt.setProcessState(item.get("processState").getAsString());
+			adopt.setNoticeNo(item.get("noticeNo").getAsString());
+			adopt.setNoticeSdt(item.get("noticeSdt").getAsString());
+			adopt.setNoticeEdt(item.get("noticeEdt").getAsString());
+			adopt.setSpecialMark(item.get("specialMark").getAsString());
+			adopt.setHappenPlace(item.get("happenPlace").getAsString());
+			adopt.setKindCd(item.get("kindCd").getAsString());
+			
+			list.add(adopt);
+		}
+		
+//		System.out.println(list);
+		for(Adopt ap:list) {
+				System.out.println(ap);
+		}
+		
+		br.close();
+		urlConnection.disconnect();
 		
 	}
 }

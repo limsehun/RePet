@@ -24,6 +24,11 @@
       width: 250px;
     }
 
+    /* popup layer 숨기기/보이기 */
+    .popup-hidden {
+      display: none !important;
+    }
+
     h2 {
       display: flex;
       justify-content: center;
@@ -86,7 +91,7 @@
 </head>
 
 <body>
-  <div class="popup">
+  <div class="popup" id="popup-hidden">
     <h2>로그인</h2>
     <div class="input-group">
       <input type="text" id="username" placeholder="아이디" required>
@@ -104,7 +109,7 @@
 
     </div>
   </div>
-  
+
 </body>
 
 </html>

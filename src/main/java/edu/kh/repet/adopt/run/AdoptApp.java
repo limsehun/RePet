@@ -5,9 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
@@ -16,25 +21,33 @@ import com.google.gson.JsonParser;
 
 import edu.kh.repet.adopt.dto.Adopt;
 
+@Configuration
+@ComponentScan
+@PropertySource("classpath:/config.properties")
 public class AdoptApp {
 
 	// 발급된 인증코드 encoding
-	public static final String serviceKey 
-		= "h8joTLPw3bNJHG2%2Fl2ZCzBIfpYYuJD5%2FDhcxfNpkcQdPX7cZr%2Bj%2BXPS5uFj7Qah9jfjJvL6IS%2FYaH7adjebC%2Bw%3D%3D";
+	// propertise에서 얻어오기
+	@Value("${adopt.serviceKey}")
+	public String serviceKey; 
 	
 	public static void main(String[] args) throws IOException {
 		
-		// 공통된 url 부분		
-		String url 
-			="https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic";
-	
-		url += "?serviceKey=" + serviceKey;
+		// Spring ApplicationContext 생성
+        ApplicationContext context = new AnnotationConfigApplicationContext(AdoptApp.class);
+
+        // Spring에서 관리되는 AdoptApp 빈을 가져옴
+        AdoptApp app = context.getBean(AdoptApp.class);
+
+        // 주입된 serviceKey 사용
+        String url = "https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic";
+        url += "?serviceKey=" + app.serviceKey; // app 인스턴스에서 주입된 serviceKey를 사용
+
+        System.out.println("Generated URL: " + url);
+    
 		url += "&numOfRows=10";
 		url += "&pageNo=1";
 		url += "&_type=json";
-		LocalDateTime datetime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-		url += "&endde=" + datetime.format(formatter);
 		System.out.println(url);
 
 		URL requestUrl = new URL(url);

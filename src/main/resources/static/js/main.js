@@ -6,7 +6,7 @@ document.getElementById('loginBtn').addEventListener('click', function() {
   
   // 팝업 창 열기
   const loginWindow = window.open(
-      'login.html', 
+      '/login', 
       'Login', 
       `left=${left},
        top=${top},

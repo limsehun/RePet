@@ -10,7 +10,7 @@
     <a href="#">자유게시판</a>
   </nav>
   <div th:unless="${session.loginMember}" class="icons" style="margin-right: 50px;">
-    <button class="loginBtn">로그인</button>
+    <button onclick="loginWindow()" class="loginBtn">로그인</button>
     <span>/</span>
     <button class="registerBtn">회원가입</button>
 

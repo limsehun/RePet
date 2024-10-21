@@ -47,8 +47,8 @@
       /* 배너 이미지보다 위에 위치하도록 설정 */
     }
     
-    .loginBtn,
-    .registerBtn {
+    #login,
+    #registerBtn {
       border: none;
       padding: 10px;
       background-color: transparent;

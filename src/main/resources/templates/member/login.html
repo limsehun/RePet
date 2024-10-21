@@ -26,7 +26,7 @@
 
     /* popup layer 숨기기/보이기 */
     .popup-hidden {
-      display: none !important;
+      display: none;
     }
 
     h2 {
@@ -91,7 +91,7 @@
 </head>
 
 <body>
-  <form action="/login" method="POST" class="popup" id="popup-hidden">
+  <div class="popup-hidden" id="popup">
     <h2>로그인</h2>
     <div class="input-group">
       <input type="text" id="username" placeholder="아이디" required>
@@ -108,7 +108,7 @@
       <button class="link-button">비밀번호 찾기</button>
 
     </div>
-  </form>
+  </div>
 
 </body>
 

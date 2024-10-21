@@ -22,17 +22,5 @@ public class MainController {
 		return "common/main";
 	}
 
-	@PostMapping("/login")
-	@ResponseBody
-	public String login(
-			@RequestBody String username, 
-			@RequestBody String password) {
-		
-		if (username.equals("admin") && password.equals("password")) {
-			return "로그인 성공!";
-		} else {
-			return "로그인 실패. 사용자 이름 또는 비밀번호를 확인하세요.";
-		}
 
-	}
 }

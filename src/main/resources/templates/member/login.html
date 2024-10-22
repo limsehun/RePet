@@ -6,27 +6,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>로그인 팝업</title>
   <style>
-    body {
+    /* body {
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+    } */
+
+    .lgModal-bg {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      background-color: #333333cc;
+      top: 0;
+      z-index: 100;
     }
 
-    .popup {
+    #popup {
       background-color: white;
       border: 1px solid #ccc;
       border-radius: 30px;
       padding: 40px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       width: 250px;
+      height: 400px;
+
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+
     }
 
     /* popup layer 숨기기/보이기 */
     .popup-hidden {
-      display: none;
+      display: none !important;
     }
 
     h2 {
@@ -35,29 +59,34 @@
       margin: 0 0 40px 0;
     }
 
+    #close {
+      display: flex;
+      cursor: pointer;
+      position: absolute;
+
+      top: 20px;
+      right: 20px;
+    }
+
     .input-group {
       margin-bottom: 15px;
+      margin-left: 30px;
     }
 
     input[type="text"],
     input[type="password"] {
-      width: calc(100% - 90px);
+      /* width: calc(100% - 90px); */
+      width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
       border: none;
       border-bottom: 1px solid #ccc;
-
+      background-color: transparent;
       outline: none;
     }
 
-    /* .underline {
-      border-bottom: 1px solid #ccc;
-      margin-top: -10px;
-      margin-bottom: 10px;
-    } */
-
     button {
-      width: 100%;
+      width: 200px;
       padding: 10px;
       border: none;
       border-radius: 5px;
@@ -78,38 +107,41 @@
       cursor: pointer;
     }
 
-    .loginBtn,
-    .signUpBtn {
+    #loginBtn,
+    #signUpBtn {
       margin: 50px 0 20px 0;
     }
 
     .find {
       display: flex;
       justify-content: center;
+      width: 200px;
     }
   </style>
 </head>
 
 <body>
-  <div class="popup-hidden" id="popup">
-    <h2>로그인</h2>
-    <div class="input-group">
-      <input type="text" id="username" placeholder="아이디" required>
-      <div class="underline"></div>
-    </div>
-    <div class="input-group">
-      <input type="password" id="password" placeholder="비밀번호" required>
-      <div class="underline"></div>
-    </div>
-    <button type="submit" class="loginBtn">로그인</button>
-    <button type="submit" class="signUpBtn">회원가입</button>
-    <div class="find">
-      <button class="link-button">아이디 찾기</button>
-      <button class="link-button">비밀번호 찾기</button>
+  <div class="lgModal-bg popup-hidden">
+    <div id="popup">
+      <h2>로그인</h2>
+      <span id="close">&times</span>
+      <form action="/member/login" method="POST" class="input-group">
 
+        <input type="text" id="email" placeholder="아이디" required>
+        <br><br>
+        <input type="password" id="password" placeholder="비밀번호" required>
+
+        <button type="submit" id="loginBtn">로그인</button>
+        <button type="submit" id="signUpBtn">회원가입</button>
+      </form>
+      <div class="find">
+        <button class="link-button">아이디 찾기</button>
+        <button class="link-button">비밀번호 찾기</button>
+      </div>
     </div>
   </div>
 
+  <script src="/js/login.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,7 @@
+
+
+
+
 /* 다음 주소 API로 주소 검색하기 */
 function findAddress() {
   new daum.Postcode({
@@ -30,9 +34,8 @@ searchAddress.addEventListener("click", findAddress);
 
 
 const checkObj = {
-  "username"        : false,
-  "password"        : false,
   "email"           : false,
+  "password"        : false,
   "nickname"        : false,
   "phone"           : false,
   "check-btn"       : false,

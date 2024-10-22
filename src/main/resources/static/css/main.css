@@ -58,13 +58,14 @@
 
     .header>nav {
       display: flex;
-      gap: 80px;
+      gap: 70px;
     }
 
     .icons {
       display: flex;
       align-items: center;
       gap: 10px;
+      width: 200px;
     }
 
     .profile-img {
@@ -97,7 +98,7 @@
     }
 
     .header nav a {
-      margin: 0 15px;
+      margin: 0 10px;
       color: #333;
     }
 
@@ -266,9 +267,10 @@
       border: 1px solid black;
       display: flex;
       justify-content: center;
+      height: 500px;
     }
 
-    .location-map img {
+    .location-map > .map-img {
       width: 100%;
       height: auto;
       cursor: pointer;
@@ -283,6 +285,12 @@
       align-items: center;
       background-color: rgb(255, 185, 130);
 
+    }
+
+    .map-image{
+      background-color: transparent;
+      justify-content: center;
+      width: 100%;
     }
 
     .animalBtn,

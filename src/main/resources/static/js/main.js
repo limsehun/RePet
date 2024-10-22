@@ -1,16 +1,45 @@
-// 로그인 버튼에 이벤트 리스너 추가
-document.getElementById('loginBtn').addEventListener('click', function() {
-  // 팝업 창 옵션 설정
-  const left = (window.innerWidth - width) / 2;
-  const top = (window.innerHeight - height) / 2;
-  
-  // 팝업 창 열기
-  const loginWindow = window.open(
-      '/login', 
-      'Login', 
-      `left=${left},
-       top=${top},
-       resizable=no,
-       scrollbars=no`
-  );
+// 로그인 모달창 생성
+const login = document.querySelector("#login");
+const registerBtn = document.querySelector("#registerBtn");
+const lgModalBg = document.querySelector(".lgModal-bg");
+
+login.addEventListener("click", () => {
+
+  lgModalBg.classList.remove("popup-hidden");
+
+})
+
+registerBtn.addEventListener("click", () => {
+
+  pwModalBg.classList.remove("popup-hidden");
+
+})
+
+
+// 로그인 모달창 닫기 버튼
+document.querySelector("#close").addEventListener("click", () => {
+
+  document.querySelector(".lgModal-bg")
+  .classList.add("popup-hidden");
+});
+
+// 회원가입 모달창 닫기 버튼
+document.querySelector("#close2").addEventListener("click", () => {
+
+  document.querySelector(".pwModal-bg")
+  .classList.add("popup-hidden");
+});
+
+
+
+// 회원 가입 모달창 생성/ 로그인 모달창 제거
+const signUpBtn = document.querySelector("#signUpBtn");
+// const lgModalBg = document.querySelector(".lgModal-bg");
+const pwModalBg = document.querySelector(".pwModal-bg");
+
+signUpBtn.addEventListener("click", () => {
+
+  lgModalBg.classList.add("popup-hidden");
+  pwModalBg.classList.remove("popup-hidden");
+
 });

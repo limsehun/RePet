@@ -1,12 +1,10 @@
-const login = document.querySelector("#login");
-const popup = document.querySelector("#popup");
-const username = document.querySelector("#username");
-const password = document.querySelector("#password");
-const loginBtn = document.querySelector("#loginBtn");
 const signUpBtn = document.querySelector("#signUpBtn");
+const lgModalBg = document.querySelector(".lgModal-bg");
+const pwModalBg = document.querySelector(".pwModal-bg");
 
+signUpBtn.addEventListener("click", () => {
 
-login.addEventListener("click", () => {
+  lgModalBg.classList.add("popup-hidden");
+  pwModalBg.classList.remove("popup-hidden");
 
-  popup.classList.remove("popup-hidden");
-})
+});

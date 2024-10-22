@@ -22,5 +22,12 @@ public class MainController {
 		return "common/main";
 	}
 
+	@ResponseBody
+	public String login(
+			@RequestBody String username, 
+			@RequestBody String password) {
+		
+		return "common/main";
+	}
 
 }

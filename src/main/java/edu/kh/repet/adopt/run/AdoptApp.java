@@ -31,7 +31,7 @@ public class AdoptApp {
 	@Value("${adopt.serviceKey}")
 	public String serviceKey; 
 	
-	public static void main(String[] args) throws IOException {
+	public static ArrayList<Adopt> main(String[] args) throws IOException {
 		
 		// Spring ApplicationContext 생성
         ApplicationContext context = new AnnotationConfigApplicationContext(AdoptApp.class);
@@ -43,12 +43,12 @@ public class AdoptApp {
         String url = "https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic";
         url += "?serviceKey=" + app.serviceKey; // app 인스턴스에서 주입된 serviceKey를 사용
 
-        System.out.println("Generated URL: " + url);
+//        System.out.println("Generated URL: " + url);
     
-		url += "&numOfRows=10";
+		url += "&numOfRows=8";
 		url += "&pageNo=1";
 		url += "&_type=json";
-		System.out.println(url);
+//		System.out.println(url);
 
 		URL requestUrl = new URL(url);
 		
@@ -124,6 +124,7 @@ public class AdoptApp {
 		
 		br.close();
 		urlConnection.disconnect();
-		
+	
+		return list;
 	}
 }

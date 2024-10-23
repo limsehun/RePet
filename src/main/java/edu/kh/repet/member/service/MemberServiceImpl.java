@@ -10,32 +10,54 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
-	
+public class MemberServiceImpl implements MemberService {
+
 	private final MemberMapper mapper;
-	
+
 	private BCryptPasswordEncoder encoder;
-	
+
 	@Override
 	public Member login(String email, String password) {
 		Member loginMember = mapper.login(email);
-		
-		// 2. 이메일(id)이 일치하는 회원 정보가 없을 경우
-		if(loginMember == null) return null;
-		
-		
-		// 3. DB에서 조회된 비밀번호와, 입력받은 비밀번호가 같은지 확인
-//		log.debug("비밀번호 일치? : {}", 
-//							encoder.matches(memberPw, loginMember.getMemberPw()));
-		
-		// 입력 받은 비밀 번호와 DB에서 조회된 비밀 번호가 일치하지 않을 ㄸ
-		if( !encoder.matches(password, loginMember.getPassword()) ) {
-				return null;
+
+		// 이메일(id)이 일치하는 회원 정보가 없을 경우
+		if (loginMember == null)
+			return null;
+
+		if (!encoder.matches(password, loginMember.getPassword())) {
+			return null;
 		}
-		
+
 		// 4. 로그인 결과 반환
 		return loginMember;
 	}
-	
-	
+
+	@Override
+	public int signUp(Member inputMember) {
+		// 1) 비밀번호 암호화(BCrypt)
+//		String encPw = encoder.encode(inputMember.getPassword()); // 암호화된 비밀번호를
+//		inputMember.setPassword(encPw); // inputMember에 set
+
+		// 2) 주소 미입력(",,")시 null로 변경
+		// text 타입의 input은 값이 작성이 안되면 "" (빈칸)
+		// checkbox, radio가 체크가 안되면 null
+		if (inputMember.getMemberAddress().equals(",,")) {
+			inputMember.setMemberAddress(null);
+		}
+
+		// 3) mapper 호출 후 결과 반환
+		return mapper.signUp(inputMember);
+	}
+
+	@Override
+	public int emailCheck(String email) {
+		return mapper.emailCheck(email);
+	}
+
+	@Override
+	public int nicknameCheck(String nickname) {
+		// TODO Auto-generated method stub
+		return mapper.nicknameCheck(nickname);
+	}
+
 }

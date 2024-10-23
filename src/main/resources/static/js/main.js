@@ -43,3 +43,4 @@ signUpBtn.addEventListener("click", () => {
   pwModalBg.classList.remove("popup-hidden");
 
 });
+

@@ -9,5 +9,11 @@ public interface MemberMapper {
 
 	Member login(String email);
 
+	int signUp(Member inputMember);
+
+	int emailCheck(String email);
+
+	int nicknameCheck(String nickname);
+
 
 }

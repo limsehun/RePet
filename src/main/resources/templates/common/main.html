@@ -115,20 +115,23 @@
       <h2>내 근처 병원은?</h2>
       <div class="location-content">
         <div class="location-map">
-          <h2>반려 동물들과 함께하는 병원 탐색</h2>
-          <br>
-          <p>"우리의 소중한 친구들을 위한 안전하고</p>
-          <p>믿을 수 있는 동물병원을 찾아보세요.</p>
-          <p> 검색 기능을 통해 지역 내 다양한 병원을</p>
-          <p>간편하게 확인할 수 있습니다!"</p>
+          <div>
+            <h2>반려 동물들과 함께하는 병원 탐색</h2>
+            <br>
+            <p>"우리의 소중한 친구들을 위한 안전하고</p>
+            <p>믿을 수 있는 동물병원을 찾아보세요.</p>
+            <p> 검색 기능을 통해 지역 내 다양한 병원을</p>
+            <p>간편하게 확인할 수 있습니다!"</p>
+  
+            <br>
+            <br>
+            <button>병원정보</button>
 
-          <br>
-          <br>
-          <button>병원정보</button>
+          </div>
         </div>
         <div class="location-map">
           <button class="map-image">
-            <img src="/images/map.jpg" alt="지도 이미지">
+            <img src="/images/map.jpg" id="map" alt="지도 이미지">
           </button>
         </div>
       </div>
@@ -142,6 +145,8 @@
   <th:block th:replace= "~{member/signUp}"></th:block>
 
   <script src="/js/main.js"></script>
+  
+  <script src="/js/member/signUp.js"></script>
 </body>
 
 </html>

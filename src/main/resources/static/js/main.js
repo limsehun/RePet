@@ -70,12 +70,12 @@ signUpBtn.addEventListener("click", () => {
 });
 
 const findPassword = document.querySelector("#find-password");
-const findEPwModalBg = document.querySelector(".findPwModal-bg");
+const findPwModalBg = document.querySelector(".findPwModal-bg");
 
 findPassword.addEventListener("click", () => {
 
   lgModalBg.classList.add("popup-hidden");
-  findEPwModalBg.classList.remove("popup-hidden");
+  findPwModalBg.classList.remove("popup-hidden");
 
 });
 

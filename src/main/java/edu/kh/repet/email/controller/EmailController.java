@@ -1,8 +1,11 @@
 package edu.kh.repet.email.controller;
 
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,13 +26,13 @@ public class EmailController {
 
 	public RedisUtil redisUtil;
 	
-
 	public EmailService service;
 	
 	// 레디스 확인하기
 	@ResponseBody
 	@GetMapping("redisTest")
 	public int redisTest(
+			@RequestParam("memberEmail") String key,
 			@RequestParam("key") String key,
 			@RequestParam("value") String value) {
 		
@@ -44,12 +47,22 @@ public class EmailController {
 	 * @return 성공 1, 실패 0
 	 */
 	@ResponseBody
-	@PostMapping("sendPassword")
-	public int sendPassword(@RequestBody String email) {
+	@PostMapping("sendAuthKey")
+	public int sendAuthKey(@RequestBody String email) {
 		
-		return service.sendPassword("signUp", email);
+		return service.sendEmail("sendPassword", email);
 	}
-	
 
+	
+	
+	
+//	 int length = 7;
+//   String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@";
+//   Random random = new Random();
+//   StringBuilder password = new StringBuilder(length);
+//   for (int i = 0; i < length; i++) {
+//       password.append(chars.charAt(random.nextInt(chars.length())));
+//   }
+//   return password.toString();
 	
 }

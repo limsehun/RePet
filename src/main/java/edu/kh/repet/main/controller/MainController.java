@@ -1,6 +1,7 @@
 package edu.kh.repet.main.controller;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 import edu.kh.repet.main.service.MainService;
@@ -17,5 +18,5 @@ public class MainController {
 		
 		return "common/main";
 	}
-	
+
 }

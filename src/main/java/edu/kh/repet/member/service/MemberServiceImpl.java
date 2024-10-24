@@ -33,8 +33,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int signUp(Member inputMember) {
 		// 비밀번호 암호화(BCrypt)
-		String encPw = encoder.encode(inputMember.getPassword()); // 암호화된 비밀번호를
-		inputMember.setPassword(encPw); // inputMember에 set
+//		String encPw = encoder.encode(inputMember.getPassword()); // 암호화된 비밀번호를
+//		inputMember.setPassword(encPw); // inputMember에 set
 
 		// 주소 미입력(",,")시 null로 변경
 		if (inputMember.getMemberAddress().equals(",,")) {

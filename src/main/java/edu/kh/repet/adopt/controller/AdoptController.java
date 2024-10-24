@@ -44,7 +44,7 @@ public class AdoptController{
 	
 	String urlStr = null;
 	
-	@RequestMapping("/")
+	@RequestMapping("adopt/main")
 	public String callOpenApi(Model model) throws IOException{
 				
 		urlStr = openApiUrl +

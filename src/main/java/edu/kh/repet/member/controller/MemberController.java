@@ -74,7 +74,7 @@ public class MemberController {
 		String message = null;
 		
 		if(result > 0) {
-			message = inputMember.getNickname() + "님이 가입을 환영합니다";
+			message = inputMember.getMemberNickname() + "님이 가입을 환영합니다";
 			path = "redirect:/";
 		}else {
 			message = "회원 가입 실패...";

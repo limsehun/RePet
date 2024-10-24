@@ -16,10 +16,9 @@ import lombok.ToString;
 public class Member {
 
   private int 		memberNo;
-  private String 	email;
-  private String 	password;
-  private String 	nickname;
-  private String 	phone;
+  private String 	memberEmail;
+  private String 	memberPw;
+  private String 	memberNickname;
   private String 	memberAddress;
   private String 	profileImg;
   private String 	enrollDate;

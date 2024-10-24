@@ -15,7 +15,7 @@
 		TO_CHAR(ENROLL_DATE, 
 			'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS EROLL_DATE
 	FROM "MEMBER"
-	WHERE MEMBER_EMAIL = #{email}
+	WHERE MEMBER_EMAIL = #{mebmerEmail}
 	AND   MEMBER_DEL_FL = 'N'
   </select>
   
@@ -24,9 +24,9 @@
 		INSERT INTO "MEMBER"
 		VALUES(
 			SEQ_MEMBER_NO.NEXTVAL, 
-			#{email}, 
-			#{password},
-			#{nickname}, 
+			#{memberEmail}, 
+			#{memberPw},
+			#{memberNickname}, 
 			#{memberAddress},
 			NULL, DEFAULT, DEFAULT)
 	</insert>
@@ -36,7 +36,7 @@
 	<select id="emailCheck" resultType="_int"> 
 	 	SELECT COUNT(*)
 	 	FROM "MEMBER"
-	 	WHERE MEMBER_EMAIL = #{email}
+	 	WHERE MEMBER_EMAIL = #{memberEmail}
 	 	AND MEMBER_DEL_FL = 'N'
 	
 	</select>
@@ -45,7 +45,7 @@
 	<select id="nicknameCheck" resultType="_int"> 
 	 	SELECT COUNT(*)
 	 	FROM "MEMBER"
-	 	WHERE MEMBER_NICKNAME = #{nickname}
+	 	WHERE MEMBER_NICKNAME = #{memberNickname}
 	 	AND MEMBER_DEL_FL = 'N'
 	
 	</select>

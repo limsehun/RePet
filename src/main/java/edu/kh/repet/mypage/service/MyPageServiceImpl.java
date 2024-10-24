@@ -1,6 +1,8 @@
 package edu.kh.repet.mypage.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -14,18 +16,19 @@ import lombok.RequiredArgsConstructor;
 public class MyPageServiceImpl implements MyPageService {
 	
 	private final MyPageMapper mapper;
-
-	// 게시글 리스트 조회
-	@Override
-	public List<Board> likeList(int memberNo) {
-		return mapper.likeList(memberNo);
-	}
 	
-	
-	// 프로필 회원 조회
 	@Override
-	public Member memberList(int memberNo) {
-		return mapper.memberList(memberNo);
+	public Map<String, Object> memberList(int memberNo) {
+		
+		Member memberList = mapper.memberList(memberNo);
+		
+		int likeCount = mapper.likeCount(memberNo);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberList", memberList);
+		map.put("likeCount", likeCount);
+		
+		return map;
 	}
 	
 	@Override

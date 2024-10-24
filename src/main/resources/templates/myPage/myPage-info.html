@@ -45,7 +45,7 @@
       <!-- 제목 추가 -->
       <div class="like-board-header">
         <i class="fa-solid fa-heart" style="margin-right: 30px; color: #FF7F7F;"></i>
-        <h4>내가 좋아한 게시물 <th:block th:text="'(' + ${member.memberNo} + ')'"></th:block></h4> 
+        <h4>내가 좋아한 게시물 <th:block th:text="'(' + ${likeCount} + ')'"></th:block></h4> 
       </div>
       
 
@@ -63,9 +63,11 @@
       <div class="pagination-box">
         <a href="#" style="margin-right: 10px;">&lt;&lt;</a>
         <a href="#" style="margin-right: 5px;">&lt;</a>
-        <div>1</div>
+        <a class="current">1</a>
+        <a href="#" class="current">2</a>
         <a href="#" style="margin-left: 5px;">&gt;</a>
         <a href="#" style="margin-left: 10px;">&gt;&gt;</a>
+
       </div>
 
     </div>

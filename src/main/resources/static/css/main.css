@@ -40,7 +40,7 @@
       position: absolute;
 
 
-      /* position: relative; */
+      position: relative;
       /* 헤더를 배너 이미지 위에 고정 */
       width: 100%;
       z-index: 100;

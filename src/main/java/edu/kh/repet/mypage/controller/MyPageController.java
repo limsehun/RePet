@@ -1,6 +1,7 @@
 package edu.kh.repet.mypage.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,18 +23,24 @@ public class MyPageController {
 	private final MyPageService service;
 
 	// 좋아요 리스트 조회
+	// 게시물 좋아요 수 조회
 	@GetMapping("info")
 	public String likeList(
 				@RequestParam("memberNo") int memberNo,
 				Model model
 			) {
-
-		Member member = service.memberList(memberNo);
+		
+		Map<String, Object> map = service.memberList(memberNo);
+		
+		Member member = (Member)map.get("memberList");
+		int likeCount = (int)map.get("likeCount");
 		
 		model.addAttribute("member", member);
+		model.addAttribute("likeCount", likeCount);
 
 		return "myPage/myPage-info";
 	}
+	
 	
 	
 	@ResponseBody

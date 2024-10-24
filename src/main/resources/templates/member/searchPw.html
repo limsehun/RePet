@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비밀번호 찾기 팝업</title>
+  <style>
+    /* body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    } */
+
+
+    .findPwModal-bg {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      background-color: #333333cc;
+      top: 0;
+      z-index: 100;
+    }
+
+    #searchPw-popup {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      height: 300px;
+
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    /* popup layer 숨기기/보이기 */
+    .popup-hidden {
+      display: none !important;
+    }
+
+    h2 {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0 30px 0;
+    }
+
+
+        
+    #close4 {
+      display: flex;
+      cursor: pointer;
+      position: absolute;
+
+      top: 20px;
+      right: 20px;
+    }
+
+    .searchPw-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+   
+    .refind-email {
+      width: calc(100% - 90px);
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      box-sizing: border-box;
+      margin: 0 20px 0 20px;
+    }
+
+    .underline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 70%;
+      height: 2px;
+      background-color: #ccc;
+      opacity: 0.5;
+      margin: 0 10px 0 20px;
+    }
+
+    #refind-email {
+      width: 80%;
+      padding: 10px;
+
+      border: none;
+      border-bottom: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      margin: 50px 0 70px 20px;
+      background-color: transparent;
+
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="findPwModal-bg popup-hidden">
+    <div id="searchPw-popup">
+      <h2>비밀번호 찾기</h2>
+      <span id="close4">&times</span>
+
+      <div class="searchPw-group">
+        <input type="text" name="refind-email" id="refind-email" placeholder="이메일 입력" required>
+      </div>
+      <button class="refind-link">재설정 링크 발송</button>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

@@ -126,6 +126,7 @@ a:hover{
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-top: 100px;
 }
 
 .btn-area > button {
@@ -152,7 +153,10 @@ a:hover{
   list-style: none;
   display: flex;
   justify-content: center;
-  padding: 300px;
+  align-items: center;
+  margin-top: 100px;
+  margin-right: 296px;
+  margin-bottom: 100px;
 }
 
 .pagination li{

@@ -25,7 +25,7 @@ public interface BoardMapper {
 	 * 
 	 * @param boardCode
 	 * @param rowBounds
-	/** 지정된 페이지 분량의 게시글 목록 조
+	/** 지정된 페이지 분량의 게시글 목록 조회
 	 * @param rowBounds
 	 * @param boardCode
 	 * @return

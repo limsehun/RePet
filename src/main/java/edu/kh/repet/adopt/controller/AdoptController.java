@@ -25,8 +25,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import edu.kh.project.board.dto.Board;
-import edu.kh.project.board.dto.Pagination;
 import edu.kh.repet.adopt.dto.Adopt;
 import edu.kh.repet.adopt.run.AdoptApp;
 import lombok.extern.slf4j.Slf4j;
@@ -112,19 +110,6 @@ public class AdoptController{
 	}
 	
 	
-	@GetMapping("{adoptPage:[0-9]+}")
-	public String moreAdopt(
-		@PathVariable("adoptPage") int adoptPage,
-		@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-		Model model) {
-		
-		
-		model.addAttribute();
-
-		
-		return "adopt/main";
-		
-	}
 	
 	
 	

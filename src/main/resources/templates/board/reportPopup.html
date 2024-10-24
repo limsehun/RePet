@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신고하기</title>
+    <link rel="stylesheet" href="/css/board/reportPopup.css">
+</head>
+<body>
+
+<div class="popup-container">
+    <div class="popup-header">
+        <span>신고하기</span>
+        <button class="close-btn" onclick="window.close();">&times;</button> <!-- 팝업 닫기 -->
+    </div>
+    <div class="popup-content">
+        <p><strong>작성자:</strong> 홍길동</p>
+        <p><strong>내용:</strong> OOO 홍보합니다</p>
+        <hr>
+        <div class="report-section">
+            <h3>사유선택</h3>
+            <form>
+                <label><input type="radio" name="reason"> 스팸홍보/도배입니다.</label><br>
+                <label><input type="radio" name="reason"> 음란물 입니다.</label><br>
+                <label><input type="radio" name="reason"> 불법 정보를 포함하고 있습니다.</label><br>
+                <label><input type="radio" name="reason"> 욕설/생명경시/혐오/차별적 표현입니다.</label><br>
+                <label><input type="radio" name="reason"> 개인 정보가 노출되었습니다.</label><br>
+                <label><input type="radio" name="reason"> 기타</label>
+            </form>
+        </div>
+        <div class="details-section">
+            <h3>상세 내용(선택)</h3>
+            <textarea placeholder="상세 내용을 입력해주세요."></textarea>
+        </div>
+    </div>
+    <div class="popup-footer">
+        <button class="submit-btn">신고하기</button>
+    </div>
+</div>
+
+
+</body>
+</html>

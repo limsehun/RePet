@@ -52,24 +52,12 @@ emailCheckMessage.check = "사용 가능한 이메일 입니다.";
 
 // 이메일이 입력될 때 마다 유효성 검사를 수행
 email.addEventListener("input", e => {
-
-
   const inputEmail = email.value.trim();
-
-
   if (inputEmail.length === 0) {
-
-
     emailMessage.innerText = emailCheckMessage.normal;
-
-
     emailMessage.classList.remove("confirm", "error");
-
-
     checkObj.email = false;
-
     email.value = "";
-
     return;
   }
 
@@ -209,11 +197,11 @@ const checkBtn2 = document.querySelector("#check-btn2");
 const nickMessage = document.querySelector("#nickMessage");
 
 // 2) 닉네임 관련 메시지 작성
-const nickMessageObj = {};
-nickMessageObj.normal = "한글,영어,숫자로만 3~10글자";
-nickMessageObj.invaild = "유효하지 않은 닉네임 형식 입니다";
-nickMessageObj.duplication = "이미 사용중인 닉네임 입니다.";
-nickMessageObj.check = "사용 가능한 닉네임 입니다.";
+const nickCheck = {};
+nickCheck.normal = "한글,영어,숫자로만 3~10글자";
+nickCheck.invaild = "유효하지 않은 닉네임 형식 입니다";
+nickCheck.duplication = "이미 사용중인 닉네임 입니다.";
+nickCheck.check = "사용 가능한 닉네임 입니다.";
 
 // 3) 닉네임 입력 시 마다 유효성 검사
 nickname.addEventListener("input", () => {
@@ -224,7 +212,7 @@ nickname.addEventListener("input", () => {
 
   // 4) 입력된 닉네임이 없을 경우
   if (inputNickname.length === 0) {
-    nickMessage.innerText = nickMessageObj.normal;
+    nickMessage.innerText = nickCheck.normal;
     // alert("nickMessage.classList");
     nickMessage.classList.remove("confirm", "error");
     checkObj.nickname = false;
@@ -236,7 +224,7 @@ nickname.addEventListener("input", () => {
   const regEx = /^[a-zA-Z0-9가-힣]{3,10}$/; // 한글,영어,숫자로만 3~10글자
 
   if (regEx.test(inputNickname) === false) {
-    nickMessage.innerText = nickMessageObj.invaild;
+    nickMessage.innerText = nickCheck.invaild;
     // alert("nickMessage.classList");
     nickMessage.classList.add("error");
     nickMessage.classList.remove("confirm");
@@ -248,11 +236,11 @@ nickname.addEventListener("input", () => {
   fetch("/member/nicknameCheck?nickname=" + inputNickname)
     .then(response => {
       if (response.ok) return response.text();
-      throw new Error("닉네임 중복 검사 에러submit-btn");
+      throw new Error("닉네임 중복 검사 에러");
     })
     .then(count => {
       if (count == 1) {
-        nickMessage.innerText = nickMessageObj.duplication;
+        nickMessage.innerText = nickCheck.duplication;
         // alert("nickMessage.classList");
         nickMessage.classList.add("error");
         nickMessage.classList.remove("confirm");
@@ -260,7 +248,7 @@ nickname.addEventListener("input", () => {
         return;
       }
 
-      nickMessage.innerText = nickMessageObj.check;
+      nickMessage.innerText = nickCheck.check;
       // alert("nickMessage.classList");
       nickMessage.classList.add("confirm");
       nickMessage.classList.remove("error");

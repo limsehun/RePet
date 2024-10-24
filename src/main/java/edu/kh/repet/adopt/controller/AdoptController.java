@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -23,6 +25,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.kh.project.board.dto.Board;
+import edu.kh.project.board.dto.Pagination;
 import edu.kh.repet.adopt.dto.Adopt;
 import edu.kh.repet.adopt.run.AdoptApp;
 import lombok.extern.slf4j.Slf4j;
@@ -107,11 +111,20 @@ public class AdoptController{
 		
 	}
 	
-//	
-//	@GetMapping("adopt/main")
-//	public String moreAdopt() {
-//		
-//	}
+	
+	@GetMapping("{adoptPage:[0-9]+}")
+	public String moreAdopt(
+		@PathVariable("adoptPage") int adoptPage,
+		@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+		Model model) {
+		
+		
+		model.addAttribute();
+
+		
+		return "adopt/main";
+		
+	}
 	
 	
 	

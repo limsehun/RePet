@@ -1,0 +1,166 @@
+/* 상세조회 전체 영역 */
+.board-detail{
+    width: 1000px;
+    min-height: 700px;
+    margin: 120px auto;
+    padding: 20px;
+}
+
+.board-title {
+    background-color: antiquewhite;
+    margin: 0;
+    padding: 20px 15px;
+    font-size: 2em;
+    border-bottom: 3px solid #ccc;
+}
+
+.board-title > span{
+    font-size: 16px;
+    color: gray;
+}
+
+.board-header{
+    padding: 20px 0;
+    border-bottom : 3px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+/* 작성자 영역 */
+.board-writer{
+    display: flex;
+    align-items: center;
+}
+
+/* 프로필 */
+.board-writer > img{
+    width: 40px;
+    height: 40px;
+}
+
+/* 닉네임 */
+.board-writer > span{
+    font-weight: bold;
+    margin-left : 10px;
+}
+
+.nickname-date {
+    display: grid;
+    margin-left: 10px;
+}
+
+/* 버튼 영역 */
+.board-header-btn{
+    text-align: right;
+    
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+/* 버튼 */
+.board-header-btn button{
+    width: 70px;
+    height: 30px;
+
+    font-weight: bold;
+    border: 0;
+    background-color: #b99249;
+    color : white;
+
+    cursor: pointer;
+
+    padding: 6px 0;
+
+}
+
+.board-header-btn button:hover{
+    background-color: white;
+    color : #455ba8;
+    border: 2px solid #455ba8;
+}
+
+
+/* 내용 */
+.board-content{
+    clear: both;
+    padding: 30px 0;
+    margin: 30px 0;
+
+    white-space: pre-wrap;
+}
+
+
+/* 좋아요 */
+.like-area{
+    margin-left: 820px;
+}
+
+
+#boardLike{
+    font-size: 15px;
+    color: rgba(19, 78, 206, 0.753);
+    cursor: pointer;
+}
+
+/* 좋아요 */
+.report-area{
+    margin-left: 30px;
+}
+
+#report{
+    font-size: 15px;
+    color: red;
+    cursor: pointer;
+}
+
+
+/* 추천 게시물 */
+.best-board-area {
+    width: 1000px;
+    min-height: 700px;
+    margin: 120px auto;
+    padding: 20px;
+}
+
+
+.best-header-title {
+    border-top: 1px solid black;
+    padding: 15px 0;
+    text-align: left;
+}
+
+.best-board-list{
+    width: 100%;
+    padding: 20px;
+    border-collapse: collapse;
+}
+
+.best-board-list tr {
+    height: 60px;
+}
+
+.best-board-list > tbody > tr {
+    border-bottom: 1px solid gray;
+}
+
+.best-board-list tr > * { text-align: center; }
+.best-board-list tr > *:nth-of-type(1) {
+    width: 70%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.best-board-list tr > *:nth-of-type(2){ width: 13%; }
+.best-board-list tr > *:nth-of-type(3){ width: 10%; }
+
+
+
+  

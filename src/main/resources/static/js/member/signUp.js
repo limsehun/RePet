@@ -261,30 +261,38 @@ nickname.addEventListener("input", () => {
 
 
 
-// /* 회원 가입 form 제출 시 전체 유효성 검사 여부 확인 */
-// const signUpForm = document.querySelector("#signUpForm");
+const signUpForm = document.querySelector("#signUpForm");
 
-// signUpForm.addEventListener("submit", e => {
+signUpForm.addEventListener("submit", e => {
+  // e.preventDefault(); // 기본 이벤트(form제출) 막기
 
-//   for (let key in checkObj) {
-//     if (checkObj[key] === false) { // 유효하지 않은 경우
-//       let str; // 출력할 메시지 저장
+  // for(let key in 객체)
+  // -> 반복마다 객체의 키 값을 하나씩 꺼내서 key 변수에 저장
+  
+  // 유효성 검사 체크리스트 객체에서 하나씩 꺼내서
+  // false인 경우가 있는지 검사
+  for(let key in checkObj){ 
+    if( checkObj[key] === false){ // 유효하지 않은 경우
+      let str; // 출력할 메시지 저장
 
-//       switch (key) {
-//         case "email": str = "이메일이 유효하지 않습니다"; break;
-//         case "nickname": str = "닉네임이 유효하지 않습니다"; break;
-//         case "password": str = "비밀번호가 유효하지 않습니다"; break;
-//         case "passwordCheck": str = "비밀번호 확인이 일치하지 않습니다"; break;
-//       }
-//       alert(str); // 경고 출력
+      switch(key){
+        case "memberEmail"     : str = "이메일이 유효하지 않습니다";        break;
+        case "memberNickname"  : str = "닉네임이 유효하지 않습니다";        break;
+        case "memberPw"        : str = "비밀번호가 유효하지 않습니다";      break;
+        case "memberPwConfirm" : str = "비밀번호 확인이 일치하지 않습니다"; break;
+        case "memberTel"       : str = "전화번호가 유효하지 않습니다";      break;
+        case "authKey"         : str = "이메일이 인증되지 않았습니다";      break;
+      }
+      alert(str); // 경고 출력
 
-//       // 유효하지 않은 요소로 focus 이동
-//       document.getElementById(key).focus();
-//       e.preventDefault(); // 제출 막기
+      // 유효하지 않은 요소로 focus 이동
+      document.getElementById(key).focus();
+      e.preventDefault(); // 제출 막기
 
-//       return;
-//     }
-//   }
+      return;
+    }
+  }
+});
 
 
   /* 주소 유효성 검사 */

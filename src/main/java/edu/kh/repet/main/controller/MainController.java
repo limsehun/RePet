@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
+
 import edu.kh.repet.main.service.MainService;
 import lombok.RequiredArgsConstructor;
 

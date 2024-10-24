@@ -9,8 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,15 +16,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class Board {
-
-
-//BOARD 테이블 컬럼과 매핑되는 필드
-
-//행 번호
-	private int rnum;
-	
-	// BOARD 테이블 컬럼과 매핑되는 필드
-
+  private int rnum;
 	private int boardNo;
 	private String boardTitle;
 	private String boardContent;
@@ -36,25 +26,8 @@ public class Board {
 	private String boardDelFl;
 	private int memberNo;
 	private int boardCode;
-	
-
 	private String memberNickname;
-
 	//목록 조회 시 댓글/ 좋아요 수 상관 쿼리 결과
 	private int commentCount;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

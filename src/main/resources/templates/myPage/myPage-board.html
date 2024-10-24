@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원 수정</title>
+
+  <th:block th:replace="~{common/common}"></th:block>
+
+  <link rel="stylesheet" href="/css/myPage/myPage-style.css">
+</head>
+<body>
+  <main class="info-main">
+
+    <!-- 헤더 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <!-- 사이드바 -->
+    <th:block th:replace="~{myPage/sideMenu}"></th:block>
+
+    <!-- 메인 컨텐츠 -->
+    <!-- 메인 컨텐츠 -->
+    <!-- 감싸는 것만 id ? class -->
+    <section class="board-content">
+
+      <h1>게시글 관리</h1>
+      <p>내가 작성한 게시글 및 댓글을 확인할 수 있습니다.</p>
+
+      <div class="post-comment-management">
+
+        <div class="board-header">
+          <div style="margin-left: 35px;">
+            <span>게시글 (4)</span>
+          </div>
+
+          <div style="margin-right: 35px;">
+            <span>댓글 (5)</span>
+          </div>
+        </div>
+
+        <!-- 게시물 항목들 -->
+        <div class="like-item">
+          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
+          <div class="like-item-sub">(자유게시판)</div>
+        </div>
+        <div class="like-item">
+          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
+          <div class="like-item-sub">(분양정보)</div>
+        </div>
+        <div class="like-item">
+          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
+          <div class="like-item-sub">(자유게시판)</div>
+        </div>
+        <div class="like-item">
+          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
+          <div class="like-item-sub">(분양정보)</div>
+        </div>
+
+        <div class="pagination-box">
+          <a href="#" style="margin-right: 10px;">&lt;&lt;</a>
+          <a href="#" style="margin-right: 5px;">&lt;</a>
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <a href="#" style="margin-left: 5px;">&gt;</a>
+          <a href="#" style="margin-left: 10px;">&gt;&gt;</a>
+        </div>
+      </div>
+
+      <!-- 회원 수정 모달 -->
+      <th:block th:replace="~{myPage/modifyModal}"></th:block>
+
+      <th:block th:replace="~{myPage/deleteModal}"></th:block>
+
+
+    </section>
+    
+  </main>
+
+  
+  <script src="/js/myPage/myPage.js"></script>
+</body>
+</html>

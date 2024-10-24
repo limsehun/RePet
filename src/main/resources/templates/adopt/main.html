@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>입양 페이지</title>
+
+
+  <link rel="stylesheet" href="/css/adopt/main.css">
+</head>
+
+<body>
+  <main>
+    <th:block th:replace="~{header}"></th:block>
+
+    <div>
+      <div>RePet 아이들</div>
+      <div class="selectArea">
+        <button class="dog">강아지</button>
+        <button class="cat">고양이</button>
+        <button class="others">기타</button>
+      </div>     
+
+    </div>
+
+    <div class="adoptList" >
+      <div class="box" th:each="adopt : ${adoptList}">
+        <div class="popfile">
+          <img th:src="${adopt.popfile != null? adopt.popfile : '/images/default.png'}"/>
+        </div>
+        <div class="content">
+          <div class="condition" th:text="${adopt.processState}"></div>
+          <p>
+            <thblock th:text="${adopt.kindCd}"></thblock>/<thblock th:text="${adopt.sexCd}"></thblock>
+          </p>
+          <p>
+            나이: <thblock th:text="${adopt.age}"></thblock>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pagination-area" thth:unless= "${lists.isEmpty(adoptList)}">
+      <button class="plusBtn">더보기</button>
+    </div>
+    
+    <footer>푸터</footer>
+  </main>
+
+  <script src="/js/adopt/main.js"></script>
+</body>
+</html>

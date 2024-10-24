@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반려동물 입양 페이지</title>
+
+    <th:block th:replace="~{common/common}"></th:block>
+
+</head>
+<body>
+    <main>
+
+        <th:block th:replace="~{common/header}"></th:block>
+       
+        <!-- 메인 이미지와 텍스트 -->
+        <section class="main-banner">
+            <img src="/images/dog-banner.jpg" alt="강아지 이미지">
+            <div class="banner-text">
+                <h1>당신의 따뜻한 손길이<br>새로운 가족을 만듭니다.</h1>
+            </div>
+        </section>
+
+        <!-- 입양중인 동물 섹션 -->
+        <section class="animal-section">
+            <h2>입양중인 동물</h2>
+            <div class="animal-cards">
+                <div class="animal-card">IMG</div>
+                <div class="animal-card">IMG</div>
+                <div class="animal-card">IMG</div>
+                <div class="animal-card">IMG</div>
+            </div>
+        </section>
+
+        <!-- 유기동물 섹션 -->
+        <section class="abandoned-animal-section">
+            <h2>유기동물</h2>
+            <div class="animal-cards">
+                <div class="animal-card">IMG</div>
+                <div class="animal-card">IMG</div>
+                <div class="animal-card">IMG</div>
+                <div class="animal-card">IMG</div>
+            </div>
+        </section>
+
+        <!-- 새 가정 찾기 섹션 -->
+        <section class="new-home-section">
+            <h2>이 아이들에게 새로운 삶을 선물해 주세요.</h2>
+            <div class="new-home-images">
+                <div class="home-card">IMG</div>
+                <div class="home-card">IMG</div>
+            </div>
+        </section>
+
+        <!-- 병원 위치 섹션 -->
+        <section class="location-section">
+            <h2>내 근처 병원은?</h2>
+            <div class="location-content">
+                <ul class="location-list">
+                    <li>병원1</li>
+                    <li>병원2</li>
+                    <li>병원3</li>
+                    <li>병원4</li>
+                    <li>병원5</li>
+                </ul>
+                <div class="location-map">
+                    <img src="map.jpg" alt="지도 이미지">
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반려동물 입양 페이지</title>
+
+  <th:block th:replace="~{common/common}"></th:block>
+
+</head>
+
+<body>
+  <main>
+
+
+    <!-- 메인 이미지와 텍스트 -->
+    <section class="main-banner">
+      <th:block th:replace="~{common/header}"></th:block>
+      <img src="/images/dog-banner.jpg" alt="강아지 이미지" style="height: 100%;">
+      <div class="banner-text">
+        <h1>당신의 따뜻한 손길이<br>새로운 가족을 만듭니다.</h1>
+      </div>
+    </section>
+
+    <!-- 입양중인 동물 섹션 -->
+    <section class="animal-section" style="background-color: #656464;">
+      <h2>입양중인 동물</h2>
+
+      <div class="imfo-animal-all">
+        <div><button type="submit" class="animalBtn">분양정보 보기</button></div>
+      </div>
+
+
+      <div class="animal-cards">
+        <div class="animal-card">IMG</div>
+        <div class="animal-card">IMG</div>
+        <div class="animal-card">IMG</div>
+        <div class="animal-card">IMG</div>
+      </div>
+      <div class="name-box">
+        <div class="animal-name">콩떡이</div>
+        <div class="animal-name">콩떡이</div>
+        <div class="animal-name">콩떡이</div>
+        <div class="animal-name">콩떡이</div>
+      </div>
+      <div class="imfo-animal">
+        <div><button class="imfo-btn">상세정보</button></div>
+        <div><button class="imfo-btn">상세정보</button></div>
+        <div><button class="imfo-btn">상세정보</button></div>
+        <div><button class="imfo-btn">상세정보</button></div>
+
+      </div>
+    </section>
+
+
+    <!-- 새 가정 찾기 섹션 -->
+    <section class="new-home-section" style="background-color: #333;">
+      <h2>이 아이들에게 새로운 삶을 선물해 주세요.</h2>
+      <div class="new-home-images">
+        <div class="home-card">
+          <img src="/images/together.jpg">
+        </div>
+        <div class="home-card">
+          <div>
+            <h2>이 아이들에게 새로운 삶을 선물해 주세요</h2>
+            <br>
+            <p>"이 아이들은 자신을 찾아줄 따뜻한 손길을 기다리고 있습니다.</p>
+            <p> 보호소가 아닌 진정한 가족의 품에서,</p>
+            <p>당신의 사랑이 새로운 인생의 시작이 되어주세요.</p>
+            <p> 지금 입양을 통해</p>
+            <p>이 아이들에게 희망을 선물해 주세요."</p>
+
+            <br>
+            <br>
+            <button>입양하기</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 유기동물 섹션 -->
+    <section class="abandoned-sup-section">
+      <h2>유기동물</h2>
+
+      <div class="imfo-sup-all">
+        <div><button class="supBtn">애완용품 보기</button></div>
+      </div>
+
+      <div class="sup-cards">
+        <div class="sup-card">IMG</div>
+        <div class="sup-card">IMG</div>
+        <div class="sup-card">IMG</div>
+        <div class="sup-card">IMG</div>
+      </div>
+
+      <div class="sup-box">
+        <div class="sup-cost">10000</div>
+        <div class="sup-cost">10000</div>
+        <div class="sup-cost">10000</div>
+        <div class="sup-cost">10000</div>
+
+      </div>
+      <div class="imfo-sup">
+        <div><button class="imfo-btn2">상세정보</button></div>
+        <div><button class="imfo-btn2">상세정보</button></div>
+        <div><button class="imfo-btn2">상세정보</button></div>
+        <div><button class="imfo-btn2">상세정보</button></div>
+      </div>
+    </section>
+
+
+    <!-- 병원 위치 섹션 -->
+    <section class="location-section" style="background-color: #333;">
+      <h2>내 근처 병원은?</h2>
+      <div class="location-content">
+        <div class="location-map">
+          <div>
+            <h2>반려 동물들과 함께하는 병원 탐색</h2>
+            <br>
+            <p>"우리의 소중한 친구들을 위한 안전하고</p>
+            <p>믿을 수 있는 동물병원을 찾아보세요.</p>
+            <p> 검색 기능을 통해 지역 내 다양한 병원을</p>
+            <p>간편하게 확인할 수 있습니다!"</p>
+  
+            <br>
+            <br>
+            <button>병원정보</button>
+
+          </div>
+        </div>
+        <div class="location-map">
+          <button class="map-image">
+            <img src="/images/map.jpg" id="map" alt="지도 이미지">
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+  </main>
+
+
+  <th:block th:replace= "~{member/login}"></th:block>
+  <th:block th:replace= "~{member/signUp}"></th:block>
+  <!-- <th:block th:replace= "~{member/searchId}"></th:block> -->
+  <th:block th:replace= "~{member/searchPw}"></th:block>
+
+  <script src="/js/main.js"></script>
+  
+  <script src="/js/member/signUp.js"></script>
+</body>
+
+</html>

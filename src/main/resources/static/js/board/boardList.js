@@ -1,11 +1,45 @@
 /* 페이지네이션 a태그 요소들 모두 얻어오기 */
 const paginationList = document.querySelectorAll(".pagination a");
 
+paginationList?.forEach((item, idx) => {
+
+  item.addEventListener("click", e => {
+    e.preventDefault();
+
+    if(item.classList.contains("current")){
+      return;
+    }
 
 
+    let pathname = location.pathname;
+
+    switch(item.innerText){
+      case 'first' : 
+        location.href = pathname + "?cp=1";
+        break;
+
+      case '<' :
+        location.href = pathname + "?cp=" + pagination.prevPage;
+        break;
+
+      case '>' :
+        location.href = pathname + "?cp=" + pagination.nextPage;
+        break;
+
+      case '>>' :
+        location.href = pathname + "?cp=" + pagination.maxPage;
+        break;
+
+      default : location.href = location.pathname + "?cp=" + item.innerText;
+      
+    }
+
+    
 
 
+  })
 
+})
 
 
 

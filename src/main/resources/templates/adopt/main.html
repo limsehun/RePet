@@ -16,55 +16,36 @@
     <th:block th:replace="~{header}"></th:block>
 
     <div>
-      <div> 검색(강아지/고양이/기타)</div>
+      <div>RePet 아이들</div>
+      <div class="selectArea">
+        <button class="dog">강아지</button>
+        <button class="cat">고양이</button>
+        <button class="others">기타</button>
+      </div>     
+
     </div>
 
-    <div class="adoptList" th:each="adopt : ${adoptList}">
-      <div class="box">
+    <div class="adoptList" >
+      <div class="box" th:each="adopt : ${adoptList}">
         <div class="popfile">
-          <img th:src="${adopt.popfile}" alt="Adopt Image"/>
+          <img th:src="${adopt.popfile != null? adopt.popfile : '/images/default.png'}"/>
         </div>
         <div class="content">
-          <div class="contentDetail" th:text="*{kindCd}"></div>
-          <p>나이: <span th:text="${adopt.age}"></span></p>
-          <p>품종: <span th:text="${adopt.kindCd}"></span></p>
+          <div class="condition" th:text="${adopt.processState}"></div>
+          <p>
+            <thblock th:text="${adopt.kindCd}"></thblock>/<thblock th:text="${adopt.sexCd}"></thblock>
+          </p>
+          <p>
+            나이: <thblock th:text="${adopt.age}"></thblock>
+          </p>
         </div>
-      </div>
-
-      <div class="box">
-        <div class="popfile">사진</div>
-        <div class="content">내용요약</div>
-      </div>
-      <div class="box">
-        <div class="popfile">사진</div>
-        <div class="content">내용요약</div>
-      </div>
-      <div class="box">
-        <div class="popfile">사진</div>
-        <div class="content">내용요약</div>
-      </div>
-      <div class="box">
-        <div class="popfile">사진</div>
-        <div class="content">내용요약</div>
-      </div>
-      <div class="box">
-        <div class="popfile">사진</div>
-        <div class="content">내용요약</div>
-      </div>
-      <div class="box">
-        <div class="popfile">사진</div>
-        <div class="content">내용요약</div>
-      </div>
-      <div class="box">
-        <div class="popfile">사진</div>
-        <div class="content">내용요약</div>
       </div>
     </div>
     
-    <div class="plusBox">
+    <div class="pagination-area" thth:unless= "${lists.isEmpty(adoptList)}">
       <button class="plusBtn">더보기</button>
     </div>
-
+    
     <footer>푸터</footer>
   </main>
 

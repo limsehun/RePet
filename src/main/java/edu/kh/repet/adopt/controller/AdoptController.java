@@ -42,23 +42,15 @@ public class AdoptController{
 	public String dataType; 
 	
 	
+	String urlStr = null;
 	
 	@RequestMapping("/")
-	public String adoptMain(){
-	
-		return "adopt/main";
-	}
-	
-	
-	@GetMapping("adopt/main")
 	public String callOpenApi(Model model) throws IOException{
-		
-		
-		
-		String urlStr = openApiUrl +
-				"?serviceKey=" + serviceKey
-				+"&_type=" + dataType;
-		
+				
+		urlStr = openApiUrl +
+			"?serviceKey=" + serviceKey
+			+"&_type=" + dataType
+			+"&numOfRows=8";
 
 		// URL 객체 생성
         URL apiUrl = new URL(urlStr);
@@ -84,7 +76,7 @@ public class AdoptController{
     		JsonObject bodyObj = responseObj.getAsJsonObject("body").getAsJsonObject("items");
     		JsonArray itemArr = bodyObj.getAsJsonArray("item");
 
-    		ArrayList<Adopt> list = new ArrayList<>();
+    		ArrayList<Adopt> adoptList = new ArrayList<>();
     		for(int i=0; i<itemArr.size();i++) {
     			JsonObject item = itemArr.get(i).getAsJsonObject();
     			Adopt adopt = new Adopt();
@@ -103,17 +95,24 @@ public class AdoptController{
     			adopt.setHappenPlace(item.get("happenPlace").getAsString());
     			adopt.setKindCd(item.get("kindCd").getAsString());
     			
-    			list.add(adopt);
+    			adoptList.add(adopt);
     		}
             
             br.close();
-            model.addAttribute("adoptList", list); // 리스트를 뷰로 전달
+            model.addAttribute("adoptList", adoptList); // 리스트를 뷰로 전달
             return "adopt/main"; // 뷰 이름 반환
         } else {
             return "error"; // 에러 처리
         }
 		
 	}
+	
+//	
+//	@GetMapping("adopt/main")
+//	public String moreAdopt() {
+//		
+//	}
+	
 	
 	
 

@@ -37,6 +37,9 @@ public class Adopt {
 	private String specialMark; // 특징
 	private String kindCd; // 품종코드
 	
+	private String upkind; // 축종코드
+	/* 개 : 417000, 고양이 : 422400, 기타 : 429900*/
+	
 	
 	
 	

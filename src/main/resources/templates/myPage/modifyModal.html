@@ -1,0 +1,31 @@
+
+
+<!-- 회원 수정 모달 -->
+<div class="modal-overlay" id="modifyModal" style="display: none;">
+  <div class="modify-info-modal">
+    <div class="icon-container">
+      <i class="fa-solid fa-xmark"></i>
+      <img src="/images/profile.png" alt="Profile Image">
+      <i class="fa-solid fa-camera"></i>
+    </div>
+    <h4>정보 수정</h4>
+    <form>
+      <input type="email" value="hong@naver.com" readonly style="background-color: #E4E4E4; color: #ACACAC;">
+      <input type="password" placeholder="기존 비밀번호 입력" required>
+      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
+      <input type="password" placeholder="새 비밀번호 확인" required>
+      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
+      <input type="password" placeholder="새 비밀번호" required>
+      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
+      <input type="text" placeholder="닉네임" required>
+      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
+
+      <div class="modify-modal-btn"> 
+        <button type="button" id="modifyCancelBtn">취소</button>
+        <button type="submit" id="modifyBtn">수정하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

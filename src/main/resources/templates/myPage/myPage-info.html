@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Page</title>
+
+   <!-- 공용 css/js 추가 -->
+   <th:block th:replace="~{common/common}"></th:block>
+
+   <!-- myPage 전용 css -->
+   <link rel="stylesheet" href="/css/myPage/myPage-style.css">
+</head>
+<body>
+
+  <main>
+
+    <!-- 헤더 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <!-- 사이드바 -->
+    <th:block th:replace="~{myPage/sideMenu}"></th:block>
+    
+    
+
+    <!-- 메인 컨텐츠 -->
+    <section class="main-content">
+
+      <div class="profile-box">
+        <h2>내 정보</h2>
+        <div class="profile-details">
+          <div class="profile-text">
+            <img src="profile-image.jpg" class="profile-img">
+            <div style="font-size: 20px;">
+              <h3>RePet에 오신것을 환영합니다!</h3>
+              <span><strong>아이디</strong>&nbsp;&nbsp;&nbsp;<span th:text="${member.memberEmail}">hx122</span></span>
+              <span><strong>닉네임</strong>&nbsp;&nbsp;&nbsp;<span th:text="${member.memberNickname}">홍길동</span></span>
+              <span><strong>가입일</strong>&nbsp;&nbsp;&nbsp;<span th:text="${member.enrollDate}">2024-10-22 13:55:24</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="like-board" id="likeList">
+      <!-- 제목 추가 -->
+      <div class="like-board-header">
+        <i class="fa-solid fa-heart" style="margin-right: 30px; color: #FF7F7F;"></i>
+        <h4>내가 좋아한 게시물 <th:block th:text="'(' + ${member.memberNo} + ')'"></th:block></h4> 
+      </div>
+      
+
+      <!-- 임시 memberNo -->
+      <div id="memberNo" th:text="${member.memberNo}" style="display: none;"></div>
+
+
+        <!-- <div class="like-item">
+          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
+          <div class="like-item-sub">(자유게시판)</div>
+        </div> -->
+        
+
+      <!-- 페이지 네이션 -->
+      <div class="pagination-box">
+        <a href="#" style="margin-right: 10px;">&lt;&lt;</a>
+        <a href="#" style="margin-right: 5px;">&lt;</a>
+        <div>1</div>
+        <a href="#" style="margin-left: 5px;">&gt;</a>
+        <a href="#" style="margin-left: 10px;">&gt;&gt;</a>
+      </div>
+
+    </div>
+
+    <th:block th:replace="~{myPage/modifyModal}"></th:block>
+
+    <th:block th:replace="~{myPage/deleteModal}"></th:block>
+
+  </section>
+
+
+
+  </main>
+
+  <script src="/js/myPage/myPage.js"></script>
+</body>
+</html>

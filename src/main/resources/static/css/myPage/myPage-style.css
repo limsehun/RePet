@@ -1,0 +1,636 @@
+/* 기본 스타일 초기화 */
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  overflow-y: auto; /* 세로 스크롤 허용 */
+}
+
+.info-main {
+  height: 100vh;
+  padding-bottom: 50px; /* 맨 아래 여백 추가 */
+}
+
+
+/* ----------------- SideMenu CSS ----------------------- */
+
+.left-side {
+  position: fixed; /* 고정 */
+  top: 100px; /* 헤더 높이만큼 아래로 위치 */
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  background-color: #F5E6CC;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* 내용이 많아지면 스크롤 생성 */
+}
+
+
+.left-side h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 15px; /* 항목 사이 간격 */
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.side-menu li {
+  width: 100%;
+}
+
+.side-menu a {
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.side-menu a:hover {
+  background-color: #E8D8C3;
+}
+
+/*  --------------------- Main-Content CSS --------------------- */
+
+.main-content {
+  position: relative;
+  top: 100px; /* 헤더 아래부터 시작 */
+  left: 362px; /* 사이드바 넓이 제외 */
+  width: 1500px;
+  height: calc(100% - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px; /* 헤더와 콘텐츠 사이 여백 추가 */
+}
+
+.profile-box {
+  width: 1100px;
+  min-height: 300px; /* 최소 높이 설정 */
+  background-color: #F5E6CC;
+  display: flex;
+  flex-direction: row; /* 가로 정렬 */
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  padding: 20px;
+  color: #333;
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px; /* 자연스럽게 간격 유지 */
+}
+
+.profile-box > h2 {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+}
+
+.profile-info {
+  display: flex; /* 프로필 이미지와 텍스트를 가로로 배치 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center;
+  margin-top: 20px; /* 프로필 제목과 간격 추가 */
+}
+
+.profile-img {
+  width: 150px; /* 프로필 이미지 크기 조정 */
+  height: 150px;
+  border-radius: 50%; /* 둥글게 만들기 */
+  margin-right: 50px; /* 이미지와 텍스트 사이 간격 */
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center;
+}
+
+
+.profile-details h3 {
+  color: #333; /* h3 색상 설정 */
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 23px;
+}
+
+.profile-text {
+  display: flex;
+  align-items: center;
+  margin-top: 55px;
+}
+
+.profile-img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin: 0 50px 0 0;
+}
+
+.profile-text div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.profile-text span {
+  display: flex;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  margin-bottom: 10px;
+}
+
+.profile-text strong {
+  width: 100px; /* 항목 이름(아이디, 닉네임, 가입일) 고정 너비 설정 */
+  text-align: left; /* 왼쪽 정렬 */
+}
+
+.profile-text span {
+  width: 400px; /* 각 줄의 너비를 동일하게 맞춤 */
+}
+
+.profile-text img {
+  margin-bottom: 50px;
+}
+
+/* ----------------- MyPage likeBoard CSS ----------------------- */
+
+.like-board {
+  width: 1100px;
+  background-color: #D9CBAF;
+  min-height: 800px;
+  margin-bottom: 50px; /* 기존 아래 공간 외 추가 여백 */
+  border-radius: 40px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.like-board-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.like-board-header .icon {
+  color: red;
+  margin-right: 10px;
+}
+
+.like-item {
+  padding: 10px;
+  background-color: #D9CBAF;
+  font-size: 18px;
+  border-bottom: 1px solid #B2A285; /* 아래 구분선 추가 */
+  flex-grow: 1; /* 내용에 따라 크기 자동 조절 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.like-item:last-child {
+  border-bottom: none; /* 마지막 항목에는 구분선 없음 */
+}
+
+.like-item-title {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.like-item-sub {
+  font-size: 14px;
+  color: #666;
+}
+
+
+.pagination-box {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  margin-top: 30px; /* 위쪽 여백 추가 */
+  align-items: center;
+}
+
+
+
+.pagination-box div {
+  margin: 0 10px; /* 페이지 번호 간격 조절 (양쪽을 넓힘) */
+  cursor: pointer; /* 마우스 포인터를 클릭 가능으로 변경 */
+  padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  width: 30px; /* 고정된 너비 */
+  height: 30px; /* 고정된 높이 */
+  transition: color 0.3s; /* 부드러운 색상 전환 */
+  text-align: center;
+}
+
+.pagination-box div:hover {
+  border-radius: 50%; /* 원형으로 만들기 */
+  background-color: #FF7F7F; /* 원형의 배경색 */
+  color: #fff; /* 글자색 흰색 */
+}
+
+.pagination-box a {
+  color: inherit; /* 부모 요소의 색상으로 설정 */
+  text-decoration: none;
+  margin: 0 10px; /* 링크 간격 조절 */
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
+}
+
+
+
+
+/* ----------------- Mypage-info Modal CSS ----------------------- */
+
+/* 모달 배경 스타일 추가 */
+.modal-overlay {
+  position: fixed; /* 고정 위치 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 전체 너비 */
+  height: 100%; /* 전체 높이 */
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가운데 정렬 */
+  z-index: 999; /* 모달보다 위에 위치 */
+}
+
+
+.modify-info-modal {
+  position: absolute; /* 절대 위치 */
+  top: 50%; /* 수직 중앙 */
+  left: 57%; /* 수평 중앙 */
+  height: 600px;
+  transform: translate(-50%, -50%); /* 중앙 정렬을 위해 이동 */
+  background-color: #F5E6CC; /* 배경색 */
+  border-radius: 30px; /* 모서리 둥글게 */
+  width: 500px; /* 너비 */
+  padding: 30px; /* 내부 여백 */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.modify-info-modal img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 20px auto; /* 가운데 정렬 및 아래쪽 20px 간격 */
+}
+
+/* 텍스트 위에 공간 추가 */
+.modify-info-modal h4 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+  position: absolute;
+  top: 20px; /* 상단에서 더 여유 공간 추가 */
+  left: 30px;
+}
+
+.modify-info-modal form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* 입력 필드 영역을 확장 */
+  justify-content: flex-start; /* 입력 필드는 위쪽에 위치 */
+}
+
+.modify-info-modal input[type="email"],
+.modify-info-modal input[type="password"],
+.modify-info-modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.modify-info-modal .modal-text {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 15px;
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+  display: block; /* input 필드 바로 밑에 붙이기 위해 block 설정 */
+}
+
+/* 입력 필드에 포커스가 들어왔을 때 스타일 */
+.modify-info-modal input[type="password"]:focus,
+.modify-info-modal input[type="text"]:focus {
+  border-color: #FF6F61;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 111, 97, 0.5); /* 포커스 시 그림자 효과 */
+}
+
+.modify-modal-btn {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 버튼 스타일 */
+.modify-modal-btn button:first-child {
+  width: 45%;
+  padding: 12px;
+  background-color: #e0e0e0; /* 취소 버튼 배경색 */
+  color: #333; /* 취소 버튼 텍스트 색상 */
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 30px; /* 버튼을 하단으로 밀기 위해 margin 설정 */
+  transition: 0.3s; /* 부드러운 색상 전환 */
+}
+
+.modify-modal-btn button:nth-child(2) {
+  width: 45%;
+  padding: 12px;
+  background-color: #ff7f50; /* 수정하기 버튼 배경색 */
+  color: white; /* 수정하기 버튼 텍스트 색상 */
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 30px; /* 버튼을 하단으로 밀기 위해 margin 설정 */
+  transition: 0.3s; /* 부드러운 색상 전환 */
+}
+
+/* 버튼 hover 효과 */
+.modify-info-modal button:hover {
+  background-color: #ff6347; /* 토마토 색상 */
+}
+
+.modify-modal-btn button:first-child:hover {
+  background-color: #d0d0d0; /* 취소 버튼 hover 색상 */
+}
+
+/* 아이콘 스타일 */
+.icon-container {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center; /* 중앙 정렬 */
+  position: relative;
+}
+
+.icon-container > .fa-xmark {
+  position: absolute; /* 아이콘을 절대 위치로 설정 */
+  top: -3px; /* 프로필 이미지 위로 위치 */
+  right: 167px;
+  font-size: 18px; /* 아이콘 크기 조정 */
+  color: #333; /* 아이콘 색상 조정 */
+  transition: color 0.3s; /* 부드러운 색상 전환 */
+  cursor: pointer;
+}
+
+.icon-container > .fa-camera {
+  position: absolute; /* 아이콘을 절대 위치로 설정 */
+  top: 69px; /* 프로필 이미지 위로 위치 */
+  right: 167px;
+  font-size: 16px; /* 아이콘 크기 조정 */
+  color: #333; /* 아이콘 색상 조정 */
+  transition: color 0.3s; /* 부드러운 색상 전환 */
+  cursor: pointer;
+}
+
+.icon-container > .fa-xmark:hover {
+  color: #D32F2F; /* Hover 시 더 어두운 빨강 */
+}
+
+.icon-container > .fa-camera:hover {
+  color: #FF7F50
+}
+
+
+
+/* ----------------- Mypage-board CSS ----------------------- */
+
+.board-content {
+  position: relative;
+  top: 110px;
+  padding-top: 20px;
+  left: 300px;
+  width: calc(100% - 300px);
+  height: calc(100% - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px; /* 맨 아래 여백 추가 */
+}
+
+
+.post-comment-management {
+  width: 1100px;
+  height: 100%;
+  background-color: #D9CBAF;
+  border-radius: 40px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.board-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.board-header > div {
+  width: 350px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #B2A285;
+  transition: all 0.3s ease; /* 모든 변화를 부드럽게 전환 */
+  cursor: pointer;
+}
+
+.board-header > div:hover {
+  color: #D4A373; /* 마우스를 올렸을 때 밝은 브라운 컬러 */
+  background-color: #F3E2C7; /* 배경색을 살짝 밝은 톤으로 변경 */
+  border-bottom: 2px solid #D4A373; /* 더 두꺼운 테두리로 강조 */
+  transform: translateY(-3px); /* 마우스 올렸을 때 살짝 위로 이동하는 효과 */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* 더 큰 그림자로 강조 */
+  transition: all 0.3s ease; /* 전환 효과 */
+}
+
+.board-header span {
+  color: #5A4B3A; /* 기본 텍스트 색상 */
+  font-weight: bold;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.board-content > p {
+  font-size: 20px;
+  color: #939393;
+  margin-bottom: 30px;
+}
+
+.board-content p {
+  margin-top: 20px; /* p 태그 위 여백 추가 */
+  font-size: 20px;
+  color: #939393;
+  margin-bottom: 30px;
+}
+
+
+/* ----------------- Mypage-Delete CSS ----------------------- */
+
+.modal-overlay {
+  position: fixed; /* 고정 위치 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 전체 너비 */
+  height: 100%; /* 전체 높이 */
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가운데 정렬 */
+  z-index: 999; /* 모달보다 위에 위치 */
+}
+
+.delete-user-modal {
+  position: absolute; /* 상대 위치 */
+  transform: translate(-50%, -50%); /* 중앙 정렬을 위해 이동 */
+  top: 50%; /* 수직 중앙 */
+  left: 57%; /* 수평 중앙 */
+  width: 90%; /* 너비를 90%로 설정하여 반응형으로 유지 */
+  max-width: 600px; /* 최대 너비 설정 */
+  max-height: 80%; /* 최대 높이를 설정하여 내용이 잘리도록 함 */
+  height: auto; /* 높이는 자동으로 조정 */
+  background-color: #F5E6CC;
+  padding: 30px; /* 여백 증가 */
+  border-radius: 12px; /* 둥근 모서리 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 더 큰 그림자 효과 */
+  text-align: left; /* 여기를 유지 */
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column; /* 세로 방향 정렬 */
+  justify-content: flex-start; /* 위쪽 정렬 */
+  overflow: hidden; /* 내용이 모달 박스를 넘치지 않도록 설정 */
+  transition: max-height 0.3s ease-in-out; /* 부드러운 전환 효과 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+/* 모달 창 제목 */
+.delete-user-modal h2 {
+  margin-top: 0;
+  margin-bottom: 15px; 
+  text-align: center; 
+  font-size: 24px; /* 폰트 크기 조정 */
+  color: #5A4B3A; /* 제목 색상 */
+  letter-spacing: 1px; /* 글자 간격 */
+}
+
+/* 모달 창 내용 텍스트 */
+.delete-user-modal p {
+  font-size: 16px; 
+  color: #333;
+  line-height: 1.6; /* 줄 간격 조정 */
+  margin: 10px 0;
+  text-align: left; 
+  letter-spacing: 0.5px; /* 글자 간격 */
+  padding: 0 10px; /* 좌우 패딩 추가 */
+}
+
+/* 버튼 스타일 */
+.delete-modal-btn {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 35px;
+}
+
+.cancel-btn, .confirm-btn {
+  width: 48%;
+  padding: 10px;
+  font-size: 16px; /* 버튼 글자 크기 조정 */
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* 버튼 배경색 전환 효과 */
+}
+
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.confirm-btn {
+  background-color: #FF6F61; /* 버튼 색상 */
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background-color: #d0d0d0;
+}
+
+.confirm-btn:hover {
+  background-color: #333; /* 버튼 호버 시 색상 변경 */
+}
+
+/* 버튼 텍스트 크기 증가 및 추가 여백 */
+.cancel-btn, .confirm-btn {
+  font-weight: bold; /* 버튼 텍스트 두껍게 */
+}
+
+.modal-input {
+  width: 100%; 
+  padding: 12px; 
+  margin: 10px 0; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  font-size: 16px; 
+  color: #333; 
+  background-color: #fff; 
+  transition: border-color 0.3s ease; 
+  letter-spacing: 0.5px; /* 글자 간격 */
+}
+
+.modal-input:focus {
+  border-color: #FF6F61; 
+  outline: none; 
+  box-shadow: 0 0 5px rgba(255, 111, 97, 0.5); 
+}
+
+.modal-input::placeholder {
+  color: #999; 
+  opacity: 1; 
+}

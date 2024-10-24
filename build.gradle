@@ -42,7 +42,10 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
-		// Spring - Redis 통신이 가능하게 함
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	implementation 'com.google.code.gson:gson:2.8.6'	
+	
+	// Spring - Redis 통신이 가능하게 함
 	// https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis
 	implementation 'org.springframework.data:spring-data-redis:3.3.4'
 	

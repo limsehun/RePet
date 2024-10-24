@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="edu.kh.repet.mypage.mapper.MyPageMapper">
+	
+	
+	<select id="likeList" resultType="Board">
+		SELECT 
+		    B.BOARD_NO, 
+		    B.BOARD_TITLE, 
+		    B.BOARD_CONTENT, 
+		    B.BOARD_WRITE_DATE, 
+		    B.READ_COUNT
+		FROM 
+		    BOARD_LIKE BL
+		JOIN 
+		    BOARD B 
+		ON 
+		    BL.BOARD_NO = B.BOARD_NO
+		WHERE 
+		    BL.MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	<select id="memberList" resultType="Member">
+		SELECT
+			*
+		FROM
+			"MEMBER"
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+		<select id="selectLikeList" resultType="Board">
+		SELECT 
+		    B.BOARD_NO, 
+		    B.BOARD_TITLE, 
+		    B.BOARD_CONTENT, 
+		    B.BOARD_WRITE_DATE,
+		    B.READ_COUNT
+		FROM 
+		    BOARD_LIKE BL
+		JOIN 
+		    BOARD B 
+		ON 
+		    BL.BOARD_NO = B.BOARD_NO
+		WHERE 
+		    BL.MEMBER_NO = #{memberNo}
+	</select>
+		
+	
+	
+	
+			
+	
+	
+</mapper>

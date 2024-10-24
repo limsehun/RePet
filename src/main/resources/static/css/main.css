@@ -38,7 +38,7 @@
       background-color: rgb(255, 238, 227, 0.45);
       /* 헤더 배경을 투명하게 */
       position: absolute;
-      
+
 
       /* position: relative; */
       /* 헤더를 배너 이미지 위에 고정 */
@@ -47,7 +47,7 @@
       /* 배너 이미지보다 위에 위치하도록 설정 */
     }
 
-    
+
     #login,
     #registerBtn {
       border: none;
@@ -62,11 +62,22 @@
       gap: 70px;
     }
 
+    #profile, #logout {
+      color: black;
+      margin : 5px;
+      font-size: 20px;
+      font-weight: bold;
+
+    }
+
     .icons {
       display: flex;
       align-items: center;
       gap: 10px;
       width: 200px;
+    }
+    .header-menu{
+      margin-right: 20px;
     }
 
     .profile-img {
@@ -245,7 +256,8 @@
     .home-card>img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 추가 해봄 ( 안눌려짐 ) */
+      object-fit: cover;
+      /* 추가 해봄 ( 안눌려짐 ) */
     }
 
     .home-card>div>button {
@@ -272,7 +284,7 @@
       height: 500px;
     }
 
-    .location-map > .map-img {
+    .location-map>.map-img {
       width: 100%;
       height: auto;
       cursor: pointer;
@@ -289,7 +301,7 @@
 
     }
 
-    .map-image{
+    .map-image {
       background-color: transparent;
       justify-content: center;
       width: 100%;

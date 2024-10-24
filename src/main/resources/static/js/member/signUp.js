@@ -299,65 +299,28 @@ nickname.addEventListener("input", () => {
 //   }
 
 
-//   /* 주소 유효성 검사 */
-//   // - 모두 작성 또는 모두 미작성
+  /* 주소 유효성 검사 */
+  // - 모두 작성 또는 모두 미작성
 
-//   const addr = document.querySelectorAll("[name = memberAddress]");
+  // const addr = document.querySelectorAll("[name = memberAddress]");
 
-//   let empty = 0; // 비어있는 input의 개수
-//   let notEmpty = 0; // 비어있지 않은 input의 개수
+  // let empty = 0; // 비어있는 input의 개수
+  // let notEmpty = 0; // 비어있지 않은 input의 개수
 
-//   // for ~ of 향상된 for문
-//   for (let item of addr) {
-//     let len = item.value.trim().length; // 작성된 값의 길이
+  // // for ~ of 향상된 for문
+  // for (let item of addr) {
+  //   let len = item.value.trim().length; // 작성된 값의 길이
 
-//     if (len > 0) notEmpty++; // 비어있지 않은 경우
-//     else empty++;    // 비어있을 경우
-//   }
+  //   if (len > 0) notEmpty++; // 비어있지 않은 경우
+  //   else empty++;    // 비어있을 경우
+  // }
 
-//   // empty, notEmpty 중 3이 하나도 없을 경우
-//   if (empty < 3 && notEmpty < 3) {
-//     alert("주소가 유효하지 않습니다(모두 작성 또는 미작성)");
-//     e.preventDefault();
-//     return;
-//   }
+  // // empty, notEmpty 중 3이 하나도 없을 경우
+  // if (empty < 3 && notEmpty < 3) {
+  //   alert("주소가 유효하지 않습니다(모두 작성 또는 미작성)");
+  //   e.preventDefault();
+  //   return;
+  // }
 
 // });
 
-// const submitBtn = document.querySelector("#submit-btn");
-// const address = document.querySelector("#memberAddress");
-
-// submitBtn.addEventListener("click", () => {
-//   email.value;
-//   password.value;
-//   nickname.value;
-//   address.value;
-
-//   fetch("/",{
-//     method : "PUT",
-//     headers: {"Content-Type": "application/json"},
-//     body : JSON.stringify( {
-//       "email" : email, 
-//       "password" : password, 
-//       "nickname" : nickname, 
-//       "memberAddress" : address} ) 
-//   })
-//   .then(response => response.text() )
-//   .then(result => {
-//     console.log("result : ", result);
-
-
-//     if(result > 0){ 
-//       alert("회원가입 성공");
-
-
-
-//     } else {
-//       alert("할 일 추가 실패...");
-//     }
-
-//   });
-
-
-  
-// });

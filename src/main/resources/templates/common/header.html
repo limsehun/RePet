@@ -19,16 +19,17 @@
 
   </div>
 
-  <div th:if="${session.loginMember}">
-    <label for="headerMenuToggle">
-      [[${session.loginMember.memberNickname}]]
+  <div th:if="${session.loginMember}" class="header-menu">
+    <!-- <label for="headerMenu">
+      [[${session.loginMember.nickname}]]
 
       <i class="fa-solid fa-caret-down"></i>
-    </label>
-    <input type="checkbox" id="headerMenuToggle">
+    </label> -->
 
     <div class="header-menu">
-      <a href="/member/logout">로그아웃</a>
+      <a href="/member/profile" id="profile">프로필</a>
+      <span>/</span>
+      <a href="/member/logout" id="logout">로그아웃</a>
     </div>
   </div>
 </header>

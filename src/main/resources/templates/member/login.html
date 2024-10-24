@@ -68,7 +68,7 @@
       right: 20px;
     }
 
-    .input-group {
+    .loginForm {
       margin-bottom: 15px;
       margin-left: 30px;
     }
@@ -76,7 +76,7 @@
     input[type="text"],
     input[type="password"] {
       /* width: calc(100% - 90px); */
-      width: 100%;
+      width: 80%;
       padding: 10px;
       border: 1px solid #ccc;
       border: none;
@@ -100,7 +100,7 @@
       background-color: #0056b3;
     }
 
-    .link-button {
+    #find-emailId , #find-password {
       background-color: transparent;
       color: #007BFF;
       padding: 0;
@@ -125,18 +125,18 @@
     <div id="popup">
       <h2>로그인</h2>
       <span id="close">&times</span>
-      <form action="/member/login" method="POST" class="input-group">
+      <form action="/member/login" method="POST" name="loginForm" class="loginForm">
 
-        <input type="text" id="lgEmail" placeholder="아이디" required>
+        <input type="text" id="lgEmail" name="lgEmail" placeholder="아이디" required>
         <br><br>
-        <input type="password" id="lgPassword" placeholder="비밀번호" required>
+        <input type="password" id="lgPassword" name="lgPassword" placeholder="비밀번호" required>
 
         <button type="submit" id="loginBtn">로그인</button>
         <button type="submit" id="signUpBtn">회원가입</button>
       </form>
       <div class="find">
-        <button class="link-button">아이디 찾기</button>
-        <button class="link-button">비밀번호 찾기</button>
+        <button type="submit" id="find-emailId">아이디 찾기</button>
+        <button type="submit" id="find-password">비밀번호 찾기</button>
       </div>
     </div>
   </div>

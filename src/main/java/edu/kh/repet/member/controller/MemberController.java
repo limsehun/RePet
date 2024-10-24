@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.repet.member.dto.Member;
@@ -31,14 +32,15 @@ public class MemberController {
 	
 	@PostMapping("login")
 	public String loginModal(
-			@RequestParam("email") String email,
-			@RequestParam("password") String password,
+			@RequestParam("lgEmail") String email,
+			@RequestParam("lgPassword") String password,
 			RedirectAttributes ra,
 			Model model,
 			HttpServletResponse resp
 			) {
 		
 		Member loginMember = service.login(email, password);
+		
 		
 		
 		if(loginMember == null) { // 로그인 실패
@@ -85,6 +87,18 @@ public class MemberController {
 	}
 	
 	
+	
+	
+	/** 로그 아웃
+	 * @return
+	 */
+	@GetMapping("logout")
+	public String logout(SessionStatus status) {
+		
+		status.setComplete();
+		
+		return "redirect:/"; // 메인 페이지
+	}
 	
 
 		@ResponseBody

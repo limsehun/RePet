@@ -2,6 +2,11 @@
 const login = document.querySelector("#login");
 const registerBtn = document.querySelector("#registerBtn");
 const lgModalBg = document.querySelector(".lgModal-bg");
+const findEmailId = document.querySelector("#find-emailId");
+const findPassword = document.querySelector("#find-password");
+
+const findEIdModalBg = document.querySelector(".findEIdModal-bg");
+const findEPwModalBg = document.querySelector(".findPwdModal-bg");
 
 login.addEventListener("click", () => {
 
@@ -12,6 +17,14 @@ login.addEventListener("click", () => {
 registerBtn.addEventListener("click", () => {
 
   pwModalBg.classList.remove("popup-hidden");
+
+})
+
+
+
+findEmailId.addEventListener("click", () => {
+  lgModalBg.classList.add("popup-hidden");
+  findEIdModalBg.classList.remove("popup-hidden");
 
 })
 

@@ -4,19 +4,16 @@
 
 
   <!-- 로그인 -->
-  <!-- Member == 별칭 (DBConfig 참고) -->
   <select id="login" resultType="Member">
   	SELECT 
 	  	MEMBER_NO, 
 	  	MEMBER_EMAIL, 
-	  	MEMBER_NICKNAME, 
 	  	MEMBER_PW,
-		MEMBER_TEL, 
+	  	MEMBER_NICKNAME, 
 		MEMBER_ADDRESS, 
 		PROFILE_IMG, 
-		AUTHORITY,
 		TO_CHAR(ENROLL_DATE, 
-			'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') ENROLL_DATE
+			'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS EROLL_DATE
 	FROM "MEMBER"
 	WHERE MEMBER_EMAIL = #{email}
 	AND   MEMBER_DEL_FL = 'N'

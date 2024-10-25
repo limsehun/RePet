@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 메일은 header 불필요 -->
+
+<body>
+
+  <!-- css/js 파일은 이메일 첨부 불가 -->
+  <div>
+
+    <!-- Content-ID로 등록된 이미지 중 logo를 출력 -->
+    <!-- <div style="text-align: center;">
+      <img src="cid:logo" width="200px">
+    </div> -->
+
+    <h3 style="text-align: center;">
+      새 비밀번호가 생성 되었습니다
+      <br>
+      다시 로그인 해주세요
+    </h3>
+
+    <div style="text-align: center; color:black;">
+      <h3 style="display: inline-block;  border: 3px solid red; width: 100px; padding:50px; border-radius: 100%;">
+        <th:block th:text="${newPw}">ssssss</th:block>
+      </h3>
+    </div>
+  </div>
+</body>
+
+</html>

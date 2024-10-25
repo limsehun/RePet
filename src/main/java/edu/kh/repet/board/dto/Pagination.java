@@ -13,7 +13,7 @@ public class Pagination {
 	private int listCount;			// 전체 게시글 수
 	
 	private int limit = 10;			// 한 페이지 목록에 보여지는 게시글 수
-	private int pageSize = 10;		// 보여질 페이지 번호 개수
+	private int pageSize = 5;		// 보여질 페이지 번호 개수
 	
 	private int maxPage;			// 마지막 페이지 번호
 	private int startPage;			// 보여지는 맨 앞 페이지 번호 
@@ -135,10 +135,7 @@ public class Pagination {
 		
 		// maxPage : 최대 페이지 == 마지막 페이지 == 총 페이지 수
 		
-		// 한 페이지에 게시글이 10개씩 보여질 경우
-		//  게시글 수 :  95개 -> 10 page 
-		//  게시글 수 : 100개 -> 10 page
-		//  게시글 수 : 101개 -> 11 page
+	
 		
 		maxPage = (int)Math.ceil( (double)listCount / limit );
 		
@@ -153,11 +150,7 @@ public class Pagination {
 		
 		
 		
-		// endPage : 페이지 번호 목록의 끝 번호
 		
-		// 현재 페이지가  1 ~ 10 :  10 page
-		// 현재 페이지가 11 ~ 20 :  20 page
-		// 현재 페이지가 21 ~ 30 :  30 page
 		endPage = pageSize - 1 + startPage;
 		
 		

@@ -10,14 +10,17 @@ import edu.kh.repet.member.dto.Member;
 @Mapper
 public interface MyPageMapper {
 
-	// 게시글 리스트 조회
-	List<Board> likeList(int memberNo);
 
 	
 	// 프로필 회원 조회
 	Member memberList(int memberNo);
 
 
+	// 좋아요 한 게시물 리스트
 	List<Board> selectLikeList(int memberNo);
+
+
+	// 좋아요 한 게시물 수
+	int likeCount(int memberNo);
 
 }

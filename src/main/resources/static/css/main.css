@@ -1,4 +1,12 @@
     /* 기본 스타일 초기화 */
+    *{
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+
     body,
     h1,
     h2,
@@ -34,17 +42,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
-      background-color: rgb(255, 238, 227, 0.45);
-      /* 헤더 배경을 투명하게 */
-      position: absolute;
-
-
-      /* position: relative; */
-      /* 헤더를 배너 이미지 위에 고정 */
+      padding: 30px;
+      background-color: rgba(255, 238, 227, 0.7); /* 80% 불투명도 */
+      position: absolute; /* 헤더를 배너 이미지 위에 고정 */
       width: 100%;
-      z-index: 100;
-      /* 배너 이미지보다 위에 위치하도록 설정 */
+      height: 70px;
+      z-index: 100; /* 배너 이미지보다 위에 위치하도록 설정 */
+      flex-grow: 1;
     }
 
 

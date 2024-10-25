@@ -47,20 +47,35 @@ deleteCancelBtn.addEventListener("click",() => {
 const likeList = document.querySelector("#likeList");
 
 
-const selectLikeList = () => {
+const selectLikeList = (cp) => {
+  
   const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
   
-  fetch(`/myPage/selectLikeList?memberNo=${memberNo}`)
+  let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}`;
+
+  if(cp !== undefined){
+    requestUrl += `&cp=${cp}`;
+  }
+
+  fetch(requestUrl)
   .then(response => {
     if(response.ok) return response.json();
     throw new Error("조회 오류");
   })
-  .then(list => {
+  .then(map => {
+    
+    const member = map.memberList;
+    const list = map.likeList;
+    const pagination = map.pagination;
 
     console.log(list);
+    console.log(pagination);
+    console.log(member);
 
     const paginationBox = document.querySelector(".pagination-box");
 
+    document.querySelectorAll(".like-item").forEach( item => item.remove() );
+    
     
     list.forEach(board => {
       // like-item div 생성

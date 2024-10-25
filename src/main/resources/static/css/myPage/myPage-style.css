@@ -20,10 +20,9 @@ html, body {
 
 
 /* ----------------- SideMenu CSS ----------------------- */
-
 .left-side {
   position: fixed; /* 고정 */
-  top: 70px; /* 헤더 높이만큼 아래로 위치 */
+  top: 80px; /* 헤더 높이만큼 아래로 위치 */
   bottom: 0;
   left: 0;
   width: 300px;

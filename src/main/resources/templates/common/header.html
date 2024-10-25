@@ -20,11 +20,12 @@
   </div>
 
   <div th:if="${session.loginMember}" class="header-menu">
-    <!-- <label for="headerMenu">
+    <label for="headerMenu">
       [[${session.loginMember.memberNickname}]]
 
       <i class="fa-solid fa-caret-down"></i>
-    </label> -->
+    </label>
+    <!-- <input type="checkbox" id="headerMenuToggle"> -->
 
     <div class="header-menu">
       <a href="/myPage/myPage-info" id="profile">프로필</a>

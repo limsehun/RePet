@@ -4,15 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.kh.repet.email.mapper.EmailMapper;
 
-public class EmailService {
+public interface EmailService {
 	
 	
-	/** 이메일 발송 서비스
-	 * @param string
-	 * @param email
-	 * @return
-	 */
-	int sendEmail(String htmlName, String email);
+	int sendNewPw(String htmlName, String email);
 
+	
 
 }

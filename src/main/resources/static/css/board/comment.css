@@ -1,0 +1,161 @@
+.comment-area{
+  width: 1000px;
+  min-height: 700px;
+  margin: -150px auto;
+  padding: 20px;
+}
+
+
+.comment-write-area {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* 원하는 크기로 설정 */
+  box-sizing: border-box;
+
+  display: flex;
+  min-height: 150px;
+  justify-content: center;
+
+  margin: 0px 3;
+  margin-bottom: 0;
+}
+
+#comment-content {
+  width: 100vh;
+  height: 100px;
+  padding-right: 80px; /* 버튼 공간 확보 */
+  box-sizing: border-box;
+  font-size: 14px;
+  margin-right: -356px;
+
+  resize: none;
+}
+
+#addComment {
+  position: absolute;
+  right: -346px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+
+  font-weight: bold;
+  border: 0;
+  background-color: rgb(189, 136, 37);
+  border-radius: 10px;
+}
+
+
+#commentList{
+	padding: 0;
+	list-style: none;
+}
+
+.comment-writer {
+	display: flex;
+	align-items: center;
+}
+
+
+.comment-writer > img{
+	width: 40px;
+    height: 40px
+}
+
+
+.comment-writer > img{
+	width: 40px;
+    height: 40px
+}
+
+.comment-writer > span{
+    font-weight: bold;
+    margin-left : 10px;
+}
+
+.comment-date{
+	font-size: 0.8em;
+	color: #aaa;
+}
+
+
+.comment-btn-area { 
+	display: flex;
+	justify-content: flex-end;
+}
+
+.report-area {
+  margin-left: 10px;
+}
+
+#comment-report {
+  font-size: 28px;
+  color: red;
+  cursor: pointer;
+}
+
+#comment-report:hover{
+  background-color: #ceb132;
+  opacity: 1;
+}
+
+/* 버튼 */
+.comment-btn-area button{
+    width: 70px;
+    height: 30px;
+	margin-left: 10px;
+
+    font-weight: bold;
+    border: 0;
+    background-color: #ceb132;
+    color : white;
+
+    cursor: pointer;
+}
+
+.comment-btn-area button:hover{
+    background-color: white;
+    color : #455ba8;
+    border: 2px solid #455ba8;
+}
+
+
+
+.update-textarea{
+	width: 100%;
+  height: 90px;
+  resize: none;
+}
+
+
+.comment-row{
+  border-bottom: 1px solid #ccc;
+	padding : 15px 0;
+}
+
+
+.child-comment{
+	padding-left : 50px;
+	position: relative;
+}
+
+/* 
+.child-comment:before {
+	content: "\f0a4";
+	font-family: "FontAwesome";
+	
+	position : absolute;
+	left : 0;
+	top : 35px;
+} */
+
+
+/* 답글 */
+/* .commentInsertContent{ */
+.child-comment-content{
+	width: 100%;
+    height: 90px;
+    resize: none;
+    margin-top : 20px;
+}

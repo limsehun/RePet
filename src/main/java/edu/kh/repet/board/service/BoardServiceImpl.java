@@ -56,8 +56,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("boardList", boardList);
 		map.put("pagination", pagination);
+		map.put("boardList", boardList);
 		
 		
 		return map;

@@ -1,6 +1,8 @@
 package edu.kh.repet.board.dto;
 
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,5 +35,14 @@ public class Board {
 	
 	//목록 조회 시 댓글/ 좋아요 수 상관 쿼리 결과
 	private int commentCount;
+
+
+  
+
+
+
+
+
+
 
 }

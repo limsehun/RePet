@@ -31,7 +31,7 @@ public class BoardController {
 	 * @param model : forward 시 데이터 전달하는 용도의 객체(request)
 	 * @return
 	 */
-	@GetMapping("{boardCode}")
+	@GetMapping("{boardCode:[0-9]+}")
 	public String selectBoardList(
 			@PathVariable("boardCode") int boardCode,
 			@RequestParam(value = "cpage", required = false, defaultValue = "1") int cpage,
@@ -58,7 +58,7 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagination", pagination);
 		
-		log.debug("Pagination: " + pagination.toString());
+//		log.debug("Pagination: " + pagination.toString());
 		
 		return "board/boardList";
 	}

@@ -26,7 +26,7 @@ paginationList?.forEach((item, idx) => {
         location.href = pathname + "?cp=" + pagination.nextPage;
         break;
 
-      case '>>' :
+      case 'last' :
         location.href = pathname + "?cp=" + pagination.maxPage;
         break;
 

@@ -142,10 +142,7 @@ public class Pagination {
 		
 		// startPage : 페이지 번호 목록의 시작 번호
 		
-		// 페이지 번호 목록이 10개(pageSize) 씩 보여질 경우
 		
-		// 현재 페이지가  1 ~ 10 :   1 page
-		// 현재 페이지가 11 ~ 20 :  11 page
 		startPage = (currentPage - 1) / pageSize * pageSize + 1;
 		
 		

@@ -23,10 +23,10 @@
     <div class="container">
       <div class="boardWrite-header">
         <h2>글 작성</h2>
-        <button id="writeBtn">등록</button>
+        <button id="writeBtn" >등록</button>
       </div>
-      <form action="" method="post">
-        <input id="subject" name="subject" placeholder="제목을 입력" style="width: 1000px;">
+      <form action="" method="POST">
+        <input id="subject" name="subject" placeholder="제목을 입력" maxlength="30" style="width: 1000px;" required>
         <textarea name="contents" id="contents"></textarea>
         
       </form>
@@ -36,18 +36,6 @@
     
   </main>
 
-  <script>
-    $(function() {
-      $("#contents").summernote({
-        width:1000,
-        height:600,
-        lang:"ko-KR",
-        placeholder:"내용을 입력해주세요",
-        focus : true,
-      });
-    });
-
-  </script>
-
+  <script src="/js/board/boardWrite.js"></script>
 </body>
 </html>

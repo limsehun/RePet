@@ -8,13 +8,7 @@
   <th:block th:replace= "~{common/common}"></th:block>
 
   <link rel="stylesheet" href="/css/board/boardList.css">
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-    }
-  </style>
+  
 
 </head>
 <body>
@@ -133,7 +127,7 @@
                   <li><a href="#">&gt;</a></li>
                   
                   <!-- 끝 페이지로 이동 -->
-                  <li><a href="#">&gt;&gt;</a></li>
+                  <li><a href="#">last</a></li>
                 </ul>
               </div>
               
@@ -145,7 +139,9 @@
                 
             
             
-          
+     <script th:inline="javascript">
+          const pagination = /*[[${pagination}]]*/ "페이지네이션 객체";
+      </script> 
           
   <script src="/js/board/boardList.js"></script>
 </body>

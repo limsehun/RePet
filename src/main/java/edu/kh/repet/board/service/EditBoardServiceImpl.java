@@ -31,58 +31,11 @@ public class EditBoardServiceImpl implements EditBoardService {
 	@Value("${my.board.folder-path}")
 	private String folderPath;
 
-	// 이미지 저장 처리
 	@Override
-	public List<BoardImg> saveImages(MultipartFile[] files, int boardNo) {
-		
-		List<BoardImg> boardImgs = new ArrayList<>();
-		
-		for( MultipartFile file : files ) {
-			
-			try {
-				
-				// 파일명 중복 되지 않게 랜덤 문자열 지정
-				String originalFileName = file.getOriginalFilename();
-				String extension        = originalFileName.substring(originalFileName.lastIndexOf("."));
-				String savedFileName    = UUID.randomUUID().toString() + extension;
-				
-				// 파일 저장 없다면 폴더 생성 
-				File saveFile = new File(folderPath, savedFileName);
-				if(saveFile.exists() == false) { // 폴더가 없을 경우
-					saveFile.mkdirs(); // 폴더 생성
-				}
-				file.transferTo(saveFile);
-				
-				// BoardImg 객체 생성
-				BoardImg boardImg = BoardImg.builder()
-						.imgPath(webPath + savedFileName) // 웹 경로 설정
-						.imgRename(savedFileName) // 변경된 파일명 설정
-						.boardNo(boardNo)  // 게시글 번호 설정
-						.build();
-				
-				
-				boardImgs.add(boardImg);
-				mapper.insertBoardImg(boardImg);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				
-			}
-			
-			
-			
-			
-		}
-		
-		return boardImgs;
+	public int savePost(Board board) {
+		return mapper.insertPost(board);
 	}
 	
-
-	// 글등록 처리
-	@Override
-	public boolean register(Board board) {
-		return mapper.insertBoard(board) > 0;
-	}
 	
 
 

@@ -18,16 +18,18 @@
 </head>
 <body>
   <main>
-    <th:block th:replace= "~{common/header}"></th:block>
+    <!-- <th:block th:replace= "~{common/header}"></th:block> -->
   
     <div class="container">
       <div class="boardWrite-header">
         <h2>글 작성</h2>
-        <button id="writeBtn" >등록</button>
+        <button id="writeBtn">등록</button>
       </div>
-      <form action="" method="POST">
-        <input id="subject" name="subject" placeholder="제목을 입력" maxlength="30" style="width: 1000px;" required>
-        <textarea name="contents" id="contents"></textarea>
+      <form id="postForm">
+        <input id="subject" name="boardTitle" placeholder="제목을 입력" maxlength="30" style="width: 1000px;" required>
+        <textarea name="boardContent" id="summernote"></textarea>
+
+
         
       </form>
     </div>

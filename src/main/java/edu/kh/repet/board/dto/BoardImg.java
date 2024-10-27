@@ -1,5 +1,7 @@
 package edu.kh.repet.board.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,5 +22,6 @@ public class BoardImg {
 	private String imgRename;  // 이미지 변경명
 	private int    boardNo;   // 이미지가 첨부된 게시글 번호
 	
-	
+	private MultipartFile uploadFile; // (개발 편의성 향상)
+
 }

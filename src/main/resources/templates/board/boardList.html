@@ -8,12 +8,12 @@
   <th:block th:replace= "~{common/common}"></th:block>
 
   <link rel="stylesheet" href="/css/board/boardList.css">
+  <th:block th:replace= "~{common/header}"></th:block>
   
 
 </head>
 <body>
   <main>
-    <th:block th:replace= "~{common/header}"></th:block>
 
     <section class="board-list">
 
@@ -70,7 +70,7 @@
 
                 <td>
                    <!-- 검색이 아닌 경우 -->
-                  <a th:href="@{/board/{boardCode}/{boardNo}/(boardCode=${boardCode}, boardNo=*{boardNo})}"
+                  <a th:href="@{|/board/${boardCode}/${board.boardNo}|}"
 
                     th:text="*{boardTitle}">게시글 제목</a>
 

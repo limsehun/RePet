@@ -10,7 +10,7 @@
     </div>
     <h4>정보 수정</h4>
     <form>
-      <input type="email" value="hong@naver.com" readonly style="background-color: #E4E4E4; color: #ACACAC;">
+      <input type="email" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
       <input type="password" placeholder="기존 비밀번호 입력" required>
       <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
       <input type="password" placeholder="새 비밀번호 확인" required>

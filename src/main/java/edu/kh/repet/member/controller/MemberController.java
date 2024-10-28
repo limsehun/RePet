@@ -55,12 +55,20 @@ public class MemberController {
 	}
 	
 	
+	
+	@GetMapping("signUp")
+	public String signUp() {
+		
+		return "common/main";
+	}
+	
+	
 	/** 회원 가입 수행
 	 * @param inputMember : 입력값이 저장된 Member 객체(커맨드 객체)
 	 * @param ra					: 리다이렉트 시 request scope로 값 전달
 	 * @return
 	 */
-	@PostMapping("/signUp")
+	@PostMapping("signUp")
 	public String signUp(
 			@ModelAttribute Member inputMember,
 			RedirectAttributes ra) {
@@ -102,7 +110,7 @@ public class MemberController {
 	
 
 		@ResponseBody
-		@GetMapping("emailCheck")
+		@GetMapping("memberEmailCheck")
 		public int emailCheck(
 				@RequestParam("memberEmail") String memberEmail) {
 			

@@ -32,14 +32,14 @@ public class MemberController {
 	
 	@PostMapping("login")
 	public String loginModal(
-			@RequestParam("lgEmail") String email,
-			@RequestParam("lgPassword") String password,
+			@RequestParam("lgEmail") String memberEmail,
+			@RequestParam("lgPassword") String memberPw,
 			RedirectAttributes ra,
 			Model model,
 			HttpServletResponse resp
 			) {
 		
-		Member loginMember = service.login(email, password);
+		Member loginMember = service.login(memberEmail, memberPw);
 		
 		
 		
@@ -104,18 +104,26 @@ public class MemberController {
 		@ResponseBody
 		@GetMapping("emailCheck")
 		public int emailCheck(
-				@RequestParam("email") String email) {
+				@RequestParam("memberEmail") String memberEmail) {
 			
-			return service.emailCheck(email);
+			return service.emailCheck(memberEmail);
+		}
+		
+		@ResponseBody
+		@GetMapping("passwordCheck")
+		public int pwCheck(
+				@RequestParam("memberPw") String memberPw) {
+			
+			return service.pwCheck(memberPw);
 		}
 		
 		
 		@ResponseBody
 		@GetMapping("nicknameCheck")
 		public int nicknameCheck(
-				@RequestParam("nickname") String nickname) {
+				@RequestParam("memberNickname") String memberNickname) {
 			
-			return service.nicknameCheck(nickname);
+			return service.nicknameCheck(memberNickname);
 		}
 		
 		

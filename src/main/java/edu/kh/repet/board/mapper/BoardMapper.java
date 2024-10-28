@@ -1,6 +1,7 @@
 package edu.kh.repet.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -25,11 +26,14 @@ public interface BoardMapper {
 	 * 
 	 * @param boardCode
 	 * @param rowBounds
-	/** 지정된 페이지 분량의 게시글 목록 조
+	/** 지정된 페이지 분량의 게시글 목록 조회
 	 * @param rowBounds
 	 * @param boardCode
 	 * @return
 	 */
 	List<Board> selectBoardList(int boardCode, RowBounds rowBounds);
+
+
+	Board boardDetail(Map<String, Integer> map);
 	
 }

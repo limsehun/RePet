@@ -70,12 +70,12 @@ signUpBtn.addEventListener("click", () => {
 });
 
 const findPassword = document.querySelector("#find-password");
-const findEPwModalBg = document.querySelector(".findPwModal-bg");
+const findPwModalBg = document.querySelector(".findPwModal-bg");
 
 findPassword.addEventListener("click", () => {
 
   lgModalBg.classList.add("popup-hidden");
-  findEPwModalBg.classList.remove("popup-hidden");
+  findPwModalBg.classList.remove("popup-hidden");
 
 });
 
@@ -89,5 +89,40 @@ document.querySelector("#close4").addEventListener("click", () => {
 
 
 
+const refindLink = document.querySelector(".refind-link");
+const refindEmail = document.querySelector("#refind-email");
+
+const newPwMessage = document.querySelector("#newPwMessage");
+
+refindLink.addEventListener("click", () => {
+
+  if(refindEmail.value.trim().length === 0){
+    alert("유효한 이메일 작성 후 클릭 하세요");
+    return;
+  }
+
+
+  fetch("/email/sendNewPw", {
+    method  : "POST",
+    headers : {"Content-Type" : "application/json"},
+    body    : refindEmail.value
+
+  })
+  .then(response => {
+    if(response.ok) return response.text();
+    throw new Error("이메일 발송 실패");
+  })
+  .then(result => {
+    // 백엔드 작성 후 나머지 코드 작성 예정
+    console.log(result);
+
+  })
+  .catch(err => console.error(err));
+
+  findPwModalBg.classList.add("popup-hidden");
+  lgModalBg.classList.remove("popup-hidden");
+  
+  alert("새로운 비밀번호가 발송 되었습니다");
+})
 
 

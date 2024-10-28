@@ -10,8 +10,13 @@
     <a href="/hospital">병원정보</a>
     <a href="#">애완용품</a>
     <a href="/adopt/main">분양정보</a>
-    <a href="#">자유게시판</a>
+    <a href="/board/2">자유게시판</a>
   </nav>
+<<<<<<< HEAD
+  
+=======
+
+>>>>>>> fe9d5487238c1fc4d55f0b1fb3baf074a4c62419
   <div th:unless="${session.loginMember}" class="icons" style="margin-right: 40px;">
     <button id="login">로그인</button>
     <span>/</span>
@@ -20,14 +25,15 @@
   </div>
 
   <div th:if="${session.loginMember}" class="header-menu">
-    <!-- <label for="headerMenu">
+    <label for="headerMenu">
       [[${session.loginMember.memberNickname}]]
 
       <i class="fa-solid fa-caret-down"></i>
-    </label> -->
+    </label>
+    <!-- <input type="checkbox" id="headerMenuToggle"> -->
 
     <div class="header-menu">
-      <a href="/member/profile" id="profile">프로필</a>
+      <a href="/myPage/info" id="profile">프로필</a>
       <span>/</span>
       <a href="/member/logout" id="logout">로그아웃</a>
     </div>

@@ -1,8 +1,10 @@
+
+
 .board-name{
   font-size: 30px;
   margin: 100px 0;
   background-color: rgba(225, 107, 34, 0.512);
-
+  margin-top: 100px;
 }
 
 .left-title {
@@ -126,6 +128,7 @@ a:hover{
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-top: 100px;
 }
 
 .btn-area > button {
@@ -152,7 +155,10 @@ a:hover{
   list-style: none;
   display: flex;
   justify-content: center;
-  padding: 300px;
+  align-items: center;
+  margin-top: 100px;
+  margin-right: 296px;
+  margin-bottom: 100px;
 }
 
 .pagination li{

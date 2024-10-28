@@ -8,11 +8,12 @@
   <th:block th:replace= "~{common/common}"></th:block>
 
   <link rel="stylesheet" href="/css/board/boardList.css">
+  <th:block th:replace= "~{common/header}"></th:block>
+  
 
 </head>
 <body>
   <main>
-    <th:block th:replace= "~{common/header :: nav}"></th:block>
 
     <section class="board-list">
 
@@ -69,7 +70,7 @@
 
                 <td>
                    <!-- 검색이 아닌 경우 -->
-                  <a th:href="@{/board/{boardCode}/{boardNo}/(boardCode=4, boardNo=*{boardNo})}"
+                  <a th:href="@{|/board/${boardCode}/${board.boardNo}|}"
 
                     th:text="*{boardTitle}">게시글 제목</a>
 
@@ -102,7 +103,7 @@
           <ul class="pagination" th:object="${pagination}">
             
             <!-- 첫 페이지로 이동 -->
-            <li><a href="#">&lt;&lt;</a></li>
+            <li><a href="#">first</a></li>
             
             <!-- 이전 목록 마지막 번호로 이동 -->
             <li><a href="#">&lt;</a></li>
@@ -126,11 +127,11 @@
                   <li><a href="#">&gt;</a></li>
                   
                   <!-- 끝 페이지로 이동 -->
-                  <li><a href="#">&gt;&gt;</a></li>
+                  <li><a href="#">last</a></li>
                 </ul>
               </div>
               
-              <button  id="insertBtn">글쓰기</button>
+              <button id="insertBtn">글쓰기</button>
             </div>
                 
           </section>
@@ -138,7 +139,9 @@
                 
             
             
-          
+     <script th:inline="javascript">
+          const pagination = /*[[${pagination}]]*/ "페이지네이션 객체";
+      </script> 
           
   <script src="/js/board/boardList.js"></script>
 </body>

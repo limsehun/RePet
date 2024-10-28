@@ -1,5 +1,6 @@
 package edu.kh.repet.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.Pagination;
 import edu.kh.repet.board.service.BoardService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +35,7 @@ public class BoardController {
 	 * @param model : forward 시 데이터 전달하는 용도의 객체(request)
 	 * @return
 	 */
-	@GetMapping("{boardCode}")
+	@GetMapping("{boardCode:[0-9]+}")
 	public String selectBoardList(
 			@PathVariable("boardCode") int boardCode,
 			@RequestParam(value = "cpage", required = false, defaultValue = "1") int cpage,
@@ -58,25 +62,36 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagination", pagination);
 		
-		log.debug("Pagination: " + pagination.toString());
+//		log.debug("Pagination: " + pagination.toString());
 		
 		return "board/boardList";
 	}
 	
-	@PostMapping("write")
-	public String boardWrite() {
-		return "board/boardWrite";
+	@GetMapping("{boardCode:[0-9]+}/{boardNo:[0-9]+}")
+	public String boardDetail(
+	        @PathVariable("boardCode") int boardCode,
+	        @PathVariable("boardNo") int boardNo,
+	        Model model,
+	        RedirectAttributes ra,
+	        HttpServletRequest req,
+	        HttpServletResponse resp) {
+
+	    Map<String, Integer> map = Map.of("boardCode", boardCode, "boardNo", boardNo); 
+
+	    Board board = service.boardDetail(map);
+
+	    // 게시글 상세 조회 결과가 없을 경우
+	    if (board == null) {
+	        ra.addFlashAttribute("message", "게시글이 존재하지 않습니다");
+	        return "redirect:/board/" + 2;
+	    }
+
+	    // 조회된 게시글 정보를 모델에 추가하여 View로 전달
+	    model.addAttribute("board", board);
+
+	    return "board/boardDetail"; // 게시글 상세 페이지로 이동
 	}
-	
-	@GetMapping("detail")
-	public String boardDetail() {
-		return "board/boardDetail";
-	}
-	
-@GetMapping("reportPopup")
-public String pop() {
-	return "board/reportPopup";
-}
+
 
 
 

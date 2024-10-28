@@ -1,6 +1,8 @@
 package edu.kh.repet.board.dto;
 
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +19,8 @@ import lombok.ToString;
 @Builder
 public class Board {
   private int rnum;
+  
+  
 	private int boardNo;
 	private String boardTitle;
 	private String boardContent;
@@ -27,7 +31,18 @@ public class Board {
 	private int memberNo;
 	private int boardCode;
 	private String memberNickname;
+	
+	
 	//목록 조회 시 댓글/ 좋아요 수 상관 쿼리 결과
 	private int commentCount;
+
+
+  
+
+
+
+
+
+
 
 }

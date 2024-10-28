@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- Mapper 인터페이스와 연결하는 방법 : namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이명 작성 -->
+<mapper namespace="edu.kh.repet.board.mapper.EditBoardMapper">
+  
+ 
+<insert id="insertPost" parameterType="Board">
+    <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+        SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO BOARD (
+        BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE
+    ) VALUES (
+        #{boardNo}, #{boardTitle}, #{boardContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 2, 2
+    )
+</insert>
+   
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

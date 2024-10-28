@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonArray;
@@ -17,14 +16,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import edu.kh.repet.adopt.dto.Adopt;
-import edu.kh.repet.adopt.dto.AdoptPagination;
 
 @Service
 public class AdoptServiceImpl implements AdoptService{
 
 	
 	@Override
-	public Map<String, Object> selectAdoptList(String urlStr, int cp) throws IOException {
+	public Map<String, Object> selectAdoptList(String urlStr) throws IOException {
 		
 		ArrayList<Adopt> adoptList = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
@@ -68,22 +66,14 @@ public class AdoptServiceImpl implements AdoptService{
     			adopt.setSpecialMark(item.get("specialMark").getAsString());
     			adopt.setHappenPlace(item.get("happenPlace").getAsString());
     			adopt.setKindCd(item.get("kindCd").getAsString());
+    			adopt.setDesertionNo(item.get("desertionNo").getAsString());
     			
     			adoptList.add(adopt);
     		}
     		  		
     		br.close();
     		
-
-	    	AdoptPagination pagination = new AdoptPagination(cp, adoptList.size());
-			
-			int limit = pagination.getLimit();
-			int offset = (cp-1) * limit;
-			
-			RowBounds rowBounds = new RowBounds(offset, limit);
-		
 			map.put("adoptList",adoptList);
-			map.put("pagination",pagination);
 			
 	        }
 		

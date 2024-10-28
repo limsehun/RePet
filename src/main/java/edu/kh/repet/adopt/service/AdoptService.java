@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface AdoptService {
 
-	Map<String, Object> selectAdoptList(String urlStr, int cp) throws IOException;
+	Map<String, Object> selectAdoptList(String urlStr) throws IOException;
 
 }

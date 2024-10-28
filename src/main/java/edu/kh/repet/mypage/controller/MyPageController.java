@@ -5,11 +5,14 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.repet.member.dto.Member;
 import edu.kh.repet.mypage.service.MyPageService;
@@ -46,7 +49,8 @@ public class MyPageController {
 	}
 	
 	
-	
+	// 좋아요 게시글 리스트 조회(비동기)
+	// 페이지 네이션 객체에 게시물 수, 페이지 그룹 설정
 	@ResponseBody
 	@GetMapping("selectLikeList")
 	public Map<String, Object> selectLikeList(
@@ -56,6 +60,38 @@ public class MyPageController {
 		
 		return service.selectLikeList(loginMember.getMemberNo(), cp);
 	}
+	
+	
+	//회원 정보 수정
+  @PostMapping("modify")
+  public String updateMemberInfo(
+  				@SessionAttribute("loginMember") Member loginMember,
+  				@RequestParam("memberPw") String memberPw,
+          @RequestParam("newPw") String newPw,
+          @RequestParam("memberNickname") String memberNickname,
+          RedirectAttributes ra
+  		) {
+  	
+      // 서비스 호출하여 업데이트 실행
+      int result = service.updateMemberInfo(memberPw, loginMember, newPw, memberNickname);
+
+      // 성공 여부에 따라 메시지 설정
+      String message = null;
+  		String path = null;
+  		
+  		if(result > 0) {
+  			message =  "수정 성공";
+  			path = "info"; // 내 정보 페이지로 리다이렉트
+  		}else {
+  			message =  "수정 실패.";
+  			path = "info"; // 비밀번호 변경 페이지로 리다이렉트
+  		}
+  		
+  		ra.addFlashAttribute("message", message);
+  		
+      // myPage/info 페이지로 리다이렉트
+      return "redirect:" + path;
+  }
 	
 	
 	

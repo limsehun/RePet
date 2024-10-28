@@ -351,14 +351,13 @@ html, body {
 .modify-info-modal input[type="text"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 13px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
 }
 
 .modify-info-modal .modal-text {
-  color: red;
   font-size: 12px;
   margin-bottom: 15px;
   text-align: left; /* 텍스트 왼쪽 정렬 */
@@ -651,4 +650,13 @@ html, body {
 .modal-input::placeholder {
   color: #999; 
   opacity: 1; 
+}
+
+/* 정보 수정 클래스 */
+.green {
+  color: #3e9b4d;
+}
+
+.red {
+  color: #ff4343;
 }

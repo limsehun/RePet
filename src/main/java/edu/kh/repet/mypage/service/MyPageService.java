@@ -16,4 +16,12 @@ public interface MyPageService {
 	// 회원 수정
 	int updateMemberInfo(String memberPw, Member loginMember, String newPw, String memberNickname);
 
+
+	// 비밀번호 중복 검사
+	int checkPw(String inputPw, int memberNo);
+
+
+	// 닉네임 중복 검사
+	int nicknameCheck(String nickname);
+
 }

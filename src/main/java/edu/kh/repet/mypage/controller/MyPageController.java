@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,8 +81,10 @@ public class MyPageController {
   		if(result > 0) {
   			message =  "수정 성공";
   			path = "info"; // 내 정보 페이지로 리다이렉트
+  			
+  			loginMember.setMemberNickname(memberNickname);
   		}else {
-  			message =  "수정 실패.";
+  			message =  "수정에 실패하였습니다.";
   			path = "info"; // 비밀번호 변경 페이지로 리다이렉트
   		}
   		
@@ -92,8 +93,30 @@ public class MyPageController {
       // myPage/info 페이지로 리다이렉트
       return "redirect:" + path;
   }
+  
+  
+  // 비밀번호 유효성 검사
+  @ResponseBody
+  @GetMapping("checkPw")
+  public int checkPw(
+  			@RequestParam("inputPw") String inputPw,
+  			@SessionAttribute("loginMember") Member loginMember
+  		) {
+  	
+  	return service.checkPw(inputPw, loginMember.getMemberNo());
+  }
+  
+  
 	
-	
+  // 닉네임 유효성 검사
+  @ResponseBody
+  @GetMapping("nicknameCheck")
+  public int nicknameCheck(
+  			@RequestParam("nickname") String nickname
+  		) {
+  	
+  	return service.nicknameCheck(nickname);
+  }
 	
 	
 	

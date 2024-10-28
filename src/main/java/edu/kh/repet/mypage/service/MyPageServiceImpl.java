@@ -83,5 +83,26 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return mapper.updateMemberInfo(loginMember.getMemberNo(), encPw, memberNickname);
 	}
+	
+	
+	// 비밀번호 중복 검사
+	@Override
+	public int checkPw(String inputPw, int memberNo) {
+		
+		String memberPw = mapper.checkPw(memberNo);
+		
+		 if (encoder.matches(inputPw, memberPw)) {
+			 return 1; // 일치할 경우
+	   }
+	
+		return 0;
+	}
+	
+	
+	// 닉네임 중복 검사
+	@Override
+	public int nicknameCheck(String nickname) {
+		return mapper.nicknameCheck(nickname);
+	}
 
 }

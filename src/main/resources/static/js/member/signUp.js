@@ -8,7 +8,7 @@ function findAddress() {
 
       if (data.userSelectedType === 'R') { 
         addr = data.roadAddress;
-      } else { // 사용자가 지번 주소를 선택했을 경우(J)
+      } else {
         addr = data.jibunAddress;
       }
 

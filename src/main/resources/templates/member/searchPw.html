@@ -100,14 +100,17 @@
     #refind-email {
       width: 80%;
       padding: 10px;
-      border: 1px solid #ccc;
+
       border: none;
       border-bottom: 1px solid #ccc;
       border-radius: 5px;
       font-size: 16px;
-      margin: 50px 0 70px 20px;
+      margin: 50px 0 50px 20px;
       background-color: transparent;
 
+    }
+    .refind-link{
+      margin-left: 5px;
     }
 
     button:hover {
@@ -122,13 +125,17 @@
       <h2>비밀번호 찾기</h2>
       <span id="close4">&times</span>
 
-      <div class="searchPw-group">
-        <input type="text" name="refind-email" id="refind-email" placeholder="이메일 입력" required>
+      <div class="sendForm">
+  
+        <div class="searchPw-group">
+          <input type="text" name="memberEmail" id="refind-email" placeholder="이메일 입력" required>
+        </div>
+        <button class="refind-link">재설정 링크 발송</button>
       </div>
-      <button class="refind-link">재설정 링크 발송</button>
-    </div>
 
-  </div>
+      </div>
+  
+    </div>
 
 </body>
 

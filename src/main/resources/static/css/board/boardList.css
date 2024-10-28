@@ -1,0 +1,192 @@
+.board-name{
+  font-size: 30px;
+  margin: 100px 0;
+  background-color: rgba(225, 107, 34, 0.512);
+
+}
+
+.left-title {
+  font-size: 24px;
+}
+
+.board-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+#log{
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px;
+}
+
+#board-search {
+  text-align: center;
+  width: 500px;
+  height: 30px;
+  margin-left: auto;
+  margin-bottom: 3px;
+  padding: 0 auto;
+
+  display: flex;
+  justify-content: right;
+  
+}
+
+#board-search * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  
+  
+}
+
+#board-search select{
+  width: 100px;
+}
+
+#board-search input{
+  margin: 0 10px;
+  padding-left: 10px;
+}  
+
+#board-search button{
+  
+  width: 80px;
+
+  font-weight: bold;
+  background-color: #a88045;
+  border: none;
+  color: white;
+
+  cursor: pointer;
+  border-radius: 15px;
+  
+
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+.board-list{
+  width: 1000px;
+  margin: 230px auto;
+}
+
+.board-title{
+  margin-left: 30px;
+  font-size: 2.5em;
+}
+
+.list-wrapper{
+  min-height: 670px;
+  width: 100%;
+}
+
+.list-table{
+  width: 100%;
+  padding: 20px;
+  border-collapse: collapse;
+}
+
+.list-table > thead {background-color: rgb(207, 207, 207); color: rgb(0, 0, 0);}
+
+.list-table tr {
+  height: 60px;
+}
+
+.list-table > tbody > tr {
+  border-bottom: 1px solid gray;
+}
+
+.list-table tr > * { text-align: center;}
+.list-table tr > *:nth-of-type(1) { width: 10%; }
+
+.list-table tr > td:nth-of-type(2){
+  width: 50%;
+  /* text-align: left; */
+  padding-left: 50px;
+  text-decoration: none;
+}
+
+.list-table tr > *:nth-of-type(3){ width: 13%; }
+.list-table tr > *:nth-of-type(4){ width: 10%; }
+.list-table tr > *:nth-of-type(5){ width: 8%; }
+
+.btn-area {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.btn-area > button {
+  margin-right: 50px;
+
+  width: 80px;
+  height: 40px;
+  background-color: white;
+
+  font-weight: bold;
+  color: aqua;
+  border: 2px solid black;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+#insertBtn:hover{
+  background-color: #7b1fa2;
+  opacity: 1;
+}
+
+.pagination{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  margin-right: 296px;
+  margin-bottom: 100px;
+}
+
+.pagination li{
+  
+  margin: 0 5px;
+  text-align: center;
+  
+}
+
+.pagination a{
+  display: block;
+  width: 100%;
+  height: 100%;
+
+}
+
+.current{
+  font-weight: bold;
+  border-radius: 50%;
+  color: rgb(0, 0, 0) !important;
+  letter-spacing: 0 !important;
+  display: inline-block;
+  justify-content: center;
+}
+
+.current-area li {
+  display: flex;
+  list-style-type: none; /* 불필요한 리스트 스타일 제거 */
+}
+
+.current-area a {
+  margin-right: 10px; /* 숫자 간 간격 조절 */
+}

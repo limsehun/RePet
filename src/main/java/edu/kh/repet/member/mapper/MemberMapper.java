@@ -7,13 +7,16 @@ import edu.kh.repet.member.dto.Member;
 @Mapper
 public interface MemberMapper {
 
-	Member login(String email);
+	Member login(String memberEmail);
 
 	int signUp(Member inputMember);
 
-	int emailCheck(String email);
+	int emailCheck(String memberEmail);
 
-	int nicknameCheck(String nickname);
+	int pwCheck(String memberPw);
+	
+	int nicknameCheck(String memberNickname);
+
 
 
 }

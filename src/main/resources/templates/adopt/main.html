@@ -8,14 +8,16 @@
 
   <th:block th:replace="~{common/common}"></th:block>
   <link rel="stylesheet" href="/css/adopt/main.css">
+  <th:block th:replace="~{common/common}"></th:block>
 </head>
 
 <body>
   <session>
      <div class="adopt-header">
       <th:block th:replace="~{common/header}"></th:block>
-    </div>
 
+    </div>
+    <div>
     <main>
       <div>
 
@@ -49,6 +51,7 @@
             </div>
           </div> -->
 
+
         </div>
       
         <!-- 추가 버튼 -->
@@ -56,12 +59,13 @@
           <button id="more-adopt-card" class="plusBtn">더보기</button>
         </div>
 
-      </div>
-      
+      </div>      
       <footer>푸터</footer>
     </main>
+
 
   </session>
   <script src="/js/adopt/main.js"></script>
 </body>
+
 </html>

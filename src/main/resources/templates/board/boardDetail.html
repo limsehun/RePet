@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세화면</title>
+
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <link rel="stylesheet" href="/css/board/boardDetail-style.css">
+    <link rel="stylesheet" href="/css/board/comment.css">
+    
+
+</head>
+<body>
+
+    <main>
+        <th:block th:replace="~{common/header :: nav}"></th:block>
+
+        <section class="board-detail">
+            <h2 class="board-list">자유게시판</h2>
+            <br>
+            <h1 class="board-title">게시글 제목</h1>
+
+            <!-- 프로필 + 닉네임 + 작성일 -->
+             <div class="board-header">
+                <div class="board-writer">
+                    <!-- 프로필 이미지 -->
+                     <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
+                    <img src="/images/logo.jpg">
+
+                    <!-- 프로필 사진이 있을 경우 출력 -->
+                    <!-- <img src="/images/logo.jpg"> -->
+
+                    <div class="nickname-date">
+                        <!-- 작성자 닉네임 -->
+                        <span>샘플 1</span>
+    
+                        <!-- 작성일 -->
+                        <span>2024년 10월 18일 20:18</span>
+    
+                        <!-- 수정한 게시글인 경우 수정일 -->
+                         <span></span>
+                    </div>
+
+                </div>
+
+                <div class="board-header-btn">
+                    <th:block>
+                        <button id="updateBtn">수정</button>
+                        <button id="deleteBtn">삭제</button>
+                    </th:block>
+
+                    <button id="goToListBtn">목록으로</button>
+                </div>
+             </div>
+
+             <th:block>
+                <h5>업로드 이미지</h5>
+
+                <th:block></th:block>
+                <img src="/images/logo.jpg">
+                <img src="/images/logo.jpg">
+             </th:block>
+
+             <div class="board-content">
+- 예를 들어 점 추정 조건 4가지는 ADsP 4지 선다 항목으로 언제든지 나올 수 있기 때문에 
+ "불효일충"으로 암기를 하고 있어야 합니다.
+
+ - 불효일충을 통해 올바르지 않은 항목을 골라내는 것은 너무 쉬운 일입니다.
+                
+                ​
+                
+ 4. 계산 문제 풀이 대비 공부 - 수제비 ADsP 책의 "개념 박살내기"를 통해서 대비하기
+                [출처] 2023 수제비 ADsP 초 단기 합격 방법 (수제비- IT 커뮤니티 (정보처리기사,빅데이터분석기사, ADsP등)) | 
+                작성자 수제비쌤
+            </div>
+
+             <!-- 좋아요 하트 -->
+             <span class="like-area">
+                <i class="fa-regular fa-thumbs-up" id="boardLike"></i>
+
+                <!-- 좋아요 개수 -->
+                <span>0</span>
+             </span>
+
+             <span class="report-area">
+                <i class="fa-regular fa-bell" id="report"></i>
+                <button id="reportBtn">신고하기</button>
+
+             </span>
+
+        </section>
+
+
+        <!-- 댓글 영역 -->
+         <th:block th:replace="~{board/comment}"></th:block>
+
+
+         <!-- 베스트 게시글 -->
+          <div class="best-board-area">
+            <h2 class="best-header-title">추천 게시물</h2>
+
+            <table class="best-board-list">
+                
+                <tbody>
+                  <th:block>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                 </th:block>
+             </tbody>
+
+            </table>
+          </div>
+    
+    
+    
+    
+</main>
+
+
+<!-- JavaScript 파일 연결 -->
+<script src="/js/board/boardDetail.js"></script>
+</body>
+</html>

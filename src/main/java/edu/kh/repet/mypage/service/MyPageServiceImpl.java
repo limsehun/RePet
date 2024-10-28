@@ -56,6 +56,8 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		List<Board> likeList = mapper.selectLikeList(memberNo, rowBounds);
 		
+		Member memberList = mapper.memberList(memberNo);
+		
 		Map<String, Object> map = Map.of("likeList", likeList, "pagination", pagination);
 		
 		return map;

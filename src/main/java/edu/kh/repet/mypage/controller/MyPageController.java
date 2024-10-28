@@ -36,6 +36,9 @@ public class MyPageController {
 		Member member = (Member)map.get("memberList");
 		int likeCount = (int)map.get("likeCount");
 		
+		System.out.println(member);
+		System.out.println(likeCount);
+		
 		model.addAttribute("member", member);
 		model.addAttribute("likeCount", likeCount);
 
@@ -48,7 +51,7 @@ public class MyPageController {
 	@GetMapping("selectLikeList")
 	public Map<String, Object> selectLikeList(
 				@SessionAttribute("loginMember") Member loginMember,
-				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp
+				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
 			) {
 		
 		return service.selectLikeList(loginMember.getMemberNo(), cp);

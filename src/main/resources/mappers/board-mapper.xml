@@ -64,9 +64,38 @@
         FROM BOARD
         WHERE BOARD_NO = #{boardNo} AND BOARD_CODE = #{boardCode} AND BOARD_DEL_FL = 'N'
     </select>
+    
+    <update id="updateReadCount">
+    	UPDATE "BOARD" 
+   		SET READ_COUNT = READ_COUNT + 1
+   		WHERE BOARD_NO = #{boardNo}
+    </update>
 
 
+	<select id="checkBoardLike" resultType="_int">
+		SELECT COUNT(*)
+   		FROM "BOARD_LIKE"
+   		WHERE MEMBER_NO = #{memberNo}
+   		AND   BOARD_NO  = #{boardNo}
+	</select>
+	
+	<insert id="insertBoardLike">
+		INSERT INTO "BOARD_LIKE" 
+   		VALUES(#{memberNo}, #{boardNo})
+	</insert>
 
+	
+	<insert id="deleteBoardLike">
+		DELETE FROM "BOARD_LIKE"
+   		WHERE MEMBER_NO = #{memberNo}
+   		AND   BOARD_NO  = #{boardNo}
+	</insert>
+	
+	<select id="getLikeCount" resultType="_int">
+		SELECT COUNT(*)
+   		FROM "BOARD_LIKE"
+   		WHERE BOARD_NO = #{boardNo}
+	</select>
 
 
 

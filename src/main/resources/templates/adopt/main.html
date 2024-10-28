@@ -5,20 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>입양 페이지</title>
 
-
-  <th:block th:replace="~{common/common}"></th:block>
   <link rel="stylesheet" href="/css/adopt/main.css">
   <th:block th:replace="~{common/common}"></th:block>
 </head>
 
 <body>
-  <session>
-     <div class="adopt-header">
-      <th:block th:replace="~{common/header}"></th:block>
-
-    </div>
-    <div>
-    <main>
+  <header class="adopt-header">
+    <th:block th:replace="~{common/header}"></th:block>
+  </header>
+  
+  <main>
+    <session>
+   
       <div>
 
         <!-- 검색창 -->
@@ -50,21 +48,20 @@
               </p>
             </div>
           </div> -->
-
-
         </div>
-      
+        
         <!-- 추가 버튼 -->
         <div class="more-list">
           <button id="more-adopt-card" class="plusBtn">더보기</button>
         </div>
-
-      </div>      
-      <footer>푸터</footer>
+        
+      </session>
     </main>
+         
+  <footer class="adopt-footer">
+   <th:block th:replace="~{common/footer}"></th:block>
+  </footer>
 
-
-  </session>
   <th:block th:replace= "~{adopt/detailModal}"></th:block>
   <script src="/js/adopt/main.js"></script>
 </body>

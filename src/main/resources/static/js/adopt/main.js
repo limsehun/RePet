@@ -36,7 +36,7 @@ const selectAdoptList = (page, upkind) => {
               나이: ${adopt.age}
             </p>
             <ul class="hidden">
-              <li>${adopt.neuterYn}</li>
+              <li class="yn">${adopt.neuterYn}</li>
               <li>${adopt.careNm}</li>
               <li>${adopt.careTel}</li>
               <li>${adopt.careAddr}</li>
@@ -130,18 +130,19 @@ const addEventModal = () => {
       <span class="close-btn">×</span>
       <div class="popup-header">
       ${adoptInfo.kindCd} | ${adoptInfo.age? adoptInfo.age:"정보없음"} <br>
-      ${adoptInfo.sexCd} | ${adoptInfo.neuterYn? adoptInfo.neuterYn:"여부없음"}
+      ${adoptInfo.sexCd} | 중성화 여부: ${adoptInfo.neuterYn? adoptInfo.neuterYn:"여부없음"}
+      <p>( Y : 완료 , N : 미완료, U : 미상 )</p>
       </div>
       <img class="open-api-img" src="${adoptInfo.popfile}" />
       <div class="info-list">
-      <div class="info-item" class="careNm">보호소: ${adoptInfo.careNm}</div>
-      <div class="info-item" class="careTel">보호소 TEL: ${adoptInfo.careTel}</div>
-      <div class="info-item" class="careAddr">보호소 주소: ${adoptInfo.careAddr}</div>
-      <div class="info-title">상태</div>
-      <div class="info-item" class="noticeNo">공고번호: ${adoptInfo.noticeNo}</div>
-      <div class="info-item" class="vnoticeDt">공고기간: ${adoptInfo.noticeSdt} ~ ${adoptInfo.noticeEdt}</div>
-      <div class="info-item" class="happenPlace">발견장소: ${adoptInfo.happenPlace}</div>
-      <div class="info-item" class="specialMark">특징: ${adoptInfo.specialMark}</div>
+        <div class="info-item careNm">보호소: <strong>${adoptInfo.careNm}</strong></div>
+        <div class="info-item careTel">보호소 TEL: <strong>${adoptInfo.careTel}</strong></div>
+        <div class="info-item careAddr">보호소 주소: <strong>${adoptInfo.careAddr}</strong></div>
+        <div class="info-title">상태</div>
+        <div class="info-item noticeNo">공고번호: <strong>${adoptInfo.noticeNo}</strong></div>
+        <div class="info-item vnoticeDt">공고기간: <strong>${adoptInfo.noticeSdt} ~ ${adoptInfo.noticeEdt}</strong></div>
+        <div class="info-item happenPlace">발견장소: <strong>${adoptInfo.happenPlace}</strong></div>
+        <div class="info-item specialMark">특징: <strong>${adoptInfo.specialMark}</strong></div>
       </div>
       `;
       

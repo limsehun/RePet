@@ -27,7 +27,7 @@
                 <div class="board-writer">
                     <!-- 프로필 이미지 -->
                      <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
-                    <img src="/images/user.png">
+                    <img src="/images/logo.jpg">
 
                     <!-- 프로필 사진이 있을 경우 출력 -->
                     <!-- <img src="/images/logo.jpg"> -->
@@ -38,7 +38,7 @@
     
                         <!-- 작성일 -->
                        <p> 
-                        <span></span>
+                        <span>2024년 10월 18일 20:18</span>
                         <th:block th:text="*{boardWriteDate}"></th:block>
                       </p>
     
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="board-header-btn">
-                    <th:block th:if= "${session.loginMember?.memberNo} == ${board.memberNo}">
+                    <th:block>
                         <button id="updateBtn">수정</button>
                         <button id="deleteBtn">삭제</button>
                     </th:block>
@@ -59,28 +59,28 @@
              </div>
 
              <th:block>
-                <!-- <h5>업로드 이미지</h5> -->
+                <h5>업로드 이미지</h5>
 
                 <th:block></th:block>
-                
+                <img src="/images/logo.jpg">
+                <img src="/images/logo.jpg">
              </th:block>
 
-             <div class="board-content" th:utext="*{boardContent}">
+             <div class="board-content" th:text="*{boardContent}">
               게시글 내용
             </div>
 
-             <!-- 좋아요 -->
+             <!-- 좋아요 하트 -->
              <span class="like-area">
-                <i class="fa-regular fa-thumbs-up" id="boardLike" 
-                th:classappend="*{likeCheck == 1} ? 'fa-solid' : 'fa-regular'" ></i>
+                <i class="fa-regular fa-thumbs-up" id="boardLike"></i>
 
                 <!-- 좋아요 개수 -->
-                <span th:text="*{likeCount}">0</span>
+                <span>0</span>
              </span>
 
              <span class="report-area">
-                <i class="fa-regular fa-bell" id="reportBtn" style="color: red;"></i>
-                <!-- <button id="reportBtn">신고하기</button> -->
+                <i class="fa-regular fa-bell" id="report"></i>
+                <button id="reportBtn">신고하기</button>
 
              </span>
 
@@ -97,22 +97,22 @@
 
             <table class="best-board-list">
                 
-                <tbody th:each= "i : ${boardList}">
-                  <th:block th:object="${board}">
+                <tbody>
+                  <th:block>
                         <tr>
                            <td>
                              <!-- 제목 -->
-                            <a href="#" th:text="${boardTitle}">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
             
                             <!-- 댓글수 -->
-                             <th:block th:text="|[*{commentCount}]|">[0]</th:block>
+                             <th:block>[0]</th:block>
                            </td>
                             
                             <!-- 작성지 -->
-                             <td th:text="${memberNickname}">닉네임</td>
+                             <td>닉네임</td>
             
                             <!-- 작성일 -->
-                            <td th:text="${boardWriteDate}">2024.10.18</td>
+                            <td>2024.10.18</td>
                         </tr>
                  </th:block>
              </tbody>
@@ -124,22 +124,6 @@
     
     
 </main>
-
-<script th:inline="javascript">
-  // th:inline="javascript"
-  // - Java 데이터 -> JS 자료형을 자동 변환
-
-  // 로그인 되어 있으면 true, 아니면 false
-  const loginCheck =/*[[${session.loginMember != null}]]*/ false;
-
-  // 로그인한 회원의 닉네임
-  const memberNickname
-      =/*[[${session.loginMember?.memberNickname}]]*/ null;
-
-
-  // 상세 조회한 게시글 정보
-  const boardDetail = /*[[${board}]]*/ null;
-</script>
 
 
 <!-- JavaScript 파일 연결 -->

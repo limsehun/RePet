@@ -15,43 +15,8 @@ $(document).ready(function() {
       ['height', ['height']],
       ['insert', ['picture']]
     ],
-    callbacks: {
-      onImageUpload: function(files) {
-        
-          uploadImage(files[0]);
-        
-      }
-    }
+  
   });
-
-
-  // 이미지 업로드 함수
-  function uploadImage(file) {
-    let formData = new FormData();
-    formData.append("file", file);
-    // formData.append("boardNo", board.boardNo);
-
-    $.ajax({
-      url: '/editBoard/uploadImage',
-      type: 'POST',
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function(data) {
-        console.log(data);
-        $('#summernote').summernote('insertImage', data);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log("Image upload failed.");
-        console.log("Status Code:", jqXHR.status);
-        console.log("Response Text:", jqXHR.responseText);
-        console.log("Error Type:", textStatus);
-        console.log("Error Thrown:", errorThrown);
-      }
-    });
-  }
-
-
 
   // 게시글 등록 버튼 클릭 시 이벤트
   $('#writeBtn').on('click', function() {

@@ -8,14 +8,12 @@
   <th:block th:replace= "~{common/common}"></th:block>
 
   <link rel="stylesheet" href="/css/board/boardList.css">
-  
+  <th:block th:replace= "~{common/header}"></th:block>
   
 
 </head>
 <body>
   <main>
-
-    <th:block th:replace= "~{common/header}"></th:block>
 
     <section class="board-list">
 
@@ -133,7 +131,7 @@
                 </ul>
               </div>
               
-              <button id="insertBtn" th:if= "${session.loginMember}">글쓰기</button>
+              <button id="insertBtn">글쓰기</button>
             </div>
                 
           </section>

@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.BoardImg;
 import edu.kh.repet.board.mapper.EditBoardMapper;
-import edu.kh.repet.common.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 
 @PropertySource("classpath:/config.properties")
@@ -34,43 +33,9 @@ public class EditBoardServiceImpl implements EditBoardService {
 
 	@Override
 	public int savePost(Board board) {
-		
-		int result = mapper.insertPost(board);
-		
-		 
-       
-		
-		return result;
+		return mapper.insertPost(board);
 	}
 	
-	@Override
-	public String uploadImage(MultipartFile file) {
-		
-		String rename = FileUtil.rename(file.getOriginalFilename());
-		BoardImg boardImg = BoardImg.builder()
-												.imgPath(webPath)
-												.imgRename(rename)
-												.build();
-		int result = mapper.uploadImage(boardImg);
-		
-		if(result == 0) throw new RuntimeException("이미지 업로드 실패");
-		
-		try {
-			
-			file.transferTo(new File(folderPath + rename));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("이미지 업로드 실패");
-		}
-		
-		
-		return webPath + rename ;
-	}
-	
-	
-		
-		
 	
 
 

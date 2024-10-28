@@ -27,7 +27,7 @@
       </div>
       <form id="postForm">
         <input id="subject" name="boardTitle" placeholder="제목을 입력" maxlength="30" style="width: 1000px;" required>
-        <textarea name="boardContent" id="summernote" th:utext="${boardContent}"></textarea>
+        <textarea name="boardContent" id="summernote"></textarea>
 
 
         
@@ -37,10 +37,6 @@
   
     
   </main>
-
-  <script th:inline="javascript">
-    const board = /*[[${board}]]*/ "보드 객체";
-  </script> 
 
   <script src="/js/board/boardWrite.js"></script>
 </body>

@@ -102,35 +102,9 @@ const likeList = document.querySelector("#likeList");
 
 
 const selectLikeList = (cp) => {
-<<<<<<< HEAD
-  
-  const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
-  
-  let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}`;
-
-  if(cp !== undefined){
-    requestUrl += `&cp=${cp}`;
-  }
-
-  fetch(requestUrl)
-  .then(response => {
-    if(response.ok) return response.json();
-    throw new Error("조회 오류");
-  })
-  .then(map => {
-    
-    const member = map.memberList;
-    const list = map.likeList;
-    const pagination = map.pagination;
-
-    console.log(list);
-    console.log(pagination);
-    console.log(member);
-=======
   const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
 
   let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}&cp=${cp}`; // cp 값 추가
->>>>>>> 7737798484ae252559070964fcb1b9b55b4dd3e1
 
   fetch(requestUrl)
     .then(response => {
@@ -141,18 +115,8 @@ const selectLikeList = (cp) => {
       const list = map.likeList;
       const pagination = map.pagination;
 
-<<<<<<< HEAD
-    document.querySelectorAll(".like-item").forEach( item => item.remove() );
-    
-    
-    list.forEach(board => {
-      // like-item div 생성
-      const likeItemDiv = document.createElement("div");
-      likeItemDiv.className = "like-item"; // 클래스명 추가
-=======
       console.log(list);
       console.log(pagination);
->>>>>>> 7737798484ae252559070964fcb1b9b55b4dd3e1
 
       renderPagination(pagination);  // 페이지네이션 렌더링 호출
 

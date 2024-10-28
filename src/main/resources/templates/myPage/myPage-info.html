@@ -30,7 +30,7 @@
         <h2>내 정보</h2>
         <div class="profile-details">
           <div class="profile-text">
-            <img src="profile-image.jpg" class="profile-img">
+              <img id="profile-img" th:src="${session.loginMember.profileImg != null ? session.loginMember.profileImg : '/images/user.png'}" >
             <div style="font-size: 20px;">
               <h3>RePet에 오신것을 환영합니다!</h3>
               <span><strong>아이디</strong>&nbsp;&nbsp;&nbsp;<span th:text="${member.memberEmail}">hx122</span></span>
@@ -61,15 +61,15 @@
       <!-- 페이지 네이션 -->
       <div class="pagination-box">
         <!-- <a href="#" class="page-btn first-page" data-page="1">&lt;&lt;</a>
-        <a href="#" class="page-btn prev-page" data-page="1">&lt;</a>
+        <a href="#" class="page-btn prev-page" data-page="1">&lt;</a> -->
       
         <a href="#" class="page-btn" data-page="1">1</a>
-        <a href="#" class="page-btn" data-page="2">2</a>
+        <!-- <a href="#" class="page-btn" data-page="2">2</a>
         <a href="#" class="page-btn" data-page="3">3</a>
         <a href="#" class="page-btn" data-page="4">4</a>
-        <a href="#" class="page-btn" data-page="5">5</a>
+        <a href="#" class="page-btn" data-page="5">5</a> -->
       
-        <a href="#" class="page-btn next-page" data-page="2">&gt;</a>
+        <!-- <a href="#" class="page-btn next-page" data-page="2">&gt;</a>
         <a href="#" class="page-btn last-page" data-page="5">&gt;&gt;</a> -->
       </div>
 
@@ -86,5 +86,14 @@
   </main>
 
   <script src="/js/myPage/myPage.js"></script>
+
+
+  <script th:inline="javascript">
+		const message = /*[[${message}]]*/ null;
+    
+    if (message) {
+        alert(message);  // 또는 커스텀 알림 스타일로 표시
+    }
+	</script>
 </body>
 </html>

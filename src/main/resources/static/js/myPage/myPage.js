@@ -1,47 +1,6 @@
-  /* 회원정보 수정 모달 창 */
-  const modifyModal = document.querySelector("#modifyModal");
-
-  const modifyMenu = document.querySelector("#modifyMenu");
-
-  const modifyBtn = document.querySelector('#modifyBtn');
-  const modifyCancelBtn = document.querySelector('#modifyCancelBtn');
 
 
-  // 모달창 열기
-  modifyMenu.addEventListener("click", () => {
-    
-    modifyModal.style.display = "flex";
-  });
-
-
-  modifyCancelBtn.addEventListener("click",() => {
-
-    modifyModal.style.display = "none";
-  });
-
-
-/* 회원탈퇴 모달 창 */
-const deleteModal = document.querySelector("#deleteModal");
-
-const deleteMenu = document.querySelector("#deleteMenu");
-
-const deleteBtn = document.querySelector('#deleteBtn');
-const deleteCancelBtn = document.querySelector('#deleteCancelBtn');
-
-
-deleteMenu.addEventListener("click", (e) => {
-    
-  deleteModal.style.display = "flex";
-});
-
-
-deleteCancelBtn.addEventListener("click",() => {
-
-  deleteModal.style.display = "none";
-  
-});
-
-
+/* ------------------------------ myPage-info JS  ------------------------------ */
 /* 페이지 네이션 함수 */
 const renderPagination = (pagination) => {
   
@@ -112,6 +71,7 @@ const selectLikeList = (cp) => {
       throw new Error("조회 오류");
     })
     .then(map => {
+
       const list = map.likeList;
       const pagination = map.pagination;
 
@@ -132,6 +92,15 @@ const selectLikeList = (cp) => {
         titleDiv.className = "like-item-title";
         titleDiv.innerText = board.boardContent;
 
+
+        console.log(board.boardNo);
+
+
+      likeItemDiv.addEventListener("click", () => {
+        // 게시물 상세 페이지로 이동
+        location.href = `/board/2/${board.boardNo}`;
+      });
+
         const subDiv = document.createElement("div");
         subDiv.className = "like-item-sub";
         subDiv.innerText = `(${board.boardTitle})`;
@@ -144,6 +113,58 @@ const selectLikeList = (cp) => {
     })
     .catch(err => console.error(err));
 };
+
+/* ------------------------------ myPage-info JS  ------------------------------ */
+
+
+/* ------------------------------ myPage-modify JS  ------------------------------ */
+
+/* 회원정보 수정 모달 창 */
+const modifyModal = document.querySelector("#modifyModal");
+
+const modifyMenu = document.querySelector("#modifyMenu");
+
+const modifyBtn = document.querySelector('#modifyBtn');
+const modifyCancelBtn = document.querySelector('#modifyCancelBtn');
+
+
+// 모달창 열기
+modifyMenu.addEventListener("click", () => {
+  
+  modifyModal.style.display = "flex";
+});
+
+
+modifyCancelBtn.addEventListener("click",() => {
+
+  modifyModal.style.display = "none";
+});
+
+
+
+/* ------------------------------ myPage-delete JS  ------------------------------ */
+/* 회원탈퇴 모달 창 */
+const deleteModal = document.querySelector("#deleteModal");
+
+const deleteMenu = document.querySelector("#deleteMenu");
+
+const deleteBtn = document.querySelector('#deleteBtn');
+const deleteCancelBtn = document.querySelector('#deleteCancelBtn');
+
+
+deleteMenu.addEventListener("click", (e) => {
+    
+  deleteModal.style.display = "flex";
+});
+
+
+deleteCancelBtn.addEventListener("click",() => {
+
+  deleteModal.style.display = "none";
+});
+
+
+
 
 
 // 초기 데이터 로딩

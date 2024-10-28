@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.kh.repet.board.dto.Board;
@@ -16,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
+	
+	private final BCryptPasswordEncoder encoder;
 	
 	private final MyPageMapper mapper;
 	
@@ -54,13 +57,31 @@ public class MyPageServiceImpl implements MyPageService {
 		// RowBounds는 MyBatis가 SQL 쿼리를 실행할 때 자동으로 OFFSET과 LIMIT을 적용
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
-		List<Board> likeList = mapper.selectLikeList(memberNo, rowBounds);
+		int boardCode = 2;
 		
-		Member memberList = mapper.memberList(memberNo);
+		List<Board> likeList = mapper.selectLikeList(memberNo, rowBounds, boardCode);
+		
 		
 		Map<String, Object> map = Map.of("likeList", likeList, "pagination", pagination);
 		
 		return map;
+	}
+	
+	
+	@Override
+	public int updateMemberInfo(String memberPw, Member loginMember, String newPw, String memberNickname) {
+		
+		// 비밀번호가 일치하지 않으면
+		if(!encoder.matches(memberPw, loginMember.getMemberPw())) {
+			return 0;
+		}
+		
+		// 2) 새 비밀번호 암호화
+		String encPw = encoder.encode(newPw);
+		
+		loginMember.setMemberPw(encPw); // 세션에 저장된 회원 정보 중 PW 변경
+		
+		return mapper.updateMemberInfo(loginMember.getMemberNo(), encPw, memberNickname);
 	}
 
 }

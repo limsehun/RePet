@@ -11,10 +11,18 @@
     INSERT INTO BOARD (
         BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE
     ) VALUES (
-        #{boardNo}, #{boardTitle}, #{boardContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 2, 2
+        #{boardNo}, #{boardTitle}, #{boardContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{boardNo}, 2
     )
 </insert>
-   
+
+
+<insert id="uploadImage">
+	INSERT INTO "BOARD_IMG"
+	VALUES(SEQ_IMG_NO.NEXTVAL, #{imgPath}, #{imgRename}, NULL )
+	
+</insert>
+
+	
 
 	
 

@@ -16,7 +16,7 @@
     } */
 
 
-    .findPwModal-bg {
+    .petModal-bg {
       width: 100vw;
       height: 100vh;
       position: fixed;
@@ -25,7 +25,7 @@
       z-index: 100;
     }
 
-    #searchPw-popup {
+    #pet-popup {
       background-color: white;
       border: 1px solid #ccc;
       border-radius: 30px;
@@ -60,7 +60,7 @@
     }
 
 
-        
+
     #close4 {
       display: flex;
       cursor: pointer;
@@ -70,70 +70,38 @@
       right: 20px;
     }
 
-    .searchPw-group {
-      margin-bottom: 20px;
-      position: relative;
+
+    #pet-img{
+      width: 200px;
+      height: 200px;
+      display: flex;
     }
 
-   
-    .refind-email {
-      width: calc(100% - 90px);
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      outline: none;
-      box-sizing: border-box;
-      margin: 0 20px 0 20px;
+    #pet-detail{
+      width: 200px;
+      height: 200px;
+      display: flex;
     }
-
-    .underline {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 70%;
-      height: 2px;
-      background-color: #ccc;
-      opacity: 0.5;
-      margin: 0 10px 0 20px;
-    }
-
-    #refind-email {
-      width: 80%;
-      padding: 10px;
-
-      border: none;
-      border-bottom: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-      margin: 50px 0 50px 20px;
-      background-color: transparent;
-
-    }
-    .refind-link{
-      margin-left: 5px;
-      background-color: #007BFF;
-    }
-
   </style>
 </head>
 
 <body>
-  <div class="findPwModal-bg popup-hidden">
-    <div id="searchPw-popup">
+  <div class="petModal-bg popup-hidden">
+    <div id="pet-popup">
       <h2>비밀번호 찾기</h2>
       <span id="close4">&times</span>
 
-      <div class="sendForm">
-  
-        <div class="searchPw-group">
-          <input type="text" name="memberEmail" id="refind-email" placeholder="이메일 입력" required>
-        </div>
-        <button class="refind-link">재설정 링크 발송</button>
+      <div id="pet-img">
+        <img src="" alt="">
+      </div>
+      <div id="pet-detail">
+        <h2>강아지 2</h2>
+        <p>성별: 수컷</p>
       </div>
 
-      </div>
-  
     </div>
+
+  </div>
 
 </body>
 

@@ -1,60 +1,68 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>입양 페이지</title>
-
 
   <link rel="stylesheet" href="/css/adopt/main.css">
   <th:block th:replace="~{common/common}"></th:block>
 </head>
 
 <body>
+  <header class="adopt-header">
+    <th:block th:replace="~{common/header}"></th:block>
+  </header>
+  
   <main>
-    <div style="width: 100%; height: 120px;">
-      <th:block th:replace="~{common/header}"></th:block>
-
-    </div>
-    <div>
-
+    <session>
+   
       <div>
-        <div>RePet 아이들</div>
-        <div class="selectArea">
-          <button class="dog">강아지</button>
-          <button class="cat">고양이</button>
-          <button class="others">기타</button>
+
+        <!-- 검색창 -->
+        <div>
+          <div><strong>RePet 아이들</strong></div>
+          <div class="category-menu">
+            <button class="dog">강아지</button>
+            <button class="cat">고양이</button>
+            <button class="others">기타</button>
+          </div>     
         </div>
 
-      </div>
+        <!-- 아이들 간단 조회 -->
+        <div id="pet-list" class="adopt-list" >
 
-      <div class="adoptList">
-        <div class="box" th:each="adopt : ${adoptList}">
-          <div class="popfile">
-            <img th:src="${adopt.popfile != null? adopt.popfile : '/images/default.png'}" />
-          </div>
-          <div class="content">
-            <div class="condition" th:text="${adopt.processState}"></div>
-            <p>
-              <thblock th:text="${adopt.kindCd}"></thblock>/<thblock th:text="${adopt.sexCd}"></thblock>
-            </p>
-            <p>
-              나이: <thblock th:text="${adopt.age}"></thblock>
-            </p>
-          </div>
+          <!-- <div class="pet-card" id="adopt-card" th:each="adopt : ${adoptList}">
+            <div class="pet-image">
+              <img class="open-api-img" th:src="${adopt.popfile != null? adopt.popfile : '/images/default.png'}"/>
+            </div>
+            <div class="content">
+              <div class="condition" th:text="${adopt.processState}"></div>
+              <p>
+                <strong>
+                  <thblock th:text="${adopt.kindCd}"></thblock> / <thblock th:text="${adopt.sexCd}"></thblock>
+                </strong>
+              </p>
+              <p>
+                나이: <thblock th:text="${adopt.age}"></thblock>
+              </p>
+            </div>
+          </div> -->
         </div>
-      </div>
+        
+        <!-- 추가 버튼 -->
+        <div class="more-list">
+          <button id="more-adopt-card" class="plusBtn">더보기</button>
+        </div>
+        
+      </session>
+    </main>
+         
+  <footer class="adopt-footer">
+   <th:block th:replace="~{common/footer}"></th:block>
+  </footer>
 
-      <div class="pagination-area" thth:unless="${lists.isEmpty(adoptList)}">
-        <button class="plusBtn">더보기</button>
-      </div>
-    </div>
-
-    <footer>푸터</footer>
-  </main>
-
+  <th:block th:replace= "~{adopt/detailModal}"></th:block>
   <script src="/js/adopt/main.js"></script>
 </body>
 

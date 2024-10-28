@@ -3,6 +3,7 @@ package edu.kh.repet.mypage.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.member.dto.Member;
@@ -17,7 +18,7 @@ public interface MyPageMapper {
 
 
 	// 좋아요 한 게시물 리스트
-	List<Board> selectLikeList(int memberNo);
+	List<Board> selectLikeList(int memberNo, RowBounds rowBounds);
 
 
 	// 좋아요 한 게시물 수

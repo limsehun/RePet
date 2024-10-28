@@ -1,98 +1,158 @@
-* {
+/* 기본 스타일 초기화 */
+*{
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
-}
-
-body, html {
-  height: 100%;
   margin: 0;
-  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.adopt-header{
+  width: 100%; 
+  height: 70px;
 }
 
 
-div {
-  padding: 10px;
-  background-color: rgb(156, 156, 252);
-  border: 1px solid black;
+/* Main container styling */
+main {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 35px;
 }
 
-.adoptList {
-  padding: 3.5rem 3rem;
-  position: relative;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr; /* 기본적으로 4열 그리드 */
-  gap: 3.5rem 3rem;
+/* RePet title and category menu */
+.category-menu {
+  margin: 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #fc864f;
 }
 
-/* 화면이 작을 때 (태블릿 크기) */
-@media (max-width: 1200px) {
-  .adoptList {
-    grid-template-columns: 1fr 1fr; /* 2열로 변경 */
-  }
+.category-menu button {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 20px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
 }
 
-/* 화면이 더 작을 때 (모바일 크기) */
-@media (max-width: 768px) {
-  .adoptList {
-    grid-template-columns: 1fr 1fr; /* 2열로 변경 */
-  }
-}
-
-/* 화면이 매우 작을 때 (소형 모바일) */
-@media (max-width: 480px) {
-  .adoptList {
-    grid-template-columns: 1fr; /* 1열로 변경 */
-  }
-}
-
-.box > div {
-  background-color: rgb(210, 230, 141);
-}
-
-.pagination-area {
-  display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center;     /* 수직 중앙 정렬 */
-}
-
-.box {
-  position: relative;
-  margin: 0px auto;
+.category-menu button:hover {
+  color: #333;
+  background-color: #fcab7993;
   border-radius: 10px;
-  display: grid;              /* grid 레이아웃 적용 */
-  grid-template-rows: 1fr 1fr;    /* 두 개의 행으로 균등하게 배치 */
+}
+
+/* Pet grid layout */
+.adopt-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.pet-card{
+  display: none;
+}
+
+/* Individual pet card styling */
+.pet-card.active {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.pet-card:hover {
+  transform: translateY(-10px);
+}
+
+.pet-image {
+  border-radius: 8px;
+  width: 100%;
+  aspect-ratio: 1; /* Makes the image container square */
+  overflow: hidden;
+}
+
+.pet-image img {
   width: 100%;
   height: 100%;
-}
-
-.box>div{ border-radius: 12px;}
-
-.popfile {
-  padding: 0px;
-  width: 100%;  /* 가로를 전체로 채우기 */
-  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 .content {
-  height: auto;
-  width: 100%;
-}
-
-img{
-  border-radius: 12px;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  aspect-ratio: 1.5 / 1; /* .popfile과 동일한 비율 설정 */
-}
-
-.content>p{
-  display: flex;
+   padding: 12px;
 }
 
 .condition {
-  width: fit-content;
-  padding: 0.25rem 1rem
+  display: block;
+  border-radius: 5px;
+  width: 80px;
+  text-align: center;
+  background-color: #F5E6CC;
+  font-size: 14px;
+  
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.content p {
+  font-size: 13px;
+  color: #333;
+  margin: 4px 0;
+}
+
+/* Pagination area styling */
+.more-list {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #fc864f;
+  padding: 40px 0;
+}
+
+.plusBtn {
+  padding: 8px 24px;
+  background-color: #F5E6CC;
+  border: none;
+  border-radius: 20px;
+  color: #666;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.plusBtn:hover {
+  background-color: #fcab79;
+}
+
+/* Footer styling */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  width: 100%;   
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .adopt-list {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .adopt-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .adopt-list {
+    grid-template-columns: 1fr;
+  }
+    
+  .category-menu button {
+    padding: 6px 12px;
+    margin-right: 10px;
+  }
 }

@@ -1,5 +1,7 @@
 package edu.kh.repet.board.controller;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,13 +11,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.Pagination;
 import edu.kh.repet.board.service.BoardService;
+import edu.kh.repet.member.dto.Member;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -67,16 +74,27 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
+	// 게시글 상세조회
 	@GetMapping("{boardCode:[0-9]+}/{boardNo:[0-9]+}")
 	public String boardDetail(
 	        @PathVariable("boardCode") int boardCode,
 	        @PathVariable("boardNo") int boardNo,
 	        Model model,
+	        @SessionAttribute(value = "loginMember", required = false) Member loginMember,
 	        RedirectAttributes ra,
 	        HttpServletRequest req,
 	        HttpServletResponse resp) {
+		
+		
+		
 
-	    Map<String, Integer> map = Map.of("boardCode", boardCode, "boardNo", boardNo); 
+	    Map<String, Integer> map = new HashMap<>();
+	    map.put("boardCode", boardCode);
+	    map.put("boardNo", boardNo);
+	    
+	    if(loginMember != null) {
+	    	map.put("memberNo", loginMember.getMemberNo());
+	    }
 
 	    Board board = service.boardDetail(map);
 
@@ -85,11 +103,73 @@ public class BoardController {
 	        ra.addFlashAttribute("message", "게시글이 존재하지 않습니다");
 	        return "redirect:/board/" + 2;
 	    }
+	    
+	    /* -------------------- 조회 수 증가 --------------------- */
+	    if(loginMember == null || loginMember.getMemberNo() != board.getMemberNo()) {
+	    	
+	    	// 쿠키 얻어오기
+	    	Cookie[] cookies = req.getCookies();
+	    	Cookie viewCookie = null;
+	    	
+	    	if(cookies != null ) {
+	    		for(Cookie cookie : cookies) {
+	    			if(cookie.getName().equals("readBoardNo")) {
+	    				viewCookie = cookie;
+	    				break;
+	    			}
+	    		}
+	    	}
+	    	
+	    	int result = 0;
+	    	
+	    	// 쿠키가 없으면 새로 생성하고 조회수 증가
+	    	if(viewCookie == null ) {
+	    		viewCookie = new Cookie("readBoardNo", "[" + boardNo + "]");
+	    		result = service.updateReadCount(boardNo);
+	    		
+	    	} else if (!viewCookie.getValue().contains("[" + boardNo + "]")) {
+	    		result = service.updateReadCount(boardNo);
+	    	}
+	    	
+	    	// 조회수가 증가한 경우 쿠키 설정 및 응답에 추가
+	    	if(result > 0) {
+	    		board.setReadCount(board.getReadCount() + 1);
+	    		viewCookie.setPath("/");
+	    		
+	    		// 다음날 자정까지 남은 시간 계산
+	    		LocalDateTime now = LocalDateTime.now();
+	    		LocalDateTime tomorrowMidnight = now.plusDays(1).truncatedTo(ChronoUnit.DAYS);
+	    		long secondsUntilMidnight = ChronoUnit.SECONDS.between(now, tomorrowMidnight);
+	    		
+	    		viewCookie.setMaxAge((int) secondsUntilMidnight);
+	    		resp.addCookie(viewCookie);
+	    		
+	    	}
+	    	
+	    }
 
 	    // 조회된 게시글 정보를 모델에 추가하여 View로 전달
 	    model.addAttribute("board", board);
+	    
+	    
 
 	    return "board/boardDetail"; // 게시글 상세 페이지로 이동
+	}
+	
+	/** 좋아요 체크 or 해제
+	 * @param boardNo
+	 * @return map (check, clear / 좋아요 개수)
+	 */
+	@ResponseBody
+	@PostMapping("like")
+	public Map<String, Object> boardLike(
+			@RequestBody int boardNo,
+			@SessionAttribute("loginMember") Member loginMember
+			) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		return service.boardLike(boardNo, memberNo);
 	}
 
 
@@ -97,6 +177,12 @@ public class BoardController {
 
 
 
+	
+	
+	@GetMapping("reportPopup")
+	public String reportPopup() {
+		return "/board/reportPopup";
+	}
 
 
 

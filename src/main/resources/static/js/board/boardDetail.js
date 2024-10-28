@@ -9,3 +9,60 @@ reportBtn.addEventListener('click', function() {
         'width=500,height=600' // 창 크기 및 옵션
     );
 });
+
+const boardNo = location.pathname.split("/")[3];
+
+
+// 좋아요 버튼 클릭
+const boardLike = document.querySelector("#boardLike");
+boardLike.addEventListener("click", e => {
+
+    // 로그인 여부
+    if(loginCheck === false) {
+        alert("로그인 후 이용해주세요");
+        return;
+    }
+
+    // 비동기로 좋아요 요청
+    fetch("/board/like", {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: boardNo
+    })
+    .then(response => {
+        if(response.ok) return response.json();
+        throw new Error("좋아요 실패");
+    })
+    .then(result => {
+        console.log("result : ", result);
+        
+        if(result === 'insert') {
+            boardLike.classList.add("fa-heart fa-solid");
+            boardLike.classList.remove("fa-heart fa-regular");
+        
+        } else {
+            boardLike.classList.add("fa-regular");
+            boardLike.classList.remove("fa-solid");
+        }
+
+        boardLike.nextElementSibling.innerText = result.count;
+    })
+    .catch(err => console.error(err));
+})
+
+// 삭제 버튼 클릭 시
+const deleteBtn = document.querySelector("#deleteBtn");
+
+deleteBtn?.addEventListener("click", () => {
+
+    if(confirm("정말 삭제 하시겠습니까?") == false ){
+        return;
+    } 
+
+    console.url = "/editBoard/delete";
+
+    const form = document.createElement("form");
+    form.action = url;
+    form.method = "POST";
+
+})

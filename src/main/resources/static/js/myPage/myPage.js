@@ -134,7 +134,68 @@ modifyMenu.addEventListener("click", () => {
   modifyModal.style.display = "flex";
 });
 
-// 모달창 닫기
+const modifyInfo = document.querySelector("#modifyForm");
+
+modifyInfo?.addEventListener("submit", e => {
+
+    // 입력 요소 모두 얻어오기
+    const memberPw = document.querySelector("#memberPw");
+    const newPw = document.querySelector("#newPw");
+    const confirmPw = document.querySelector("#confirmPw");
+    const newNickname = document.querySelector("#newNickname");
+    
+  console.log(memberPw);
+  console.log(newPw);
+  console.log(confirmPw);
+  console.log(newNickname);
+
+  let str;
+  
+  // 빈 입력 필드를 순서대로 확인
+  if (memberPw.value.trim().length == 0) {
+    str = "기존 비밀번호를 입력해 주세요";
+
+} else if (newPw.value.trim().length == 0) {
+    str = "새 비밀번호를 입력해 주세요";
+
+} else if (confirmPw.value.trim().length == 0) {
+    str = "새 비밀번호 확인을 입력해 주세요";
+
+} else if (newNickname.value.trim().length == 0) {
+    str = "새 닉네임을 입력해 주세요";
+}
+
+if (str !== undefined) { // 입력되지 않은 값이 존재
+    alert(str);
+    e.preventDefault(); // form 제출 막기
+    return; // submit 이벤트 핸들러 종료
+}
+
+const lengthCheck = newPw.value.length >= 6 && newPw.value.length <= 20;
+const letterCheck = /[a-zA-Z]/.test(newPw.value); // 영어 알파벳 포함
+const numberCheck = /\d/.test(newPw.value); // 숫자 포함
+const specialCharCheck = /[\!\@\#\_\-]/.test(newPw.value); // 특수문자 포함
+
+
+if ( !(lengthCheck && letterCheck && numberCheck && specialCharCheck) ) {
+  alert("영어,숫자,특수문자 1글자 이상, 6~20자 사이로 입력해주세요")
+  e.preventDefault();
+  return;
+}
+
+
+// 3. 새 비밀번호, 새 비밀번호 확인이 같은지 체크
+if(newPw.value !== newPwConfirm.value){
+  alert("새 비밀번호가 일치하지 않습니다");
+  e.preventDefault();
+  return;
+}
+
+});
+
+
+/* ------------------------------ myPage-modify JS  ------------------------------ */
+
 modifyCancelBtn.addEventListener("click",() => {
 
   modifyModal.style.display = "none";

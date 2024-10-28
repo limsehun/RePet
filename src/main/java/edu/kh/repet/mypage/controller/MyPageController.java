@@ -79,10 +79,13 @@ public class MyPageController {
   		String path = null;
   		
   		if(result > 0) {
+  			
   			message =  "수정 성공";
   			path = "info"; // 내 정보 페이지로 리다이렉트
   			
-  			loginMember.setMemberNickname(memberNickname);
+  			// 세션의 loginMember 객체에 새로운 닉네임 반영
+        loginMember.setMemberNickname(memberNickname);
+        
   		}else {
   			message =  "수정에 실패하였습니다.";
   			path = "info"; // 비밀번호 변경 페이지로 리다이렉트

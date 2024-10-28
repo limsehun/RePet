@@ -76,36 +76,41 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
-	// 좋아요
+	//게시글 좋아요
 	@Override
 	public Map<String, Object> boardLike(int boardNo, int memberNo) {
 		
+		// 1) 좋아요 누른적 있나 검사
 		int result = mapper.checkBoardLike(boardNo, memberNo);
 		
-		// 좋아요 여부에 따라 INSERT/DELETE Mapper 호출
-		int likeWhether = 0;
+		// result == 1 == 누른 적 있음
+		// result == 0 == 누른 적 없음
+		
+		// 2. 좋아요 여부에 따라 INSERT/DELETE Mapper 호출
+		int result2 = 0;
 		if(result == 0) {
-			likeWhether = mapper.insertBoardLike(boardNo, memberNo);
+			result2 = mapper.insertBoardLike(boardNo, memberNo);
 		
 		} else {
-			likeWhether = mapper.deleteBoardLike(boardNo, memberNo);
+			result2 = mapper.deleteBoardLike(boardNo, memberNo);
 		}
 		
-		// INSERT,DELETE 수행 후 해당 게시물 개수 조회
+		// 3. INSERT, DELETE 성공 시 해당 게시글의 좋아요 개수 조회
 		int count = 0;
-		if(likeWhether > 0) {
+		if(result2 > 0) {
 			count = mapper.getLikeCount(boardNo);
-		
 		} else {
-			return null;
+			return null; // INSERT, DELETE 실패 시
 		}
 		
-		// 좋아요 결과를 Map에 저장해서 반환
+		// 4) 좋아요 결과를 Map에 저장해서 반환
 		Map<String, Object> map = new HashMap<>();
-		map.put("count", count);
 		
-		if(result == 0) map.put("check", "insert");
-		else						map.put("check", "delete");
+		map.put("count", count); // 좋아요 개수
+		
+		if(result == 0 ) map.put("check", "insert");
+		else             map.put("check", "delete");
+		
 		
 		return map;
 	}

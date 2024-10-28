@@ -71,11 +71,11 @@
 
              <!-- 좋아요 -->
              <span class="like-area">
-                <i class="fa-regular fa-thumbs-up" id="boardLike" 
-                th:classappend="*{likeCheck == 1} ? 'fa-solid' : 'fa-regular'" ></i>
+                <i  class="fa-heart"  id="boardLike" 
+                th:classappend="*{likeCheck == 1} ? fa-solid : fa-regular" ></i>
 
                 <!-- 좋아요 개수 -->
-                <span th:text="*{likeCount}">0</span>
+                <span id="likeCount" th:text="*{likeCount}">0</span>
              </span>
 
              <span class="report-area">

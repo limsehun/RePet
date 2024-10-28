@@ -156,12 +156,16 @@ public class BoardController {
 	    return "board/boardDetail"; // 게시글 상세 페이지로 이동
 	}
 	
+	/** 좋아요 체크 or 해제
+	 * @param boardNo
+	 * @return map (check, clear / 좋아요 개수)
+	 */
 	@ResponseBody
 	@PostMapping("like")
 	public Map<String, Object> boardLike(
 			@RequestBody int boardNo,
 			@SessionAttribute("loginMember") Member loginMember
-			){
+			) {
 		
 		int memberNo = loginMember.getMemberNo();
 		

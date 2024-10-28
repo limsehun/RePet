@@ -12,6 +12,7 @@ reportBtn.addEventListener('click', function() {
 
 const boardNo = location.pathname.split("/")[3];
 
+
 // 좋아요 버튼 클릭
 const boardLike = document.querySelector("#boardLike");
 boardLike.addEventListener("click", e => {
@@ -36,8 +37,8 @@ boardLike.addEventListener("click", e => {
         console.log("result : ", result);
         
         if(result === 'insert') {
-            boardLike.classList.add("fa-solid");
-            boardLike.classList.remove("fa-regular");
+            boardLike.classList.add("fa-heart fa-solid");
+            boardLike.classList.remove("fa-heart fa-regular");
         
         } else {
             boardLike.classList.add("fa-regular");
@@ -47,4 +48,21 @@ boardLike.addEventListener("click", e => {
         boardLike.nextElementSibling.innerText = result.count;
     })
     .catch(err => console.error(err));
+})
+
+// 삭제 버튼 클릭 시
+const deleteBtn = document.querySelector("#deleteBtn");
+
+deleteBtn?.addEventListener("click", () => {
+
+    if(confirm("정말 삭제 하시겠습니까?") == false ){
+        return;
+    } 
+
+    console.url = "/editBoard/delete";
+
+    const form = document.createElement("form");
+    form.action = url;
+    form.method = "POST";
+
 })

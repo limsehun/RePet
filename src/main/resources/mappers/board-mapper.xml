@@ -75,20 +75,20 @@
 	<select id="checkBoardLike" resultType="_int">
 		SELECT COUNT(*)
    		FROM "BOARD_LIKE"
-   		WHERE MEMBER_NO = #{memberNo}
-   		AND   BOARD_NO  = #{boardNo}
+   		WHERE BOARD_NO  = #{boardNo}
+   		AND   MEMBER_NO = #{memberNo}
 	</select>
 	
 	<insert id="insertBoardLike">
 		INSERT INTO "BOARD_LIKE" 
-   		VALUES(#{memberNo}, #{boardNo})
+   		VALUES(#{boardNo}, #{memberNo})
 	</insert>
 
 	
 	<insert id="deleteBoardLike">
 		DELETE FROM "BOARD_LIKE"
-   		WHERE MEMBER_NO = #{memberNo}
-   		AND   BOARD_NO  = #{boardNo}
+   		WHERE BOARD_NO  = #{boardNo}
+   		AND   MEMBER_NO = #{memberNo}
 	</insert>
 	
 	<select id="getLikeCount" resultType="_int">

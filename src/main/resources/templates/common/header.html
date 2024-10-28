@@ -1,41 +1,64 @@
 <!-- 헤더 영역 -->
 <header class="header">
-  <div>
-    <a href="/">
-      <h1 style="color: black;"  class="logo">REPET</h1>
-    </a>
+  <section>
+    <div>
+      <a href="/">
+        <h1 style="color: black;" class="logo">REPET</h1>
+      </a>
 
-  </div>
-  <nav>
-    <a href="#">병원정보</a>
-    <a href="#">애완용품</a>
-    <a href="/adopt/main">분양정보</a>
-    <a href="/board/2">자유게시판</a>
-  </nav>
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> fe9d5487238c1fc4d55f0b1fb3baf074a4c62419
-  <div th:unless="${session.loginMember}" class="icons" style="margin-right: 40px;">
-    <button id="login">로그인</button>
-    <span>/</span>
-    <button id="registerBtn">회원가입</button>
-
-  </div>
-
-  <div th:if="${session.loginMember}" class="header-menu">
-    <label for="headerMenu">
-      [[${session.loginMember.memberNickname}]]
-
-      <i class="fa-solid fa-caret-down"></i>
-    </label>
-    <!-- <input type="checkbox" id="headerMenuToggle"> -->
-
-    <div class="header-menu">
-      <a href="/myPage/info" id="profile">프로필</a>
-      <span>/</span>
-      <a href="/member/logout" id="logout">로그아웃</a>
     </div>
-  </div>
+
+  </section>
+  <section>
+    <nav>
+      <a href="#">병원정보</a>
+      <a href="#">애완용품</a>
+      <a href="/adopt/main">분양정보</a>
+      <a href="/board/2">자유게시판</a>
+    </nav>
+
+  </section>
+
+  <section>
+    <div class="notification-container" th:if="${session.loginMember}">
+
+      <button class="notification-btn" id="my-aralm">
+        <img src="/images/alarm.png" id="alarm-img"
+             style="width: 30px; height: 30px;">
+
+        <div class="notification-count-area"></div>
+      </button>
+
+
+      <ul class="notification-list">
+
+      </ul>
+    </div>
+
+  </section>
+
+  <section>
+
+    <div th:unless="${session.loginMember}" class="icons" style="margin-right: 40px;">
+      <button id="login">로그인</button>
+      <span>/</span>
+      <button id="registerBtn">회원가입</button>
+
+    </div>
+
+    <div th:if="${session.loginMember}" class="header-menu">
+      <label for="headerMenu">
+        [[${session.loginMember.memberNickname}]]
+
+        <i class="fa-solid fa-caret-down"></i>
+      </label>
+      <!-- <input type="checkbox" id="headerMenuToggle"> -->
+
+      <div class="header-menu">
+        <a href="/myPage/info" id="profile">프로필</a>
+        <span>/</span>
+        <a href="/member/logout" id="logout">로그아웃</a>
+      </div>
+    </div>
+  </section>
 </header>

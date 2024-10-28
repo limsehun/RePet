@@ -4,30 +4,19 @@
 <mapper namespace="edu.kh.repet.board.mapper.EditBoardMapper">
   
  
-	<insert id="insertBoardImg" parameterType="BoardImg">
-		INSERT INTO "BOARD_IMG"
-		
-		<foreach collection="list" item="img"
-				  open="(" close=")" separator="UNION ALL">
-			SELECT
-				NEXT_IMG_NO(),
-				#{img.imgPath},
-				#{img.imgRename},
-				#{img.boardNo}
-			FROM DUAL
-		</foreach>
-	</insert>
-	
-	<insert id="insertBoard" parameterType="Board" useGeneratedKeys="true">
-	
-		<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo">
-			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
-		</selectKey>
-		INSERT INTO "BOARD"
-		V
-	</insert>
-	
+<insert id="insertPost" parameterType="Board">
+    <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+        SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO BOARD (
+        BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE
+    ) VALUES (
+        #{boardNo}, #{boardTitle}, #{boardContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 2, 2
+    )
+</insert>
+   
 
+	
 
 
 

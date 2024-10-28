@@ -28,8 +28,13 @@ paginationList?.forEach((item, idx) => {
        pathname += "?cpage=" + pagination.maxPage;
         break;
 
+
+     
+      
+
       default: 
        pathname += "?cpage=" + item.innerText;
+
     }
 
     location.href = pathname;

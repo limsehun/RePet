@@ -1,6 +1,7 @@
 package edu.kh.repet.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -31,5 +32,8 @@ public interface BoardMapper {
 	 * @return
 	 */
 	List<Board> selectBoardList(int boardCode, RowBounds rowBounds);
+
+
+	Board boardDetail(Map<String, Integer> map);
 	
 }

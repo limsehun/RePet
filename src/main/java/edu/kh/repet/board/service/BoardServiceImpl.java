@@ -62,6 +62,11 @@ public class BoardServiceImpl implements BoardService {
 		
 		return map;
 	}
+	
+	@Override
+	public Board boardDetail(Map<String, Integer> map) {
+		return mapper.boardDetail(map);
+	}
 		
 
 

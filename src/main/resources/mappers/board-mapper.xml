@@ -60,8 +60,16 @@
 	<!-- 게시글 상세 조회 -->
     <select id="boardDetail" parameterType="map" resultType="Board">
         SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT,
-               MEMBER_NO, BOARD_CODE
-        FROM BOARD
+               MEMBER_NO, BOARD_CODE,
+               
+               (SELECT COUNT(*) FROM BOARD_LIKE WHERE BOARD_NO = B.BOARD_NO) AS LIKE_COUNT,
+               
+               (SELECT COUNT(*)
+			 FROM "BOARD_LIKE"
+			 WHERE BOARD_NO = #{boardNo}
+			 AND   MEMBER_NO = #{memberNo}) AS LIKE_CHECK
+               
+        FROM BOARD B
         WHERE BOARD_NO = #{boardNo} AND BOARD_CODE = #{boardCode} AND BOARD_DEL_FL = 'N'
     </select>
     

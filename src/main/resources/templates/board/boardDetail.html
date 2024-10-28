@@ -12,10 +12,10 @@
     
 
 </head>
-<body>
+<body class="board-page">
 
     <main>
-        <th:block th:replace="~{common/header :: nav}"></th:block>
+        <th:block th:replace="~{common/header}"></th:block>
 
         <section class="board-detail" th:object="${board}">
             <h2 class="board-list">자유게시판</h2>
@@ -71,7 +71,7 @@
 
              <!-- 좋아요 -->
              <span class="like-area">
-                <i  class="fa-heart"  id="boardLike" 
+                <i  class="fa-thumbs-up"  id="boardLike" aria-hidden="true" 
                 th:classappend="*{likeCheck == 1} ? fa-solid : fa-regular" ></i>
 
                 <!-- 좋아요 개수 -->
@@ -126,8 +126,7 @@
 </main>
 
 <script th:inline="javascript">
-  // th:inline="javascript"
-  // - Java 데이터 -> JS 자료형을 자동 변환
+
 
   // 로그인 되어 있으면 true, 아니면 false
   const loginCheck =/*[[${session.loginMember != null}]]*/ false;

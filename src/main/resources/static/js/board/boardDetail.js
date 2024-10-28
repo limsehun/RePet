@@ -34,11 +34,11 @@ boardLike.addEventListener("click", e => {
         throw new Error("좋아요 실패");
     })
     .then(result => {
-        console.log("result : ", result);
+        //console.log("result : ", result);
         
-        if(result === 'insert') {
-            boardLike.classList.add("fa-heart fa-solid");
-            boardLike.classList.remove("fa-heart fa-regular");
+        if(result.check === 'insert') {
+            boardLike.classList.add("fa-solid");
+            boardLike.classList.remove("fa-regular");
         
         } else {
             boardLike.classList.add("fa-regular");

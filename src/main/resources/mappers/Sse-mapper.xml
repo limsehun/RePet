@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.repet.sse.mapper.SseMapper">
+
+	<insert id="insertNotification" 
+			parameterType="Notification"
+			useGeneratedKeys="true">
+			
+			
+		<selectKey order="BEFORE" resultType="_int"
+					keyProperty="notificationNo">
+			SELECT SEQ_NOTI_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO "NOTIFICATION"(
+			NOTIFICATION_NO,
+			NOTIFICATION_CONTENT,
+			NOTIFICATION_URL,
+			SEND_MEMBER_NO,
+			RECEIVE_MEMBER_NO)
+
+		VALUES(
+			#{notificationNo},
+			#{notificationContent},
+			#{notificationUrl},
+			#{sendMemberNo},
+			
+			<choose>
+				<!-- 알림 종류가 댓글 작성 또는 좋아요 -->
+				<when test="notificationType == 'insertComment'
+										or notificationType == 'boardLike'">
+					(SELECT MEMBER_NO
+					FROM "BOARD"
+					WHERE BOARD_NO = #{pkNo})
+				</when>
+
+				<!-- 알림 종류가 답글인 경우 -->
+				<when test="notificationType == 'insertChildComment'">
+					(SELECT MEMBER_NO 
+					 FROM "COMMENT"
+					 WHERE COMMENT_NO = #{pkNo})
+				</when>
+
+				<!-- 알림 종류가 채팅인 경우(pkNo == targetNo(채팅 받는 사람 번호)) -->
+				<when test="notificationType == 'chatting'">
+					#{pkNo}
+				</when>
+
+
+			</choose>
+		)
+	</insert>
+			
+	<select id="selectNotificationList" resultType="Notification">
+		SELECT 
+			NOTIFICATION_NO, 
+			NOTIFICATION_CONTENT, 
+			NOTIFICATION_URL, 
+			PROFILE_IMG AS SEND_MEMBER_PROFILE_IMG, 
+			SEND_MEMBER_NO, 
+			RECEIVE_MEMBER_NO,
+			NOTIFICATION_CHECK,
+			CASE 
+				WHEN TRUNC(NOTIFICATION_DATE) = TRUNC(CURRENT_DATE) THEN TO_CHAR(NOTIFICATION_DATE, 'AM HH:MI')
+				ELSE TO_CHAR(NOTIFICATION_DATE, 'YYYY-MM-DD')
+			END AS NOTIFICATION_DATE
+		FROM "NOTIFICATION"
+		JOIN "MEMBER" ON (SEND_MEMBER_NO = MEMBER_NO)
+		WHERE RECEIVE_MEMBER_NO = #{memberNo}
+		ORDER BY NOTIFICATION_NO DESC
+
+	</select>
+	
+	
+	<select id="notReadCheck" resultType="_int">
+		SELECT COUNT(*)
+		FROM "NOTIFICATION"
+		WHERE RECEIVE_MEMBER_NO = #{memberNo}
+		AND NOTIFICATION_CHECK = 'N'
+	</select>
+
+	<delete id="deleteNotification">
+		DELETE 
+		FROM "NOTIFICATION"
+		WHERE NOTIFICATION_NO = #{notificationNo}
+	</delete>
+
+	<!-- 알림 읽음 여부 변경(N->Y) -->
+	<update id="updateNotification">
+		UPDATE "NOTIFICATION"
+		SET
+			NOTIFICATION_CHECK = 'Y'
+		WHERE
+			NOTIFICATION_NO = #{notificationNo}
+	</update>
+
+
+
+
+</mapper>

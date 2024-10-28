@@ -51,7 +51,11 @@ public class MyPageController {
 	@GetMapping("selectLikeList")
 	public Map<String, Object> selectLikeList(
 				@SessionAttribute("loginMember") Member loginMember,
+<<<<<<< HEAD
 				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
+=======
+				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp
+>>>>>>> 7737798484ae252559070964fcb1b9b55b4dd3e1
 			) {
 		
 		return service.selectLikeList(loginMember.getMemberNo(), cp);

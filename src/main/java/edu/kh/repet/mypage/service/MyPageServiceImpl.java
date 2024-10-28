@@ -39,17 +39,37 @@ public class MyPageServiceImpl implements MyPageService {
 		int likeCount = mapper.likeCount(memberNo);
 		
 		// 페이지 네이션 객체
+<<<<<<< HEAD
 		Pagination pagination = new Pagination(cp, likeCount, 5, 5);
 		
 		int offset = (cp - 1) * pagination.getLimit();
 		
+=======
+		// cp 현재 페이지 번호
+		// 한 페이지에 표실할 게시물 수
+		// 링크 수
+		Pagination pagination = new Pagination(cp, likeCount, 5, 5);
+		
+		// ex) 현재 페이지 2 - 1 = 1
+		// 1 * 5 = 5
+		// 해당 인덱스 부터 게시물 가져오는 값
+		int offset = (cp - 1) * pagination.getLimit();
+		
+		//offset: 데이터베이스에서 데이터를 가져올 시작 위치.
+		// pagination.getLimit(): 한 번에 가져올 게시물의 수.
+		// RowBounds는 MyBatis가 SQL 쿼리를 실행할 때 자동으로 OFFSET과 LIMIT을 적용
+>>>>>>> 7737798484ae252559070964fcb1b9b55b4dd3e1
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
 		List<Board> likeList = mapper.selectLikeList(memberNo, rowBounds);
 		
+<<<<<<< HEAD
 		Member memberList = mapper.memberList(memberNo);
 		
 		Map<String, Object> map = Map.of("likeList", likeList, "pagination", pagination,  "memberList", memberList);
+=======
+		Map<String, Object> map = Map.of("likeList", likeList, "pagination", pagination);
+>>>>>>> 7737798484ae252559070964fcb1b9b55b4dd3e1
 		
 		return map;
 	}

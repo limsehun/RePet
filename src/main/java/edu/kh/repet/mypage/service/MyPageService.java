@@ -1,9 +1,7 @@
 package edu.kh.repet.mypage.service;
 
-import java.util.List;
 import java.util.Map;
 
-import edu.kh.repet.board.dto.Board;
 
 public interface MyPageService {
 

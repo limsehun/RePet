@@ -42,12 +42,67 @@ deleteCancelBtn.addEventListener("click",() => {
 });
 
 
+/* 페이지 네이션 함수 */
+const renderPagination = (pagination) => {
+  
+  const paginationBox = document.querySelector(".pagination-box");
+
+  paginationBox.innerHTML = '';  // 기존 페이지 버튼 초기화
+
+  // 페이지네이션 버튼을 생성하는 헬퍼 함수
+  const createPageButton = (page, text, isActive = false) => {
+
+    const button = document.createElement("a"); // a 요소 생성
+
+    button.href = "#"; // 버튼 경로이동 막기
+
+    button.classList.add("page-btn"); // 버튼 클래스 추가
+
+    button.dataset.page = page; // 현재 페이지 
+
+    button.textContent = text;  // 버튼에 들어갈 내용
+
+    if (isActive) button.classList.add("active"); // 활성화된 페이지에 'active' 클래스 추가
+
+    // 클릭 이벤트 추가
+    button.addEventListener("click", (event) => {
+
+      event.preventDefault();  // 링크 이동 막기 
+
+      const cp = parseInt(event.target.dataset.page);
+
+      selectLikeList(cp); // 해당 페이지로 이동
+    });
+
+    return button;
+  };
+
+  // <<, < 버튼 추가
+  paginationBox.appendChild(createPageButton(1, "<<"));
+  // 이전 페이지 그룹의 마지막 번호.
+  paginationBox.appendChild(createPageButton(pagination.prevPage, "<"));
+
+  // 동적 페이지 번호 버튼 생성
+  for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+    // 현재 페이지와 반복문 i가 같으면 activce 클래스 추가
+    const isActive = i === pagination.currentPage;
+    paginationBox.appendChild(createPageButton(i, i, isActive));
+  }
+
+  // >, >> 버튼 추가
+  // 다음 페이지 그룹의 첫번째 번호.
+  paginationBox.appendChild(createPageButton(pagination.nextPage, ">"));
+  paginationBox.appendChild(createPageButton(pagination.maxPage, ">>"));
+};
+
+
 
 /* 좋아요 게시물 비동기 */
 const likeList = document.querySelector("#likeList");
 
 
 const selectLikeList = (cp) => {
+<<<<<<< HEAD
   
   const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
   
@@ -71,9 +126,22 @@ const selectLikeList = (cp) => {
     console.log(list);
     console.log(pagination);
     console.log(member);
+=======
+  const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
 
-    const paginationBox = document.querySelector(".pagination-box");
+  let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}&cp=${cp}`; // cp 값 추가
+>>>>>>> 7737798484ae252559070964fcb1b9b55b4dd3e1
 
+  fetch(requestUrl)
+    .then(response => {
+      if (response.ok) return response.json();
+      throw new Error("조회 오류");
+    })
+    .then(map => {
+      const list = map.likeList;
+      const pagination = map.pagination;
+
+<<<<<<< HEAD
     document.querySelectorAll(".like-item").forEach( item => item.remove() );
     
     
@@ -81,37 +149,40 @@ const selectLikeList = (cp) => {
       // like-item div 생성
       const likeItemDiv = document.createElement("div");
       likeItemDiv.className = "like-item"; // 클래스명 추가
+=======
+      console.log(list);
+      console.log(pagination);
+>>>>>>> 7737798484ae252559070964fcb1b9b55b4dd3e1
 
-      // like-item-title div 생성
-      const titleDiv = document.createElement("div");
-      titleDiv.className = "like-item-title"; // 클래스명 추가
-      titleDiv.innerText = board.boardContent; // 텍스트 추가
+      renderPagination(pagination);  // 페이지네이션 렌더링 호출
 
-      // like-item-sub div 생성
-      const subDiv = document.createElement("div");
-      subDiv.className = "like-item-sub"; // 클래스명 추가
-      subDiv.innerText = `(${board.boardTitle})`; // 텍스트 추가 (괄호 추가)
+      const paginationBox = document.querySelector(".pagination-box");
 
-      // like-item div에 title과 sub 추가
-      likeItemDiv.appendChild(titleDiv);
-      likeItemDiv.appendChild(subDiv);
+      document.querySelectorAll(".like-item").forEach(item => item.remove());
 
-      // 생성한 like-item div를 likeList에 추가
-      likeList.insertBefore(likeItemDiv, paginationBox);
-    });
-  })
-  .catch(err => console.error(err));
+      list.forEach(board => {
+        const likeItemDiv = document.createElement("div");
+        likeItemDiv.className = "like-item";
+
+        const titleDiv = document.createElement("div");
+        titleDiv.className = "like-item-title";
+        titleDiv.innerText = board.boardContent;
+
+        const subDiv = document.createElement("div");
+        subDiv.className = "like-item-sub";
+        subDiv.innerText = `(${board.boardTitle})`;
+
+        likeItemDiv.appendChild(titleDiv);
+        likeItemDiv.appendChild(subDiv);
+
+        likeList.insertBefore(likeItemDiv, paginationBox);
+      });
+    })
+    .catch(err => console.error(err));
 };
 
 
+// 초기 데이터 로딩
 document.addEventListener("DOMContentLoaded", () => {
-  selectLikeList();
-})
-
-
-
-
-
-
-
-
+  selectLikeList(1); // 기본 페이지 1로 데이터 로딩
+});

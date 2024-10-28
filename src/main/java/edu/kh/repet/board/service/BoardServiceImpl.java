@@ -56,11 +56,16 @@ public class BoardServiceImpl implements BoardService {
 		
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("boardList", boardList);
 		map.put("pagination", pagination);
+		map.put("boardList", boardList);
 		
 		
 		return map;
+	}
+	
+	@Override
+	public Board boardDetail(Map<String, Integer> map) {
+		return mapper.boardDetail(map);
 	}
 		
 

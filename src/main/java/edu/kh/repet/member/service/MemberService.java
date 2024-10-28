@@ -4,13 +4,16 @@ import edu.kh.repet.member.dto.Member;
 
 public interface MemberService {
 
-	Member login(String email, String password);
+	Member login(String memberEmail, String memberPw);
 	
 	int signUp(Member inputMember);
 
-	int emailCheck(String email);
+	int emailCheck(String memberEmail);
+	
+	int pwCheck(String memberPw);
+	
+	int nicknameCheck(String memberNickname);
 
-	int nicknameCheck(String nickname);
 
 
 

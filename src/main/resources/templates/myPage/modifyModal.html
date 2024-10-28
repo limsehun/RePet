@@ -16,19 +16,19 @@
       <input type="email" name="memberEmail" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
 
       <!-- 기존 비밀번호 입력 -->
-      <input type="password" name="memberPw" placeholder="기존 비밀번호 입력" required>
+      <input id="memberPw" type="password" name="memberPw" placeholder="기존 비밀번호 입력">
       <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
 
       <!-- 새 비밀번호 입력 -->
-      <input type="password" name="newPw" placeholder="새 비밀번호 입력" required>
+      <input id="newPw" type="password" name="newPw" placeholder="새 비밀번호 입력">
       <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
 
       <!-- 새 비밀번호 확인 -->
-      <input type="password" name="confirmPw" placeholder="새 비밀번호 확인" required>
+      <input id="confirmPw" type="password" name="confirmPw" placeholder="새 비밀번호 확인">
       <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
 
       <!-- 새 닉네임 입력 -->
-      <input type="text" name="memberNickname" placeholder="닉네임" required>
+      <input id="newNickname" type="text" name="memberNickname" placeholder="닉네임">
       <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
   
       <div class="modify-modal-btn"> 

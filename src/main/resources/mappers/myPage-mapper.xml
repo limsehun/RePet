@@ -30,19 +30,36 @@
 		    BL.BOARD_NO = B.BOARD_NO
 		WHERE 
 		    BL.MEMBER_NO = #{memberNo}
+		    AND
+		    B.BOARD_CODE = #{boardCode}
 	</select>
 	
 	
 	<select id="likeCount" resultType="_int">
-		SELECT
-			COUNT(*)
-		FROM
-			BOARD_LIKE
-		WHERE
-			MEMBER_NO = #{memberNo}
+	    SELECT
+	        COUNT(*)
+	    FROM
+	        BOARD_LIKE BL
+	    JOIN
+	        BOARD B
+	    ON
+	        BL.BOARD_NO = B.BOARD_NO
+	    WHERE
+	        BL.MEMBER_NO = #{memberNo}
+	        AND B.BOARD_CODE = 2
 	</select>
 	
-		
+	
+	<update id="updateMemberInfo">
+	    UPDATE 
+	    	"MEMBER"
+	    SET 
+	        MEMBER_PW = #{encPw},
+	        MEMBER_NICKNAME = #{memberNickname}
+	    WHERE 
+	        MEMBER_NO = #{memberNo}
+	</update>
+			
 	
 	
 	

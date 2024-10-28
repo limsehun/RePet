@@ -17,10 +17,10 @@
     <main>
         <th:block th:replace="~{common/header :: nav}"></th:block>
 
-        <section class="board-detail">
+        <section class="board-detail" th:object="${board}">
             <h2 class="board-list">자유게시판</h2>
             <br>
-            <h1 class="board-title">게시글 제목</h1>
+            <h1 class="board-title" th:text="*{boardTitle}">게시글 제목</h1>
 
             <!-- 프로필 + 닉네임 + 작성일 -->
              <div class="board-header">
@@ -34,10 +34,13 @@
 
                     <div class="nickname-date">
                         <!-- 작성자 닉네임 -->
-                        <span>샘플 1</span>
+                        <span th:text="*{memberNickname}">샘플 1</span>
     
                         <!-- 작성일 -->
+                       <p> 
                         <span>2024년 10월 18일 20:18</span>
+                        <th:block th:text="*{boardWriteDate}"></th:block>
+                      </p>
     
                         <!-- 수정한 게시글인 경우 수정일 -->
                          <span></span>
@@ -63,17 +66,8 @@
                 <img src="/images/logo.jpg">
              </th:block>
 
-             <div class="board-content">
-- 예를 들어 점 추정 조건 4가지는 ADsP 4지 선다 항목으로 언제든지 나올 수 있기 때문에 
- "불효일충"으로 암기를 하고 있어야 합니다.
-
- - 불효일충을 통해 올바르지 않은 항목을 골라내는 것은 너무 쉬운 일입니다.
-                
-                ​
-                
- 4. 계산 문제 풀이 대비 공부 - 수제비 ADsP 책의 "개념 박살내기"를 통해서 대비하기
-                [출처] 2023 수제비 ADsP 초 단기 합격 방법 (수제비- IT 커뮤니티 (정보처리기사,빅데이터분석기사, ADsP등)) | 
-                작성자 수제비쌤
+             <div class="board-content" th:text="*{boardContent}">
+              게시글 내용
             </div>
 
              <!-- 좋아요 하트 -->
@@ -105,66 +99,6 @@
                 
                 <tbody>
                   <th:block>
-                        <tr>
-                           <td>
-                             <!-- 제목 -->
-                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
-            
-                            <!-- 댓글수 -->
-                             <th:block>[0]</th:block>
-                           </td>
-                            
-                            <!-- 작성지 -->
-                             <td>닉네임</td>
-            
-                            <!-- 작성일 -->
-                            <td>2024.10.18</td>
-                        </tr>
-                        <tr>
-                           <td>
-                             <!-- 제목 -->
-                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
-            
-                            <!-- 댓글수 -->
-                             <th:block>[0]</th:block>
-                           </td>
-                            
-                            <!-- 작성지 -->
-                             <td>닉네임</td>
-            
-                            <!-- 작성일 -->
-                            <td>2024.10.18</td>
-                        </tr>
-                        <tr>
-                           <td>
-                             <!-- 제목 -->
-                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
-            
-                            <!-- 댓글수 -->
-                             <th:block>[0]</th:block>
-                           </td>
-                            
-                            <!-- 작성지 -->
-                             <td>닉네임</td>
-            
-                            <!-- 작성일 -->
-                            <td>2024.10.18</td>
-                        </tr>
-                        <tr>
-                           <td>
-                             <!-- 제목 -->
-                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
-            
-                            <!-- 댓글수 -->
-                             <th:block>[0]</th:block>
-                           </td>
-                            
-                            <!-- 작성지 -->
-                             <td>닉네임</td>
-            
-                            <!-- 작성일 -->
-                            <td>2024.10.18</td>
-                        </tr>
                         <tr>
                            <td>
                              <!-- 제목 -->

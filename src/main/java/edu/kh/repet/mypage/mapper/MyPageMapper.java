@@ -29,4 +29,12 @@ public interface MyPageMapper {
 	// 회원 수정
 	int updateMemberInfo(@Param("memberNo")int memberNo, @Param("encPw")String encPw, @Param("memberNickname")String memberNickname);
 
+
+	// 비밀 번호 검사
+	String checkPw(int memberNo);
+
+
+	// 닉네임 중복 검사
+	int nicknameCheck(String nickname);
+
 }

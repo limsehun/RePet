@@ -17,19 +17,19 @@
 
       <!-- 기존 비밀번호 입력 -->
       <input id="memberPw" type="password" name="memberPw" placeholder="기존 비밀번호 입력">
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
+
+      <span id="memberPwMessage" class="modal-text red"></span>
 
       <!-- 새 비밀번호 입력 -->
       <input id="newPw" type="password" name="newPw" placeholder="새 비밀번호 입력">
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
 
       <!-- 새 비밀번호 확인 -->
       <input id="confirmPw" type="password" name="confirmPw" placeholder="새 비밀번호 확인">
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
+      <span id="confirmPwMessage" class="modal-text red"></span>
 
       <!-- 새 닉네임 입력 -->
       <input id="newNickname" type="text" name="memberNickname" placeholder="닉네임">
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
+      <span id="nickMessage" class="modal-text red"></span>
   
       <div class="modify-modal-btn"> 
         <button type="button" id="modifyCancelBtn">취소</button>

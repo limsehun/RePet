@@ -27,7 +27,7 @@ public interface MyPageMapper {
 
 
 	// 회원 수정
-	int updateMemberInfo(@Param("memberNo")int memberNo, @Param("encPw")String encPw, @Param("memberNickname")String memberNickname);
+	int updateMemberInfo(@Param("memberNo")int memberNo, @Param("encPw")String encPw, @Param("memberNickname")String memberNickname, @Param("profilePath") String profilePath);
 
 
 	// 비밀 번호 검사

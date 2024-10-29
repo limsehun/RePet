@@ -172,27 +172,23 @@ public class EditBoardController {
   	return "board/boardModify";
   }
   
-//게시글 수정 요청 처리
-  @PostMapping("{boardCode}/{boardNo}/update")
+  
+  @PostMapping("update")
   @ResponseBody
   public int updateBoard(
-          @PathVariable("boardCode") int boardCode,
-          @PathVariable("boardNo") int boardNo,
           @SessionAttribute("loginMember") Member loginMember,
-          @RequestParam("boardTitle") String boardTitle,
-          @RequestParam("boardContent") String boardContent) {
+          @ModelAttribute Board board
+      ) throws IOException {
 
-      // 수정할 게시글 번호, 회원 번호, 게시판 코드 설정
-      Board board = new Board();
-      board.setBoardNo(boardNo);
+      // 로그인한 사용자의 memberNo와 닉네임 설정
       board.setMemberNo(loginMember.getMemberNo());
-      board.setBoardCode(boardCode);
-      board.setBoardTitle(boardTitle);
-      board.setBoardContent(boardContent);
+      board.setMemberNickname(loginMember.getMemberNickname()); // 닉네임 설정
 
-      // 게시글 수정 처리
-      return service.updateBoard(board);
+      int result = service.updateBoard(board);
+
+      return result;
   }
+
   
   
   

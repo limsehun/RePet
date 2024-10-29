@@ -21,10 +21,11 @@ public interface EditBoardMapper {
 
 	// 게시글 삭제
 	int deleteBoard( @Param("boardNo") int boardNo, @Param("memberNo") int memberNo);
+
+
+	int updateBoard(Board board);
 	
 
-	// 게시글 수정
-	int updateBoard(Board board);
 	
 	
 

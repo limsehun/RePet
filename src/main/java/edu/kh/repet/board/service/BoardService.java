@@ -1,5 +1,6 @@
 package edu.kh.repet.board.service;
 
+import java.util.List;
 import java.util.Map;
 
 import edu.kh.repet.board.dto.Board;
@@ -32,5 +33,12 @@ public interface BoardService {
 	 * @return
 	 */
 	Map<String, Object> boardLike(int boardNo, int memberNo);
+
+	// 게시글 목록으로 이동
+	int getCurrentPage(Map<String, Object> paramMap);
+
+	
+	// 조회수가 높은 게시글 5개 조회
+	List<Board> getTop5Boards();
 
 }

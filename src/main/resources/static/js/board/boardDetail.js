@@ -114,11 +114,32 @@ updateBtn?.addEventListener("click", () => {
     }
 
   const form = document.createElement("form");
-  location.pathname = "/editBoard/{boardCode}/{boardNo}"
+  location.pathname = "/editBoard/{boardCode}/{boardNo}";
   form.action = location.pathname.replace("board", "editBoard") + "/boardModifyView";
   form.method = "POST";
 
   document.querySelector("body").append(form);
   form.submit();
 
-})
+});
+
+const goToListBtn = document.querySelector("#goToListBtn");
+
+goToListBtn.addEventListener("click", () => {
+
+  // 페이징당 게시글 수
+  const limit = 10;
+
+  location.pathname = "/editBoard/{boardCode}/{boardNo}";
+  let url = location.pathname + "/goToList?limit=" + limit;
+  // /board/{boardCode}/{boardNo}/goToLis?key=&query=검색어&limit=10
+
+  // location.search : 쿼리 스트링 반환
+  // URLSearchParams 객체 : 쿼리스트링 관리하는 객체 
+  const params = new URLSearchParams(location.search);
+
+  
+
+  location.href = url;
+  
+});

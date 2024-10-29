@@ -79,12 +79,18 @@ public class EditBoardServiceImpl implements EditBoardService {
 	}
 	
 	
-	// 게시글 수정
 	@Override
 	public int updateBoard(Board board) {
-		return mapper.updateBoard(board);
+		
+		int result = mapper.updateBoard(board);
+		
+		if (result == 0) {
+			throw new RuntimeException("게시글 수정 실패");
+		}
+		
+		
+		return result;
 	}
-	
 
 
 

@@ -79,6 +79,16 @@
    		SET READ_COUNT = READ_COUNT + 1
    		WHERE BOARD_NO = #{boardNo}
     </update>
+    
+    
+    <select id="selectTop5Boards" resultType="Board">
+    SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, READ_COUNT, BOARD_WRITE_DATE
+    FROM BOARD B
+    JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
+    WHERE BOARD_DEL_FL = 'N'
+    ORDER BY READ_COUNT DESC
+    FETCH FIRST 5 ROWS ONLY
+	</select>
 
 
 	<select id="checkBoardLike" resultType="_int">
@@ -104,6 +114,18 @@
 		SELECT COUNT(*)
    		FROM "BOARD_LIKE"
    		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	
+	<select id="getcurrentPage" resultType="_int">
+		SELECT CEIL(RNUM / #{limit}) AS CPAGE
+    FROM (
+        SELECT
+            ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) AS RNUM,
+            BOARD_NO
+        FROM "BOARD"
+    ) T
+    WHERE T.BOARD_NO = #{boardNo}
 	</select>
 
 

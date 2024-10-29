@@ -18,8 +18,9 @@ public interface EditBoardService {
   // 게시글 삭제
 	int deleteBoard(int boardNo, int memberNo);
 
-	// 게시글 수정
 	int updateBoard(Board board);
+
+	
 
 
 

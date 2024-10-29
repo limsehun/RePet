@@ -58,6 +58,7 @@ $(document).ready(function() {
   $('#writeBtn').on('click', function() {
     let title = $('#subject').val().trim();
     let content = $('#summernote').summernote('code').trim();
+    let boardNo = board.boardNo; 
 
     // 제목과 내용이 입력되지 않았을 경우 경고
     if(title === "") {
@@ -75,11 +76,12 @@ $(document).ready(function() {
     let formData = new FormData();
     formData.append("boardTitle", title);
     formData.append("boardContent", content);
+    formData.append("boardNo", boardNo);
 
 
     // 게시글 등록 비동기 처리
     $.ajax({
-      url: '/editBoard/${boardCode}/${boardNo}/update',
+      url: '/editBoard/update',
       type: 'POST',
       data: formData,
       contentType: false,
@@ -88,10 +90,10 @@ $(document).ready(function() {
 
 
         if(response > 0) {
-          // console.log(response);
+          console.log(response);
 
           alert("게시글이 성공적으로 수정되었습니다");
-          location.href = '/board/2';
+          location.href = `/board/2/${boardNo}`;
         }
      
         

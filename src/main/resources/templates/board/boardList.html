@@ -12,12 +12,14 @@
   
 
 </head>
-<body>
+<body class="board-page">
   <main>
 
     <th:block th:replace= "~{common/header}"></th:block>
 
     <section class="board-list">
+
+      <div th:if="${message}" th:text="${message}" class="alert alert-info"></div>
 
       <div class="board-name">
         <h4 class="left-title">자유 게시판</h4>

@@ -1,4 +1,6 @@
-
+.board-page header {
+  position: relative;
+}
 
 .board-name{
   font-size: 30px;

@@ -8,8 +8,9 @@
         <i class="fa-solid fa-xmark" id="deleteImage"></i>
 
         <!-- 프로필 이미지 미리보기 -->
-        <img id="profileImg" th:src="${member.profileImg != null} ? '/images/profile/' + ${member.profileImg} : '/images/user.png'" 
-     alt="Profile Image" style="width: 100px; height: 100px; object-fit: cover;">
+        <img id="profileImg"
+        th:src="${member != null and member.profileImg != null} ? '/images/profile/' + ${member.profileImg} : '/images/user.png'"
+        alt="Profile Image" style="width: 100px; height: 100px; object-fit: cover;">
 
         
         <!-- 카메라 아이콘을 파일 업로드 버튼으로 사용 -->
@@ -21,7 +22,10 @@
       
 
         <!-- 이메일 수정 불가 -->
-        <input type="email" name="memberEmail" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
+        <th:block th:if="${member != null}">
+          <input type="email" name="memberEmail" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
+        </th:block>
+
 
         <!-- 기존 비밀번호 입력 -->
         <input id="memberPw" type="password" name="memberPw" placeholder="기존 비밀번호 입력">

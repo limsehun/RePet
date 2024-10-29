@@ -98,9 +98,6 @@ const selectLikeList = (cp) => {
         titleDiv.innerText = boardTextContent.trim(); // 추출된 텍스트만 설정하고 앞뒤 공백 제거
 
 
-        console.log(board.boardNo);
-
-
       likeItemDiv.addEventListener("click", () => {
         // 게시물 상세 페이지로 이동
         location.href = `/board/2/${board.boardNo}`;
@@ -120,6 +117,9 @@ const selectLikeList = (cp) => {
 };
 
 /* ------------------------------ myPage-info JS  ------------------------------ */
+
+
+
 
 
 
@@ -376,11 +376,6 @@ modifyInfo?.addEventListener("submit", e => {
 });
 
 
-/* ------------------------------ myPage-modify JS  ------------------------------ */
-
-
-
-
 /* ============= 유효성 검사(Validation) ============= */
 
 
@@ -612,7 +607,7 @@ newNickname.addEventListener("input", () => {
 
 });
 
-
+/* ------------------------------ myPage-modify JS  ------------------------------ */
 
 
 
@@ -640,8 +635,6 @@ deleteCancelBtn.addEventListener("click",(e) => {
 
   deleteModal.style.display = "none";
 });
-
-
 
 
 
@@ -701,43 +694,39 @@ deleteForm?.addEventListener("submit", e => {
     return;
   }
 
-  // 비밀번호가 유효하다면 회원 탈퇴 요청
-  const inputPw = deletePw.value.trim();
-
   // 서버로 탈퇴 요청 보내기
   fetch("/myPage/delete", {
-    method: "POST",
+    method: "PUT",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ password: inputPw }) // 비밀번호 전송
   })
-    .then(response => {
-      if (response.ok) {
-        return response.text();
-      }
-      throw new Error("회원 탈퇴 요청 실패");
-    })
-    .then(result => {
-      if (result === "success") { // 탈퇴 성공 시
-        alert("회원 탈퇴가 완료되었습니다.");
-        // 메인 페이지나 로그인 페이지로 리다이렉트
-        window.location.href = "/";
-      } else {
-        alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert("회원 탈퇴 처리 중 문제가 발생했습니다.");
-    });
+  .then(response => {
+    console.log(response);
+    if (response.ok) {
+      return response.text();
+    }
+    throw new Error("회원 탈퇴 요청 실패");
+  })
+  .then(result => {
+    
+    if (result > 0) { // 탈퇴 성공 시
+      alert("회원 탈퇴가 완료되었습니다.");
+      // 메인 페이지나 로그인 페이지로 리다이렉트
+      location.href = "/";
+    } else {
+      alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("회원 탈퇴 처리 중 문제가 발생했습니다.");
+  });
 });
 
-
-deleteForm?.addEventListener("submit", e => {
-  
-});
+/* ------------------------------ myPage-delete JS  ------------------------------ */
 
 
 
+/* ------------------------------ myPage-board JS  ------------------------------ */
 
 
 

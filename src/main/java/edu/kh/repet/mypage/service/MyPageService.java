@@ -26,4 +26,7 @@ public interface MyPageService {
 	// 닉네임 중복 검사
 	int nicknameCheck(String nickname);
 
+	// 회원 탈퇴
+	int deletUser(int memberNo);
+
 }

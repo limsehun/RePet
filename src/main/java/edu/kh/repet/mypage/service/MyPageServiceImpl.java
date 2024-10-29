@@ -157,5 +157,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public int nicknameCheck(String nickname) {
 		return mapper.nicknameCheck(nickname);
 	}
+	
+	
+	// 회원탈퇴
+	@Override
+	public int deletUser(int memberNo) {
+		return mapper.deleteUser(memberNo);
+	}
 
 }

@@ -6,16 +6,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.repet.member.dto.Member;
 import edu.kh.repet.mypage.service.MyPageService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @SessionAttributes({"loginMember"})
@@ -70,6 +73,7 @@ public class MyPageController {
   				@RequestParam("memberPw") String memberPw,
           @RequestParam("newPw") String newPw,
           @RequestParam("memberNickname") String memberNickname,
+          HttpSession session,
           RedirectAttributes ra
   		) {
   	
@@ -87,6 +91,9 @@ public class MyPageController {
   			
   			// 세션의 loginMember 객체에 새로운 닉네임 반영
         loginMember.setMemberNickname(memberNickname);
+        
+        // 세션에 수정된 정보를 다시 저장
+        session.setAttribute("loginMember", loginMember);
         
   		}else {
   			message =  "수정에 실패하였습니다.";
@@ -122,13 +129,38 @@ public class MyPageController {
   	
   	return service.nicknameCheck(nickname);
   }
+  
+  
+  @ResponseBody
+  @PutMapping("delete")
+  public int deleteUser(
+  			@SessionAttribute("loginMember") Member loginMember,
+  			SessionStatus status
+  		) {
+  	
+  	 int result = service.deletUser(loginMember.getMemberNo());
+     
+     if (result > 0) { // 탈퇴 성공 시
+    	 status.setComplete(); // 세션 만료 -> 로그아웃
+     }
+  	
+		
+    return result;
+  }
+  
+  
+  @GetMapping("/board")
+  public String myPageBoard(@SessionAttribute("loginMember")
+  			Member loginMember, Model model
+  		) {
+    if (loginMember != null) {
+        model.addAttribute("member", loginMember);
+    }
+    return "myPage/myPage-board";
+  }
 	
 	
 	
 
-//	@GetMapping("board")
-//	public String myBoard() {
-//		return "myPage/myPage-board";
-//	}
 
 }

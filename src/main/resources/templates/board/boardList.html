@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게시판 이름</title>
 
-  <th:block th:replace= "~{common/common}"></th:block>
+  <th:block th:replace="~{common/common}"></th:block>
 
   <link rel="stylesheet" href="/css/board/boardList.css">
-  
-  
+
+
 
 </head>
+
 <body>
   <main>
+    <div style="width: 100%; height: 1px;">
+      <th:block th:replace="~{common/header}"></th:block>
 
-    <th:block th:replace= "~{common/header}"></th:block>
+    </div>
 
     <section class="board-list">
 
@@ -43,7 +47,7 @@
 
         <button>검색</button>
       </form>
-  
+
       <div class="list-wrapper">
         <table class="list-table">
           <thead>
@@ -55,96 +59,97 @@
               <th>조회수</th>
             </tr>
           </thead>
-          
+
           <tbody>
             <!-- 게시글이 존재하지 않을 때 -->
-             <th:block th:if="${#lists.isEmpty(boardList)}">
-               <!-- #lists : 타임리프에서 제공하는 list 기능 제공 객체  -->
+            <th:block th:if="${#lists.isEmpty(boardList)}">
+              <!-- #lists : 타임리프에서 제공하는 list 기능 제공 객체  -->
               <tr>
                 <th colspan="6">게시글이 존재하지 않습니다.</th>
               </tr>
             </th:block>
 
             <!-- 게시글이 존재할 때 -->
-              <th:block th:unless="${#lists.isEmpty(boardList)}">
+            <th:block th:unless="${#lists.isEmpty(boardList)}">
               <tr th:each="board : ${boardList}" th:object="${board}">
                 <td th:text="*{rnum}">1000</td>
 
                 <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a th:href="@{|/board/${boardCode}/${board.boardNo}|}"
+                  <!-- 검색이 아닌 경우 -->
+                  <a th:href="@{|/board/${boardCode}/${board.boardNo}|}" th:text="*{boardTitle}">게시글 제목</a>
 
-                    th:text="*{boardTitle}">게시글 제목</a>
 
-                  
                   <!--  댓글 수 -->
-                     <th:block th:text="|[*{commentCount}]|">[0]</th:block>
+                  <th:block th:text="|[*{commentCount}]|">[0]</th:block>
                 </td>
 
-                 <!-- 작성자 -->
-                  <td th:text="*{memberNickname}">닉네임</td> 
+                <!-- 작성자 -->
+                <td th:text="*{memberNickname}">닉네임</td>
 
-                 <!-- 작성일 -->
-                   <td th:text="*{boardWriteDate}">2024-10-16</td>
+                <!-- 작성일 -->
+                <td th:text="*{boardWriteDate}">2024-10-16</td>
 
-               <!-- 조회수 -->
-                    <td th:text="*{readCount}">0</td>
+                <!-- 조회수 -->
+                <td th:text="*{readCount}">0</td>
               </tr>
-            
-             </th:block>
+
+            </th:block>
           </tbody>
-            
+
         </table>
       </div>
 
       <div class="btn-area">
-        
+
         <!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
         <div class="pagination-area" th:unless="${#lists.isEmpty(boardList)}">
-          
+
           <ul class="pagination" th:object="${pagination}">
-            
+
             <!-- 첫 페이지로 이동 -->
             <li><a href="#">first</a></li>
-            
+
             <!-- 이전 목록 마지막 번호로 이동 -->
             <li><a href="#">&lt;</a></li>
-            
-            
-            
-              <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
 
-                
-                  <li th:if="${i} == *{currentPage}">
-                    <a class="current" th:text="${i}">1</a>
-                  </li>
-                   
-                  <!-- 보고있지 않은 페이지 -->                    
-                  <li th:unless="${i} == *{currentPage}"> 
-                    <a href="#" th:text="${i}"></a> 
-                  </li>
-                  </th:block> 
-                  
-                  <!-- 다음 목록 시작 번호로 이동 -->
-                  <li><a href="#">&gt;</a></li>
-                  
-                  <!-- 끝 페이지로 이동 -->
-                  <li><a href="#">last</a></li>
-                </ul>
-              </div>
-              
-              <button id="insertBtn" th:if= "${session.loginMember}">글쓰기</button>
-            </div>
-                
-          </section>
-        </main>
-                
-            
-            
-     <script th:inline="javascript">
-          const pagination = /*[[${pagination}]]*/ "페이지네이션 객체";
-      </script> 
-          
+
+
+            <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
+
+
+              <li th:if="${i} == *{currentPage}">
+                <a class="current" th:text="${i}">1</a>
+              </li>
+
+              <!-- 보고있지 않은 페이지 -->
+              <li th:unless="${i} == *{currentPage}">
+                <a href="#" th:text="${i}"></a>
+              </li>
+            </th:block>
+
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li><a href="#">&gt;</a></li>
+
+            <!-- 끝 페이지로 이동 -->
+            <li><a href="#">last</a></li>
+          </ul>
+        </div>
+
+        <button id="insertBtn" th:if="${session.loginMember}">글쓰기</button>
+      </div>
+
+    </section>
+  </main>
+
+
+
+  <script th:inline="javascript">
+    const pagination = /*[[${pagination}]]*/ "페이지네이션 객체";
+  </script>
+
+  <script src="/js/header.js"></script>
+
   <script src="/js/board/boardList.js"></script>
 </body>
+
 </html>

@@ -61,7 +61,13 @@ const likeList = document.querySelector("#likeList");
 
 
 const selectLikeList = (cp) => {
+
   const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
+
+  if (!memberNo) {
+    console.error("memberNo 요소가 존재하지 않습니다. 이 페이지에서는 selectLikeList를 실행하지 않습니다.");
+    return; // 요소가 없으면 함수 종료
+  }
 
   let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}&cp=${cp}`; // cp 값 추가
 
@@ -98,9 +104,6 @@ const selectLikeList = (cp) => {
         titleDiv.innerText = boardTextContent.trim(); // 추출된 텍스트만 설정하고 앞뒤 공백 제거
 
 
-        console.log(board.boardNo);
-
-
       likeItemDiv.addEventListener("click", () => {
         // 게시물 상세 페이지로 이동
         location.href = `/board/2/${board.boardNo}`;
@@ -120,6 +123,9 @@ const selectLikeList = (cp) => {
 };
 
 /* ------------------------------ myPage-info JS  ------------------------------ */
+
+
+
 
 
 
@@ -376,11 +382,6 @@ modifyInfo?.addEventListener("submit", e => {
 });
 
 
-/* ------------------------------ myPage-modify JS  ------------------------------ */
-
-
-
-
 /* ============= 유효성 검사(Validation) ============= */
 
 
@@ -612,7 +613,7 @@ newNickname.addEventListener("input", () => {
 
 });
 
-
+/* ------------------------------ myPage-modify JS  ------------------------------ */
 
 
 
@@ -639,9 +640,14 @@ deleteCancelBtn.addEventListener("click",(e) => {
   e.preventDefault(); // 기본 폼 제출 동작 막기
 
   deleteModal.style.display = "none";
+
+  // 입력 필드 초기화
+  document.querySelector("#deletePw").value = "";     // 기존 비밀번호 입력 초기화
+
+  // 에러 메시지 초기화
+  document.querySelector("#deletePwMessage").innerText = "";
+
 });
-
-
 
 
 
@@ -701,48 +707,75 @@ deleteForm?.addEventListener("submit", e => {
     return;
   }
 
-  // 비밀번호가 유효하다면 회원 탈퇴 요청
-  const inputPw = deletePw.value.trim();
-
   // 서버로 탈퇴 요청 보내기
   fetch("/myPage/delete", {
-    method: "POST",
+    method: "PUT",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ password: inputPw }) // 비밀번호 전송
   })
+  .then(response => {
+    console.log(response);
+    if (response.ok) {
+      return response.text();
+    }
+    throw new Error("회원 탈퇴 요청 실패");
+  })
+  .then(result => {
+    
+    if (result > 0) { // 탈퇴 성공 시
+      alert("회원 탈퇴가 완료되었습니다.");
+      // 메인 페이지나 로그인 페이지로 리다이렉트
+      location.href = "/";
+    } else {
+      alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("회원 탈퇴 처리 중 문제가 발생했습니다.");
+  });
+});
+
+/* ------------------------------ myPage-delete JS  ------------------------------ */
+
+const boardList = document.querySelector("#boardList");
+
+const selectBoardList = (cp) => {
+
+  let requestUrl = `/myPage/selectBoardList?&cp=${cp}`; // cp 값 추가
+
+  fetch(requestUrl)
     .then(response => {
-      if (response.ok) {
-        return response.text();
-      }
-      throw new Error("회원 탈퇴 요청 실패");
+      if (response.ok) return response.json();
+      throw new Error("조회 오류");
     })
-    .then(result => {
-      if (result === "success") { // 탈퇴 성공 시
-        alert("회원 탈퇴가 완료되었습니다.");
-        // 메인 페이지나 로그인 페이지로 리다이렉트
-        window.location.href = "/";
-      } else {
-        alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
-      }
+    .then(map => {
+
+      const boardList = map.boardList;
+      const pagination = map.pagination;
+
+      console.log(boardList);
+      console.log(pagination);
+
     })
-    .catch(err => {
-      console.error(err);
-      alert("회원 탈퇴 처리 중 문제가 발생했습니다.");
-    });
-});
-
-
-deleteForm?.addEventListener("submit", e => {
-  
-});
+    .catch(err => console.error(err));
+};
 
 
 
 
+/* ------------------------------ myPage-board JS  ------------------------------ */
 
 
 
-// 초기 데이터 로딩
+
 document.addEventListener("DOMContentLoaded", () => {
-  selectLikeList(1); // 기본 페이지 1로 데이터 로딩
+  // 페이지에 #memberNo 요소가 존재할 때만 selectLikeList 호출
+  if (document.querySelector("#memberNo")) {
+    selectLikeList(1); // 기본 페이지 1로 데이터 로딩
+  }
+
+  // 페이지에 #boardList 요소가 존재할 때만 selectBoardList 호출
+  if (document.querySelector("#boardList")) {
+    selectBoardList(1); // 기본 페이지 1로 데이터 로딩
+  }
 });

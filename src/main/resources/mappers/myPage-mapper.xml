@@ -70,12 +70,12 @@
 	
 	<!-- 비밀번호 중복 검사 -->
 	<select id="checkPw" resultType="String">
-    SELECT 
-    	MEMBER_PW
-    FROM 
-    	MEMBER
-    WHERE 
-    	MEMBER_NO = #{memberNo}
+	    SELECT 
+	    	MEMBER_PW
+	    FROM 
+	    	MEMBER
+	    WHERE 
+	    	MEMBER_NO = #{memberNo}
 	</select>
 
 
@@ -91,6 +91,36 @@
 			AND
 			MEMBER_DEL_FL = 'N'
 	</select>	
+	
+	
+	<update id="deleteUser">
+		UPDATE
+			"MEMBER"
+		SET 
+	        MEMBER_DEL_FL = 'Y'
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	<select id="boardCount" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOARD
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	<select id="selectBoardList" resultType="Board">
+		SELECT
+			*
+		FROM
+			BOARD
+		WHERE
+			MEMBER_NO = #{memberNo}
+</select>
 			
 	
 	

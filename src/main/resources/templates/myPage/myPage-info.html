@@ -30,7 +30,7 @@
         <h2>내 정보</h2>
         <div class="profile-details">
           <div class="profile-text">
-              <img id="profile-img" th:src="${session.loginMember.profileImg != null ? session.loginMember.profileImg : '/images/user.png'}" >
+            <img id="profile-img" th:src="${session.loginMember.profileImg != null} ? '/images/profile/' + ${session.loginMember.profileImg} : '/images/user.png'" alt="Profile Image">
             <div style="font-size: 20px;">
               <h3>RePet에 오신것을 환영합니다!</h3>
               <span><strong>아이디</strong>&nbsp;&nbsp;&nbsp;<span th:text="${member.memberEmail}">hx122</span></span>

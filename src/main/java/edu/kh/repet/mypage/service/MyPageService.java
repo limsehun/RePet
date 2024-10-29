@@ -2,6 +2,8 @@ package edu.kh.repet.mypage.service;
 
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.repet.member.dto.Member;
 
 
@@ -14,7 +16,7 @@ public interface MyPageService {
 	Map<String, Object> selectLikeList(int memberNo, int cp);
 
 	// 회원 수정
-	int updateMemberInfo(String memberPw, Member loginMember, String newPw, String memberNickname);
+	int updateMemberInfo(String memberPw, Member loginMember, String newPw, String memberNickname, MultipartFile profileImg);
 
 
 	// 비밀번호 중복 검사

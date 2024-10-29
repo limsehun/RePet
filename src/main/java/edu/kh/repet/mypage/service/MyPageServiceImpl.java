@@ -1,26 +1,42 @@
 package edu.kh.repet.mypage.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.Pagination;
+import edu.kh.repet.common.exception.FileUploadFailException;
+import edu.kh.repet.common.util.FileUtil;
 import edu.kh.repet.member.dto.Member;
 import edu.kh.repet.mypage.mapper.MyPageMapper;
 import lombok.RequiredArgsConstructor;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:/config.properties")
 public class MyPageServiceImpl implements MyPageService {
 	
 	private final BCryptPasswordEncoder encoder;
 	
 	private final MyPageMapper mapper;
+	
+	
+	@Value("${my.profile.web-path}")
+	private String profileWebPath; // 웹 접근 경로
+	
+	@Value("${my.profile.folder-path}")
+	private String profileFolderPath; // 이미지 저장 서버 경로
 	
 	@Override
 	public Map<String, Object> memberList(int memberNo) {
@@ -69,23 +85,60 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	
 	@Override
-	public int updateMemberInfo(String memberPw, Member loginMember, String newPw, String memberNickname) {
+	public int updateMemberInfo(String memberPw, Member loginMember, String newPw, String memberNickname, MultipartFile profileImg) {
 		
-		// 비밀번호가 일치하지 않으면
-		if(!encoder.matches(memberPw, loginMember.getMemberPw())) {
-			return 0;
-		}
-		
-		// 2) 새 비밀번호 암호화
-		String encPw = encoder.encode(newPw);
-		
-		loginMember.setMemberPw(encPw); // 세션에 저장된 회원 정보 중 PW 변경
-		
-		return mapper.updateMemberInfo(loginMember.getMemberNo(), encPw, memberNickname);
+	    // 비밀번호가 일치하지 않으면
+	    if (!encoder.matches(memberPw, loginMember.getMemberPw())) {
+	        return 0; // 비밀번호 불일치
+	    }
+
+	    // 1) 새 비밀번호 암호화
+	    String encPw = encoder.encode(newPw);
+	    loginMember.setMemberPw(encPw); // 세션에 저장된 회원 정보 중 PW 변경
+	    
+	    
+
+	    // 2) 프로필 이미지 처리
+	    String profilePath = null; // 기본적으로 null로 설정 (프로필 이미지가 없을 경우)
+
+	    if (!profileImg.isEmpty()) { // 새로운 프로필 이미지가 있는 경우에만 처리
+	        // 파일명 변경
+	        String rename = FileUtil.rename(profileImg.getOriginalFilename());
+
+	        // 경로 설정 (웹 경로 + 폴더 경로)
+	        String url = rename;
+	        String savePath = profileFolderPath + rename;
+
+	        try {
+	            // 프로필 폴더 생성 여부 확인
+	            File folder = new File(profileFolderPath);
+	            if (!folder.exists()) {
+	                folder.mkdirs();
+	            }
+
+	            // 파일 저장
+	            profileImg.transferTo(new File(savePath));
+	            profilePath = url; // 성공적으로 저장된 경우, 프로필 경로 설정
+	            
+	            // 디버그 로그
+	            System.out.println("프로필 이미지 경로: " + profilePath);
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            throw new FileUploadFailException("프로필 이미지 수정 실패");
+	        }
+	    }
+
+	    // 3) DB 업데이트 준비
+	    loginMember.setMemberNickname(memberNickname);
+	    loginMember.setProfileImg(profilePath); // 세션에 이미지 경로 설정
+
+	    // DB 업데이트 (프로필 이미지와 함께 정보 변경)
+	    return mapper.updateMemberInfo(loginMember.getMemberNo(), encPw, memberNickname, profilePath);
 	}
 	
 	
-	// 비밀번호 중복 검사
+	//비밀번호 중복 검사
 	@Override
 	public int checkPw(String inputPw, int memberNo) {
 		

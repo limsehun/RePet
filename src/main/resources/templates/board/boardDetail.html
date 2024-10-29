@@ -97,28 +97,29 @@
          <th:block th:replace="~{board/comment}"></th:block>
 
 
-         <!-- 베스트 게시글 -->
+         <!-- 최근 게시글 -->
           <div class="best-board-area">
             <h2 class="best-header-title">추천 게시물</h2>
 
             <table class="best-board-list">
                 
-                <tbody th:each= "i : ${boardList}">
-                  <th:block th:object="${board}">
-                        <tr>
+                <tbody>
+                  <th:block>
+                        <tr th:each="board : ${top5Boards}"  th:object="${board}">
                            <td>
                              <!-- 제목 -->
-                            <a href="#" th:text="${boardTitle}">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+                            <a th:href="@{/board/2/{boardNo}(boardNo=${board.boardNo})}"
+                                th:text="*{boardTitle}">게시글 제목</a>
             
                             <!-- 댓글수 -->
                              <th:block th:text="|[*{commentCount}]|">[0]</th:block>
                            </td>
                             
                             <!-- 작성지 -->
-                             <td th:text="${memberNickname}">닉네임</td>
+                             <td th:text="*{memberNickname}">닉네임</td>
             
                             <!-- 작성일 -->
-                            <td th:text="${boardWriteDate}">2024.10.18</td>
+                            <td th:text="*{boardWriteDate}">2024.10.18</td>
                         </tr>
                  </th:block>
              </tbody>
@@ -126,41 +127,10 @@
             </table>
           </div>
 
-    </section>
+        </section>
 
 
-    <!-- 댓글 영역 -->
-    <th:block th:replace="~{board/comment}"></th:block>
-
-
-    <!-- 베스트 게시글 -->
-    <div class="best-board-area">
-      <h2 class="best-header-title">추천 게시물</h2>
-
-      <table class="best-board-list">
-
-        <tbody th:each="i : ${boardList}">
-          <th:block th:object="${board}">
-            <tr>
-              <td>
-                <!-- 제목 -->
-                <a href="#" th:text="${boardTitle}">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
-
-                <!-- 댓글수 -->
-                <th:block th:text="|[*{commentCount}]|">[0]</th:block>
-              </td>
-
-              <!-- 작성지 -->
-              <td th:text="${memberNickname}">닉네임</td>
-
-              <!-- 작성일 -->
-              <td th:text="${boardWriteDate}">2024.10.18</td>
-            </tr>
-          </th:block>
-        </tbody>
-
-      </table>
-    </div>
+    
 
 
 

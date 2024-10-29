@@ -26,9 +26,7 @@
         <button id="writeBtn">수정</button>
       </div>
       <form id="postForm">
-        <input type="hidden" id="boardNo" th:value="${board.boardNo}">
-        <input type="hidden" id="boardCode" th:value="${board.boardCode}">
-        <input type="hidden" id="boardCode" th:value="${board.boardContent}">
+        
 
         <input id="subject" name="boardTitle" placeholder="제목" th:value="${board.boardTitle}" maxlength="30" style="width: 1000px;" required >
         <textarea name="boardContent" id="summernote" th:utext="${boardContent}"></textarea>
@@ -41,11 +39,12 @@
   
     
   </main>
-  <script th:src="@{/js/board/boardModify.js}"></script>
   
   <script th:inline="javascript">
-    const board = /*[[${board}]]*/ "보드 객체";
-    </script> 
+    const board = /*[[${board}]]*/ {};
+</script>
 
+
+<script th:src="@{/js/board/boardModify.js}"></script>
 </body>
 </html>

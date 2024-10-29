@@ -1,5 +1,6 @@
 package edu.kh.repet.sse.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class SseServiceImpl implements SseService {
 	public Map<String, Object> insertNotification(Notification notification) {
 
 		// 결과 저장용 map
-		Map<String, Object> map = null;
+		Map<String, Object> map = new HashMap<>();
 
 		// 알림 삽입
 		int result = mapper.insertNotification(notification);
@@ -27,7 +28,7 @@ public class SseServiceImpl implements SseService {
 		if (result > 0) {
 
 			// 알림을 받아야하는 회원의 번호 + 안읽은 알람 개수 조회
-			map = mapper.selectReceiveMember(notification.getNotificationNo());
+      map = mapper.selectReceiveMember(notification.getNotificationNo());
 		}
 
 		return map;

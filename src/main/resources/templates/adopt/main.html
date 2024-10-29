@@ -32,7 +32,7 @@
         <!-- 아이들 간단 조회 -->
         <div id="pet-list" class="adopt-list">
 
-          <!-- <div class="pet-card" id="adopt-card" th:each="adopt : ${adoptList}">
+          <div class="pet-card" id="adopt-card" th:each="adopt : ${adoptList}">
             <div class="pet-image">
               <img class="open-api-img" th:src="${adopt.popfile != null? adopt.popfile : '/images/default.png'}"/>
             </div>
@@ -47,7 +47,7 @@
                 나이: <thblock th:text="${adopt.age}"></thblock>
               </p>
             </div>
-          </div> -->
+          </div>
         </div>
         
         <!-- 추가 버튼 -->

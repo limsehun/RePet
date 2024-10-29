@@ -1,148 +1,137 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 상세화면</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 상세화면</title>
 
-    <th:block th:replace="~{common/common}"></th:block>
+  <th:block th:replace="~{common/common}"></th:block>
 
-    <link rel="stylesheet" href="/css/board/boardDetail-style.css">
-    <link rel="stylesheet" href="/css/board/comment.css">
-    
+  <link rel="stylesheet" href="/css/board/boardDetail-style.css">
+  <link rel="stylesheet" href="/css/board/comment.css">
+
 
 </head>
+
 <body>
 
-    <main>
-        <th:block th:replace="~{common/header :: nav}"></th:block>
+  <main>
+    <div style="width: 100%; height: 1px;">
+      <th:block th:replace="~{common/header}"></th:block>
 
-        <section class="board-detail" th:object="${board}">
-            <h2 class="board-list">자유게시판</h2>
-            <br>
-            <h1 class="board-title" th:text="*{boardTitle}">게시글 제목</h1>
+    </div>
+    <section class="board-detail" th:object="${board}">
+      <h2 class="board-list">자유게시판</h2>
+      <br>
+      <h1 class="board-title" th:text="*{boardTitle}">게시글 제목</h1>
 
-            <!-- 프로필 + 닉네임 + 작성일 -->
-             <div class="board-header">
-                <div class="board-writer">
-                    <!-- 프로필 이미지 -->
-                     <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
-                    <img src="/images/user.png">
+      <!-- 프로필 + 닉네임 + 작성일 -->
+      <div class="board-header">
+        <div class="board-writer">
+          <!-- 프로필 이미지 -->
+          <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
+          <img src="/images/user.png">
 
-                    <!-- 프로필 사진이 있을 경우 출력 -->
-                    <!-- <img src="/images/logo.jpg"> -->
+          <!-- 프로필 사진이 있을 경우 출력 -->
+          <!-- <img src="/images/logo.jpg"> -->
 
-                    <div class="nickname-date">
-                        <!-- 작성자 닉네임 -->
-                        <span th:text="*{memberNickname}">샘플 1</span>
-    
-                        <!-- 작성일 -->
-                       <p> 
-                        <span></span>
-                        <th:block th:text="*{boardWriteDate}"></th:block>
-                      </p>
-    
-                        <!-- 수정한 게시글인 경우 수정일 -->
-                         <span></span>
-                    </div>
+          <div class="nickname-date">
+            <!-- 작성자 닉네임 -->
+            <span th:text="*{memberNickname}">샘플 1</span>
 
-                </div>
+            <!-- 작성일 -->
+            <p>
+              <span></span>
+              <th:block th:text="*{boardWriteDate}"></th:block>
+            </p>
 
-                <div class="board-header-btn">
-                    <th:block th:if= "${session.loginMember?.memberNo} == ${board.memberNo}">
-                        <button id="updateBtn">수정</button>
-                        <button id="deleteBtn">삭제</button>
-                    </th:block>
-
-                    <button id="goToListBtn">목록으로</button>
-                </div>
-             </div>
-
-             <th:block>
-                <!-- <h5>업로드 이미지</h5> -->
-
-                <th:block></th:block>
-                
-             </th:block>
-
-             <div class="board-content" th:utext="*{boardContent}">
-              게시글 내용
-            </div>
-
-             <!-- 좋아요 -->
-             <span class="like-area">
-                <i  class="fa-heart"  id="boardLike" 
-                th:classappend="*{likeCheck == 1} ? fa-solid : fa-regular" ></i>
-
-                <!-- 좋아요 개수 -->
-                <span id="likeCount" th:text="*{likeCount}">0</span>
-             </span>
-
-             <span class="report-area">
-                <i class="fa-regular fa-bell" id="reportBtn" style="color: red;"></i>
-                <!-- <button id="reportBtn">신고하기</button> -->
-
-             </span>
-
-        </section>
-
-
-        <!-- 댓글 영역 -->
-         <th:block th:replace="~{board/comment}"></th:block>
-
-
-         <!-- 베스트 게시글 -->
-          <div class="best-board-area">
-            <h2 class="best-header-title">추천 게시물</h2>
-
-            <table class="best-board-list">
-                
-                <tbody th:each= "i : ${boardList}">
-                  <th:block th:object="${board}">
-                        <tr>
-                           <td>
-                             <!-- 제목 -->
-                            <a href="#" th:text="${boardTitle}">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
-            
-                            <!-- 댓글수 -->
-                             <th:block th:text="|[*{commentCount}]|">[0]</th:block>
-                           </td>
-                            
-                            <!-- 작성지 -->
-                             <td th:text="${memberNickname}">닉네임</td>
-            
-                            <!-- 작성일 -->
-                            <td th:text="${boardWriteDate}">2024.10.18</td>
-                        </tr>
-                 </th:block>
-             </tbody>
-
-            </table>
+            <!-- 수정한 게시글인 경우 수정일 -->
+            <span></span>
           </div>
-    
-    
-    
-    
-</main>
 
-<script th:inline="javascript">
-  // th:inline="javascript"
-  // - Java 데이터 -> JS 자료형을 자동 변환
+        </div>
 
-  // 로그인 되어 있으면 true, 아니면 false
-  const loginCheck =/*[[${session.loginMember != null}]]*/ false;
+        <div class="board-header-btn">
+          <th:block th:if="${session.loginMember?.memberNo} == ${board.memberNo}">
+            <button id="updateBtn">수정</button>
+            <button id="deleteBtn">삭제</button>
+          </th:block>
 
-  // 로그인한 회원의 닉네임
-  const memberNickname
-      =/*[[${session.loginMember?.memberNickname}]]*/ null;
+          <button id="goToListBtn">목록으로</button>
+        </div>
+      </div>
+
+      <th:block>
+        <!-- <h5>업로드 이미지</h5> -->
+
+        <th:block></th:block>
+
+      </th:block>
+
+      <div class="board-content" th:utext="*{boardContent}">
+        게시글 내용
+      </div>
+
+      <!-- 좋아요 -->
+      <span class="like-area">
+        <i class="fa-heart" id="boardLike" th:classappend="*{likeCheck == 1} ? fa-solid : fa-regular"></i>
+
+        <!-- 좋아요 개수 -->
+        <span id="likeCount" th:text="*{likeCount}">0</span>
+      </span>
+
+      <span class="report-area">
+        <i class="fa-regular fa-bell" id="reportBtn" style="color: red;"></i>
+        <!-- <button id="reportBtn">신고하기</button> -->
+
+      </span>
+
+    </section>
 
 
-  // 상세 조회한 게시글 정보
-  const boardDetail = /*[[${board}]]*/ null;
-</script>
+    <!-- 댓글 영역 -->
+    <th:block th:replace="~{board/comment}"></th:block>
 
 
-<!-- JavaScript 파일 연결 -->
-<script src="/js/board/boardDetail.js"></script>
+    <!-- 베스트 게시글 -->
+    <div class="best-board-area">
+      <h2 class="best-header-title">추천 게시물</h2>
+
+      <table class="best-board-list">
+
+        <tbody th:each="i : ${boardList}">
+          <th:block th:object="${board}">
+            <tr>
+              <td>
+                <!-- 제목 -->
+                <a href="#" th:text="${boardTitle}">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+
+                <!-- 댓글수 -->
+                <th:block th:text="|[*{commentCount}]|">[0]</th:block>
+              </td>
+
+              <!-- 작성지 -->
+              <td th:text="${memberNickname}">닉네임</td>
+
+              <!-- 작성일 -->
+              <td th:text="${boardWriteDate}">2024.10.18</td>
+            </tr>
+          </th:block>
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+
+  </main>
+
+
+
+  <!-- JavaScript 파일 연결 -->
+  <script src="/js/board/boardDetail.js"></script>
 </body>
+
 </html>

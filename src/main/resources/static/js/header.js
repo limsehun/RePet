@@ -1,7 +1,7 @@
 const connectSse = () => {
 
   /* 로그인이 되어있지 않은 경우 함수 종료 */
-  if (notificationLoginCheck === false) return;
+  if (loginCheck === false) return;
 
   console.log("connectSse() 호출")
 
@@ -27,7 +27,7 @@ const connectSse = () => {
     const notificationCountArea
       = document.querySelector(".notification-count-area");
 
-    notificationCountArea.innerText = obj.notiCount;
+    notificationCountArea.innerText = obj.likeCount;
 
     /* 만약 알림 목록이 열려 있을 경우 */
     const notificationList
@@ -49,8 +49,8 @@ const connectSse = () => {
 }
 
 const sendNotification = (type, url, pkNo, content) => {
-
-  if (notificationLoginCheck === false) return;
+  console.log("sse.sendNotification 실행 " +type );
+  if (loginCheck === false) return;
 
   const notification = {
     "notificationType": type,
@@ -75,7 +75,7 @@ const sendNotification = (type, url, pkNo, content) => {
 
 const selectNotificationList = () => {
 
-  if (notificationLoginCheck === false) return;
+  if (loginCheck === false) return;
 
   fetch("/notification")
     .then(response => {
@@ -86,7 +86,7 @@ const selectNotificationList = () => {
       const notiList = document.querySelector(".notification-list");
       notiList.innerHTML = '';
 
-      for (let alarm of aralmList) {
+      for (let alarm of alarmList) {
 
         const notiItem = document.createElement("li");
         notiItem.className = 'notification-item';
@@ -120,15 +120,15 @@ const selectNotificationList = () => {
         const contentContainer = document.createElement("div");
         contentContainer.className = 'notification-content-container';
 
-        // 알림 내용
-        const notiContent = document.createElement("p");
-        notiContent.className = 'notification-content';
-        notiContent.innerHTML = data.notificationContent; // 태그가 해석 될 수 있도록 innerHTML
-
         // 알림 보내진 시간
         const notiDate = document.createElement("p");
         notiDate.className = 'notification-date';
-        notiDate.innerText = data.notificationDate;
+        notiDate.innerText = alarm.notificationDate;
+
+        // 알림 내용
+        const notiContent = document.createElement("p");
+        notiContent.className = 'notification-content';
+        notiContent.innerHTML = alarm.notificationContent; // 태그가 해석 될 수 있도록 innerHTML
 
         // 삭제 버튼
         const notiDelete = document.createElement("span");
@@ -140,7 +140,7 @@ const selectNotificationList = () => {
           fetch("/notification", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: data.notificationNo
+            body: alarm.notificationNo
           })
             .then(resp => {
               if (resp.ok) {
@@ -168,7 +168,7 @@ const selectNotificationList = () => {
 const notReadCheck = () => {
 
   // 로그인 되어있지 않으면 리턴
-  if(!notificationLoginCheck) return;
+  if(!loginCheck) return;
 
   fetch("/notification/notReadCheck")
   .then(response => {

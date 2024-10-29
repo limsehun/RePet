@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
-@SessionAttributes("loginMember")
+@SessionAttributes({"loginMember"})
 @Controller // 요청 / 응답 제어 하는 역할 명시 + Bean 등록(IOC)
 @RequestMapping("member") // /member로 시작하는 요청 매핑
 @Slf4j // log 필드 자동 생성 Lombok 어노테이션

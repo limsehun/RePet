@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.repet.member.dto.Member;
@@ -64,6 +65,7 @@ public class MyPageController {
 	//회원 정보 수정
   @PostMapping("modify")
   public String updateMemberInfo(
+  				@RequestParam("profileImg") MultipartFile profileImg,
   				@SessionAttribute("loginMember") Member loginMember,
   				@RequestParam("memberPw") String memberPw,
           @RequestParam("newPw") String newPw,
@@ -72,7 +74,7 @@ public class MyPageController {
   		) {
   	
       // 서비스 호출하여 업데이트 실행
-      int result = service.updateMemberInfo(memberPw, loginMember, newPw, memberNickname);
+      int result = service.updateMemberInfo(memberPw, loginMember, newPw, memberNickname, profileImg);
 
       // 성공 여부에 따라 메시지 설정
       String message = null;
@@ -124,9 +126,9 @@ public class MyPageController {
 	
 	
 
-	@GetMapping("board")
-	public String myBoard() {
-		return "myPage/myPage-board";
-	}
+//	@GetMapping("board")
+//	public String myBoard() {
+//		return "myPage/myPage-board";
+//	}
 
 }

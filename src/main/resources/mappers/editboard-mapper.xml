@@ -16,6 +16,7 @@
 	</insert>
 
 
+
 <insert id="uploadImage">
 	INSERT INTO "BOARD_IMG"
 	VALUES(SEQ_IMG_NO.NEXTVAL, #{imgPath}, #{imgRename}, NULL )

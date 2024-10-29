@@ -33,6 +33,8 @@
 		    BL.MEMBER_NO = #{memberNo}
 		    AND
 		    B.BOARD_CODE = #{boardCode}
+		    AND
+		    B.BOARD_DEL_FL = 'N'
 	</select>
 	
 	
@@ -49,6 +51,7 @@
 	    WHERE
 	        BL.MEMBER_NO = #{memberNo}
 	        AND B.BOARD_CODE = 2
+	        AND B.BOARD_DEL_FL = 'N'
 	</select>
 	
 	
@@ -58,7 +61,8 @@
 	    	"MEMBER"
 	    SET 
 	        MEMBER_PW = #{encPw},
-	        MEMBER_NICKNAME = #{memberNickname}
+	        MEMBER_NICKNAME = #{memberNickname},
+	        PROFILE_IMG = #{profilePath}
 	    WHERE 
 	        MEMBER_NO = #{memberNo}
 	</update>

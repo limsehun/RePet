@@ -28,15 +28,15 @@
       <h2>입양중인 동물</h2>
 
       <div class="imfo-animal-all">
-        <div><button type="submit" class="animalBtn">분양정보 보기</button></div>
+        <div><a href="/adopt/main" class="animalBtn">분양정보 보기</a></div>
       </div>
 
 
       <div class="animal-cards">
-        <div class="animal-card">IMG</div>
-        <div class="animal-card">IMG</div>
-        <div class="animal-card">IMG</div>
-        <div class="animal-card">IMG</div>
+        <div class="animal-card"><img src="" alt=""></div>
+        <div class="animal-card"><img src="" alt=""></div>
+        <div class="animal-card"><img src="" alt=""></div>
+        <div class="animal-card"><img src="" alt=""></div>
       </div>
       <div class="name-box">
         <div class="animal-name">콩떡이</div>
@@ -45,10 +45,10 @@
         <div class="animal-name">콩떡이</div>
       </div>
       <div class="imfo-animal">
-        <div><button class="imfo-btn">상세정보</button></div>
-        <div><button class="imfo-btn">상세정보</button></div>
-        <div><button class="imfo-btn">상세정보</button></div>
-        <div><button class="imfo-btn">상세정보</button></div>
+        <div><button class="imfo-btn1">상세정보</button></div>
+        <div><button class="imfo-btn2">상세정보</button></div>
+        <div><button class="imfo-btn3">상세정보</button></div>
+        <div><button class="imfo-btn4">상세정보</button></div>
 
       </div>
     </section>
@@ -73,7 +73,7 @@
 
             <br>
             <br>
-            <button>입양하기</button>
+            <a href="/adopt/main">입양하기</a>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
 
     <!-- 유기동물 섹션 -->
     <section class="abandoned-sup-section">
-      <h2>유기동물</h2>
+      <h2>애완용품</h2>
 
       <div class="imfo-sup-all">
         <div><button class="supBtn">애완용품 보기</button></div>
@@ -125,7 +125,8 @@
   
             <br>
             <br>
-            <button class="map">병원정보</button>
+            
+            <button id="hospital-btn">병원정보</button>
 
           </div>
         </div>
@@ -137,7 +138,7 @@
       </div>
     </section>
 
-    <th:block th:replace="~{common/footer}"></th:block>
+    <th:block class="adopt-footer" th:replace="~{common/footer}"></th:block>
   </main>
 
 
@@ -147,6 +148,22 @@
   <th:block th:replace= "~{member/searchPw}"></th:block>
 
   <script src="/js/main.js"></script>
+
+  <script th:inline="javascript">
+    // th:inline="javascript"
+    // - Java 데이터 -> JS 자료형을 자동 변환
+  
+    // 로그인 되어 있으면 true, 아니면 false
+    const loginCheck =/*[[${session.loginMember != null}]]*/ false;
+  
+    // 로그인한 회원의 닉네임
+    const memberNickname
+      =/*[[${session.loginMember?.memberNickname}]]*/ null;
+  
+    const notificationDefaultImage = /*[[#{user.default.image}]]*/ "유저기본이미지";
+    // 상세 조회한 게시글 정보
+    const boardDetail = /*[[${board}]]*/ null;
+  </script>
   
   <script src="/js/member/signUp.js"></script>
 </body>

@@ -60,13 +60,50 @@
 	<!-- 게시글 상세 조회 -->
     <select id="boardDetail" parameterType="map" resultType="Board">
         SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT,
-               MEMBER_NO, BOARD_CODE
-        FROM BOARD
+               MEMBER_NO, BOARD_CODE,
+               
+               (SELECT COUNT(*) FROM BOARD_LIKE WHERE BOARD_NO = B.BOARD_NO) AS LIKE_COUNT,
+               
+               (SELECT COUNT(*)
+			 FROM "BOARD_LIKE"
+			 WHERE BOARD_NO = #{boardNo}
+			 AND   MEMBER_NO = #{memberNo}) AS LIKE_CHECK
+               
+        FROM BOARD B
         WHERE BOARD_NO = #{boardNo} AND BOARD_CODE = #{boardCode} AND BOARD_DEL_FL = 'N'
     </select>
+    
+    <update id="updateReadCount">
+    	UPDATE "BOARD" 
+   		SET READ_COUNT = READ_COUNT + 1
+   		WHERE BOARD_NO = #{boardNo}
+    </update>
 
 
+	<select id="checkBoardLike" resultType="_int">
+		SELECT COUNT(*)
+   		FROM "BOARD_LIKE"
+   		WHERE BOARD_NO  = #{boardNo}
+   		AND   MEMBER_NO = #{memberNo}
+	</select>
+	
+	<insert id="insertBoardLike">
+		INSERT INTO "BOARD_LIKE" 
+   		VALUES(#{boardNo}, #{memberNo})
+	</insert>
 
+	
+	<insert id="deleteBoardLike">
+		DELETE FROM "BOARD_LIKE"
+   		WHERE BOARD_NO  = #{boardNo}
+   		AND   MEMBER_NO = #{memberNo}
+	</insert>
+	
+	<select id="getLikeCount" resultType="_int">
+		SELECT COUNT(*)
+   		FROM "BOARD_LIKE"
+   		WHERE BOARD_NO = #{boardNo}
+	</select>
 
 
 

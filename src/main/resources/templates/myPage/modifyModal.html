@@ -9,22 +9,35 @@
       <i class="fa-solid fa-camera"></i>
     </div>
     <h4>정보 수정</h4>
-    <form>
-      <input type="email" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
-      <input type="password" placeholder="기존 비밀번호 입력" required>
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
-      <input type="password" placeholder="새 비밀번호 확인" required>
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
-      <input type="password" placeholder="새 비밀번호" required>
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
-      <input type="text" placeholder="닉네임" required>
-      <span class="modal-text">최소 8글자 이상, 대문자, 특수문자 포함필수</span>
 
+    <form action="modify" method="POST" name="Member" id="modifyForm">
+
+      <!-- 이메일 수정 불가 -->
+      <input type="email" name="memberEmail" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
+
+      <!-- 기존 비밀번호 입력 -->
+      <input id="memberPw" type="password" name="memberPw" placeholder="기존 비밀번호 입력">
+
+      <span id="memberPwMessage" class="modal-text red"></span>
+
+      <!-- 새 비밀번호 입력 -->
+      <input id="newPw" type="password" name="newPw" placeholder="새 비밀번호 입력">
+
+      <!-- 새 비밀번호 확인 -->
+      <input id="confirmPw" type="password" name="confirmPw" placeholder="새 비밀번호 확인">
+      <span id="confirmPwMessage" class="modal-text red"></span>
+
+      <!-- 새 닉네임 입력 -->
+      <input id="newNickname" type="text" name="memberNickname" placeholder="닉네임">
+      <span id="nickMessage" class="modal-text red"></span>
+  
       <div class="modify-modal-btn"> 
         <button type="button" id="modifyCancelBtn">취소</button>
         <button type="submit" id="modifyBtn">수정하기</button>
       </div>
-    </form>
+
+  </form>
+
   </div>
 </div>
 

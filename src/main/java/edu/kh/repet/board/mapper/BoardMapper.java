@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.repet.board.dto.Board;
@@ -35,5 +36,37 @@ public interface BoardMapper {
 
 
 	Board boardDetail(Map<String, Integer> map);
+
+
+	int updateReadCount(int boardNo);
+
+
+	// 좋아요 누른 적 있나 검사
+	int checkBoardLike(@Param("boardNo") int boardNo, @Param("memberNo") int memberNo);
+
+
+	// 좋아요 테이블에 삽입
+	int insertBoardLike(@Param("boardNo") int boardNo, @Param("memberNo") int memberNo);
+
+	// 좋아요 테이블 삭제
+	int deleteBoardLike(@Param("boardNo") int boardNo, @Param("memberNo") int memberNo);
+
+
+	// INSERT,DELETE 수행 후 해당 게시물 개수 조회
+	int getLikeCount(int boardNo);
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

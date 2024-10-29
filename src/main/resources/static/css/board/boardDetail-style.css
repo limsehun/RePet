@@ -1,3 +1,7 @@
+.board-page header {
+    position: relative;
+}
+
 /* 상세조회 전체 영역 */
 .board-detail{
     width: 1000px;
@@ -100,7 +104,7 @@ a{
 
 /* 좋아요 */
 .like-area{
-    margin-left: 820px;
+    margin-left: 891px;
 }
 
 

@@ -40,7 +40,7 @@ const checkObj = {
 //  이메일 유효성 검사에 필요한 요소
 const checkBtn = document.querySelector("#check-btn");
 const memberEmail = document.querySelector("#memberEmail");
-const memberEmailMessage = document.querySelector("#memberEmailMessage");
+const memberEmailMessage = document.querySelector("#emailMessage");
 
 
 const memberEmailCM = {}; // 빈 객체
@@ -60,11 +60,9 @@ memberEmail.addEventListener("input", e => {
     return;
   }
 
-
-  // 이메일 형식 정규 표현식 객체
   const regEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  // 입력 값이 이메일 형식이 아닌 경우
+
   if (regEx.test(inputmemberEmail) === false) {
     memberEmailMessage.innerText = memberEmailCM.invaild; // 유효 X 메시지
     memberEmailMessage.classList.add("error");
@@ -73,7 +71,7 @@ memberEmail.addEventListener("input", e => {
     return;
   }
 
-  // 6) 이메일 중복 검사(AJAX)
+
   fetch("/member/memberEmailCheck?memberEmail=" + inputmemberEmail)
     .then(response => {
       if (response.ok) { 
@@ -83,7 +81,9 @@ memberEmail.addEventListener("input", e => {
       throw new Error("이메일 중복 검사 에러");
     })
     .then(count => {
+
       // checkBtn.addEventListener("click", () => {
+
       if (count == 1) { // 중복인 경우
         memberEmailMessage.innerText = memberEmailCM.duplication; // 중복 메시지
         memberEmailMessage.classList.add("error");
@@ -232,7 +232,7 @@ memberNickname.addEventListener("input", () => {
   }
 
   // 6) 닉네임 중복 검사
-  fetch("/member/memberNicknameCheck?memberNickname=" + inputmemberNickname)
+  fetch("/member/nicknameCheck?memberNickname=" + inputmemberNickname)
     .then(response => {
       if (response.ok) return response.text();
       throw new Error("닉네임 중복 검사 에러");

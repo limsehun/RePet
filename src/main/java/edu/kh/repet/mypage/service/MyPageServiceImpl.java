@@ -20,11 +20,13 @@ import edu.kh.repet.common.util.FileUtil;
 import edu.kh.repet.member.dto.Member;
 import edu.kh.repet.mypage.mapper.MyPageMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Transactional
 @Service
 @RequiredArgsConstructor
 @PropertySource("classpath:/config.properties")
+@Slf4j
 public class MyPageServiceImpl implements MyPageService {
 	
 	private final BCryptPasswordEncoder encoder;
@@ -165,4 +167,38 @@ public class MyPageServiceImpl implements MyPageService {
 		return mapper.deleteUser(memberNo);
 	}
 
+
+	// 게시물 리스트 조회
+	@Override
+	public Map<String, Object> selectBoardList(int memberNo, int cp) {
+		
+		int boardListCount = mapper.boardCount(memberNo);
+		
+		log.debug("paramMap : {}", boardListCount);
+		
+		// 페이지 네이션 객체
+		// cp 현재 페이지 번호
+		// 한 페이지에 표실할 게시물 수
+		// 링크 수
+		Pagination pagination = new Pagination(cp, boardListCount, 5, 5);
+		
+		// ex) 현재 페이지 2 - 1 = 1
+		// 1 * 5 = 5
+		// 해당 인덱스 부터 게시물 가져오는 값
+		int offset = (cp - 1) * pagination.getLimit();
+		
+		//offset: 데이터베이스에서 데이터를 가져올 시작 위치.
+		// pagination.getLimit(): 한 번에 가져올 게시물의 수.
+		// RowBounds는 MyBatis가 SQL 쿼리를 실행할 때 자동으로 OFFSET과 LIMIT을 적용
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		
+		List<Board> boardList = mapper.selectBoardList(memberNo, rowBounds);
+		
+		
+		Map<String, Object> map = Map.of("boardList", boardList, "pagination", pagination);
+		
+		return map;
+	}
+	
 }

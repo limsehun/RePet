@@ -41,4 +41,12 @@ public interface MyPageMapper {
 	// 회원 탈퇴
 	int deleteUser(int memberNo);
 
+	
+	// 게시물 수 조회
+	int boardCount(int memberNo);
+
+
+	// 게시물 리스트 조회
+	List<Board> selectBoardList(int memberNo, RowBounds rowBounds);
+
 }

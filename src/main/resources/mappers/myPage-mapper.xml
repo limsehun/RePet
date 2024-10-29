@@ -100,8 +100,27 @@
 	        MEMBER_DEL_FL = 'Y'
 		WHERE
 			MEMBER_NO = #{memberNo}
-		
 	</update>
+	
+	
+	<select id="boardCount" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOARD
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	<select id="selectBoardList" resultType="Board">
+		SELECT
+			*
+		FROM
+			BOARD
+		WHERE
+			MEMBER_NO = #{memberNo}
+</select>
 			
 	
 	

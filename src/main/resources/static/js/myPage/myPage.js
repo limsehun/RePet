@@ -61,7 +61,13 @@ const likeList = document.querySelector("#likeList");
 
 
 const selectLikeList = (cp) => {
+
   const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
+
+  if (!memberNo) {
+    console.error("memberNo 요소가 존재하지 않습니다. 이 페이지에서는 selectLikeList를 실행하지 않습니다.");
+    return; // 요소가 없으면 함수 종료
+  }
 
   let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}&cp=${cp}`; // cp 값 추가
 
@@ -634,6 +640,13 @@ deleteCancelBtn.addEventListener("click",(e) => {
   e.preventDefault(); // 기본 폼 제출 동작 막기
 
   deleteModal.style.display = "none";
+
+  // 입력 필드 초기화
+  document.querySelector("#deletePw").value = "";     // 기존 비밀번호 입력 초기화
+
+  // 에러 메시지 초기화
+  document.querySelector("#deletePwMessage").innerText = "";
+
 });
 
 
@@ -724,6 +737,30 @@ deleteForm?.addEventListener("submit", e => {
 
 /* ------------------------------ myPage-delete JS  ------------------------------ */
 
+const boardList = document.querySelector("#boardList");
+
+const selectBoardList = (cp) => {
+
+  let requestUrl = `/myPage/selectBoardList?&cp=${cp}`; // cp 값 추가
+
+  fetch(requestUrl)
+    .then(response => {
+      if (response.ok) return response.json();
+      throw new Error("조회 오류");
+    })
+    .then(map => {
+
+      const boardList = map.boardList;
+      const pagination = map.pagination;
+
+      console.log(boardList);
+      console.log(pagination);
+
+    })
+    .catch(err => console.error(err));
+};
+
+
 
 
 /* ------------------------------ myPage-board JS  ------------------------------ */
@@ -731,7 +768,14 @@ deleteForm?.addEventListener("submit", e => {
 
 
 
-// 초기 데이터 로딩
 document.addEventListener("DOMContentLoaded", () => {
-  selectLikeList(1); // 기본 페이지 1로 데이터 로딩
+  // 페이지에 #memberNo 요소가 존재할 때만 selectLikeList 호출
+  if (document.querySelector("#memberNo")) {
+    selectLikeList(1); // 기본 페이지 1로 데이터 로딩
+  }
+
+  // 페이지에 #boardList 요소가 존재할 때만 selectBoardList 호출
+  if (document.querySelector("#boardList")) {
+    selectBoardList(1); // 기본 페이지 1로 데이터 로딩
+  }
 });

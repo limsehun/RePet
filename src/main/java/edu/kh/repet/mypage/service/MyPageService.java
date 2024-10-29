@@ -29,4 +29,8 @@ public interface MyPageService {
 	// 회원 탈퇴
 	int deletUser(int memberNo);
 
+
+	// 게시물 리스트 조회
+	Map<String, Object> selectBoardList(int memberNo, int cp);
+
 }

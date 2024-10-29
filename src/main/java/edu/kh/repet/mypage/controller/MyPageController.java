@@ -37,6 +37,11 @@ public class MyPageController {
 				Model model
 			) {
 		
+		
+    if (loginMember == null) {
+      return "/"; // 로그인 페이지로 리다이렉트
+    }
+		
 		Map<String, Object> map = service.memberList(loginMember.getMemberNo());
 		
 		Member member = (Member)map.get("memberList");
@@ -131,6 +136,7 @@ public class MyPageController {
   }
   
   
+  // 회원 탈퇴
   @ResponseBody
   @PutMapping("delete")
   public int deleteUser(
@@ -149,6 +155,24 @@ public class MyPageController {
   }
   
   
+  
+  
+  
+  // 회원이 작성한 게시물 리스트
+	@ResponseBody
+	@GetMapping("selectBoardList")
+	public Map<String, Object> selectBoardList(
+				@SessionAttribute("loginMember") Member loginMember,
+				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
+			) {
+		
+		return service.selectBoardList(loginMember.getMemberNo(), cp);
+	}
+	
+	
+	
+  
+  
   @GetMapping("/board")
   public String myPageBoard(@SessionAttribute("loginMember")
   			Member loginMember, Model model
@@ -158,6 +182,14 @@ public class MyPageController {
     }
     return "myPage/myPage-board";
   }
+  
+  
+  
+
+  
+  
+  
+  
 	
 	
 	

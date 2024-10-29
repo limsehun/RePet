@@ -1,5 +1,9 @@
 /* custom_summernote.css */
 
+.board-page header{
+  position: relative;
+}
+
 .container{
   justify-content: center;
   align-items: center;

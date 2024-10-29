@@ -100,7 +100,7 @@ const selectNotificationList = () => {
         notiText.addEventListener("click", e => {
 
           // 만약 읽지 않은 알람인 경우
-          if (data.notificationCheck == 'N') {
+          if (alarm.notificationCheck == 'N') {
             fetch("/notification", {
               method: "PUT",
               headers: { "Content-Type": "application/json" },

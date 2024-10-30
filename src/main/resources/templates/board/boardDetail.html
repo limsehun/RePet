@@ -86,8 +86,9 @@
                 <span id="likeCount" th:text="*{likeCount}">0</span>
              </span>
 
+             <!-- 신고하기 -->
              <span class="report-area">
-                <i class="fa-regular fa-bell" id="reportBtn" style="color: red;"></i>
+              <i class="fa-regular fa-thumbs-down" id="reportBtn"></i>
                 <!-- <button id="reportBtn">신고하기</button> -->
 
              </span>
@@ -142,9 +143,9 @@
 
   <script th:inline="javascript">
 
-      /*[[${session.loginMember != null}]]*/ 
+      
 
-     let boardNo =/*[[${board.boardNo}]]*/ {};
+     let boardNo =/*[[${board.boardNo}]]*/ null;
 
 
         // 로그인 되어 있으면 true, 아니면 false
@@ -167,6 +168,7 @@
   <!-- JavaScript 파일 연결 -->
   <script src="/js/board/boardDetail.js"></script>
   <script src="/js/board/comment.js"></script>
+  <script src="/js/board/reportPopup.js"></script>
 </body>
 
 </html>

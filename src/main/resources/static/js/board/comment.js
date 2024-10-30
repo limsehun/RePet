@@ -84,15 +84,19 @@ $(document).ready(function() {
 
 
   // 댓글 수정 버튼 클릭 이벤트
-  $(document).on('click', '.update-comment-btn', function() {
+$(document).on('click', '.update-comment-btn', function() {
     let commentRow = $(this).closest('li');
-    let commentContent = commentRow.find('.comment-content').text();
+    let commentContent = commentRow.find('.comment-content').text().trim();
 
     // 댓글 내용을 수정 가능한 textarea로 변경
     commentRow.find('.comment-content').replaceWith(`
-        <textarea class="edit-comment-content">${commentContent}</textarea>
+        <textarea class="edit-comment-content" style="resize:none">${commentContent}</textarea>
     `);
+
+    
+
     $(this).replaceWith('<button class="save-comment-btn">저장</button>');
+    commentRow.find('.delete-comment-btn').replaceWith('<button class="cancel-edit-btn">취소</button>');
 });
 
 // 댓글 수정 저장 버튼 클릭 이벤트
@@ -101,7 +105,7 @@ $(document).on('click', '.save-comment-btn', function() {
     let commentNo = commentRow.data('comment-no');
     let newContent = commentRow.find('.edit-comment-content').val().trim();
 
-    if(newContent === "") {
+    if (newContent === "") {
         alert("댓글 내용을 입력해주세요.");
         return;
     }
@@ -114,7 +118,10 @@ $(document).on('click', '.save-comment-btn', function() {
         success: function(response) {
             if (response > 0) {
                 alert("댓글이 성공적으로 수정되었습니다.");
-                loadComments(); // 댓글 수정 후 목록 갱신
+                // 댓글 내용 수정 후 textarea를 다시 p 태그로 변경
+                commentRow.find('.edit-comment-content').replaceWith(`<p class="comment-content">${newContent}</p>`);
+                commentRow.find('.save-comment-btn').replaceWith('<button class="update-comment-btn">수정</button>');
+                commentRow.find('.cancel-edit-btn').replaceWith('<button class="delete-comment-btn">삭제</button>');
             } else {
                 alert("댓글 수정에 실패했습니다.");
             }
@@ -123,6 +130,17 @@ $(document).on('click', '.save-comment-btn', function() {
             alert("댓글 수정 중 오류가 발생했습니다.");
         }
     });
+});
+
+// 댓글 수정 취소 버튼 클릭 이벤트
+$(document).on('click', '.cancel-edit-btn', function() {
+    let commentRow = $(this).closest('li');
+    let originalContent = commentRow.find('.edit-comment-content').text().trim();
+
+    // 수정 취소 시 textarea를 다시 p 태그로 변경
+    commentRow.find('.edit-comment-content').replaceWith(`<p class="comment-content">${originalContent}</p>`);
+    commentRow.find('.save-comment-btn').replaceWith('<button class="update-comment-btn">수정</button>');
+    $(this).replaceWith('<button class="delete-comment-btn">삭제</button>');
 });
 
   // 댓글 삭제

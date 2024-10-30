@@ -18,9 +18,8 @@ public interface CommentService {
 	int deleteComment(int commentNo, int memberNo);
 
 
-	Comment getCommentById(int commentNo);
 
 
-	int updateComment(Comment updatedComment);
+	int updateComment(Comment comment);
 
 }

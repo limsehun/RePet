@@ -22,9 +22,8 @@ public interface CommentMapper {
 	int deleteComment(@Param("commentNo") int commentNo, @Param("memberNo")  int memberNo);
 
 
-	Comment selectCommentById(int commentNo);
 
 
-	int updateComment(Comment updatedComment);
+	int updateComment(Comment comment);
 
 }

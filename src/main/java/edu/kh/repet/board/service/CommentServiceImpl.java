@@ -38,14 +38,10 @@ public class CommentServiceImpl implements CommentService {
 		return mapper.deleteComment(commentNo, memberNo);
 	}
 	
-	@Override
-	public Comment getCommentById(int commentNo) {
-		return mapper.selectCommentById(commentNo);
-	}
 
 	@Override
-	public int updateComment(Comment updatedComment) {
-		return mapper.updateComment(updatedComment);
+	public int updateComment(Comment comment) {
+		return mapper.updateComment(comment);
 	}
 
 

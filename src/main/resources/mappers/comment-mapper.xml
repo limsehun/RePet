@@ -25,7 +25,20 @@
     DELETE FROM BOARD_COMMENT
     WHERE COMMENT_NO = #{commentNo}
     AND MEMBER_NO = #{memberNo}
-</delete>
+	</delete>
+	
+	<update id="updateComment" parameterType="Comment">
+    UPDATE BOARD_COMMENT
+    SET COMMENT_CONTENT = #{commentContent},
+        COMMENT_WRITE_DATE = SYSDATE
+    WHERE COMMENT_NO = #{commentNo}
+      AND COMMENT_DEL_FL = 'N'
+   </update>
+   
+   
+   
+   
+   
 
 
 </mapper>

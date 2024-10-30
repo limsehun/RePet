@@ -326,11 +326,3 @@ p{
   margin-top: 15px; /* 제목 위 여백 */
 }
 
-
-/* Footer styling */
-.adopt-footer {
-  margin-top: auto; /* 푸터를 항상 컨텐츠 아래로 밀어냄 */
-  color: white;
-  text-align: center;
-  width: 100%;
-}

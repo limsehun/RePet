@@ -13,11 +13,13 @@ import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.Pagination;
 import edu.kh.repet.manager.transaction.service.TransactionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequestMapping("manager/transaction")
 @RequiredArgsConstructor
+@Slf4j
 public class TransactionManagerController {
 	
 	public final TransactionService service;
@@ -33,11 +35,11 @@ public class TransactionManagerController {
 		
 		Map<String, Object> map = null;
 		
+		log.debug("paramMap : {}", paramMap);
 		// 검색이 아닌 경우 == 일반 목록 조회
 		if(paramMap.get("key") == null) {
 			map = service.selectBoardList(cp);
 		} else { // 검색한 경우
-			// paramMap에 key, query 담겨 있음
 			map = service.selectSearchList(cp, paramMap);
 			
 		}
@@ -68,10 +70,9 @@ public class TransactionManagerController {
 		Map<String, Object> map = null;
 		
 		// 검색이 아닌 경우 == 일반 목록 조회
-		if(paramMap.get("key") == null) {
+		if(paramMap.get("query") == null) {
 			map = service.selectReportList(cp);
-		} else { // 검색한 경우
-			// paramMap에 key, query 담겨 있음
+		} else {
 			map = service.selectSearchReportList(cp, paramMap);
 			
 		}

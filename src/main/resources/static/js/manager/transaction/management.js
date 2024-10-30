@@ -46,12 +46,11 @@ pageNoList?.forEach( (item, index) => {
     }
 
     const params = new URLSearchParams(location.search);
-
-    const key = params.get("key"); 
+ 
     const query = params.get("query");
 
-    if(key !== null){ // 검색인 경우
-      pathname += `&key=${key}&query=${query}`;
+    if(query !== null){ // 검색인 경우
+      pathname += `&query=${query}`;
     }
 
     // 페이지 이동
@@ -91,7 +90,6 @@ pageNoList?.forEach( (item, index) => {
 
 
 // -------------- 모달창 -------------------
-
 
 
 manageBtn.addEventListener("click", () => {

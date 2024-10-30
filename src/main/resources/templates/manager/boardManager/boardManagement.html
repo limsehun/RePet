@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/manager/manager-style.css">
 </head>
 
+
 <body>
   <main>
     <th:block th:replace="~{common/header}"></th:block>
@@ -17,7 +18,7 @@
 
     <section class="main-content"> <!-- main-content 클래스를 section에 추가 -->
       <div class="admin-main"> <!-- div로 감싸서 구조화 -->
-        <h1>중고거래 게시글 관리</h1>
+        <h1>자유게시판 관리</h1>
 
         <!-- 검색 영역 -->
         <form class="search-area" th:action="@{{code}(code=${boardCode})}" method="get" id="boardSearch">
@@ -35,31 +36,29 @@
 
         <!-- 테이블 영역 -->
         <div class="table-container">
-          <table class="admin-table">
+          <table class="admin-table" border="1">
             <thead>
               <tr>
                 <th>No</th>
-                <th>아이디</th>
-                <th>닉네임</th>
-                <th>가입일</th>
-                <th>게시글 수</th>
-                <th>댓글 수</th>
-                <th>처리 상태</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성일</th>
+                <th>작성자</th>
+                <th>관리</th>
               </tr>
             </thead>
-            <tbody id="memberList">
-              <tr th:each="member : ${memberList}">
-                <td th:text="${memberNo}">1</td>
-                <td th:text="${memberEmail}">hong</td>
-                <td th:text="${memberNickname}">홍길동</td>
-                <td th:text="${enrollDate}">2024-03-21 14:00:44</td>
-                <td th:text="${boardCount}">2</td>
-                <td th:text="${commentCount}">2</td>
-                <td>
-                  <span class="status" th:text="${statusContent}">정상</span>
-                </td>
+
+            <tbody id="boardList">
+              <tr>
+
+                <td>1</td>
+                <td>hong</td>
+                <td>내용</td>
+                <td>2024-03-21 14:00:44</td>
+                <td>닉네임</td>
+                <td>상세정보</td>
               </tr>
-              <!-- 추가 행들... -->
+
             </tbody>
           </table>
         </div>
@@ -102,8 +101,7 @@
     </section>
   </main>
 
-  <!-- <script src="/js/manager/transaction/management.js"></script> -->
-  <script src="/js/manager/manager-info.js"></script>
+  <script src="/js/manager/boardmanage/boardManagement.js"></script>
 </body>
 
 </html>

@@ -462,7 +462,7 @@ html, body {
 
 .board-content {
   margin-left: 300px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
-  padding-top: 20vh; /* 헤더 아래부터 시작 */
+  padding-top: 15vh; /* 헤더 아래부터 시작 */
   display: flex;
   flex-direction: column;
   align-items: center;

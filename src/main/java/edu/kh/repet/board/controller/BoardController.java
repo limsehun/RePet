@@ -151,6 +151,10 @@ public class BoardController {
 	    // 조회된 게시글 정보를 모델에 추가하여 View로 전달
 	    model.addAttribute("board", board);
 	    
+	 // 조회수가 높은 게시물 5개를 조회하여 모델에 추가
+	    List<Board> top5Boards = service.getTop5Boards();
+	    model.addAttribute("top5Boards", top5Boards);
+	    
 	    
 
 	    return "board/boardDetail"; // 게시글 상세 페이지로 이동
@@ -171,7 +175,24 @@ public class BoardController {
 		
 		return service.boardLike(boardNo, memberNo);
 	}
-
+	
+	
+	// 게시글 목록으로 리다이렉트
+	@GetMapping("{boardCode}/{boardNo}/goToList")
+	public String goToList(
+			@PathVariable("boardCode") int boardCode,
+			@PathVariable("boardNo") int boardNo,
+			@RequestParam Map<String, Object> paramMap
+			) {
+		
+		paramMap.put("boardCode", boardCode);
+		paramMap.put("boardNo", boardNo);
+		
+		int cpage = service.getCurrentPage(paramMap);
+		
+		String url = "redirect:/board/" + boardCode + "?cpage=" + cpage;
+		return url;
+	}
 
 
 

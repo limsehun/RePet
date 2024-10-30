@@ -43,7 +43,7 @@ boardLike.addEventListener("click", e => {
 
     // ----------알림 보내기 추가------------------
 
-      // 게시글 작성자에게 알림 보내기
+     // 게시글 작성자에게 알림 보내기
       const content
       = `<strong>${memberNickname}</strong> 님이 
       <strong>${boardDetail.boardTitle}</strong> 게시글을 좋아합니다`;
@@ -71,19 +71,75 @@ boardLike.addEventListener("click", e => {
     .catch(err => console.error(err));
 })
 
-// 삭제 버튼 클릭 시
 const deleteBtn = document.querySelector("#deleteBtn");
 
+// 삭제 버튼이 존재할 때 이벤트 리스너 추가
 deleteBtn?.addEventListener("click", () => {
 
-    if(confirm("정말 삭제 하시겠습니까?") == false ){
+  if(confirm("정말 삭제 하시겠습니까?") == false){
+    return;
+  }
+
+  const url = "/editBoard/delete"; // 요청 주소
+  // 게시글 번호 == 전역 변수 boardNo
+
+  // form 태그 생성
+  const form = document.createElement("form");
+  form.action = url;
+  form.method = "POST";
+
+  // input 태그 생성
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "boardNo";
+  input.value = boardNo;
+
+  form.append(input); // form 자식으로 input 추가
+
+  // body 자식으로 form 추가
+  document.querySelector("body").append(form); 
+
+  form.submit(); // 제출
+});
+
+
+/* 수정 */
+const updateBtn = document.querySelector("#updateBtn");
+
+updateBtn?.addEventListener("click", () => {
+
+    if(loginCheck === false) {
+        alert("로그인 후 이용할 수 있습니다")
         return;
-    } 
+    }
 
-    console.url = "/editBoard/delete";
+  const form = document.createElement("form");
+  location.pathname = "/editBoard/{boardCode}/{boardNo}";
+  form.action = location.pathname.replace("board", "editBoard") + "/boardModifyView";
+  form.method = "POST";
 
-    const form = document.createElement("form");
-    form.action = url;
-    form.method = "POST";
+  document.querySelector("body").append(form);
+  form.submit();
 
-})
+});
+
+const goToListBtn = document.querySelector("#goToListBtn");
+
+goToListBtn.addEventListener("click", () => {
+
+  // 페이징당 게시글 수
+  const limit = 10;
+
+  location.pathname = "/editBoard/{boardCode}/{boardNo}";
+  let url = location.pathname + "/goToList?limit=" + limit;
+  // /board/{boardCode}/{boardNo}/goToLis?key=&query=검색어&limit=10
+
+  // location.search : 쿼리 스트링 반환
+  // URLSearchParams 객체 : 쿼리스트링 관리하는 객체 
+  const params = new URLSearchParams(location.search);
+
+  
+
+  location.href = url;
+  
+});

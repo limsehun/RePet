@@ -31,19 +31,18 @@
           <div id="tab-posts" class="active-tab" onclick="switchTab('posts')" style="margin-left: 35px;">
             <span>게시글 <th:block th:text="'(' + ${boardCount} + ')'"></th:block></span>
           </div>
-
           <div id="tab-comments" onclick="switchTab('comments')" style="margin-right: 35px;">
-            <span>댓글 (5)</span>
+            <span>댓글 <th:block th:text="'(' + ${commentCount} + ')'"></th:block></span>
           </div>
         </div>
-
-        <!-- 게시물 항목들 -->
-        <div class="like-item"></div>
-
-        <div class="pagination-box">
-          <a href="#" class="page-btn" data-page="1">1</a>
-        </div>
-      </div>
+      
+         <!-- 게시글 리스트 컨테이너 -->
+         <div id="postListContainer" class="like-item-list"></div>
+         <div id="postPaginationBox" class="pagination-box"></div>
+       
+         <!-- 댓글 리스트 컨테이너 -->
+         <div id="commentListContainer" class="like-item-list" style="display: none;"></div>
+         <div id="commentPaginationBox" class="pagination-box" style="display: none;"></div>
 
       <!-- 회원 수정 모달 -->
       <th:block th:replace="~{myPage/modifyModal}"></th:block>

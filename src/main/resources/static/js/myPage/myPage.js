@@ -1,46 +1,39 @@
 
 
 /* ------------------------------ myPage-info JS  ------------------------------ */
-/* 페이지 네이션 함수 */
-const renderPagination = (pagination) => {
-  
-  const paginationBox = document.querySelector(".pagination-box");
+// 페이지네이션 렌더링 함수
+const renderPagination = (pagination, type) => {
+  let paginationBox;
+  if (type === '게시물') {
+    paginationBox = document.getElementById("postPaginationBox");
+  } else if (type === '댓글') {
+    paginationBox = document.getElementById("commentPaginationBox");
+  } else if (type === '좋아요') {
+    paginationBox = document.getElementById("likePaginationBox");
+  }
 
   paginationBox.innerHTML = '';  // 기존 페이지 버튼 초기화
 
-  // 페이지네이션 버튼을 생성하는 헬퍼 함수
   const createPageButton = (page, text, isActive = false) => {
+    const button = document.createElement("a");
+    button.href = "#";
+    button.classList.add("page-btn");
+    button.dataset.page = page;
+    button.textContent = text;
 
-    const button = document.createElement("a"); // a 요소 생성
+    if (isActive) button.classList.add("active");
 
-    button.href = "#"; // 버튼 경로이동 막기
-
-    button.classList.add("page-btn"); // 버튼 클래스 추가
-
-    button.dataset.page = page; // 현재 페이지 
-
-    button.textContent = text;  // 버튼에 들어갈 내용
-
-    if (isActive) button.classList.add("active"); // 활성화된 페이지에 'active' 클래스 추가
-
-    // 클릭 이벤트 추가
     button.addEventListener("click", (event) => {
-
-      event.preventDefault();  // 링크 이동 막기 
-
+      event.preventDefault();
       const cp = parseInt(event.target.dataset.page);
-      // #memberNo 요소가 있는 경우에만 selectLikeList 호출
-      if (document.querySelector("#memberNo")) {
-        selectLikeList(cp); // 해당 페이지로 이동
+
+      if (type === '게시물') {
+        selectBoardList(cp);
+      } else if (type === '댓글') {
+        selectCommentList(cp);
+      } else if (type === '좋아요') {
+        selectLikeList(cp);
       }
-
-      // #boardList 요소가 있는 경우에만 selectBoardList 호출
-      if (document.querySelector("#boardList")) {
-        selectBoardList(cp); // 해당 페이지로 이동
-      }   
-
-      loadTabContent(currentTab, parseInt(event.target.dataset.page));
-      
     });
 
     return button;
@@ -48,21 +41,19 @@ const renderPagination = (pagination) => {
 
   // <<, < 버튼 추가
   paginationBox.appendChild(createPageButton(1, "<<"));
-  // 이전 페이지 그룹의 마지막 번호.
   paginationBox.appendChild(createPageButton(pagination.prevPage, "<"));
 
   // 동적 페이지 번호 버튼 생성
   for (let i = pagination.startPage; i <= pagination.endPage; i++) {
-    // 현재 페이지와 반복문 i가 같으면 activce 클래스 추가
     const isActive = i === pagination.currentPage;
     paginationBox.appendChild(createPageButton(i, i, isActive));
   }
 
   // >, >> 버튼 추가
-  // 다음 페이지 그룹의 첫번째 번호.
   paginationBox.appendChild(createPageButton(pagination.nextPage, ">"));
   paginationBox.appendChild(createPageButton(pagination.maxPage, ">>"));
 };
+
 
 
 
@@ -70,16 +61,16 @@ const renderPagination = (pagination) => {
 const likeList = document.querySelector("#likeList");
 
 
+// 좋아요 게시물 비동기 조회
 const selectLikeList = (cp) => {
-
-  const memberNo = document.querySelector("#memberNo").innerText; // memberNo를 가져옴
+  const memberNo = document.querySelector("#memberNo").innerText;
 
   if (!memberNo) {
     console.error("memberNo 요소가 존재하지 않습니다. 이 페이지에서는 selectLikeList를 실행하지 않습니다.");
-    return; // 요소가 없으면 함수 종료
+    return;
   }
 
-  let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}&cp=${cp}`; // cp 값 추가
+  let requestUrl = `/myPage/selectLikeList?memberNo=${memberNo}&cp=${cp}`;
 
   fetch(requestUrl)
     .then(response => {
@@ -87,48 +78,11 @@ const selectLikeList = (cp) => {
       throw new Error("조회 오류");
     })
     .then(map => {
-
       const list = map.likeList;
       const pagination = map.pagination;
 
-      console.log(list);
-      console.log(pagination);
-
-      renderPagination(pagination);  // 페이지네이션 렌더링 호출
-      renderItems(list, '게시물');
-
-      const paginationBox = document.querySelector(".pagination-box");
-
-      document.querySelectorAll(".like-item").forEach(item => item.remove());
-
-      list.forEach(board => {
-        const likeItemDiv = document.createElement("div");
-        likeItemDiv.className = "like-item";
-
-        // 임시로 div를 만들어서 HTML을 넣은 다음 텍스트만 추출
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = board.boardContent; // HTML을 넣음
-        const boardTextContent = tempDiv.textContent || tempDiv.innerText; // 텍스트만 추출
-
-        const titleDiv = document.createElement("div");
-        titleDiv.className = "like-item-title";
-        titleDiv.innerText = boardTextContent.trim(); // 추출된 텍스트만 설정하고 앞뒤 공백 제거
-
-
-      likeItemDiv.addEventListener("click", () => {
-        // 게시물 상세 페이지로 이동
-        location.href = `/board/2/${board.boardNo}`;
-      });
-
-        const subDiv = document.createElement("div");
-        subDiv.className = "like-item-sub";
-        subDiv.innerText = `(${board.boardTitle})`;
-
-        likeItemDiv.appendChild(titleDiv);
-        likeItemDiv.appendChild(subDiv);
-
-        likeList.insertBefore(likeItemDiv, paginationBox);
-      });
+      renderPagination(pagination, '좋아요');  // 좋아요 게시물 페이지네이션 렌더링
+      renderItems(list, '좋아요 게시물');
     })
     .catch(err => console.error(err));
 };
@@ -751,7 +705,7 @@ deleteForm?.addEventListener("submit", e => {
 const boardList = document.querySelector("#boardList");
 
 const selectBoardList = (cp) => {
-  let requestUrl = `/myPage/selectBoardList?cp=${cp}`; // cp 값 추가
+  let requestUrl = `/myPage/selectBoardList?cp=${cp}`;
 
   fetch(requestUrl)
     .then(response => {
@@ -759,48 +713,11 @@ const selectBoardList = (cp) => {
       throw new Error("조회 오류");
     })
     .then(map => {
-      const list = map.boardList;  // 'list' 이름 수정 -> 이 변수명은 서버에서 오는 데이터에 맞춰야 합니다.
+      const list = map.boardList;
       const pagination = map.pagination;
 
-      console.log(list);
-      console.log(pagination);
-
-      renderPagination(pagination);  // 페이지네이션 렌더링 호출
-
-      const paginationBox = document.querySelector(".pagination-box");
-
-      // 기존 게시물 항목 삭제
-      document.querySelectorAll(".like-item").forEach(item => item.remove());
-
-      // 게시물 목록 렌더링
-      list.forEach(board => {
-        const likeItemDiv = document.createElement("div");
-        likeItemDiv.className = "like-item";
-
-        // 임시로 div를 만들어서 HTML을 넣은 다음 텍스트만 추출
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = board.boardContent; // HTML을 넣음
-        const boardTextContent = tempDiv.textContent || tempDiv.innerText; // 텍스트만 추출
-
-        const titleDiv = document.createElement("div");
-        titleDiv.className = "like-item-title";
-        titleDiv.innerText = boardTextContent.trim(); // 추출된 텍스트만 설정하고 앞뒤 공백 제거
-
-        likeItemDiv.addEventListener("click", () => {
-          // 게시물 상세 페이지로 이동
-          location.href = `/board/2/${board.boardNo}`;
-        });
-
-        const subDiv = document.createElement("div");
-        subDiv.className = "like-item-sub";
-        subDiv.innerText = `(${board.boardTitle})`;
-
-        likeItemDiv.appendChild(titleDiv);
-        likeItemDiv.appendChild(subDiv);
-
-        boardList.insertBefore(likeItemDiv, paginationBox);  // 'likeList' -> 'boardList'로 수정
-      });
-
+      renderPagination(pagination, '게시물');  // 게시글 페이지네이션 렌더링
+      renderItems(list, '게시물');
     })
     .catch(err => console.error(err));
 };
@@ -813,71 +730,140 @@ let currentTab = 'posts'; // 현재 탭 상태 ('posts' 또는 'comments')
 
 const switchTab = (tab) => {
   currentTab = tab; // 현재 탭 변경
+
+  // 모든 탭의 'active-tab' 클래스를 제거하고 현재 탭에 추가
   document.querySelectorAll(".board-header div").forEach(div => div.classList.remove("active-tab"));
   document.querySelector(`#tab-${tab}`).classList.add("active-tab");
 
+  // 모든 리스트 및 페이지네이션 컨테이너 초기화 및 숨기기
+  document.getElementById("postListContainer").style.display = "none";
+  document.getElementById("commentListContainer").style.display = "none";
+  document.getElementById("postPaginationBox").style.display = "none";
+  document.getElementById("commentPaginationBox").style.display = "none";
+
+  // 선택된 탭에 맞는 리스트 컨테이너만 보이기
   loadTabContent(tab, 1); // 탭 전환 시 페이지를 1로 초기화하고 데이터 로딩
 };
 
 const loadTabContent = (tab, cp) => {
   if (tab === 'posts') {
-    selectBoardList(cp);
+    document.getElementById("postListContainer").style.display = "block";
+    document.getElementById("postPaginationBox").style.display = "flex";
+    selectBoardList(cp); // 게시글 리스트 로드
   } else if (tab === 'comments') {
-    selectCommentList(cp);
+    document.getElementById("commentListContainer").style.display = "block";
+    document.getElementById("commentPaginationBox").style.display = "flex";
+    selectCommentList(cp); // 댓글 리스트 로드
   }
 };
 
 
-/* 댓글 비동기 조회 */
+
+// 댓글 목록 가져오기
 const selectCommentList = (cp) => {
-  let requestUrl = `/myPage/selectCommentList?cp=${cp}`; // 댓글 목록 가져오기 위한 URL
+  let requestUrl = `/myPage/selectCommentList?cp=${cp}`;
 
   fetch(requestUrl)
-    .then(response => response.ok ? response.json() : Promise.reject("조회 오류"))
-    
+    .then(response => {
+      if (response.ok) return response.json();
+      throw new Error("조회 오류");
+    })
     .then(map => {
+
 
       const list = map.commentList;
       const pagination = map.pagination;
 
-      renderPagination(pagination);  // 페이지네이션 렌더링 호출
+      console.log(list);
+      console.log(pagination);
+
+      renderPagination(pagination, '댓글');  // 댓글 페이지네이션 렌더링
       renderItems(list, '댓글');
     })
     .catch(err => console.error(err));
 };
 
 
-/* 항목 렌더링 함수 (게시물/댓글) */
+
+// 항목 렌더링 함수 (게시물/댓글/좋아요 게시물)
 const renderItems = (list, type) => {
-  const likeItemsContainer = document.querySelector("#like-items");
-  likeItemsContainer.innerHTML = ''; // 기존 항목 초기화
+  let containerId;
+  if (type === '게시물') {
+    containerId = "postListContainer";
+  } else if (type === '댓글') {
+    containerId = "commentListContainer";
+  } else if (type === '좋아요 게시물') {
+    containerId = "likeListContainer";
+  }
+
+  const itemsContainer = document.getElementById(containerId);
+
+  if (!itemsContainer) {
+    console.error(`#${containerId} 요소가 존재하지 않습니다.`);
+    return;
+  }
+
+  itemsContainer.innerHTML = ''; // 기존 항목 초기화
 
   list.forEach(item => {
-    const likeItemDiv = document.createElement("div");
-    likeItemDiv.className = "like-item";
 
-    const titleDiv = document.createElement("div");
-    titleDiv.className = "like-item-title";
-    titleDiv.innerText = item.title || item.content;
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "like-item";
 
-    likeItemDiv.addEventListener("click", () => {
-      // 게시물이나 댓글 상세 페이지로 이동
-      if (type === '게시물') {
-        location.href = `/board/2/${item.boardNo}`;
-      } else if (type === '댓글') {
-        location.href = `/comment/${item.commentNo}`;
-      }
-    });
+    // 댓글/게시물/좋아요 게시물 타입에 따라 서로 다른 정보 표시
+    if (type === '댓글') {
+      // 댓글 내용 설정
+      const commentContentDiv = document.createElement("div");
+      commentContentDiv.className = "like-item-title";
+      commentContentDiv.innerText = `내용 : ${item.commentContent || '내용 없음'} `;
 
-    const subDiv = document.createElement("div");
-    subDiv.className = "like-item-sub";
-    subDiv.innerText = `(${type})`;
 
-    likeItemDiv.appendChild(titleDiv);
-    likeItemDiv.appendChild(subDiv);
-    likeItemsContainer.appendChild(likeItemDiv);
+      // 댓글 작성 시간 설정
+      const commentDateDiv = document.createElement("div");
+      commentDateDiv.className = "like-item-sub";
+      commentDateDiv.innerText = `작성일: (${item.commentWriteDate || '날짜 없음'})`;
+
+      // 클릭 시 해당 댓글이 달린 게시물로 이동
+      itemDiv.addEventListener("click", () => {
+        if (item.boardNo) {
+          location.href = `/board/2/${item.boardNo}`;
+        }
+      });
+
+      // 댓글 항목 구성
+      itemDiv.appendChild(commentContentDiv);
+      itemDiv.appendChild(commentDateDiv);
+
+    } else if (type === '게시물' || type === '좋아요 게시물') {
+      // 게시물 내용 설정
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = item.boardContent || '내용 없음'; // HTML을 임시로 넣어줌
+      const textContent = tempDiv.textContent || tempDiv.innerText; // 태그 없이 텍스트만 추출
+
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "like-item-title";
+      contentDiv.innerText = `내용 : ${textContent.trim() || '이미지'}`;
+
+      // 게시물 또는 좋아요 게시물 클릭 시 이동
+      itemDiv.addEventListener("click", () => {
+        if (type === '게시물' || type === '좋아요 게시물') {
+          location.href = `/board/2/${item.boardNo}`;
+        }
+      });
+
+      const subDiv = document.createElement("div");
+      subDiv.className = "like-item-sub";
+      subDiv.innerText = `작성일 : (${item.boardWriteDate})`;
+
+      itemDiv.appendChild(contentDiv);
+      itemDiv.appendChild(subDiv);
+    }
+
+    // 항목 추가
+    itemsContainer.appendChild(itemDiv);
   });
 };
+
 
 
 
@@ -886,14 +872,10 @@ const renderItems = (list, type) => {
 
 
 
+// DOMContentLoaded 이벤트
 document.addEventListener("DOMContentLoaded", () => {
-  // 페이지에 #memberNo 요소가 존재할 때만 selectLikeList 호출
-  if (document.querySelector("#memberNo")) {
-    selectLikeList(1); // 기본 페이지 1로 데이터 로딩
-  }
-
-  // 페이지에 #boardList 요소가 존재할 때만 selectBoardList 호출
-  if (document.querySelector("#boardList")) {
-    selectBoardList(1); // 기본 페이지 1로 데이터 로딩
+  // 좋아요 게시물 리스트 로드
+  if (document.querySelector("#likeList")) {
+    selectLikeList(1);
   }
 });

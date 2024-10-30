@@ -198,7 +198,7 @@ main {
   padding: 40px 50px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  width: 500px; /* 너비 설정 */
+  width: 700px; /* 너비 설정 */
   max-height: 90vh;
   overflow-y: auto;
   display: flex;
@@ -235,7 +235,7 @@ main {
 
 .open-api-img {
   display: block;
-  width: 300px;
+  width: 400px;
   height: auto; /* 높이를 자동으로 조정 */
   margin: 0 auto 35px;
   border-radius: 10px;
@@ -267,6 +267,7 @@ main {
   line-height: 1.5;
   display: flex;
   align-items: flex-start;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .info-item:first-child {
@@ -325,11 +326,3 @@ p{
   margin-top: 15px; /* 제목 위 여백 */
 }
 
-
-/* Footer styling */
-.adopt-footer {
-  margin-top: auto; /* 푸터를 항상 컨텐츠 아래로 밀어냄 */
-  color: white;
-  text-align: center;
-  width: 100%;
-}

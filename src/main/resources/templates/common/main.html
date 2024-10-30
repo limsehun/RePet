@@ -32,7 +32,27 @@
       </div>
 
 
-      <div class="animal-cards">
+      <!-- 아이들 간단 조회 -->
+      <div id="pet-list" class="adopt-list">
+
+        <div class="pet-card" id="adopt-card" th:each="adopt : ${adoptList}">
+          <div class="pet-image">
+            <img class="open-api-img" th:src="${adopt.popfile != null? adopt.popfile : '/images/default.png'}"/>
+          </div>
+          <div class="content">
+            <div class="condition" th:text="${adopt.processState}"></div>
+            <p>
+              <strong>
+                <thblock th:text="${adopt.kindCd}"></thblock> / <thblock th:text="${adopt.sexCd}"></thblock>
+              </strong>
+            </p>
+            <p>
+              나이: <thblock th:text="${adopt.age}"></thblock>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="animal-cards">
         <div class="animal-card"><img src="" alt=""></div>
         <div class="animal-card"><img src="" alt=""></div>
         <div class="animal-card"><img src="" alt=""></div>
@@ -50,7 +70,7 @@
         <div><button class="imfo-btn3">상세정보</button></div>
         <div><button class="imfo-btn4">상세정보</button></div>
 
-      </div>
+      </div> -->
     </section>
 
 
@@ -102,10 +122,10 @@
 
       </div>
       <div class="imfo-sup">
-        <div><button class="imfo-btn2">상세정보</button></div>
-        <div><button class="imfo-btn2">상세정보</button></div>
-        <div><button class="imfo-btn2">상세정보</button></div>
-        <div><button class="imfo-btn2">상세정보</button></div>
+        <div><button class="imfo-sup-btn">상세정보</button></div>
+        <div><button class="imfo-sup-btn">상세정보</button></div>
+        <div><button class="imfo-sup-btn">상세정보</button></div>
+        <div><button class="imfo-sup-btn">상세정보</button></div>
       </div>
     </section>
 

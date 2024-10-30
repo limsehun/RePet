@@ -24,7 +24,7 @@
 		      BOARD_TITLE,
 		      READ_COUNT,
 		      MEMBER_NICKNAME,
-		      (SELECT COUNT(*) FROM "COMMENT" C
+		      (SELECT COUNT(*) FROM "BOARD_COMMENT" C
 		       WHERE C.BOARD_NO = B.BOARD_NO ) AS "COMMENT_COUNT",
       
       
@@ -60,7 +60,7 @@
 	<!-- 게시글 상세 조회 -->
     <select id="boardDetail" parameterType="map" resultType="Board">
         SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT,
-               B.MEMBER_NO, BOARD_CODE, MEMBER_NICKNAME,
+               B.MEMBER_NO, BOARD_CODE, MEMBER_NICKNAME, PROFILE_IMG,
                
                (SELECT COUNT(*) FROM BOARD_LIKE WHERE BOARD_NO = B.BOARD_NO) AS LIKE_COUNT,
                

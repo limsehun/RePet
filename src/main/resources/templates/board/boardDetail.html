@@ -32,7 +32,7 @@
                 <div class="board-writer">
                     <!-- 프로필 이미지 -->
                      <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
-                    <img src="/images/user.png">
+                    <img th:unless= "*{profileImg}" th:src=#{user.default.image}>
 
                     <!-- 프로필 사진이 있을 경우 출력 -->
                     <img th:if="*{profileImg}" th:src="*{profileImg}">
@@ -48,7 +48,10 @@
                       </p>
     
                         <!-- 수정한 게시글인 경우 수정일 -->
-                         <span></span>
+                         <p th:if= "${boardUpdateDate}">
+                          <span>마지막 수정일</span>
+                          <th:block th:text="${boardUpdateDate}"></th:block>
+                        </p>
                     </div>
 
                 </div>
@@ -138,11 +141,8 @@
   </main>
 
   <script th:inline="javascript">
-    const board = /*[[${board}]]*/ {};
+     let boardNo = /*[[${board.boardNo}]]*/ {};
 
-    
-        // th:inline="javascript"
-        // - Java 데이터 -> JS 자료형을 자동 변환
 
         // 로그인 되어 있으면 true, 아니면 false
         const loginCheck =/*[[${session.loginMember != null}]]*/ false;
@@ -151,9 +151,8 @@
         const memberNickname
             =/*[[${session.loginMember?.memberNickname}]]*/ null;
 
-
-        // 상세 조회한 게시글 정보
-        const boardDetail = /*[[${board}]]*/ null;
+    
+       
     
   </script>
 

@@ -17,9 +17,11 @@ $(document).ready(function() {
         return;
       }
 
+     
+
       // 서버로 보낼 데이터 구성
       let formData = {
-          "boardNo": board.boardNo,
+          "boardNo": boardNo,
           "commentContent": commentContent
       };
 
@@ -32,7 +34,9 @@ $(document).ready(function() {
           success: function(response) {
               if(response > 0) {
                   alert("댓글이 성공적으로 등록되었습니다.");
-                  location.reload(); // 댓글 등록 후 새로고침하여 목록 갱신
+                  $('#comment-content').val('');
+                  loadComments(); // 댓글 등록 후 새로고침하여 목록 갱신
+                  
               }
           },
           error: function(jqXHR, textStatus, errorThrown) {
@@ -42,4 +46,43 @@ $(document).ready(function() {
           }
       });
   });
+
+ // 댓글 목록 조회 함수
+ function loadComments() {
+  const boardNo = location.pathname.split("/")[3];
+  $.ajax({
+      url: '/comment/list/' + boardNo,
+      type: 'GET',
+      success: function(comments) {
+          $('#commentList').empty();
+          comments.forEach(function(comment) {
+              let profileImg =comment.profileImg ? comment.profileImg : '/images/user.png'
+              let commentHtml = `
+              <li class="comment-row">
+                  <p class="comment-writer">
+                      <img src="${profileImg}">
+                      <span>${comment.memberNickname}</span>
+                      <span class="comment-date">${comment.commentWriteDate}</span>
+                  </p>
+                  <p class="comment-content">${comment.commentContent}</p>
+                  <div class="comment-btn-area">
+                      <button class="child-comment-btn">답글</button>
+                      <button class="update-comment-btn">수정</button>
+                      <button class="delete-comment-btn">삭제</button>
+                      <span class="report-area">
+                          <i class="fa-regular fa-face-angry" id="comment-report"></i>
+                      </span>
+                  </div>
+              </li>`;
+              $('#commentList').append(commentHtml);
+          });
+      },
+      error: function() {
+          alert("댓글 목록을 불러오는데 실패했습니다.");
+      }
+  });
+}
+
+// 페이지 로드 시 댓글 목록 불러오기
+loadComments();
 });

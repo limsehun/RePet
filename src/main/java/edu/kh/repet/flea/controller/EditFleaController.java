@@ -128,8 +128,9 @@ public class EditFleaController {
         // boardCode, boardNo 가 일치하는 글 조회
         Map<String, Integer> map = Map.of("boardCode", boardCode, "boardNo", boardNo);
         
-        Flea flea = fleaService.selectDetail(map);
+//        Flea flea = fleaService.selectDetail(map);
         
+        Flea flea = null;
         // 게시글이 존재하지 않는 경우
         if(flea == null) {
             ra.addFlashAttribute("message", "해당 게시글이 존재하지 않습니다.");

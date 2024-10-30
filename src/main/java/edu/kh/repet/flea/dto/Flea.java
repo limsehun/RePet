@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-// DTO (Data Transfer Object) : 계층간 데이터 전달용 객체
-// - 계층? Controller, Service, DB 등을 구분
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,13 +38,12 @@ public class Flea {
     // MEMBER 테이블 JOIN 컬럼
     private String memberNickname;
     
-    // 목록 조회 시 댓글 / 개설 채팅방 수 상관 쿼리 결과
-    private int    commentCount;
+    // 목록 조회 시 개설 채팅방 수 상관 쿼리 결과
     private int    chatCount;
     
     // ----------------------------------------
     
-    private String thumbnail;	// 썸네일 이미지 (경로와 이름)
+    private String thumbnail;	// BOARD 썸네일 이미지 (경로와 이름)
     private String profileImg;	// 작성자 프로필 이미지
     
     // 특정 게시글의 이미지 목록을 저장할 필드

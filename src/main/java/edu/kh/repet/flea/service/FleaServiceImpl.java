@@ -1,7 +1,7 @@
 package edu.kh.repet.flea.service;
 
+import edu.kh.repet.board.dto.Pagination;
 import edu.kh.repet.flea.dto.Flea;
-import edu.kh.repet.flea.dto.FleaPagination;
 import edu.kh.repet.flea.mapper.FleaMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
@@ -16,70 +16,68 @@ import java.util.Map;
 public class FleaServiceImpl implements FleaService {
 
     private final FleaMapper mapper;
-
+    
+    // 중고거래 게시글 목록 조회
     @Override
-    public Map<String, Object> selectFleaList(int boardCode, int cp) {
-        // 1. boardCode가 일치하는 게시글의 전체 개수 조회 (DelFl = 'N')
-        int listCount = mapper.getListCount(boardCode);
-
-        // 2. listCount와 cp를 이용해서
-        //	  조회될 목록 페이지,
-        //    출력할 페이지네이션의 값을 계산할 Pagination 객체 생성하기
-        FleaPagination pagination = new FleaPagination(cp, listCount);
-
-        // 3. DB에서 cp(조회하려는 페이지)에 해당하는 행을 조회
-        /*
-         * [RowBounds 객체]
-         * - Mybatis 제공 객체
-         * - 지정된 크기(offset) 만큼 행을 건너 뛰고
-         *   제한된 크기(limit) 만큼의 행을 조회함
-         *
-         * - 사용법 : Mapper 의 메서드 호출 시
-         *            2번째 이후 매개변수로 전달
-         *            (1번은 SQL에 전달할 파라미터가 기본값)
-         */
-        int limit = pagination.getLimit();	// 10
-        int offset = (cp - 1) * limit;
-
+    public Map<String, Object> selectFleaList(int cp) {
+        
+        // 1. boardCode 가 3인 게시글 전체 개수 조회
+        int listCount = mapper.getListCount();
+        
+        // listCount 와 cp를 이용해서 페이지네이션
+        Pagination pagination = new Pagination(cp, listCount);
+        
+        // 3. DB 에서 cp에 해당하는 행 조회
+        int limit = pagination.getLimit();      // 5
+        int offset = (cp -1) * limit;
+        
         RowBounds rowBounds = new RowBounds(offset, limit);
-
-        List<Flea> boardList = mapper.selectFleaList(boardCode, rowBounds);
-        // 4. 목록 조회 결과 + Pagenation 객체를 Map으로 묶어서 반환
+        
+        List<Flea> fleaList = mapper.selectFleaList(rowBounds);
+        
+        // 4. 목록 조회 결과 + Pagination 객체를 Map으로 묶어서 반환
         Map<String, Object> map = new HashMap<>();
-        map.put("boardList", boardList);
+        map.put("fleaList", fleaList);
         map.put("pagination", pagination);
-
-        // Map 생성 + 바로 데이터 담기
-//		Map<String, Object> map2
-//			= Map.of("boardList", boardList, "Pagination", pagination);
-
+        
         return map;
     }
-
     
-    // 상세조회
+    // 검색 목록 조회
+    @Override
+    public Map<String, Object> selectFleaSearchList(int cp, Map<String, Object> paramMap) {
+        
+        // 1. 중고거래 게시판(boardCode = 3) 에서 검색조건이 일치하는 게시글이 몇 개나 존재하는지 조회
+        int searchCount = mapper.getSearchCount(paramMap);
+        
+        // 2. Pagination 객체 생성
+        Pagination pagination = new Pagination(cp, searchCount);
+        
+        // 3. DB에서 cp에 해당하는 페이지 조회
+        int limit = pagination.getLimit();
+        int offset = (cp -1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        
+        // 4. 검색 결과 조회 결과 + Pagination 객체를 Map으로 묶어서 반환
+        List<Flea> fleaList = mapper.selectFleaSearchList(paramMap, rowBounds);
+        
+        Map<String, Object> map = new HashMap<>();
+        map.put("fleaList", fleaList);
+        map.put("pagination", pagination);
+        
+        return map;
+    }
+    
+    // 게시글 상세 조회
     @Override
     public Flea selectFleaDetail(Map<String, Integer> map) {
-        return mapper.selectDetail(map);
+        return mapper.selectFleaDetail(map);
     }
-
-    // 조회수 증가
-    @Override
-    public int updateReadCount(int boardNo) {
-        return mapper.updateReadCount(boardNo);
-    }
-
-    // interceptor 조정해야함. 할거 디게많음
+    
     // 현재 게시글이 속해있는 페이지 번호 조회하는 서비스
     @Override
     public int getCurrentPage(Map<String, Object> paramMap) {
         return mapper.getCurrentPage(paramMap);
-    }
-    
-    // boardCode, boardNo 가 일치하는 글 조회
-    @Override
-    public Flea selectDetail(Map<String, Integer> map) {
-        return null;
     }
 }
 

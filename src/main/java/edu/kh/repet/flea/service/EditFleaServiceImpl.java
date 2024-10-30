@@ -49,6 +49,10 @@ public class EditFleaServiceImpl implements EditFleaService {
         // 2) FLEA_BOARD 부분 INSERT
         result = mapper.fleaInsert(inputFlea, boardNo);
         
+        // 삽입 실패 시
+        if(result == 0) return 0;
+        
+        
         
         /*
         
@@ -79,6 +83,8 @@ public class EditFleaServiceImpl implements EditFleaService {
             
             // 파일이 있을 경우!
             // 변경된 파일명 - 원본 저장 필요 X
+            
+            // 파일명 + boardNo + i
             String rename = FileUtil.rename(images.get(i).getOriginalFilename());
             
             // DB Insert 를 위한 FleaImg 객체 생성 - Board는 썸머보드 사용함
@@ -86,7 +92,6 @@ public class EditFleaServiceImpl implements EditFleaService {
                     .imgRename(rename)              // 변경명
                     .imgPath(webPath)               // 웹 접근 경로
                     .boardNo(boardNo)               // 게시글 번호
-                    .imgOrder(i)
                     .uploadFile(images.get(i))      // 실제 업로드된 이미지
                     .build();
             
@@ -181,8 +186,7 @@ public class EditFleaServiceImpl implements EditFleaService {
             FleaImg img = FleaImg.builder()
                     .imgRename(rename)              // 변경명
                     .imgPath(webPath)               // 웹 접근 경로
-                    .boardNo(inputFlea.getBoardNo())               // 게시글 번호
-                    .imgOrder(i)
+                    .boardNo(inputFlea.getBoardNo())// 게시글 번호
                     .uploadFile(images.get(i))      // 실제 업로드된 이미지
                     .build();
             

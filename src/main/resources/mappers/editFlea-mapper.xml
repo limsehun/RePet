@@ -42,22 +42,42 @@
         </selectKey>
 
         INSERT INTO "BOARD"
+                    (BOARD_NO, BOARD_TITLE, BOARD_CONTENT,
+                     BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT, BOARD_DEL_FL,
+                     MEMBER_NO, BOARD_CODE)
         VALUES (    #{boardNo}, #{boardTitle}, #{boardContent},
+                    DEFAULT, NULL, DEFAULT, DEFAULT,
+                    #{memberNo}, 3)
 
 
     </insert>
 
+    <!-- 중고거래 부분 insert -->
+    <!-- @Param("inputFlea") Flea inputFlea, @Param("boardNo") int boardNo -->
+    <insert id="fleaInsert" parameterType="Flea">
+        INSERT INTO "FLEA_BOARD"
+                    (PRICE, GOODS)
+        VALUES  (   #{price}, #{goods})
+        WHERE   BOARD_NO = #{board_no}
+    </insert>
+
+    <!-- board_img 에 이미지 등록-->
+    <insert id="insertUploadList">
+        INSERT INTO "BOARD_IMG"
+        <foreach collection="list" item="img"
+                 open="(" close=")" separator=" UNION ALL ">
+            SELECT
+                NEXT_IMG_NO(),
+                #{img.imgPath},
+                #{img.imgRename},
+                #{img.boardNo}
+            FROM DUAL
+        </foreach>
+    </insert>
+    
 
 
-    /**
-    * 여러 이미지 한 번에 INSERT
-    * @param uploadList
-    * @return insertRows
-    */
-    int insertUploadList(List<FleaImg> uploadList);
-
-
-
+<!--
 
 
 
@@ -76,7 +96,6 @@
 
 
 
-    // ----- 게시글 수정 -----
 
 
     /** 1-1
@@ -127,18 +146,5 @@
     */
     int insertImage(FleaImg img);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-->
 </mapper>

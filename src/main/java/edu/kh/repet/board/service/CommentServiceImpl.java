@@ -1,5 +1,7 @@
 package edu.kh.repet.board.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,13 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public int addComment(Comment comment) {
 		return mapper.insertComment(comment);
+	}
+
+	
+	// 댓글 목록 조회
+	@Override
+	public List<Comment> getComments(int boardNo) {
+		return mapper.selectComments(boardNo);
 	}
 
 }

@@ -75,6 +75,12 @@ public class FleaServiceImpl implements FleaService {
     public int getCurrentPage(Map<String, Object> paramMap) {
         return mapper.getCurrentPage(paramMap);
     }
+    
+    // boardCode, boardNo 가 일치하는 글 조회
+    @Override
+    public Flea selectDetail(Map<String, Integer> map) {
+        return null;
+    }
 }
 
 /*

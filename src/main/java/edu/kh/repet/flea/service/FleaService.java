@@ -17,4 +17,8 @@ public interface FleaService {
 
     // 현재 게시글은 몇페이지에?
     int getCurrentPage(Map<String, Object> paramMap);
+    
+    // 게시글 수정 부분
+    // boardCode, boardNo 가 일치하는 글 조회
+    Flea selectDetail(Map<String, Integer> map);
 }

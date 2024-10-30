@@ -41,4 +41,8 @@ public interface MyPageService {
 	// 댓글 리스트 조회
 	Map<String, Object> selectCommentList(int memberNo, int cp);
 
+
+	// 댓글 리스트 카운트
+	int commentCount(int memberNo);
+
 }

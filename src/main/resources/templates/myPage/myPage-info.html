@@ -20,8 +20,6 @@
 
     <!-- 사이드바 -->
     <th:block th:replace="~{myPage/sideMenu}"></th:block>
-    
-    
 
     <!-- 메인 컨텐츠 -->
     <section class="main-content">
@@ -41,59 +39,37 @@
         </div>
       </div>
 
-    <div class="like-board" id="likeList">
-      <!-- 제목 추가 -->
-      <div class="like-board-header">
-        <i class="fa-solid fa-heart" style="margin-right: 30px; color: #FF7F7F;"></i>
-        <h4>내가 좋아한 게시물 <th:block th:text="'(' + ${likeCount} + ')'"></th:block></h4> 
-      </div>
-      
+      <div class="like-board" id="likeList">
+        <!-- 제목 추가 -->
+        <div class="like-board-header">
+          <i class="fa-solid fa-heart" style="margin-right: 30px; color: #FF7F7F;"></i>
+          <h4>내가 좋아한 게시물 <th:block th:text="'(' + ${likeCount} + ')'"></th:block></h4> 
+        </div>
 
-      <div id="memberNo" th:text="${member.memberNo}" style="display: none;"></div>
+        <div id="memberNo" th:text="${member.memberNo}" style="display: none;"></div>
 
+        <!-- 좋아요 게시물 리스트 -->
+        <div id="likeListContainer" class="like-item-list"></div>
+        <div id="likePaginationBox" class="pagination-box"></div>
 
-        <!-- <div class="like-item">
-          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
-          <div class="like-item-sub">(자유게시판)</div>
-        </div> -->
-        
-
-      <!-- 페이지 네이션 -->
-      <div class="pagination-box">
-        <!-- <a href="#" class="page-btn first-page" data-page="1">&lt;&lt;</a>
-        <a href="#" class="page-btn prev-page" data-page="1">&lt;</a> -->
-      
-        <a href="#" class="page-btn" data-page="1">1</a>
-        <!-- <a href="#" class="page-btn" data-page="2">2</a>
-        <a href="#" class="page-btn" data-page="3">3</a>
-        <a href="#" class="page-btn" data-page="4">4</a>
-        <a href="#" class="page-btn" data-page="5">5</a> -->
-      
-        <!-- <a href="#" class="page-btn next-page" data-page="2">&gt;</a>
-        <a href="#" class="page-btn last-page" data-page="5">&gt;&gt;</a> -->
       </div>
 
-    </div>
+      <!-- 회원 수정 모달 -->
+      <th:block th:replace="~{myPage/modifyModal}"></th:block>
+      <th:block th:replace="~{myPage/deleteModal}"></th:block>
 
-    <th:block th:replace="~{myPage/modifyModal}"></th:block>
-
-    <th:block th:replace="~{myPage/deleteModal}"></th:block>
-
-  </section>
-
-
+    </section>
 
   </main>
 
   <script src="/js/myPage/myPage.js"></script>
 
-
   <script th:inline="javascript">
-		const message = /*[[${message}]]*/ null;
+    const message = /*[[${message}]]*/ null;
     
     if (message) {
-        alert(message);  // 또는 커스텀 알림 스타일로 표시
+        alert(message);
     }
-	</script>
+  </script>
 </body>
 </html>

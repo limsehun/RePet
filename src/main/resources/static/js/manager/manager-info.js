@@ -38,6 +38,7 @@ const selectMemberList = (cp = 1) => {
 
         const td7 = document.createElement("td");
         const statusButton = document.createElement("button");
+        statusButton.id="status-btn";
 
         let currentIndex = 0; // Initialize currentIndex here
         const statuses = ['정상', '경고', '탈퇴'];

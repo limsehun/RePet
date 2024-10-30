@@ -149,7 +149,7 @@
 
 
    /* ****** 현재 status-btn 시 적용되지 않는다******** */
-   #status-btn {
+   #memberList #status-btn{
      background: none;
      /* 배경 제거 */
      border: none;

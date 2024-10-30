@@ -23,7 +23,7 @@
 	<insert id="signUp" parameterType="Member"> 
 		INSERT INTO "MEMBER"
 		VALUES(
-			#{memberNo}, 
+			SEQ_MEMBER_NO.NEXTVAL, 
 			#{memberEmail}, 
 			#{memberPw},
 			#{memberNickname}, 

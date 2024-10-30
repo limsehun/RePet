@@ -172,6 +172,11 @@ public class MyPageServiceImpl implements MyPageService {
 	public int boardCount(int memberNo) {
 		return mapper.boardCount(memberNo);
 	}
+	
+@	Override
+	public int commentCount(int memberNo) {
+		return mapper.commentCount(memberNo);
+	}
 
 
 	// 게시물 리스트 조회

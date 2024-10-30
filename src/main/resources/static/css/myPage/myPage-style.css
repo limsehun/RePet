@@ -71,12 +71,12 @@ html, body {
 
 /* main-content 중앙 배치 및 레이아웃 수정 */
 .main-content {
-  margin-left: 362px; /* 사이드바 넓이만큼 왼쪽으로 여백 추가 */
+  margin-left: 362px; /* 사이드바 너비만큼 왼쪽으로 여백 추가 */
   padding-top: 100px; /* 헤더 아래부터 시작 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 중앙에 정렬하되, 위에서 아래로 나열 */
+  justify-content: space-between; /* 프로필 박스와 리스트를 상하로 분배 */
   width: 1500px; /* 사이드바를 제외한 나머지 너비 */
   min-height: calc(100vh - 100px); /* 화면 전체 높이에서 헤더 높이 제외 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
@@ -185,12 +185,12 @@ html, body {
   width: 1100px;
   background-color: #D9CBAF;
   min-height: 800px;
-  margin-bottom: 50px; /* 기존 아래 공간 외 추가 여백 */
   border-radius: 40px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end; /* 컨텐츠를 하단에 정렬 */
+  margin-bottom: 50px; /* 기존 아래 공간 외 추가 여백 */
 }
 
 .like-board-header {
@@ -218,6 +218,10 @@ html, body {
   flex-direction: column;
   justify-content: flex-end;
   cursor: pointer;
+}
+
+.like-item-list {
+  margin-top: auto; /* 남은 공간만큼 아래로 이동하여 하단에 위치하도록 함 */
 }
 
 .like-item:hover {
@@ -284,6 +288,10 @@ html, body {
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
   padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
+}
+
+.like-item-list {
+
 }
 
 

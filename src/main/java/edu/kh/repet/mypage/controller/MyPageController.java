@@ -183,9 +183,11 @@ public class MyPageController {
   	
   	int boardCount = service.boardCount(loginMember.getMemberNo());
   	
-  	System.out.println(boardCount);
+  	int commentCount = service.commentCount(loginMember.getMemberNo());
+  	
   	
   	model.addAttribute("boardCount", boardCount);
+  	model.addAttribute("commentCount", commentCount);
   	
     if (loginMember != null) {
         model.addAttribute("member", loginMember);

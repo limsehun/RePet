@@ -342,7 +342,8 @@
     .imfo-btn1,
     .imfo-btn2,
     .imfo-btn3,
-    .imfo-btn4{
+    .imfo-btn4,
+    .imfo-sup-btn{
       width: 100%;
       padding: 10px;
       border: none;

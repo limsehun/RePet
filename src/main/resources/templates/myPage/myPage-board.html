@@ -27,41 +27,21 @@
       <p>내가 작성한 게시글 및 댓글을 확인할 수 있습니다.</p>
 
       <div class="post-comment-management" id="boardList">
-
         <div class="board-header">
-          <div style="margin-left: 35px;">
-            <span>게시글 (4)</span>
+          <div id="tab-posts" class="active-tab" onclick="switchTab('posts')" style="margin-left: 35px;">
+            <span>게시글 <th:block th:text="'(' + ${boardCount} + ')'"></th:block></span>
           </div>
 
-          <div style="margin-right: 35px;">
+          <div id="tab-comments" onclick="switchTab('comments')" style="margin-right: 35px;">
             <span>댓글 (5)</span>
           </div>
         </div>
 
         <!-- 게시물 항목들 -->
-        <div class="like-item">
-          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
-          <div class="like-item-sub">(자유게시판)</div>
-        </div>
-        <div class="like-item">
-          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
-          <div class="like-item-sub">(분양정보)</div>
-        </div>
-        <div class="like-item">
-          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
-          <div class="like-item-sub">(자유게시판)</div>
-        </div>
-        <div class="like-item">
-          <div class="like-item-title">내용내용내용내용내용내용내용내용내용내용</div>
-          <div class="like-item-sub">(분양정보)</div>
-        </div>
+        <div class="like-item"></div>
 
         <div class="pagination-box">
-          <!-- <a href="#" style="margin-right: 10px;">&lt;&lt;</a>
-          <a href="#" style="margin-right: 5px;">&lt;</a> -->
           <a href="#" class="page-btn" data-page="1">1</a>
-          <!-- <a href="#" style="margin-left: 5px;">&gt;</a>
-          <a href="#" style="margin-left: 10px;">&gt;&gt;</a> -->
         </div>
       </div>
 

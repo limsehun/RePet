@@ -29,8 +29,18 @@ const renderPagination = (pagination) => {
       event.preventDefault();  // 링크 이동 막기 
 
       const cp = parseInt(event.target.dataset.page);
+      // #memberNo 요소가 있는 경우에만 selectLikeList 호출
+      if (document.querySelector("#memberNo")) {
+        selectLikeList(cp); // 해당 페이지로 이동
+      }
 
-      selectLikeList(cp); // 해당 페이지로 이동
+      // #boardList 요소가 있는 경우에만 selectBoardList 호출
+      if (document.querySelector("#boardList")) {
+        selectBoardList(cp); // 해당 페이지로 이동
+      }   
+
+      loadTabContent(currentTab, parseInt(event.target.dataset.page));
+      
     });
 
     return button;
@@ -85,6 +95,7 @@ const selectLikeList = (cp) => {
       console.log(pagination);
 
       renderPagination(pagination);  // 페이지네이션 렌더링 호출
+      renderItems(list, '게시물');
 
       const paginationBox = document.querySelector(".pagination-box");
 
@@ -740,8 +751,7 @@ deleteForm?.addEventListener("submit", e => {
 const boardList = document.querySelector("#boardList");
 
 const selectBoardList = (cp) => {
-
-  let requestUrl = `/myPage/selectBoardList?&cp=${cp}`; // cp 값 추가
+  let requestUrl = `/myPage/selectBoardList?cp=${cp}`; // cp 값 추가
 
   fetch(requestUrl)
     .then(response => {
@@ -749,17 +759,125 @@ const selectBoardList = (cp) => {
       throw new Error("조회 오류");
     })
     .then(map => {
-
-      const boardList = map.boardList;
+      const list = map.boardList;  // 'list' 이름 수정 -> 이 변수명은 서버에서 오는 데이터에 맞춰야 합니다.
       const pagination = map.pagination;
 
-      console.log(boardList);
+      console.log(list);
       console.log(pagination);
+
+      renderPagination(pagination);  // 페이지네이션 렌더링 호출
+
+      const paginationBox = document.querySelector(".pagination-box");
+
+      // 기존 게시물 항목 삭제
+      document.querySelectorAll(".like-item").forEach(item => item.remove());
+
+      // 게시물 목록 렌더링
+      list.forEach(board => {
+        const likeItemDiv = document.createElement("div");
+        likeItemDiv.className = "like-item";
+
+        // 임시로 div를 만들어서 HTML을 넣은 다음 텍스트만 추출
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = board.boardContent; // HTML을 넣음
+        const boardTextContent = tempDiv.textContent || tempDiv.innerText; // 텍스트만 추출
+
+        const titleDiv = document.createElement("div");
+        titleDiv.className = "like-item-title";
+        titleDiv.innerText = boardTextContent.trim(); // 추출된 텍스트만 설정하고 앞뒤 공백 제거
+
+        likeItemDiv.addEventListener("click", () => {
+          // 게시물 상세 페이지로 이동
+          location.href = `/board/2/${board.boardNo}`;
+        });
+
+        const subDiv = document.createElement("div");
+        subDiv.className = "like-item-sub";
+        subDiv.innerText = `(${board.boardTitle})`;
+
+        likeItemDiv.appendChild(titleDiv);
+        likeItemDiv.appendChild(subDiv);
+
+        boardList.insertBefore(likeItemDiv, paginationBox);  // 'likeList' -> 'boardList'로 수정
+      });
 
     })
     .catch(err => console.error(err));
 };
 
+
+/* 게시물, 댓글 리스트 페이지 변경 */
+
+let currentTab = 'posts'; // 현재 탭 상태 ('posts' 또는 'comments')
+
+
+const switchTab = (tab) => {
+  currentTab = tab; // 현재 탭 변경
+  document.querySelectorAll(".board-header div").forEach(div => div.classList.remove("active-tab"));
+  document.querySelector(`#tab-${tab}`).classList.add("active-tab");
+
+  loadTabContent(tab, 1); // 탭 전환 시 페이지를 1로 초기화하고 데이터 로딩
+};
+
+const loadTabContent = (tab, cp) => {
+  if (tab === 'posts') {
+    selectBoardList(cp);
+  } else if (tab === 'comments') {
+    selectCommentList(cp);
+  }
+};
+
+
+/* 댓글 비동기 조회 */
+const selectCommentList = (cp) => {
+  let requestUrl = `/myPage/selectCommentList?cp=${cp}`; // 댓글 목록 가져오기 위한 URL
+
+  fetch(requestUrl)
+    .then(response => response.ok ? response.json() : Promise.reject("조회 오류"))
+    
+    .then(map => {
+
+      const list = map.commentList;
+      const pagination = map.pagination;
+
+      renderPagination(pagination);  // 페이지네이션 렌더링 호출
+      renderItems(list, '댓글');
+    })
+    .catch(err => console.error(err));
+};
+
+
+/* 항목 렌더링 함수 (게시물/댓글) */
+const renderItems = (list, type) => {
+  const likeItemsContainer = document.querySelector("#like-items");
+  likeItemsContainer.innerHTML = ''; // 기존 항목 초기화
+
+  list.forEach(item => {
+    const likeItemDiv = document.createElement("div");
+    likeItemDiv.className = "like-item";
+
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "like-item-title";
+    titleDiv.innerText = item.title || item.content;
+
+    likeItemDiv.addEventListener("click", () => {
+      // 게시물이나 댓글 상세 페이지로 이동
+      if (type === '게시물') {
+        location.href = `/board/2/${item.boardNo}`;
+      } else if (type === '댓글') {
+        location.href = `/comment/${item.commentNo}`;
+      }
+    });
+
+    const subDiv = document.createElement("div");
+    subDiv.className = "like-item-sub";
+    subDiv.innerText = `(${type})`;
+
+    likeItemDiv.appendChild(titleDiv);
+    likeItemDiv.appendChild(subDiv);
+    likeItemsContainer.appendChild(likeItemDiv);
+  });
+};
 
 
 

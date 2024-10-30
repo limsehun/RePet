@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -174,16 +175,37 @@ public class MyPageController {
   
   
   @GetMapping("/board")
-  public String myPageBoard(@SessionAttribute("loginMember")
+  public String myPageBoard(
+  			@SessionAttribute("loginMember")
   			Member loginMember, Model model
   		) {
+  	
+  	
+  	int boardCount = service.boardCount(loginMember.getMemberNo());
+  	
+  	System.out.println(boardCount);
+  	
+  	model.addAttribute("boardCount", boardCount);
+  	
     if (loginMember != null) {
         model.addAttribute("member", loginMember);
     }
+    
+    
     return "myPage/myPage-board";
   }
   
   
+  
+ 	@ResponseBody
+ 	@GetMapping("selectCommentList")
+ 	public Map<String, Object> selectCommentList(
+ 				@SessionAttribute("loginMember") Member loginMember,
+ 				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
+ 			) {
+ 		
+ 		return service.selectCommentList(loginMember.getMemberNo(), cp);
+ 	}
   
 
   

@@ -166,6 +166,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public int deletUser(int memberNo) {
 		return mapper.deleteUser(memberNo);
 	}
+	
+	
+	@Override
+	public int boardCount(int memberNo) {
+		return mapper.boardCount(memberNo);
+	}
 
 
 	// 게시물 리스트 조회
@@ -196,7 +202,42 @@ public class MyPageServiceImpl implements MyPageService {
 		List<Board> boardList = mapper.selectBoardList(memberNo, rowBounds);
 		
 		
+		
 		Map<String, Object> map = Map.of("boardList", boardList, "pagination", pagination);
+		
+		return map;
+	}
+	
+	
+	
+	@Override
+	public Map<String, Object> selectCommentList(int memberNo, int cp) {
+		
+		int boardListCount = mapper.commentCount(memberNo);
+		
+		
+		// 페이지 네이션 객체
+		// cp 현재 페이지 번호
+		// 한 페이지에 표실할 게시물 수
+		// 링크 수
+		Pagination pagination = new Pagination(cp, boardListCount, 5, 5);
+		
+		// ex) 현재 페이지 2 - 1 = 1
+		// 1 * 5 = 5
+		// 해당 인덱스 부터 게시물 가져오는 값
+		int offset = (cp - 1) * pagination.getLimit();
+		
+		//offset: 데이터베이스에서 데이터를 가져올 시작 위치.
+		// pagination.getLimit(): 한 번에 가져올 게시물의 수.
+		// RowBounds는 MyBatis가 SQL 쿼리를 실행할 때 자동으로 OFFSET과 LIMIT을 적용
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		
+		List<Board> commentList = mapper.selectCommentList(memberNo, rowBounds);
+		
+		
+		
+		Map<String, Object> map = Map.of("commentList", commentList, "pagination", pagination);
 		
 		return map;
 	}

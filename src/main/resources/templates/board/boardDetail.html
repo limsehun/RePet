@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/board/boardDetail-style.css">
   <link rel="stylesheet" href="/css/board/comment.css">
 
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="board-page">
@@ -35,7 +35,7 @@
                     <img src="/images/user.png">
 
                     <!-- 프로필 사진이 있을 경우 출력 -->
-                    <!-- <img src="/images/logo.jpg"> -->
+                    <img th:if="*{profileImg}" th:src="*{profileImg}">
 
                     <div class="nickname-date">
                         <!-- 작성자 닉네임 -->
@@ -137,10 +137,29 @@
 
   </main>
 
+  <script th:inline="javascript">
+    const board = /*[[${board}]]*/ {};
 
+    
+        // th:inline="javascript"
+        // - Java 데이터 -> JS 자료형을 자동 변환
+
+        // 로그인 되어 있으면 true, 아니면 false
+        const loginCheck =/*[[${session.loginMember != null}]]*/ false;
+
+        // 로그인한 회원의 닉네임
+        const memberNickname
+            =/*[[${session.loginMember?.memberNickname}]]*/ null;
+
+
+        // 상세 조회한 게시글 정보
+        const boardDetail = /*[[${board}]]*/ null;
+    
+  </script>
 
   <!-- JavaScript 파일 연결 -->
   <script src="/js/board/boardDetail.js"></script>
+  <script src="/js/board/comment.js"></script>
 </body>
 
 </html>

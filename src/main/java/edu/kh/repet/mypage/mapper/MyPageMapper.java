@@ -49,4 +49,12 @@ public interface MyPageMapper {
 	// 게시물 리스트 조회
 	List<Board> selectBoardList(int memberNo, RowBounds rowBounds);
 
+	
+	// 댓글 수 조회
+	int commentCount(int memberNo);
+
+	
+	// 댓글 리스트 조회
+	List<Board> selectCommentList(int memberNo, RowBounds rowBounds);
+
 }

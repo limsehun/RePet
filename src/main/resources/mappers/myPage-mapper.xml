@@ -110,6 +110,8 @@
 			BOARD
 		WHERE
 			MEMBER_NO = #{memberNo}
+			AND
+			BOARD_DEL_FL = 'N'
 	</select>
 	
 	
@@ -120,10 +122,36 @@
 			BOARD
 		WHERE
 			MEMBER_NO = #{memberNo}
-</select>
+			AND
+			BOARD_DEL_FL = 'N'
+	</select>
+	
+	
+	<select id="commentCount" resultType="_int">
+		SELECT 
+			COUNT(*)
+		FROM
+		 COMMENT
+		WHERE 
+			MEMBER_NO = #{memberNo}
+		  	AND
+		   	COMMENT_DEL_FL = 'N'
+	</select>
+	
+	
+	<select id="selectCommentList" resultType="Comment">
+		SELECT 
+			*
+		FROM 
+			COMMENT
+		WHERE 
+			MEMBER_NO = #{memberNo}
+		  	AND
+		  	COMMENT_DEL_FL = 'N';
+	</select>
 			
 	
-	
+
 	
 			
 	

@@ -48,7 +48,7 @@ public class EditBoardServiceImpl implements EditBoardService {
 		
 		String rename = FileUtil.rename(file.getOriginalFilename());
 		BoardImg boardImg = BoardImg.builder()
-												.imgPath(webPath)
+												.imgPath(webPath + rename)
 												.imgRename(rename)
 												.build();
 		int result = mapper.uploadImage(boardImg);
@@ -69,9 +69,28 @@ public class EditBoardServiceImpl implements EditBoardService {
 	}
 	
 	
+
+	// 게시글 삭제
+	@Override
+	public int deleteBoard(int boardNo, int memberNo) {
 		
 		
+		return mapper.deleteBoard(boardNo, memberNo);
+	}
 	
+	
+	@Override
+	public int updateBoard(Board board) {
+		
+		int result = mapper.updateBoard(board);
+		
+		if (result == 0) {
+			throw new RuntimeException("게시글 수정 실패");
+		}
+		
+		
+		return result;
+	}
 
 
 

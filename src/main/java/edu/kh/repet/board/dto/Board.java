@@ -39,6 +39,9 @@ public class Board {
 	
 //좋아요 체크 여부를 저장할 필드(1 == 누른적 있음)
 	private int likeCheck;
+	
+	
+	private String profileImg; // 작성자 프로필 이미지
 
   
 

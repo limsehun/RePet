@@ -4,16 +4,17 @@
 <mapper namespace="edu.kh.repet.board.mapper.EditBoardMapper">
   
  
-<insert id="insertPost" parameterType="Board">
-    <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
-        SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
-    </selectKey>
-    INSERT INTO BOARD (
-        BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE
-    ) VALUES (
-        SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{boardNo}, 2
-    )
-</insert>
+	<insert id="insertPost" parameterType="Board">
+	    <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+	        SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+	    </selectKey>
+	    INSERT INTO BOARD (
+	        BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_DATE, BOARD_UPDATE_DATE, READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE
+	    ) VALUES (
+	        SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, 2
+	    )
+	</insert>
+
 
 
 <insert id="uploadImage">
@@ -22,6 +23,27 @@
 	
 </insert>
 
+
+<!-- 게시글 삭제 -->
+<update id="deleteBoard">
+       
+
+       UPDATE "BOARD"
+       SET BOARD_DEL_FL = 'Y'
+       WHERE MEMBER_NO = #{memberNo}
+       AND BOARD_NO = #{boardNo}
+</update>
+
+
+
+<update id="updateBoard" parameterType="Board">
+    UPDATE BOARD
+    SET BOARD_TITLE = #{boardTitle},
+        BOARD_CONTENT = #{boardContent},
+        BOARD_UPDATE_DATE = SYSDATE
+    WHERE BOARD_NO = #{boardNo}
+    AND MEMBER_NO = #{memberNo}
+</update>
 	
 
 	

@@ -512,3 +512,64 @@
 }
 
 
+
+
+ /* 동물 카드 섹션 스타일 */
+ .animal-section,
+ .abandoned-animal-section,
+ .abandoned-sup-section {
+   padding: 40px 20px;
+   text-align: center;
+ }
+
+ .animal-section h2,
+ .abandoned-animal-section h2,
+ .abandoned-sup-section h2 {
+   margin-bottom: 20px;
+   font-size: 24px;
+   color: #333;
+ }
+
+
+ .imfo-animal,
+ .imfo-animal-all,
+ .imfo-sup-all,
+ .imfo-sup {
+
+   display: flex;
+   justify-content: space-around;
+   margin: 20px 0;
+ }
+
+ .animal-cards,
+ .name-box,
+ .sup-box,
+ .sup-cards {
+
+   display: flex;
+   justify-content: space-around;
+ }
+
+
+
+ .animal-card,
+ .sup-card {
+   width: 250px;
+   height: 250px;
+   background-color: #f0f0f0;
+   border: 1px solid #ddd;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 0 10px;
+   border-radius: 20px
+ }
+
+ .animal-name,
+ .sup-cost {
+   width: 50px;
+   height: 20px;
+   display: flex;
+
+   padding: 10px 10px;
+ }

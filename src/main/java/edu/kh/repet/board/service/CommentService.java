@@ -13,4 +13,14 @@ public interface CommentService {
 	// 댓글 목록 조회
 	List<Comment> getComments(int boardNo);
 
+
+	// 댓글 삭제
+	int deleteComment(int commentNo, int memberNo);
+
+
+	Comment getCommentById(int commentNo);
+
+
+	int updateComment(Comment updatedComment);
+
 }

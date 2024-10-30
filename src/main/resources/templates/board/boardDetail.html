@@ -141,7 +141,10 @@
   </main>
 
   <script th:inline="javascript">
-     let boardNo = /*[[${board.boardNo}]]*/ {};
+
+      /*[[${session.loginMember != null}]]*/ 
+
+     let boardNo =/*[[${board.boardNo}]]*/ {};
 
 
         // 로그인 되어 있으면 true, 아니면 false
@@ -151,10 +154,15 @@
         const memberNickname
             =/*[[${session.loginMember?.memberNickname}]]*/ null;
 
-    
-       
+
     
   </script>
+
+<script th:inline="javascript">
+  /*[[${session.loginMember != null}]]*/ 
+  let loginCheck2 = /*[[${session.loginMember != null}]]*/ false;
+  let loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ null;
+</script>
 
   <!-- JavaScript 파일 연결 -->
   <script src="/js/board/boardDetail.js"></script>

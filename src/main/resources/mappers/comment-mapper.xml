@@ -20,6 +20,12 @@
           AND COMMENT_DEL_FL = 'N'
         ORDER BY COMMENT_WRITE_DATE DESC
     </select>
+    
+    <delete id="deleteComment" parameterType="map">
+    DELETE FROM BOARD_COMMENT
+    WHERE COMMENT_NO = #{commentNo}
+    AND MEMBER_NO = #{memberNo}
+</delete>
 
 
 </mapper>

@@ -29,4 +29,6 @@ public class Comment {
 	private String memberNickname;
 	private String profileImg;
 	
+	private String updatedComment;
+	
 }

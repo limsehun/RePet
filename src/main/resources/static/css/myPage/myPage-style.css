@@ -71,39 +71,33 @@ html, body {
 
 /* main-content 중앙 배치 및 레이아웃 수정 */
 
-main {
-  width: 100%;
-  height: 100vh;
-}
 .main-content {
-  margin-left: 626px; /* 사이드바 너비만큼 왼쪽으로 여백 추가 */
-  padding-top: 100px; /* 헤더 아래부터 시작 */
+  margin-left: 300px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
+  padding-top: 10vh; /* 헤더 아래부터 시작 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 중앙에 정렬하되, 위에서 아래로 나열 */
-  width:100vh; /* 사이드바를 제외한 나머지 너비 */
-
+  justify-content: flex-start; /* 위에서 아래로 나열 */
+  width: calc(100% - 300px); /* 전체 화면 너비에서 사이드바 너비를 제외 */
   min-height: calc(100vh - 100px); /* 화면 전체 높이에서 헤더 높이 제외 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
 }
 
 /* profile-box 수정 */
 .profile-box {
-  width: 1100px; /* 부모 요소의 너비에 맞춤 */
-  max-width: 1100px; /* 최대 너비 설정 */
+  width: 80%; /* 부모 요소의 너비에 비례하여 설정 (화면 너비의 80%) */
+  max-width: 1200px; /* 최대 너비 설정 */
   min-height: 300px;
   background-color: #F5E6CC;
   display: flex;
-  flex-direction: column; /* 변경: 세로로 배치 */
+  flex-direction: column; /* 세로로 배치 */
   align-items: center;
   justify-content: center;
   border-radius: 40px;
   padding: 20px;
   color: #333;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  position: relative; /* 추가: 자식 요소의 절대 위치 기준 설정 */
+  margin: 50px auto; /* 위 아래 여백 추가 및 수평 중앙 정렬 */
+  position: relative; /* 자식 요소의 절대 위치 기준 설정 */
 }
 
 .profile-box > h2 {
@@ -187,16 +181,18 @@ main {
 
 /* ----------------- MyPage likeBoard CSS ----------------------- */
 
+/* like-board 수정 */
 .like-board {
-  width: 1100px;
+  width: 80%; /* 부모 요소의 너비에 비례하여 설정 (화면 너비의 80%) */
+  max-width: 1200px; /* 최대 너비 설정 */
   background-color: #D9CBAF;
   min-height: 800px;
   border-radius: 40px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* 컨텐츠를 하단에 정렬 */
-  margin-bottom: 50px; /* 기존 아래 공간 외 추가 여백 */
+  justify-content: flex-start; /* 내용이 상단부터 정렬되도록 수정 */
+  margin: 50px auto; /* 기존 아래 공간 외 추가 여백 및 수평 중앙 정렬 */
 }
 
 .like-board-header {
@@ -465,19 +461,17 @@ main {
 /* ----------------- Mypage-board CSS ----------------------- */
 
 .board-content {
-  position: relative;
-  top: 110px;
-  padding-top: 20px;
-  left: 300px;
-  width: calc(100% - 300px);
-  height: calc(100% - 100px);
+  margin-left: 300px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
+  padding-top: 20vh; /* 헤더 아래부터 시작 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 50px; /* 맨 아래 여백 추가 */
+  justify-content: flex-start; /* 위에서 아래로 나열 */
+  width: calc(100% - 300px); /* 전체 화면 너비에서 사이드바 너비를 제외 */
+  min-height: calc(100vh - 100px); /* 화면 전체 높이에서 헤더 높이 제외 */
+  margin-bottom: 50px; /* 하단과의 간격을 위해 여백 추가 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
 }
-
 
 .post-comment-management {
   width: 1100px;

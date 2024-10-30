@@ -1,22 +1,22 @@
 package edu.kh.repet.manager.boardmanager.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-@RequestMapping("boardManager")
+@Controller // 이 어노테이션을 추가
+@RequestMapping("manager/boardManager")
 public class BoardManagerController {
 	
-	
-	@GetMapping("boardManagement") // "/" 요청 매핑(method 가리지 않음)
+	@GetMapping("boardManagement")
 	public String managerPage() {
-		return "/boardManager/boardManagement";
+	    return "manager/boardManager/boardManagement";
 	}
 	
+}
 	
 	
 	
 	
 	
 
-}

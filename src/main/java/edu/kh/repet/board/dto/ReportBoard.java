@@ -15,11 +15,12 @@ import lombok.ToString;
 @Builder
 public class ReportBoard {
 
-	private int memberNo; // 신고한 회원 번호
+   private int memberNo; // 신고한 회원 번호
   private int boardNo; // 게시글 번호
-  private String reportContent; // 신고 내용
+  private String reportCategoryContent; // 신고 내용
   private String reportWriteDate; // 신고 일자 (자동 설정)
   private int progressCode; // 신고 상태 (기본값 1)
   private int reportCategory; // 신고 카테고리
-	
+  private String reportNickname; // 신고 카테고리
+   
 }

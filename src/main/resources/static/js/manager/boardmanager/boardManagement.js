@@ -12,24 +12,12 @@ closeModal.addEventListener("click",() => {
   modalBackground.style.display = "none";
 });
 
-/* 공통 데이터 요청 함수 */
-const fetchData = (url, cp) => {
-  return fetch(`${url}?cp=${cp}`)
-    .then(response => {
-      if (response.ok) return response.json();
-      throw new Error("조회 오류");
-    })
-    .catch(error => {
-      console.error("에러 발생:", error);
-      throw error;
-    });
-};
-
 
 let cachedBoardList = [];
 
 const boardList = document.querySelector("#boardList");
 
+// 게시물 조회 함수
 const selectBoardList = (cp) => {
   fetch(`/manager/board/selectBoardList?cp=${cp}`)
   .then(response => {
@@ -43,11 +31,41 @@ const selectBoardList = (cp) => {
     const pagination = map.pagination;
     const limit = pagination.limit || 10;
 
+    // 기존 리스트에 새로운 리스트를 추가
+    cachedBoardList = cachedBoardList.concat(list);
+    
+    renderBoardItems(list, cp, limit);
+    renderPagination(pagination, selectBoardList);
+  })
+  .catch(error => console.error("에러 발생:", error));
+}
+
+
+// 신고 게시물 조회 함수
+const reportBoardList = (cp) => {
+  fetch(`/manager/board/reportBoardList?cp=${cp}`)
+  .then(response => {
+    // 응답 성공 시 JSON형태의 응답 데이터를 JS 객체로 변경 
+    if(response.ok) return response.json();
+    throw new Error("조회 오류");
+  })
+  .then(map => {
+
+    const list = map.reprotBoardList;
+    const pagination = map.pagination;
+    const count = map.reportCount;
+    const limit = pagination.limit || 10;
+
+    console.log(list);
+    console.log(pagination);
+    console.log(count);
+    console.log(limit);
+
     // 리스트 데이터를 전역 변수에 캐시
     cachedBoardList = list;
     
-    renderItems(list, cp, limit);
-    renderPagination(pagination);
+    renderReportedItems(list, cp, limit);
+    renderPagination(pagination, reportBoardList);
   })
   .catch(error => console.error("에러 발생:", error));
 }
@@ -128,7 +146,7 @@ deleteBtn?.addEventListener("click", () => {
 
 
 // 항목 렌더링 함수
-const renderItems = (list, currentPage, limit) => {
+const renderBoardItems = (list, currentPage, limit) => {
   // 기존 tbody의 내용을 지우기
   boardList.innerHTML = ''; // 기존 항목 초기화
 
@@ -157,7 +175,7 @@ const renderItems = (list, currentPage, limit) => {
     
     // 3. 순수 텍스트만 가져오기
     let textContent = tempDiv.textContent;
-    textContent = textContent.length > 10 ? textContent.substring(0, 10) + '...' : textContent;
+    textContent = textContent.length > 0 ? (textContent.length > 10 ? textContent.substring(0, 10) + '...' : textContent) : `'내용없음'`;
     
     // 4. td 요소에 텍스트 내용 설정
     td3.textContent = textContent; // 태그가 없는 순수한 텍스트만 설정

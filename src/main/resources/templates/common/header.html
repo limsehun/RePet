@@ -77,10 +77,11 @@
 
 
 
-
-<th:block th:replace= "~{member/login}"></th:block>
-<th:block th:replace= "~{member/signUp}"></th:block>
-<!-- <th:block th:replace= "~{member/searchId}"></th:block> -->
-<th:block th:replace= "~{member/searchPw}"></th:block>
+<th:block th:unless="${session.loginMember}">
+  <th:block th:replace= "~{member/login}"></th:block>
+  <th:block th:replace= "~{member/signUp}"></th:block>
+  <!-- <th:block th:replace= "~{member/searchId}"></th:block> -->
+  <th:block th:replace= "~{member/searchPw}"></th:block>
+</th:block>
 
 <script src="/js/header.js"></script>

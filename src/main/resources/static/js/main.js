@@ -127,3 +127,12 @@ refindLink.addEventListener("click", () => {
 
 // -------------------------main 화면 버튼들- ---------------------------------
 
+document.querySelector("#hospital-btn").addEventListener("click", () => {
+  window.location.href = "/hospital";
+});
+
+document.querySelectorAll(".map-image").forEach((button) => {
+  button.addEventListener("click", () => {
+    window.location.href = "/hospital";
+  });
+});

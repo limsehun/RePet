@@ -23,12 +23,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/api")
 public class ApiController {
 
-    // 네이버 지도 및 검색 API 키
+    // 네이버 지도 API 키
     @Value("${naver.api.key}")
     private String naverMapApiKey;
+    @Value("${naver.secret}")
+    private String naverSecret;
+    
+   // 네이버 API 키 
     @Value("${naver.client.id}")
     private String naverClientId;
-    @Value("${naver.secret}")
+    @Value("${naver.client.secret}")
     private String naverClientSecret;
 
     // 경기도 및 서울 공공 API 키
@@ -83,10 +87,10 @@ public class ApiController {
         return ResponseEntity.ok(naverMapApiKey);
     }
 
-    // 경기도 동물병원 데이터 제공
+ // 경기도 동물병원 데이터 제공 (페이지 인덱스를 매개변수로 받음)
     @GetMapping("/gyeonggi-hospitals")
-    public ResponseEntity<String> getGyeonggiHospitals() {
-        String url = "https://openapi.gg.go.kr/Animalhosptl?KEY=" + gyeonggiApiKey + "&Type=json&pIndex=1&pSize=1000";
+    public ResponseEntity<String> getGyeonggiHospitals(@RequestParam("page") int pageIndex) {
+        String url = "https://openapi.gg.go.kr/Animalhosptl?KEY=" + gyeonggiApiKey + "&Type=json&pIndex=" + pageIndex + "&pSize=1000";
 
         try {
             String response = restTemplate.getForObject(url, String.class);

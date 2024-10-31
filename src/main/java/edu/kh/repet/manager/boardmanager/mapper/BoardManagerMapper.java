@@ -17,7 +17,8 @@ public interface BoardManagerMapper {
 	// 게시물 전체 조회
 	List<Board> selectBoardList(RowBounds rowBounds);
 
+	// 게시물 삭제
+	int deleteBoard(int boardNo);
 
-	
 
 }

@@ -135,13 +135,14 @@ a:hover{
 
 .btn-area > button {
   margin-right: 50px;
+  margin-bottom: 51px;
 
   width: 80px;
   height: 40px;
-  background-color: white;
+  background-color: #f5f5f5;
 
   font-weight: bold;
-  color: aqua;
+  color: #333;
   border: 2px solid black;
   border-radius: 5px;
 
@@ -149,48 +150,52 @@ a:hover{
 }
 
 #insertBtn:hover{
-  background-color: #7b1fa2;
+  background-color: #e0e0e0;
   opacity: 1;
 }
 
-.pagination{
-  list-style: none;
+
+
+.pagination-box {
   display: flex;
-  justify-content: center;
+  justify-content: center;  /* 페이지네이션 중앙 정렬 */
   align-items: center;
-  margin-top: 100px;
-  margin-right: 296px;
-  margin-bottom: 100px;
+  margin-top: 20px;  /* 페이지네이션 위쪽 여백 추가 */
+  margin-bottom: 71px;  /* 페이지네이션 아래쪽 여백 추가 */
+  margin-right: 173px;
 }
 
-.pagination li{
-  
-  margin: 0 5px;
-  text-align: center;
-  
-}
-
-.pagination a{
-  display: block;
-  width: 100%;
-  height: 100%;
-
-}
-
-.current{
-  font-weight: bold;
-  border-radius: 50%;
-  color: rgb(0, 0, 0) !important;
-  letter-spacing: 0 !important;
-  display: inline-block;
-  justify-content: center;
-}
-
-.current-area li {
+.pagination {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  list-style-type: none; /* 불필요한 리스트 스타일 제거 */
+  gap: 10px;  /* 각 페이지 링크 사이의 간격 */
 }
 
-.current-area a {
-  margin-right: 10px; /* 숫자 간 간격 조절 */
+.pagination li {
+  display: inline-block;
 }
+
+.pagination a {
+  display: block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #f5f5f5;  /* 기본 배경색 */
+  text-decoration: none;
+  color: #333;  /* 기본 텍스트 색상 */
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #e0e0e0;  /* 마우스를 올렸을 때 배경색 */
+}
+
+.pagination a.current {
+  background-color: #007bff;  /* 현재 페이지 배경색 */
+  color: #ffffff;  /* 현재 페이지 텍스트 색상 */
+  cursor: default;  /* 현재 페이지는 클릭되지 않도록 */
+}
+
+

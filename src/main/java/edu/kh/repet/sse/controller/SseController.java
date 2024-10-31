@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -20,7 +21,7 @@ import edu.kh.repet.sse.dto.Notification;
 import edu.kh.repet.sse.service.SseService;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 @Slf4j
 @ResponseBody
 public class SseController {
@@ -65,6 +66,8 @@ public class SseController {
 		}
 	}
 	
+	
+
 	
   @GetMapping("notification")
   public List<Notification> selectNotificationList(

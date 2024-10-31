@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>신고하기</title>
-    <link rel="stylesheet" href="/css/board/reportPopup.css">
+    <link rel="stylesheet" href="/css/comment/commentReportPopup.css">
 </head>
 <body>
 
@@ -41,10 +41,10 @@
 <!-- JavaScript 변수 전달 -->
 <script th:inline="javascript">
     let loginMemberNo = /*[[${session.loginMember != null ? session.loginMember.memberNo : 'null'}]]*/ null;
-    let boardNo = /*[[${boardNo}]]*/ null;
+    let commentNo = /*[[${commentNo}]]*/ null;
 </script>
 
 <!-- JavaScript 파일 연결 -->
-<script src="/js/board/reportPopup.js"></script>
+<script src="/js/comment/commentReportPopup.js"></script>
 </body>
 </html>

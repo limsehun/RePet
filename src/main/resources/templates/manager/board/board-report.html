@@ -8,6 +8,7 @@
 
   <th:block th:replace="~{common/common}"></th:block>
   <link rel="stylesheet" href="/css/manager/manager-style.css">
+  <link rel="stylesheet" href="/css/manager/boardManager/boardManager.css">
 </head>
 
 
@@ -36,7 +37,7 @@
 
         <!-- 테이블 영역 -->
         <div class="table-container">
-          <table class="admin-table" border="1">
+          <table class="admin-table">
             <thead>
               <tr>
                 <th>No</th>
@@ -56,52 +57,70 @@
                 <td>내용</td>
                 <td>2024-03-21 14:00:44</td>
                 <td>닉네임</td>
-                <td>상세정보</td>
+                <td id="detailModal">상세정보</td>
               </tr>
 
             </tbody>
           </table>
         </div>
+        
 
         <!-- 페이지네이션 -->
-        <!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
-        <div class="pagination-area" th:unless="${#lists.isEmpty(boardList)}">
-
-          <ul class="pagination" th:object="${pagination}">
-            <!-- 첫 페이지로 이동 -->
-            <li><a href="#">&lt;&lt;</a></li>
-            <!-- 이전 목록 마지막 번호로 이동 -->
-            <li><a href="#">&lt;</a></li>
-            <!-- 특정 페이지로 이동 -->
-
-            <!-- 
-                #numbers.sequence(startPage, endPage)
-                -> startPage 부터 endPage까지 1씩 증가하는 숫자를 가진
-                  List를 만들어서 반환
-              -->
-            <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
-
-              <!-- 현재 보고있는 페이지 -->
-              <li th:if="${i} == *{currentPage}">
-                <a class="current" th:text="${i}">현재 페이지</a>
-              </li>
-              <!-- 보고있지 않은 페이지 -->
-              <li th:unless="${i} == *{currentPage}">
-                <a th:text="${i}">이동할 수 있는 페이지</a>
-              </li>
-            </th:block>
-            <!-- 다음 목록 시작 번호로 이동 -->
-            <li><a>&gt;</a></li>
-            <!-- 끝 페이지로 이동 -->
-            <li><a>&gt;&gt;</a></li>
-          </ul>
+        <div class="pagination-area">
+          <div id="likePaginationBox" class="pagination"></div>
         </div>
+
+
+        
+      <!-- 모달 백그라운드 -->
+      <div class="modal-background" id="modalBackground" style="display: none;">
+        <!-- 모달 컨테이너 -->
+        <div class="modal-container">
+          <!-- 모달 헤더 -->
+          <div class="modal-header">
+            <span class="modal-title">상세정보</span>
+            <div class="button-group">
+              <button class="delete-btn">삭제</button>
+              <button class="close-btn">닫기</button>
+            </div>
+          </div>
+
+          <!-- 정보 테이블 -->
+          <table class="info-table">
+            <tr>
+              <th>게시판명</th>
+              <td>자유게시판</td>
+            </tr>
+            <tr>
+              <th>작성자</th>
+              <td class="board-writer">길동이</td>
+            </tr>
+            <tr>
+              <th>날짜</th>
+              <td class="board-date">2024-10-22 15:30:22</td>
+            </tr>
+            <tr>
+              <th>제목</th>
+              <td class="board-title">개발</td>
+            </tr>
+            <tr>
+              <th>내용</th>
+              <td class="board-content">개발하자</td>
+            </tr>
+            <!-- <tr>
+              <th>이미지</th>
+              <td><a href="path/to/logo.png" class="board-image" target="_blank">logo.png(클릭시 이미지 경로로 이동)</a></td>
+            </tr> -->
+          </table>
+        </div>
+      </div>
+      <!-- 모달 백그라운드 -->
 
       </div>
     </section>
   </main>
 
-  <script src="/js/manager/boardmanage/boardManagement.js"></script>
+  <script src="/js/manager/boardmanager/boardManagement.js"></script>
 </body>
 
 </html>

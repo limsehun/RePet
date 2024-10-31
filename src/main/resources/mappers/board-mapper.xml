@@ -127,6 +127,91 @@
     ) T
     WHERE T.BOARD_NO = #{boardNo}
 	</select>
+	
+	
+	<!-- 검색 조건이 맞는 게시글 수 조회 -->
+   <select id="getSearchCount" resultType="_int">
+   		SELECT COUNT(*)
+		FROM "BOARD"
+		<if test='key == "w"'>
+			JOIN "MEMBER" USING (MEMBER_NO)
+		</if>
+		
+		WHERE BOARD_CODE = #{boardCode}
+		AND   BOARD_DEL_FL = 'N'
+		
+		<choose>
+			<!-- 제목 검색인 경우 -->
+			<when test='key == "t"'>
+				AND   BOARD_TITLE LIKE '%' || #{query} || '%'
+			</when>
+
+			<!-- 내용 검색인 경우 -->
+			<when test='key == "c"'>
+				AND   BOARD_CONTENT LIKE '%' || #{query} || '%'
+			</when>
+
+			
+			<!-- 작성자 검색인 경우 -->
+			<when test='key == "w"'>
+				AND   MEMBER_NICKNAME LIKE '%' || #{query} || '%'
+			</when>
+		</choose>
+   
+   </select>
+	
+	
+	
+	<select id="searchBoard" parameterType="map" resultType="Board">
+    SELECT 	
+    	ROW_NUMBER() OVER (ORDER BY BOARD_NO ASC) AS "RNUM",
+		BOARD_NO,
+		BOARD_TITLE,
+		READ_COUNT,
+		MEMBER_NICKNAME,
+		(SELECT COUNT(*) FROM BOARD_COMMENT C
+		 WHERE C.BOARD_NO = B.BOARD_NO 
+		 AND   C.COMMENT_DEL_FL = 'N') AS "COMMENT_COUNT",
+		 
+		 
+		 <![CDATA[
+		 CASE
+		 	WHEN CURRENT_DATE - BOARD_WRITE_DATE < 1 / 24 / 60
+		 	THEN FLOOR( (CURRENT_DATE - BOARD_WRITE_DATE)
+		 	             * 24 * 60 * 60 ) || '초 전'
+		 	             
+		 	WHEN CURRENT_DATE - BOARD_WRITE_DATE < 1 / 24
+		 	THEN FLOOR( (CURRENT_DATE - BOARD_WRITE_DATE)
+		 	             * 24 * 60 ) || '분 전'        
+		 	             
+     	WHEN CURRENT_DATE - BOARD_WRITE_DATE < 1 
+		 	THEN FLOOR( (CURRENT_DATE - BOARD_WRITE_DATE)
+		 	             * 24  ) || '시간 전'
+		 	             
+		 	ELSE TO_CHAR(BOARD_WRITE_DATE, 'YYYY-MM-DD')
+		 
+		 END AS "BOARD_WRITE_DATE"
+		 ]]>
+		 
+    FROM  BOARD B
+    JOIN  MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
+    WHERE BOARD_CODE = 2
+    AND   BOARD_DEL_FL = 'N'
+    <choose>
+    <when test='key == "t"'>
+        AND BOARD_TITLE LIKE '%' || #{query} || '%'
+    </when>
+    <when test='key == "c"'>
+        AND BOARD_CONTENT LIKE '%' || #{query} || '%'
+    </when>
+    <when test='key == "w"'>
+        AND MEMBER_NICKNAME LIKE '%' || #{query} || '%'
+    </when>
+</choose>
+
+	ORDER BY RNUM DESC
+</select>
+
 
 
 

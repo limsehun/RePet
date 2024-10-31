@@ -7,10 +7,7 @@ import edu.kh.repet.board.dto.Board;
 
 public interface BoardService {
 
-	/** 게시글 목록 조회
-	 * @param boardCode
-	 * @param cpage
-	 * @return map
+	
 	
 	/** 게시글 목록 조회
 	 * @param boardCode
@@ -40,5 +37,9 @@ public interface BoardService {
 	
 	// 조회수가 높은 게시글 5개 조회
 	List<Board> getTop5Boards();
+
+	// 검색 결과 조회
+
+	Map<String, Object> searchBoard(int boardCode, int cpage, Map<String, Object> paramMap);
 
 }

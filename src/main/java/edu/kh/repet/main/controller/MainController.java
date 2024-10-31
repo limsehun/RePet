@@ -65,5 +65,12 @@ public class MainController {
 	    // 서비스 호출 및 결과 반환
 	    return adoptService.selectAdoptList(urlStr);
 	}
+	
+	
+  @GetMapping("hospital")
+  public String hospitalPage(){
+  	return "map/hospital";
+  	
+  }
 
 }

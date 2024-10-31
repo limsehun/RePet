@@ -3,7 +3,6 @@
 <!-- Mapper 인터페이스와 연결하는 방법 : namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이명 작성 -->
 <mapper namespace="edu.kh.repet.manager.mapper.ManagerMapper">
 
-
 	<!-- 전체 회원 수 -->
 	<select id="selectMemberCount" resultType="_int">
 		SELECT COUNT(*)
@@ -30,7 +29,7 @@
 			   
 		FROM "MEMBER" M
 		WHERE MEMBER_NO > 0
-		ORDER BY MEMBER_NO ASC
+		ORDER BY MEMBER_NO ASCmapper namespace
 	</select>
 	
 	

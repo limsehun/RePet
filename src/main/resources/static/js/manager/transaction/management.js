@@ -50,7 +50,7 @@ pageNoList?.forEach( (item, index) => {
     const query = params.get("query");
 
     if(query !== null){ // 검색인 경우
-      pathname += `&query=${query}`;
+      pathname += `&query=${s}`;
     }
 
     // 페이지 이동

@@ -306,6 +306,12 @@ html, body {
   right: 0;
 }
 
+.report-button-group {
+  display: flex;
+  gap: 5px; /* 닫기와 삭제 버튼 간격 */
+  flex-direction: row-reverse;
+}
+
 .close-btn, .delete-btn {
   background-color: #ddd;
   border: none;

@@ -55,7 +55,7 @@ const showBoardDetails = (boardNo) => {
         if(result > 0){
           alert("삭제가 완료되었습니다.")
           modalBackground.style.display = "none";
-          selectBoardList();
+          selectBoardList(1);
         } else {
           alert("삭제 실패");
         }

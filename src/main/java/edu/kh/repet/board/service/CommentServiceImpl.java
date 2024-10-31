@@ -31,5 +31,27 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getComments(int boardNo) {
 		return mapper.selectComments(boardNo);
 	}
+	
+	// 댓글 삭제
+	@Override
+	public int deleteComment(int commentNo, int memberNo) {
+		return mapper.deleteComment(commentNo, memberNo);
+	}
+	
+
+	@Override
+	public int updateComment(Comment comment) {
+		return mapper.updateComment(comment);
+	}
+
+
+
+
+
+
+
+
+
+
 
 }

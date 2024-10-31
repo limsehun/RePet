@@ -57,6 +57,12 @@ public interface BoardMapper {
 
 
 	// 게시글 목록으로 이동
+	
+	/**
+	 *
+	 * @param paramMap
+	 * @return
+	 */
 	int getcurrentPage(Map<String, Object> paramMap);
 
 

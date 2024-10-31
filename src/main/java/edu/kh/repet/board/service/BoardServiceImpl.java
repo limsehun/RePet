@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardServiceImpl implements BoardService {
 	
 	private final BoardMapper mapper;
-
 	
 	// 게시글 목록 조회
 	@Override

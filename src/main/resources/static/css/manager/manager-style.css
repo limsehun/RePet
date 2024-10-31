@@ -1,334 +1,232 @@
-/* 기본 스타일 초기화 */
-*{
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-}
+   /* 기본 스타일 초기화 */
+   * {
+     box-sizing: border-box;
+     padding: 0;
+     margin: 0;
+     font-family: 'Poppins', sans-serif;
+   }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden; /* 가로 스크롤 방지 */
-  overflow-y: auto; /* 세로 스크롤 허용 */
-}
+   html,
+   body {
+     height: 100%;
+     width: 100%;
+     overflow-x: hidden;
+     /* 가로 스크롤 방지 */
+     overflow-y: auto;
+     /* 세로 스크롤 허용 */
+   }
 
-.info-main {
-  height: 100vh;
-  padding-bottom: 50px; /* 맨 아래 여백 추가 */
-}
-
-
-/* ----------------- SideMenu CSS ----------------------- */
-.left-side {
-  position: fixed; /* 고정 */
-  top: 80px; /* 헤더 높이만큼 아래로 위치 */
-  bottom: 0;
-  left: 0;
-  width: 300px;
-  background-color: #F5E6CC;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* 내용이 많아지면 스크롤 생성 */
-}
+   .info-main {
+     height: 100vh;
+     padding-bottom: 50px;
+     /* 맨 아래 여백 추가 */
+   }
 
 
-.left-side h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.side-menu {
-  display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  gap: 15px; /* 항목 사이 간격 */
-  padding: 0;
-  list-style: none;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.side-menu li {
-  width: 100%;
-}
-
-.side-menu a {
-  display: block;
-  padding: 10px 15px;
-  text-align: center;
-  color: #333;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.side-menu a:hover {
-  background-color: #E8D8C3;
-}
-
-/*  --------------------- Main-Content CSS --------------------- */
-
-/* main-content 섹션 스타일 수정 */
-.main-content {
-  margin-left: 300px; /* 사이드바 너비만큼 */
-  padding: 100px 30px 50px; /* 상단 헤더, 좌우 여백, 하단 여백 */
-  min-height: 100vh;
-  background-color: #fff;
-  user-select: none;
-  -webkit-user-drag: none;
-  -moz-user-select: none;
-}
-
-.admin-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* 테이블 컨테이너 수정 */
-.table-container {
-  background-color: #F5E6CC;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
-  overflow-x: auto;
-}
-
-/* 테이블 스타일 수정 */
-.admin-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  user-select: none;
-  -webkit-user-drag: none;
-  -moz-user-select: none;
-}
-
-.admin-table td a{
-  color: #333;
-}
-
-.admin-table th,
-.admin-table td {
-  padding: 15px;
-  text-align: left;
-  border-bottom: 1px solid #e0d9d0;
-  background-color: #F5E6CC;
-}
-
-.admin-table th {
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.admin-table tbody tr {
-  height: 50px;
-}
-
-.admin-table tbody tr:hover {
-  background-color: #fff;
-}
-
-/* 검색 영역 수정 */
-.search-area {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-end;
-  position: relative; /* 상대 위치 설정 */
-}
-
-/* 검색 입력창 수정 */
-.search-input {
-  padding: 8px 35px 8px 15px; /* 오른쪽 패딩을 아이콘 공간만큼 확보 */
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 200px;
-}
-
-/* 검색 아이콘 스타일 */
-.search-area img {
-  position: absolute; /* 절대 위치 설정 */
-  right: 10px; /* 오른쪽에서 10px 떨어짐 */
-  top: 50%; /* 상단에서 50% 위치 */
-  transform: translateY(-50%); /* 세로 중앙 정렬 */
-  width: 20px; /* 아이콘 크기 조정 */
-  height: 20px; /* 아이콘 크기 조정 */
-  cursor: pointer; /* 마우스 오버시 포인터 표시 */
-}
-
-/* 페이지네이션 수정 */
-/* 페이지네이션 영역 스타일 */
-.pagination-area {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0;
-  user-select: none;
-  -webkit-user-drag: none;
-  -moz-user-select: none;
-}
-
-/* 페이지네이션 기본 스타일 */
-.pagination {
-  list-style: none;
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  padding: 0;
-}
-
-/* 페이지네이션 항목 스타일 */
-.pagination li {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 페이지네이션 링크 스타일 */
-.pagination a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 32px;
-  height: 32px;
-  padding: 0 6px;
-  border-radius: 4px;
-  color: #333;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-/* 일반 페이지 링크 호버 효과 */
-.pagination a:hover:not(.current) {
-  background-color: #E8D8C3;
-}
-
-/* 현재 페이지 스타일 */
-.pagination .current {
-  background-color: #333;
-  color: white;
-  font-weight: bold;
-}
-
-/* 이전/다음 페이지 화살표 스타일 */
-.pagination li:first-child a,
-.pagination li:last-child a,
-.pagination li:nth-child(2) a,
-.pagination li:nth-last-child(2) a {
-  font-size: 18px;
-}
-
-/* 비활성화된 페이지네이션 링크 스타일 (필요한 경우) */
-.pagination .disabled a {
-  color: #ccc;
-  pointer-events: none;
-  background-color: transparent;
-}
+   /* ----------------- SideMenu CSS ----------------------- */
+   .left-side {
+     position: fixed;
+     /* 고정 */
+     top: 80px;
+     /* 헤더 높이만큼 아래로 위치 */
+     bottom: 0;
+     left: 0;
+     width: 300px;
+     background-color: #F5E6CC;
+     padding: 20px;
+     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+     overflow-y: auto;
+     /* 내용이 많아지면 스크롤 생성 */
+   }
 
 
-/*----  상세정보 모달창 ----*/
-.modal-overlay{
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  background-color: #333333cc;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
-}
+   .left-side h2 {
+     text-align: center;
+     margin-bottom: 20px;
+     color: #333;
+   }
 
-/* popup layer 숨기기/보이기 */
-.popup-hidden {
-  display: none !important;
-}
+   .side-menu {
+     display: flex;
+     flex-direction: column;
+     /* 세로 정렬 */
+     gap: 15px;
+     /* 항목 사이 간격 */
+     padding: 0;
+     list-style: none;
+     font-size: 18px;
+     font-weight: bold;
+   }
 
-/* Modal Styles */
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  min-width: 500px;
-}
+   .side-menu li {
+     width: 100%;
+   }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
+   .side-menu a {
+     display: block;
+     padding: 10px 15px;
+     text-align: center;
+     color: #333;
+     text-decoration: none;
+     border-radius: 5px;
+     transition: background-color 0.3s ease;
+   }
 
-.modal-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #495057;
-  background-color: #ffe5b4;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-}
+   .side-menu a:hover {
+     background-color: #E8D8C3;
+   }
 
-.close-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
+   /*  --------------------- Main-Content CSS --------------------- */
 
-.close-btn:hover {
-  color: #333;
-}
+   /* main-content 섹션 스타일 수정 */
+   .main-content {
+     margin-left: 300px;
+     /* 사이드바 너비만큼 */
+     padding: 100px 30px 50px;
+     /* 상단 헤더, 좌우 여백, 하단 여백 */
+     min-height: 100vh;
+     background-color: #fff;
+   }
 
-/* Detail Table Styles */
-.detail-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+   .admin-main {
+     max-width: 1200px;
+     margin: 0 auto;
+     width: 100%;
+   }
 
-.detail-table td {
-  padding: 0.75rem;
-  border: 1px solid #dee2e6;
-}
+   /* 테이블 컨테이너 수정 */
+   .table-container {
+     background-color: #F5E6CC;
+     border-radius: 5px;
+     padding: 20px;
+     margin-bottom: 20px;
+     overflow-x: auto;
+   }
 
-.detail-table td:first-child {
-  background-color: #f8f9fa;
-  width: 30%;
-  font-weight: 500;
-}
+   /* 테이블 스타일 수정 */
+   .admin-table {
+     width: 100%;
+     border-collapse: separate;
+     border-spacing: 0;
+   }
 
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
+   .admin-table th,
+   .admin-table td {
+     padding: 15px;
+     text-align: left;
+     border-bottom: 1px solid #e0d9d0;
+     background-color: #F5E6CC;
+   }
 
-.pagination button {
-  padding: 0.5rem 1rem;
-  border: 1px solid #dee2e6;
-  background: white;
-  cursor: pointer;
-}
+   .admin-table th {
+     font-weight: bold;
+     position: sticky;
+     top: 0;
+     z-index: 1;
+   }
 
-.pagination button.active {
-  background-color: #e9ecef;
-}
+   .admin-table tbody tr {
+     height: 50px;
+   }
 
-/* Utility Classes */
-.text-right {
-  text-align: right;
-}
+   .admin-table tbody tr:hover {
+     background-color: #fff;
+   }
 
-.mt-4 {
-  margin-top: 1rem;
-}
+   /* 검색 영역 수정 */
+   .search-area {
+     margin-bottom: 20px;
+     display: flex;
+     justify-content: flex-end;
+   }
 
+   .search-input {
+     padding: 8px 15px;
+     border: 1px solid #ddd;
+     border-radius: 5px;
+     width: 200px;
+   }
+
+
+   /* ****** 현재 status-btn 시 적용되지 않는다******** */
+   #memberList #status-btn{
+     background: none;
+     /* 배경 제거 */
+     border: none;
+     /* 테두리 제거 */
+     font-size: 1.3em;
+     /* 글씨 크기 증가 (필요에 따라 조정) */
+     padding: 10px 20px;
+     /* 버튼의 여백 조정 (선택 사항) */
+     cursor: pointer;
+     /* 마우스 커서 변경 */
+     color: inherit;
+     /* 부모 요소의 글씨 색상 상속 */
+   }
+
+
+
+   /* 페이지네이션 수정 */
+   /* 페이지네이션 영역 스타일 */
+   .pagination-area {
+     display: flex;
+     justify-content: center;
+     margin: 30px 0;
+   }
+
+   /* 페이지네이션 기본 스타일 */
+   .pagination {
+     list-style: none;
+     display: flex;
+     gap: 5px;
+     align-items: center;
+     padding: 0;
+   }
+
+   /* 페이지네이션 항목 스타일 */
+   .pagination li {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+
+   /* 페이지네이션 링크 스타일 */
+   .pagination a {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     min-width: 32px;
+     height: 32px;
+     padding: 0 6px;
+     border-radius: 4px;
+     color: #333;
+     text-decoration: none;
+     transition: all 0.2s ease;
+   }
+
+   /* 일반 페이지 링크 호버 효과 */
+   .pagination a:hover:not(.current) {
+     background-color: #E8D8C3;
+   }
+
+   /* 현재 페이지 스타일 */
+   .pagination .current {
+     background-color: #333;
+     color: white;
+     font-weight: bold;
+   }
+
+   /* 이전/다음 페이지 화살표 스타일 */
+   .pagination li:first-child a,
+   .pagination li:last-child a,
+   .pagination li:nth-child(2) a,
+   .pagination li:nth-last-child(2) a {
+     font-size: 18px;
+   }
+
+   /* 비활성화된 페이지네이션 링크 스타일 (필요한 경우) */
+   .pagination .disabled a {
+     color: #ccc;
+     pointer-events: none;
+     background-color: transparent;
+   }

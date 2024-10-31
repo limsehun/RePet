@@ -28,4 +28,6 @@ public class Member {
   /* 추가 */
   private int boardCount;
   private int commentCount;
+  
+  private String statusContent;
 }

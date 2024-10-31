@@ -29,7 +29,7 @@ public class ApiController {
     @Value("${naver.secret}")
     private String naverSecret;
     
-   // 네이버 API 키 
+   // 네이버 검색 API 키 
     @Value("${naver.client.id}")
     private String naverClientId;
     @Value("${naver.client.secret}")
@@ -42,7 +42,11 @@ public class ApiController {
     private String seoulApiKey;
 
     private final RestTemplate restTemplate = new RestTemplate();
+    
 
+    
+
+    // 네이버 검색 API 엔드포인트
     @GetMapping("/search")
     public ResponseEntity<?> searchNaver(@RequestParam("query") String query) {
         try {
@@ -62,6 +66,10 @@ public class ApiController {
 
             // 필터링하여 필요한 데이터만 추출
             List<Map<String, Object>> items = (List<Map<String, Object>>) jsonResponse.get("items");
+            if (items == null) {
+	            	System.err.println("네이버 API 응답에 items가 없습니다.");
+	            	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("검색 결과가 없습니다.");
+            	}
             List<Map<String, Object>> filteredResults = new ArrayList<>();
 
             for (Map<String, Object> item : items) {
@@ -91,9 +99,11 @@ public class ApiController {
     @GetMapping("/gyeonggi-hospitals")
     public ResponseEntity<String> getGyeonggiHospitals(@RequestParam("page") int pageIndex) {
         String url = "https://openapi.gg.go.kr/Animalhosptl?KEY=" + gyeonggiApiKey + "&Type=json&pIndex=" + pageIndex + "&pSize=1000";
-
+        System.out.println("경기 병원 데이터 요청 URL: " + url); // URL 출력 로그
+        
         try {
             String response = restTemplate.getForObject(url, String.class);
+            System.out.println("경기 병원 데이터 응답: " + response); // 응답 데이터 로그
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,9 +115,11 @@ public class ApiController {
     @GetMapping("/seoul-hospitals")
     public ResponseEntity<String> getSeoulHospitals() {
         String url = "http://openapi.seoul.go.kr:8088/" + seoulApiKey + "/json/LOCALDATA_020301/1/1000";
+        System.out.println("서울 병원 데이터 요청 URL: " + url); // URL 출력 로그
 
         try {
             String response = restTemplate.getForObject(url, String.class);
+            System.out.println("서울 병원 데이터 응답: " + response); // 응답 데이터 로그
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();

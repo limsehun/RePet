@@ -14,6 +14,14 @@ public interface EditBoardService {
 
 	String uploadImage(MultipartFile file);
 
+	
+  // 게시글 삭제
+	int deleteBoard(int boardNo, int memberNo);
+
+	int updateBoard(Board board);
+
+	
+
 
 
 

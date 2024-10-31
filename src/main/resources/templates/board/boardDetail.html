@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/board/boardDetail-style.css">
   <link rel="stylesheet" href="/css/board/comment.css">
 
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="board-page">
@@ -32,10 +32,10 @@
                 <div class="board-writer">
                     <!-- 프로필 이미지 -->
                      <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
-                    <img src="/images/user.png">
+                    <img th:unless= "*{profileImg}" th:src=#{user.default.image}>
 
                     <!-- 프로필 사진이 있을 경우 출력 -->
-                    <!-- <img src="/images/logo.jpg"> -->
+                    <img th:if="*{profileImg}" th:src="*{profileImg}">
 
                     <div class="nickname-date">
                         <!-- 작성자 닉네임 -->
@@ -48,7 +48,10 @@
                       </p>
     
                         <!-- 수정한 게시글인 경우 수정일 -->
-                         <span></span>
+                         <p th:if= "${boardUpdateDate}">
+                          <span>마지막 수정일</span>
+                          <th:block th:text="${boardUpdateDate}"></th:block>
+                        </p>
                     </div>
 
                 </div>
@@ -83,8 +86,9 @@
                 <span id="likeCount" th:text="*{likeCount}">0</span>
              </span>
 
+             <!-- 신고하기 -->
              <span class="report-area">
-                <i class="fa-regular fa-bell" id="reportBtn" style="color: red;"></i>
+              <i class="fa-regular fa-thumbs-down" id="reportBtn"></i>
                 <!-- <button id="reportBtn">신고하기</button> -->
 
              </span>
@@ -97,28 +101,29 @@
          <th:block th:replace="~{board/comment}"></th:block>
 
 
-         <!-- 베스트 게시글 -->
+         <!-- 최근 게시글 -->
           <div class="best-board-area">
             <h2 class="best-header-title">추천 게시물</h2>
 
             <table class="best-board-list">
                 
-                <tbody th:each= "i : ${boardList}">
-                  <th:block th:object="${board}">
-                        <tr>
+                <tbody>
+                  <th:block>
+                        <tr th:each="board : ${top5Boards}"  th:object="${board}">
                            <td>
                              <!-- 제목 -->
-                            <a href="#" th:text="${boardTitle}">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+                            <a th:href="@{/board/2/{boardNo}(boardNo=${board.boardNo})}"
+                                th:text="*{boardTitle}">게시글 제목</a>
             
                             <!-- 댓글수 -->
                              <th:block th:text="|[*{commentCount}]|">[0]</th:block>
                            </td>
                             
                             <!-- 작성지 -->
-                             <td th:text="${memberNickname}">닉네임</td>
+                             <td th:text="*{memberNickname}">닉네임</td>
             
                             <!-- 작성일 -->
-                            <td th:text="${boardWriteDate}">2024.10.18</td>
+                            <td th:text="*{boardWriteDate}">2024.10.18</td>
                         </tr>
                  </th:block>
              </tbody>
@@ -126,51 +131,44 @@
             </table>
           </div>
 
-    </section>
+        </section>
 
 
-    <!-- 댓글 영역 -->
-    <th:block th:replace="~{board/comment}"></th:block>
-
-
-    <!-- 베스트 게시글 -->
-    <div class="best-board-area">
-      <h2 class="best-header-title">추천 게시물</h2>
-
-      <table class="best-board-list">
-
-        <tbody th:each="i : ${boardList}">
-          <th:block th:object="${board}">
-            <tr>
-              <td>
-                <!-- 제목 -->
-                <a href="#" th:text="${boardTitle}">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
-
-                <!-- 댓글수 -->
-                <th:block th:text="|[*{commentCount}]|">[0]</th:block>
-              </td>
-
-              <!-- 작성지 -->
-              <td th:text="${memberNickname}">닉네임</td>
-
-              <!-- 작성일 -->
-              <td th:text="${boardWriteDate}">2024.10.18</td>
-            </tr>
-          </th:block>
-        </tbody>
-
-      </table>
-    </div>
+    
 
 
 
 
   </main>
 
+  <script th:inline="javascript">
 
+      
+
+     let boardNo =/*[[${board.boardNo}]]*/ null;
+
+
+        // 로그인 되어 있으면 true, 아니면 false
+        const loginCheck =/*[[${session.loginMember != null}]]*/ false;
+
+        // 로그인한 회원의 닉네임
+        const memberNickname
+            =/*[[${session.loginMember?.memberNickname}]]*/ null;
+
+
+    
+  </script>
+
+<script th:inline="javascript">
+  /*[[${session.loginMember != null}]]*/ 
+  let loginCheck2 = /*[[${session.loginMember != null}]]*/ false;
+  let loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ null;
+</script>
 
   <!-- JavaScript 파일 연결 -->
   <script src="/js/board/boardDetail.js"></script>
+  <script src="/js/board/comment.js"></script>
+  <script src="/js/board/reportPopup.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,18 +14,18 @@
         <button class="close-btn" onclick="window.close();">&times;</button> <!-- 팝업 닫기 -->
     </div>
     <div class="popup-content">
-        <p><strong>작성자:</strong> 홍길동</p>
-        <p><strong>내용:</strong> OOO 홍보합니다</p>
+        <!-- <p>작성자: 홍길동</p>
+        <p>내용: OOO 홍보합니다</p> -->
         <hr>
         <div class="report-section">
             <h3>사유선택</h3>
             <form>
-                <label><input type="radio" name="reason"> 스팸홍보/도배입니다.</label><br>
-                <label><input type="radio" name="reason"> 음란물 입니다.</label><br>
-                <label><input type="radio" name="reason"> 불법 정보를 포함하고 있습니다.</label><br>
-                <label><input type="radio" name="reason"> 욕설/생명경시/혐오/차별적 표현입니다.</label><br>
-                <label><input type="radio" name="reason"> 개인 정보가 노출되었습니다.</label><br>
-                <label><input type="radio" name="reason"> 기타</label>
+                <label><input type="radio" name="reason" value="1"> 스팸홍보/도배입니다.</label><br>
+                <label><input type="radio" name="reason" value="2"> 음란물 입니다.</label><br>
+                <label><input type="radio" name="reason" value="3"> 불법 정보를 포함하고 있습니다.</label><br>
+                <label><input type="radio" name="reason" value="4"> 욕설/생명경시/혐오/차별적 표현입니다.</label><br>
+                <label><input type="radio" name="reason" value="5"> 개인 정보가 노출되었습니다.</label><br>
+                <label><input type="radio" name="reason" value="6"> 기타</label>
             </form>
         </div>
         <div class="details-section">
@@ -38,6 +38,13 @@
     </div>
 </div>
 
+<!-- JavaScript 변수 전달 -->
+<script th:inline="javascript">
+    let loginMemberNo = /*[[${session.loginMember != null ? session.loginMember.memberNo : 'null'}]]*/ null;
+    let boardNo = /*[[${boardNo}]]*/ null;
+</script>
 
+<!-- JavaScript 파일 연결 -->
+<script src="/js/board/reportPopup.js"></script>
 </body>
 </html>

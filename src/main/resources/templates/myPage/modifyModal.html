@@ -1,44 +1,54 @@
 
+<form action="modify" method="POST" name="Member" id="modifyForm" enctype="multipart/form-data">
+  <!-- 회원 수정 모달 -->
+  <div class="modal-overlay" id="modifyModal" style="display: none;">
+    <div class="modify-info-modal">
+      <div class="icon-container">
 
-<!-- 회원 수정 모달 -->
-<div class="modal-overlay" id="modifyModal" style="display: none;">
-  <div class="modify-info-modal">
-    <div class="icon-container">
-      <i class="fa-solid fa-xmark"></i>
-      <img src="/images/profile.png" alt="Profile Image">
-      <i class="fa-solid fa-camera"></i>
-    </div>
-    <h4>정보 수정</h4>
+        <i class="fa-solid fa-xmark" id="deleteImage"></i>
 
-    <form action="modify" method="POST" name="Member" id="modifyForm">
+        <!-- 프로필 이미지 미리보기 -->
+        <img id="profileImg"
+        th:src="${member != null and member.profileImg != null} ? '/images/profile/' + ${member.profileImg} : '/images/user.png'"
+        alt="Profile Image" style="width: 100px; height: 100px; object-fit: cover;">
 
-      <!-- 이메일 수정 불가 -->
-      <input type="email" name="memberEmail" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
-
-      <!-- 기존 비밀번호 입력 -->
-      <input id="memberPw" type="password" name="memberPw" placeholder="기존 비밀번호 입력">
-
-      <span id="memberPwMessage" class="modal-text red"></span>
-
-      <!-- 새 비밀번호 입력 -->
-      <input id="newPw" type="password" name="newPw" placeholder="새 비밀번호 입력">
-
-      <!-- 새 비밀번호 확인 -->
-      <input id="confirmPw" type="password" name="confirmPw" placeholder="새 비밀번호 확인">
-      <span id="confirmPwMessage" class="modal-text red"></span>
-
-      <!-- 새 닉네임 입력 -->
-      <input id="newNickname" type="text" name="memberNickname" placeholder="닉네임">
-      <span id="nickMessage" class="modal-text red"></span>
-  
-      <div class="modify-modal-btn"> 
-        <button type="button" id="modifyCancelBtn">취소</button>
-        <button type="submit" id="modifyBtn">수정하기</button>
+        
+        <!-- 카메라 아이콘을 파일 업로드 버튼으로 사용 -->
+        <label for="profileImage" class="fa-solid fa-camera" id="cameraIcon" style="cursor: pointer;"></label>
+        <input type="file" id="profileImageInput" name="profileImg" accept="image/*" style="display: none;">
       </div>
+      <h4>정보 수정</h4>
 
-  </form>
+      
 
+        <!-- 이메일 수정 불가 -->
+        <th:block th:if="${member != null}">
+          <input type="email" name="memberEmail" th:value="${member.memberEmail}" readonly style="background-color: #E4E4E4; color: #ACACAC;">
+        </th:block>
+
+
+        <!-- 기존 비밀번호 입력 -->
+        <input id="memberPw" type="password" name="memberPw" placeholder="기존 비밀번호 입력">
+
+        <span id="memberPwMessage" class="modal-text red"></span>
+
+        <!-- 새 비밀번호 입력 -->
+        <input id="newPw" type="password" name="newPw" placeholder="새 비밀번호 입력">
+
+        <!-- 새 비밀번호 확인 -->
+        <input id="confirmPw" type="password" name="confirmPw" placeholder="새 비밀번호 확인">
+        <span id="confirmPwMessage" class="modal-text red"></span>
+
+        <!-- 새 닉네임 입력 -->
+        <input id="newNickname" type="text" name="memberNickname" placeholder="닉네임">
+        <span id="nickMessage" class="modal-text red"></span>
+    
+        <div class="modify-modal-btn"> 
+          <button type="button" id="modifyCancelBtn">취소</button>
+          <button type="submit" id="modifyBtn">수정하기</button>
+        </div>
+
+
+    </div>
   </div>
-</div>
-
-
+</form>

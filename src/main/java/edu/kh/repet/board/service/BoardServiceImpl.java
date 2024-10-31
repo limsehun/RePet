@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardServiceImpl implements BoardService {
 	
 	private final BoardMapper mapper;
-
 	
 	// 게시글 목록 조회
 	@Override
@@ -76,6 +75,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
+	@Override
+	public List<Board> getTop5Boards() {
+		return mapper.selectTop5Boards();
+	}
+	
+	
 	//게시글 좋아요
 	@Override
 	public Map<String, Object> boardLike(int boardNo, int memberNo) {
@@ -114,8 +119,35 @@ public class BoardServiceImpl implements BoardService {
 		
 		return map;
 	}
+	
+
+	// 게시글 목록으로 이동
+	@Override
+	public int getCurrentPage(Map<String, Object> paramMap) {
+		return mapper.getcurrentPage(paramMap);
+	}
 
 
+	@Override
+	public Map<String, Object> searchBoard(int boardCode, int cpage, Map<String, Object> paramMap) {
+		
+		paramMap.put("boardCode", boardCode);
+		
+		int searchCount = mapper.getSearchCount(paramMap);
+		
+		Pagination pagination = new Pagination(cpage, searchCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cpage -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<Board> searchList = mapper.searchBoard(paramMap, rowBounds);
+		
+		Map<String, Object> map = Map.of("boardList", searchList, "pagination", pagination);
+		
+		return map;
+	}
 
 
 

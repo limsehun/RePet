@@ -24,4 +24,10 @@ public class Member {
   private String 	enrollDate;
   private String 	memberDelFl;
   private int 		authority; 
+  
+  /* 추가 */
+  private int boardCount;
+  private int commentCount;
+  
+  private String statusContent;
 }

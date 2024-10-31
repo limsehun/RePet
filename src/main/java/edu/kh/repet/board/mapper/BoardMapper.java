@@ -54,6 +54,27 @@ public interface BoardMapper {
 
 	// INSERT,DELETE 수행 후 해당 게시물 개수 조회
 	int getLikeCount(int boardNo);
+
+
+	// 게시글 목록으로 이동
+	
+	/**
+	 *
+	 * @param paramMap
+	 * @return
+	 */
+	int getcurrentPage(Map<String, Object> paramMap);
+
+
+	// 조회수 높은 게시글 5개 조회
+	List<Board> selectTop5Boards();
+
+
+	// 검색 결과 조회
+	List<Board> searchBoard( Map<String, Object> paramMap,  RowBounds rowBounds);
+
+	// 검색 결과 개수 확인
+	int getSearchCount(Map<String, Object> paramMap);
 	
 
 

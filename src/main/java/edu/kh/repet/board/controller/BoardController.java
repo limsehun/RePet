@@ -46,7 +46,8 @@ public class BoardController {
 	public String selectBoardList(
 			@PathVariable("boardCode") int boardCode,
 			@RequestParam(value = "cpage", required = false, defaultValue = "1") int cpage,
-			Model model
+			Model model,
+			@RequestParam Map<String, Object> paramMap
 			) {
 		
 		// 서비스 호출 후 결과 반환 받기
@@ -54,8 +55,14 @@ public class BoardController {
 		//  -> 서비스에서 여러 결과를 만들어 내야되는데
 		//     메서드는 반환을 1개만 할 수 있기 때문에
 		//     Map으로 묶어서 반환 받을 예정
-		Map<String, Object> map = service.selectBoardList(boardCode, cpage);
+		Map<String, Object> map =  null;
 		
+		if (paramMap.get("key") == null) {
+	    map = service.selectBoardList(boardCode, cpage);
+	} else {
+	    map = service.searchBoard(boardCode, cpage, paramMap);
+	}
+
 		
 		
 		// Map에 묶인 값 풀어놓기
@@ -70,6 +77,8 @@ public class BoardController {
 		model.addAttribute("pagination", pagination);
 		
 //		log.debug("Pagination: " + pagination.toString());
+		
+		if(boardCode == 3) return "redirect:/flea";
 		
 		return "board/boardList";
 	}
@@ -108,10 +117,12 @@ public class BoardController {
 	    if(loginMember == null || loginMember.getMemberNo() != board.getMemberNo()) {
 	    	
 	    	// 쿠키 얻어오기
-	    	Cookie[] cookies = req.getCookies();
+	    	Cookie[] cookies = null;
 	    	Cookie viewCookie = null;
 	    	
-	    	if(cookies != null ) {
+	    	if(req.getCookies() != null ) {
+	    		cookies = req.getCookies();
+	    		
 	    		for(Cookie cookie : cookies) {
 	    			if(cookie.getName().equals("readBoardNo")) {
 	    				viewCookie = cookie;
@@ -122,14 +133,31 @@ public class BoardController {
 	    	
 	    	int result = 0;
 	    	
-	    	// 쿠키가 없으면 새로 생성하고 조회수 증가
-	    	if(viewCookie == null ) {
-	    		viewCookie = new Cookie("readBoardNo", "[" + boardNo + "]");
-	    		result = service.updateReadCount(boardNo);
-	    		
-	    	} else if (!viewCookie.getValue().contains("[" + boardNo + "]")) {
-	    		result = service.updateReadCount(boardNo);
-	    	}
+	   // 이전에 readBoardNo라는 name을 가지는 쿠키가 없을 경우
+				if(viewCookie == null) {
+					// 새 쿠키를 생성
+					// readBoardNo=[1000][2000][3000]
+					viewCookie = new Cookie("readBoardNo", "[" + boardNo + "]");
+					
+					/* DB에서 해당 게시글의 조회 수를 1 증가 시키는 서비스 호출 */
+					result = service.updateReadCount(boardNo);
+				}
+				// 이전에 readBoardNo라는 name을 가지는 쿠키가 있을 경우
+				else {
+					// readBoardNo=[1000][2000][3000]
+					
+					// 현재 읽은 게시글 번호가 쿠키에 없다면
+					// == 해당 글은 처음 읽음
+					if(viewCookie.getValue().contains(boardNo + "") == false) {
+						
+						viewCookie.setValue(viewCookie.getValue() + "[" + boardNo + "]");
+						
+							// DB에서 조회 수 증가
+							result = service.updateReadCount(boardNo);
+							
+							
+					}
+				}
 	    	
 	    	// 조회수가 증가한 경우 쿠키 설정 및 응답에 추가
 	    	if(result > 0) {
@@ -151,7 +179,11 @@ public class BoardController {
 	    // 조회된 게시글 정보를 모델에 추가하여 View로 전달
 	    model.addAttribute("board", board);
 	    
+	 // 조회수가 높은 게시물 5개를 조회하여 모델에 추가
+	    List<Board> top5Boards = service.getTop5Boards();
+	    model.addAttribute("top5Boards", top5Boards);
 	    
+	    if(boardCode == 3) return "redirect:/flea";
 
 	    return "board/boardDetail"; // 게시글 상세 페이지로 이동
 	}
@@ -171,18 +203,34 @@ public class BoardController {
 		
 		return service.boardLike(boardNo, memberNo);
 	}
-
-
-
-
-
-
 	
 	
-	@GetMapping("reportPopup")
-	public String reportPopup() {
-		return "/board/reportPopup";
+	// 게시글 목록으로 리다이렉트
+	@GetMapping("{boardCode}/{boardNo}/goToList")
+	public String goToList(
+			@PathVariable("boardCode") int boardCode,
+			@PathVariable("boardNo") int boardNo,
+			@RequestParam Map<String, Object> paramMap
+			) {
+		
+		paramMap.put("boardCode", boardCode);
+		paramMap.put("boardNo", boardNo);
+		
+		int cpage = service.getCurrentPage(paramMap);
+		
+		String url = "redirect:/board/" + boardCode + "?cpage=" + cpage;
+		return url;
 	}
+	
+	
+
+
+
+
+
+	
+	
+	
 
 
 

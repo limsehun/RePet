@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- Mapper 인터페이스와 연결하는 방법 : namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이명 작성 -->
+<mapper namespace="edu.kh.repet.board.mapper.ReportCommentMapper">
+  
+ 
+	 <insert id="insertReportComment" parameterType="ReportComment">
+        INSERT INTO REPORT_COMMENT (
+            REPORT_NO, 
+            REPORT_COMMENT_NO, 
+            COMMENT_CONTENT, 
+            REPORT_DATE, 
+            PROGRESS_CODE, 
+            REPORT_CATEGORY
+        )
+        VALUES (
+            #{memberNo}, 
+            #{commentNo}, 
+            #{commentContent}, 
+            DEFAULT, 
+            DEFAULT, 
+            #{reportCategory}
+        )
+    </insert>
+   
+   
+   
+
+
+</mapper>

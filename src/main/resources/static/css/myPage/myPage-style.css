@@ -70,34 +70,34 @@ html, body {
 /*  --------------------- Main-Content CSS --------------------- */
 
 /* main-content 중앙 배치 및 레이아웃 수정 */
+
 .main-content {
-  margin-left: 362px; /* 사이드바 넓이만큼 왼쪽으로 여백 추가 */
-  padding-top: 100px; /* 헤더 아래부터 시작 */
+  margin-left: 300px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
+  padding-top: 10vh; /* 헤더 아래부터 시작 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 중앙에 정렬하되, 위에서 아래로 나열 */
-  width: 1500px; /* 사이드바를 제외한 나머지 너비 */
+  justify-content: flex-start; /* 위에서 아래로 나열 */
+  width: calc(100% - 300px); /* 전체 화면 너비에서 사이드바 너비를 제외 */
   min-height: calc(100vh - 100px); /* 화면 전체 높이에서 헤더 높이 제외 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
 }
 
 /* profile-box 수정 */
 .profile-box {
-  width: 100%; /* 부모 요소의 너비에 맞춤 */
-  max-width: 1100px; /* 최대 너비 설정 */
+  width: 80%; /* 부모 요소의 너비에 비례하여 설정 (화면 너비의 80%) */
+  max-width: 1200px; /* 최대 너비 설정 */
   min-height: 300px;
   background-color: #F5E6CC;
   display: flex;
-  flex-direction: column; /* 변경: 세로로 배치 */
+  flex-direction: column; /* 세로로 배치 */
   align-items: center;
   justify-content: center;
   border-radius: 40px;
   padding: 20px;
   color: #333;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  position: relative; /* 추가: 자식 요소의 절대 위치 기준 설정 */
+  margin: 50px auto; /* 위 아래 여백 추가 및 수평 중앙 정렬 */
+  position: relative; /* 자식 요소의 절대 위치 기준 설정 */
 }
 
 .profile-box > h2 {
@@ -181,16 +181,18 @@ html, body {
 
 /* ----------------- MyPage likeBoard CSS ----------------------- */
 
+/* like-board 수정 */
 .like-board {
-  width: 1100px;
+  width: 80%; /* 부모 요소의 너비에 비례하여 설정 (화면 너비의 80%) */
+  max-width: 1200px; /* 최대 너비 설정 */
   background-color: #D9CBAF;
   min-height: 800px;
-  margin-bottom: 50px; /* 기존 아래 공간 외 추가 여백 */
   border-radius: 40px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-start; /* 내용이 상단부터 정렬되도록 수정 */
+  margin: 50px auto; /* 기존 아래 공간 외 추가 여백 및 수평 중앙 정렬 */
 }
 
 .like-board-header {
@@ -218,6 +220,10 @@ html, body {
   flex-direction: column;
   justify-content: flex-end;
   cursor: pointer;
+}
+
+.like-item-list {
+  margin-top: auto; /* 남은 공간만큼 아래로 이동하여 하단에 위치하도록 함 */
 }
 
 .like-item:hover {
@@ -289,6 +295,7 @@ html, body {
 
 
 
+
 /* ----------------- Mypage-info Modal CSS ----------------------- */
 
 /* 모달 배경 스타일 추가 */
@@ -307,11 +314,8 @@ html, body {
 
 
 .modify-info-modal {
-  position: absolute; /* 절대 위치 */
-  top: 50%; /* 수직 중앙 */
-  left: 57%; /* 수평 중앙 */
-  height: 600px;
-  transform: translate(-50%, -50%); /* 중앙 정렬을 위해 이동 */
+  position: relative; /* 상대 위치 */
+  height: 630px;
   background-color: #F5E6CC; /* 배경색 */
   border-radius: 30px; /* 모서리 둥글게 */
   width: 500px; /* 너비 */
@@ -424,7 +428,7 @@ html, body {
 .icon-container > .fa-xmark {
   position: absolute; /* 아이콘을 절대 위치로 설정 */
   top: -3px; /* 프로필 이미지 위로 위치 */
-  right: 167px;
+  right: 159px;
   font-size: 18px; /* 아이콘 크기 조정 */
   color: #333; /* 아이콘 색상 조정 */
   transition: color 0.3s; /* 부드러운 색상 전환 */
@@ -433,8 +437,8 @@ html, body {
 
 .icon-container > .fa-camera {
   position: absolute; /* 아이콘을 절대 위치로 설정 */
-  top: 69px; /* 프로필 이미지 위로 위치 */
-  right: 167px;
+  top: 83px; /* 프로필 이미지 위로 위치 */
+  right: 158px;
   font-size: 16px; /* 아이콘 크기 조정 */
   color: #333; /* 아이콘 색상 조정 */
   transition: color 0.3s; /* 부드러운 색상 전환 */
@@ -454,19 +458,17 @@ html, body {
 /* ----------------- Mypage-board CSS ----------------------- */
 
 .board-content {
-  position: relative;
-  top: 110px;
-  padding-top: 20px;
-  left: 300px;
-  width: calc(100% - 300px);
-  height: calc(100% - 100px);
+  margin-left: 300px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
+  padding-top: 15vh; /* 헤더 아래부터 시작 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 50px; /* 맨 아래 여백 추가 */
+  justify-content: flex-start; /* 위에서 아래로 나열 */
+  width: calc(100% - 300px); /* 전체 화면 너비에서 사이드바 너비를 제외 */
+  min-height: calc(100vh - 100px); /* 화면 전체 높이에서 헤더 높이 제외 */
+  margin-bottom: 50px; /* 하단과의 간격을 위해 여백 추가 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
 }
-
 
 .post-comment-management {
   width: 1100px;
@@ -483,7 +485,7 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin: 15px 0 30px 0;
 }
 
 .board-header > div {
@@ -547,7 +549,7 @@ html, body {
   position: absolute; /* 상대 위치 */
   transform: translate(-50%, -50%); /* 중앙 정렬을 위해 이동 */
   top: 50%; /* 수직 중앙 */
-  left: 57%; /* 수평 중앙 */
+  left: 50%; /* 수평 중앙 */
   width: 90%; /* 너비를 90%로 설정하여 반응형으로 유지 */
   max-width: 600px; /* 최대 너비 설정 */
   max-height: 80%; /* 최대 높이를 설정하여 내용이 잘리도록 함 */

@@ -141,7 +141,7 @@ public class EditFleaController {
         if(flea.getMemberNo() != loginMember.getMemberNo()) {
             ra.addFlashAttribute("message", "글 작성자만 수정 가능합니다");
             
-            return String.format("redirect:/board/%d/%d", boardCode, boardNo);		// 상세 조회
+            return String.format("redirect:/flea/%d", boardNo);		// 상세 조회
         }
         
         // 게시글이 존재하고
@@ -160,13 +160,12 @@ public class EditFleaController {
             @RequestParam(value="deleteOrderList", required = false) String deleteOrderList,
             RedirectAttributes ra
     ) {
-        int boardCode = 3;
         
         // 1. 커멘드 객체 inputBoard 에 로그인한 회원 번호 추가
         inputFlea.setMemberNo(loginMember.getMemberNo());
         
         // inputFlea 에 세팅된 값
-        // : boardCode = 3, boardNo, boardTitle, boardContent, memberNo
+        // : boardNo, boardTitle, boardContent, memberNo
         
         // 2. 게시글 수정 서비스 호출 후 결과 반환
         int result = service.fleaUpdate(inputFlea, images, deleteOrderList);

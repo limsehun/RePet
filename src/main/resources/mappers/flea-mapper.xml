@@ -135,7 +135,6 @@
         (SELECT PRICE FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS PRICE,
         (SELECT GOODS FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS GOODS,
 
-
         <![CDATA[
 						CASE
 							WHEN CURRENT_DATE - BOARD_WRITE_DATE < 1 / 24 / 60
@@ -184,6 +183,11 @@
             <!-- 작성자 검색인 경우 -->
             <when test='key == "w"'>
                 AND MEMBER_NICKNAME LIKE '%' || #{query} || '%'
+            </when>
+
+            <!-- 품명 검색인 경우 -->
+            <when test='key == "g"'>
+                AND GOODS LIKE '%' || #{query} || '%'
             </when>
         </choose>
 
@@ -246,11 +250,12 @@
             JOIN "MEMBER" USING(MEMBER_NO)
         </if>
 
+        <!-- 품명 검색인 경우 -->
         <if test='key == "g"'>
             JOIN FLEA_BOARD USING(BOARD_NO)
         </if>
 
-        WHERE	BOARD_CODE = #{boardCode}
+        WHERE	BOARD_CODE = 3
         AND		BOARD_DEL_FL = 'N'
 
         <choose>

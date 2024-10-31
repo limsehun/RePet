@@ -58,12 +58,12 @@ public class EditFleaServiceImpl implements EditFleaService {
         
 <insert id="insertBoard">
     INSERT INTO BOARD (BOARD_NO, BOARD_TITLE, BOARD_CONTENT, MEMBER_NO, BOARD_CODE)
-    VALUES (#{boardNo}, #{boardTitle}, #{boardContent}, #{memberNo}, #{boardCode})
+    VALUES (#{boardNo}, #{boardTitle}, #{boardContent}, #{memberNo}, (#{boardCode} = 3))
 </insert>
 
 <insert id="insertFleaBoard">
-    INSERT INTO FLEA_BOARD (BOARD_NO, PRICE, GOODS, IMG_NO)
-    VALUES (#{boardNo}, #{price}, #{goods}, #{imgNo})
+    INSERT INTO FLEA_BOARD (BOARD_NO, PRICE, GOODS)
+    VALUES (#{boardNo}, #{price}, #{goods})
 </insert>
         
          */
@@ -92,6 +92,7 @@ public class EditFleaServiceImpl implements EditFleaService {
                     .imgRename(rename)              // 변경명
                     .imgPath(webPath)               // 웹 접근 경로
                     .boardNo(boardNo)               // 게시글 번호
+                    .imgOrder(i)                    // 이미지 순서
                     .uploadFile(images.get(i))      // 실제 업로드된 이미지
                     .build();
             

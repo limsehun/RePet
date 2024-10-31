@@ -13,11 +13,11 @@
 
 </head>
 <body>
-    [[${board}]]
+    [[${flea}]]
     <main>
         <th:block th:replace="~{common/header}"></th:block>
 
-        <section class="board-detail" th:object="${flea}">
+        <section class="flea-detail" th:object="${flea}">
             <!-- 제목 -->
             <h1 class="board-title" th:text="*{boardTitle}">게시글 제목</h1>
 
@@ -61,25 +61,23 @@
 
             <!-- ====================== 이미지가 있을 경우 출력하는 구문 (예정) ====================== -->
             <!-- 이미지가 존재하는 경우 -->
-            <th:block th:if= "${#lists.size(board.imageList) > 0}">
+            <th:block th:if= "${#lists.size(flea.imageList) > 0}">
 
                 <th:block th:if= "*{thumbnail}">
                     <h5>썸네일</h5>
                     <div class="img-box">
                         <div class="boardImg thumbnail">
                             <img th:src="*{thumbnail}">                     
-                            <a th:href="*{thumbnail}"
-                            th:download="*{imageList[0].imgOriginalName}">다운로드</a>   
                         </div>
                     </div>
                 </th:block>
                 
                 <!-- 썸네일을 제외한 이미지가 있을 경우 -->
-                <th:block th:if= "${#lists.size(board.imageList) > start}">
+                <th:block th:if= "${#lists.size(flea.imageList) > start}">
                     <h5>업로드 이미지</h5>
-                    <th:block th:each= "i : ${#numbers.sequence(start, #lists.size(board.imageList) - 1)}">
+                    <th:block th:each= "i : ${#numbers.sequence(start, #lists.size(flea.imageList) - 1)}">
                         <div class="img-box">
-                            <div class="boardImg" th:with="img = ${board.imageList[i]}">
+                            <div class="boardImg" th:with="img = ${flea.imageList[i]}">
                                 <img th:src="|${img.imgPath}${img.imgRename}|">
 
                             </div>
@@ -98,7 +96,7 @@
             <div class="board-btn-area">
 
                 <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우-->
-                <th:block th:if= "${session.loginMember?.memberNo} == ${board.memberNo}">
+                <th:block th:if= "${session.loginMember?.memberNo} == ${flea.memberNo}">
                 <!-- 비로그인일 경우 에러방지를 위해 ?(안전탐색 연산자) 사용 -->
                     <button id="updateBtn">수정</button>
                     <button id="deleteBtn">삭제</button>
@@ -128,9 +126,9 @@
         const memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ null;
 
         // 상세 조회한 게시글 정보
-        const boardDetail = /*[[${board}]]*/ null;
+        const fleaDetail = /*[[${flea}]]*/ null;
     </script>
-    <script src="/js/board/fleaDetail.js"></script>
+    <script src="/js/flea/fleaDetail.js"></script>
     
 </body>
 </html>

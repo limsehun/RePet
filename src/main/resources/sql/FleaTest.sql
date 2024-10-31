@@ -102,4 +102,62 @@ WHERE   BOARD_NO = SEQ_BOARD_NO.CURRVAL;
 
 SELECT * FROM BOARD_IMG;
 
-SELECT * FROM MEMBER;
+
+
+
+
+
+SELECT	BOARD_NO,
+          BOARD_TITLE,
+          BOARD_CONTENT,
+          BOARD_CODE,
+          READ_COUNT,
+          B.MEMBER_NO,
+          MEMBER_NICKNAME,
+          PROFILE_IMG,
+          TO_CHAR(BOARD_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS')
+                                                                         AS BOARD_WRITE_DATE,
+          TO_CHAR(BOARD_UPDATE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS')
+                                                                         AS BOARD_UPDATE_DATE,
+
+          (	SELECT	IMG_PATH || IMG_RENAME
+               FROM	BOARD_IMG I
+               WHERE	I.BOARD_NO = #{boardNo}
+                         AND		IMG_ORDER = 0
+          ) AS THUMBNAIL,
+          (SELECT PRICE FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS PRICE,
+          (SELECT GOODS FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS GOODS
+
+FROM	"BOARD" B
+            JOIN	"MEMBER" M ON (B.MEMBER_NO = M.MEMBER_NO)
+WHERE	BOARD_NO = 885
+          AND		BOARD_CODE = 3;
+
+select * from BOARD where BOARD_CODE = 3;
+
+
+
+INSERT INTO REPORT_BOARD
+VALUES (4, 1011, '테스트에요', DEFAULT, DEFAULT, 1);
+
+
+SELECT  * FROM BOARD WHERE BOARD_CODE = 3;
+
+SELECT * FROM REPORT_BOARD;
+COMMIT;
+SELECT * FROM REPORT_COMMENT;
+
+SELECT * FROM BOARD_COMMENT JOIN BOARD USING (BOARD_NO) WHERE BOARD_CODE = 3;
+
+
+
+SELECT	CEIL(RNUM) CP
+FROM
+    (SELECT	ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) RNUM, BOARD_NO
+     FROM	"BOARD"
+
+        WHERE	BOARD_CODE = 3
+        AND		BOARD_DEL_FL = 'N'
+
+        )
+        WHERE	BOARD_NO = 3;

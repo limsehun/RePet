@@ -1,114 +1,163 @@
-// 페이지 이동을 위한 버튼 모두 얻어오기
-const pageNoList = document.querySelectorAll(".pagination a");
+// 현재 상세 조회한 게시글 번호
+const boardNo = location.pathname.split("/")[3];
 
-/*  객체 밖에있는건 함수, 객체 안에 있으면 메서드
-  [Array 또는 NodeList에서 제공하는 forEach() 메서드]
-  배열.forEach((item.index)) => {})
-    - 배열 내 요소 개수 만큼 반복
-    - 매 반복 마다 {} 내부 코드가 수행
-    - item : 0번 인덱스 부터 차례대로 하나씩 요소를 얻어와 저장하는 변수
-    - index : 현재 반복 접근 중인 index
-*/
-// 페이지 이동 버튼이 클릭 되었을 때
-pageNoList?.forEach((item, index) => {
+/* 좋아요 하트 클릭 시 */
+const boardLike = document.querySelector("#boardLike");
+boardLike.addEventListener("click", e => {
 
-    // 클릭 되었을 때
-    item.addEventListener("click", e => {
-        e.preventDefault()
+  // 1. 로그인 여부 검사
+  if(loginCheck === false) {  // loginCheck <== boardDetail 맨 아래에 전역변수 형식으로 작성
+    alert("로그인 후 이용해 주세요");
+    return;
+  }
 
-        // 만약 클릭된 a 태그에 "current" 클래스가 있을 경우 == 현재 페이지 숫자를 클릭한 경우
-        if(item.classList.contains("current")) {
-            return;
-        }
+  // 2. 비동기로 좋아요 요청
+  fetch("/board/like", {
+    method : "POST",
+    headers : {"Content-Type" : "application/json"},
+    body : boardNo
 
-        // const ==> let 으로 변경
-        let pathname = location.pathname;
+  })
+  .then(response => {
+    if(response.ok) return response.json();
+    throw new Error("좋아요 실패");
+  })
+  .then(result => {
+    // console.log("result : ", result);
 
-        // 클릭된 버튼이 <<, <, >, >> 인 경우
-        // console.log(item.innerText);
-        switch(item.innerText) {
-            // case '<<' : location.href = pathname + "?cp=1";  break;         // 맨 앞 페이지 (1페이지) 로 이동
-            case '<<' : pathname += "?cp=1";  break;         // 맨 앞 페이지 (1페이지) 로 이동
-            case '<'  : pathname += "?cp=" + pagination.prevPage;  break;  // 이전 페이지
-            case '>'  : pathname += "?cp=" + pagination.nextPage;  break;  // 다음 페이지
-            case '>>' : pathname += "?cp=" + pagination.maxPage;   break;  // 마지막 페이지
-            default   : // 클릭한 숫자 페이지로 이동
-                pathname += "?cp=" + item.innerText;
-        }
+    // 좋아요 결과가 담긴 result 객체의 check 값에 따라
+    // 하트 아이콘을 비우기/ 채우기 지정
+    if(result.check === 'insert') {
+      boardLike.classList.add("fa-solid");
+      boardLike.classList.remove("fa-regular");
 
-        // location.search ==> '?key=t&query=19'
-        // new URLSearchParams(location.search).get("key") ==> 't'
-        // new URLSearchParams(location.search).get("query") ==> '19'
-        /* 검색인 경우 pathname 변수에 뒤에 쿼리스트링 추가 */
+      // 게시글 작성자에게 알림 보내기
+      // const content = `<strong>샘플2</strong> 님이 <strong>제목</strong> 게시글을 좋아합니다`;
+      const content = `<strong>${memberNickname}</strong> 님이 <strong>${boardDetail.boardTitle}</strong> 게시글을 좋아합니다`;
 
-        // URLSearchParams : 쿼리스트링을 관리하는 객체
-        // - 쿼리스트링 생성, 기존 쿼리스트링을 k:v 형태로 분할 관리
-        // const params = new URLSearchParams(location.search);
-        //
-        // const key = params.get("key");    // K:V 중 K가 "key"인 요소의 값
-        // const query = params.get("query");    // K:V 중 K가 "query"인 요소의 값
-        //
-        // if(key !== null) {      // 검색인 경우
-        //     pathname += `&key=${key}&query=${query}`;
-        // }
-        //
-        // // 페이지 이동
-        // location.href = pathname;
-    })
+      // type, url, pkNo, content
+      sendNotification(
+        "boardLike",
+        location.pathname,  // 게시글 상세 조회 페이지 주소
+        boardDetail.boardNo,
+        content
+      );
 
-});
+    } else {    // 비우기
+      boardLike.classList.add("fa-regular");
+      boardLike.classList.remove("fa-solid");
+    }
+
+    // 좋아요 하트 다음 형제 요소의 내용을
+    // result.count 로 변경
+    boardLike.nextElementSibling.innerText = result.count;
+  })
+  .catch (err => console.error(err));
+
+})
 
 // ----------------------------------------------------------------------------------------------------
 
-/* 쿼리스트링에 검색 기록이 있을 경우 화면에 똑같이 선택/출력 하기 */
-
-// 즉시 실행 함수
-// - 변수명 중복 문제 해결 + 약간의 속도적 우위를 가지는 함수
-// (()=>{})()  그냥 함수명(); 이랑 같은거임.  함수코드();
 /*
-(()=> {
+  * 삭제 버튼 클릭 시 *
+  - 삭제 버튼 클릭 시 "정말 삭제 하시겠습니까?" confirm()
 
-    // 쿼리스트링 모두 얻어와 관리하는 객체
-    const params = new URLSearchParams(location.search);
+  - /editBoard/delete, POST 방식, 동기식 요청
+    ==> form 태그 생성 + 게시글 번호가 세팅된 input
+    ==> body 태그 제일 아래 추가해서 submit()
 
-    const key = params.get("key");
-    const query = params.get("query");
-
-    if(key === null) return;    // 검색이 아니면 함수 종료
-
-    // 검색어 화면에 출력하기
-    document.querySelector("#searchQuery").value = query;
-
-    // 검색 조건 선택하기 ==> 검색조건 4개를 일단 모두 선택
-    const options = document.querySelectorAll("#searchKey > option");
-
-    options.forEach( op => {
-        // op : <option> 태그
-        if(op.value === key) {    // option 의 value 와 key 가 같다면
-            op.selected = true;     // selected 속성 추가
-            return;
-        }
-    });
-
-})();
+  - 서버(Java - 백엔드) 에서 로그인한 회원의 회원 번호를 얻어와
+    로그인한 회원이 작성한 글이 맞는지 SQL에서 검사
 */
+
+const deleteBtn = document.querySelector("#deleteBtn");
+
+// 이벤트 리스너 ==> 특정 행동 감지기
+// 삭제 버튼이 존재할 때 이벤트 리스너 추가
+deleteBtn?.addEventListener("click", () => {
+
+  if(confirm("정말 삭제 하시겠습니까?") == false) {
+    return;
+  }
+
+  // 요청 주소
+  const url = "/editBoard/delete"; 
+  // 게시글 번호 == 전역 변수 boardNo
+
+  // form 태그 생성
+  const form = document.createElement("form");
+  form.action = url;
+  form.method = "POST";
+
+  // input 태그 생성
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "boardNo";
+  input.value = boardNo;
+
+  form.append(input); // form 자식으로 input 추가
+
+  document.querySelector("body").append(form);
+
+  form.submit();  // 제출
+
+});
 
 // ----------------------------------------------------------------------------------------------------
 
-/* 글쓰기 버튼 클릭 시 */
-const insertBtn = document.querySelector("#insertBtn");
+/* 
+  * 수정 버튼 클릭 시 *
+  - /editBoard/{boardCode}/{boardNo}, POST, 동기식
+  ==> form 태그 생성
+  ==> body 태그 제일 아래 추가해서 submit()
 
-insertBtn?.addEventListener("click", () => {
-    // 현재 주소 : /board/{boardCode}
-    // 요청 주소 : /editBoard/{boardCode}/insert
+  - 서버(Java) 에서 로그인한 회원의 회원 번호를 얻어와
+    로그인한 회원이 작성한 글이 맞을 경우
+    해당 글을 상세 조회 한 후
+    수정 화면으로 전환
+*/
 
-    // location.pathname = '/board/1'
-    // location.pathname.split("/") = ['', 'board', '1']
-    const boardCode = location.pathname.split("/")[2];
-    // boardCode는 3인데 url 은 flea로 이동하게
+const updateBtn = document.querySelector("#updateBtn");
 
-    // location.href = `/editBoard/${boardCode}/insert`;
-    location.href = `/editFlea/${boardCode}/insert`;
+updateBtn?.addEventListener("click", () => {
+  
+  const form = document.createElement("form");
 
+  //    /editBoard/{boardCode}/{boardNo}/update
+  form.action = location.pathname.replace("board", "editBoard") + "/updateView";
+  form.method = "POST";
+
+  document.querySelector("body").append(form);
+  form.submit();
+});
+
+// ----------------------------------------------------------------------------------------------------
+
+/* 목록으로 버튼 클릭 시 */
+const goToListBtn = document.querySelector("#goToListBtn");
+
+goToListBtn.addEventListener("click", () => {
+
+  // 페이지 당 게시글 수
+  const limit = 10;
+
+  // location.href = location.pathname + "/goToList" + location.search + "?limit=" + limit;
+  let url = location.pathname + "/goToList?limit=" + limit;
+
+  // location.search : 쿼리스트링 반환
+  // URLSearchParams 객체 : 쿼리스트링 관리하는 객체
+  const params = new URLSearchParams(location.search);
+
+  if(params.get("key") !== null) {
+    // `` : String template 문자열을 만드는 기본 양식 제공해주는 기능
+    url += `&key=${params.get("key")}&query=${params.get("query")}`;
+  }
+
+  location.href = url;
+  // /board/{boardCode}/{boardNo}/goToList?limit=10
+  // /board/{boardCode}/{boardNo}/goToList?limit=10&key=t&query=검색어
 
 });
+
+
+

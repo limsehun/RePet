@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <title>현재 위치와 동물병원</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
@@ -9,11 +10,13 @@
         body {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
         header {
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
+            height: 70px; /* 상단 메뉴의 높이를 설정합니다 */
             background: #f8f8f8;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -21,7 +24,7 @@
         
         /* 본문과 여백 추가 */
         main {
-            padding-top: 70px;
+            padding-top: 90px; /* header의 높이 + 여백을 추가하여 겹치지 않도록 설정 */
         }
 
         h1 {
@@ -36,23 +39,26 @@
             height: 500px;
             margin: 20px auto;
         }
-
     </style>
 </head>
 <body>
-    <div th:replace="~{common/header :: header}"></div>
+    <!-- 상단 고정 메뉴 -->
+    <header>
+        <div th:replace="~{common/header :: header}"></div>
+    </header>
 
-    <h1>내 현재 위치와 주변 동물병원</h1>
-    <div id="map" style="position: relative;">
-        <input type="text" id="search-input" placeholder="검색어를 입력하세요" style="position: absolute; top: 10px; left: 10px; z-index: 1000; padding: 5px;"/>
-        <button onclick="handleSearch()" style="position: absolute; top: 10px; left: 220px; z-index: 1000; padding: 5px;">검색</button>
-    </div>
-    <div id="location"></div>
+    <main>
+        <h1>내 현재 위치와 주변 동물병원</h1>
+        <div id="map" style="position: relative;">
+            <input type="text" id="search-input" placeholder="검색어를 입력하세요" style="position: absolute; top: 10px; left: 10px; z-index: 1000; padding: 5px;"/>
+            <button onclick="handleSearch()" style="position: absolute; top: 10px; left: 220px; z-index: 1000; padding: 5px;">검색</button>
+        </div>
+        <div id="location"></div>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
-
     // 위치 정보를 가져오는 과정에서 오류가 발생했을 때 호출되는 함수
     function showError(error) {
         const errorMessages = {
@@ -103,16 +109,16 @@
             zoom: 15
         });
 
-    // 사용자 위치 마커 표시
-    new naver.maps.Marker({
-        position: new naver.maps.LatLng(lat, lon),
-        map: map,
-        title: "내 위치",
-        icon: {
-            content: '<div style="background-color:red;width:20px;height:20px;border-radius:50%;"></div>',
-            anchor: new naver.maps.Point(10, 10)
-        }
-    });
+        // 사용자 위치 마커 표시
+        new naver.maps.Marker({
+            position: new naver.maps.LatLng(lat, lon),
+            map: map,
+            title: "내 위치",
+            icon: {
+                content: '<div style="background-color:red;width:20px;height:20px;border-radius:50%;"></div>',
+                anchor: new naver.maps.Point(10, 10)
+            }
+        });
 
         // 서울 및 경기 동물병원 데이터 가져와 마커 표시
         fetchSeoulAnimalHospitals(map, lat, lon);
@@ -124,58 +130,51 @@
         fetch('/api/seoul-hospitals')
             .then(response => response.json())
             .then(data => {
-                console.log("서울 API 응답 데이터:", data); // 콘솔에 서울 API 데이터 출력
+                console.log("서울 API 응답 데이터:", data);
                 parseSeoulHospitalData(data, map, lat, lon);
             })
             .catch(error => console.error('서울 API 요청 오류:', error));
     }
-// 경기도 병원 정보 요청 및 JSON 파싱 후 콘솔에 출력
-async function fetchGyeonggiAnimalHospitals(map, lat, lon) {
-    let pageIndex = 1;
-    let hasMoreData = true;
-    const hospitals = []; // 모든 페이지의 병원 데이터를 저장할 배열
 
-    while (hasMoreData) {
-        try {
-            const response = await fetch(`/api/gyeonggi-hospitals?page=${pageIndex}`);
-            if (!response.ok) {
-                console.warn(`경기 API 요청 오류 (페이지 ${pageIndex}):`, response.statusText);
-                hasMoreData = false;
-                break;
-            }
+    // 경기도 병원 정보 요청 및 JSON 파싱 후 콘솔에 출력
+    async function fetchGyeonggiAnimalHospitals(map, lat, lon) {
+        let pageIndex = 1;
+        let hasMoreData = true;
+        const hospitals = [];
 
-            const data = await response.json();
-            console.log(`경기 API 응답 데이터 (페이지 ${pageIndex}):`, data);
-
-            if (data && data.Animalhosptl && data.Animalhosptl[1] && data.Animalhosptl[1].row) {
-                const currentHospitals = data.Animalhosptl[1].row;
-
-                // 데이터 중복 확인
-                if (hospitals.length > 0 && JSON.stringify(hospitals.slice(-currentHospitals.length)) === JSON.stringify(currentHospitals)) {
-                    console.warn(`반복되는 데이터로 인해 중단됨 (페이지 ${pageIndex})`);
+        while (hasMoreData) {
+            try {
+                const response = await fetch(`/api/gyeonggi-hospitals?page=${pageIndex}`);
+                if (!response.ok) {
+                    console.warn(`경기 API 요청 오류 (페이지 ${pageIndex}):`, response.statusText);
                     hasMoreData = false;
                     break;
                 }
 
-                hospitals.push(...currentHospitals);
+                const data = await response.json();
+                console.log(`경기 API 응답 데이터 (페이지 ${pageIndex}):`, data);
 
-                if (currentHospitals.length < 1000) {
-                    hasMoreData = false;
+                if (data && data.Animalhosptl && data.Animalhosptl[1] && data.Animalhosptl[1].row) {
+                    const currentHospitals = data.Animalhosptl[1].row;
+                    hospitals.push(...currentHospitals);
+
+                    if (currentHospitals.length < 1000) {
+                        hasMoreData = false;
+                    } else {
+                        pageIndex++;
+                    }
                 } else {
-                    pageIndex++;
+                    hasMoreData = false;
                 }
-            } else {
+            } catch (error) {
+                console.error(`경기 API 요청 중 오류 발생 (페이지 ${pageIndex}):`, error);
                 hasMoreData = false;
             }
-        } catch (error) {
-            console.error(`경기 API 요청 중 오류 발생 (페이지 ${pageIndex}):`, error);
-            hasMoreData = false;
         }
-    }
 
-    console.log("경기 API 전체 병원 데이터:", hospitals);
-    parseGyeonggiHospitalData({ Animalhosptl: { row: hospitals } }, map, lat, lon);
-}
+        console.log("경기 API 전체 병원 데이터:", hospitals);
+        parseGyeonggiHospitalData({ Animalhosptl: { row: hospitals } }, map, lat, lon);
+    }
 
 
 

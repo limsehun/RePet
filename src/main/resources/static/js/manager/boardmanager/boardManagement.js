@@ -16,6 +16,8 @@ let cachedBoardList = [];
 
 const boardList = document.querySelector("#boardList");
 
+
+
 const selectBoardList = (cp) => {
   fetch(`/manager/board/selectBoardList?cp=${cp}`)
   .then(response => {
@@ -231,7 +233,3 @@ const renderPagination = (pagination) => {
 document.addEventListener("DOMContentLoaded", () => {
     selectBoardList(1);
 });
-
-
-
-

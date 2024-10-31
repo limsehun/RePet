@@ -32,14 +32,14 @@ public class EditFleaController {
      * 게시글 작성 화면 전환
      * @return
      */
-    @GetMapping("flea/insert")
+    @GetMapping("insert")
     public String fleaInsert() {
         return "flea/fleaWrite";
     }
     
     
     // 게시글 등록
-    @PostMapping("flea/insert")
+    @PostMapping("insert")
     public String fleaInsert(
             @ModelAttribute Flea inputFlea,
             @SessionAttribute("loginMember") Member loginMember,
@@ -118,7 +118,7 @@ public class EditFleaController {
     
 
     // 게시글 수정 화면 전환
-    @PostMapping("flea/{boardNo}/updateView")
+    @PostMapping("{boardNo}/updateView")
     public String updateView(
             @PathVariable("boardNo") int boardNo,
             @SessionAttribute("loginMember") Member loginMember,
@@ -151,7 +151,7 @@ public class EditFleaController {
         return "flea/fleaUpdate";
     }
     
-    @PostMapping("flea/{boardNo:[0-9]+}/update")
+    @PostMapping("{boardNo:[0-9]+}/update")
     public String fleaUpdate(
             @PathVariable("boardNo") int boardNo,
             @ModelAttribute Flea inputFlea,     // 제출된 파라미터 중에서 name 속성값이 같으면 저장하는 커멘드 객체

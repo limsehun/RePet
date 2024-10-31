@@ -49,7 +49,5 @@ public class Flea {
     // 특정 게시글의 이미지 목록을 저장할 필드
     private List<FleaImg> imageList;
     
-    // 테스트 컬럼용 객체 (중고거래 게시판 BOARD_NO)
-    private int fleaNo;
     
 }

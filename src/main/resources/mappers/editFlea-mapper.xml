@@ -45,27 +45,26 @@
     <!--오류 발생시 mapper.java 이걸로 수정 ==> @Param("inputFlea") Flea inputFlea, @Param("boardNo") int boardNo -->
     <insert id="fleaInsert" parameterType="Flea">
         INSERT INTO "FLEA_BOARD"
-                    (PRICE, GOODS)
-        VALUES  (   #{price}, #{goods})
-        WHERE   BOARD_NO = #{board_no}
+                    (BOARD_NO, PRICE, GOODS)
+        VALUES  (#{boardNo}, #{price}, #{goods})
     </insert>
 
 
                 <!-- 상단 두 SQL INSERT 문 두개를 동시에 진행가능한지 테스트 -->
-                    <insert id="insertBoardAndFleaBoard" parameterType="Flea">
-                        INSERT INTO BOARD (BOARD_NO, BOARD_TITLE, BOARD_CONTENT,
-                        BOARD_WRITE_DATE, BOARD_UPDATE_DATE,
-                        READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE)
-                        VALUES (SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent},
-                        CURRENT_DATE, NULL, 0, 'N', #{memberNo}, 3);
+<!--                    <insert id="insertBoardAndFleaBoard" parameterType="Flea">-->
+<!--                        INSERT INTO BOARD (BOARD_NO, BOARD_TITLE, BOARD_CONTENT,-->
+<!--                        BOARD_WRITE_DATE, BOARD_UPDATE_DATE,-->
+<!--                        READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE)-->
+<!--                        VALUES (SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent},-->
+<!--                        CURRENT_DATE, NULL, 0, 'N', #{memberNo}, 3);-->
 
-                        <selectKey keyProperty="boardNo" order="AFTER">
-                            SELECT SEQ_BOARD_NO.CURRVAL
-                        </selectKey>
+<!--                        <selectKey keyProperty="boardNo" order="AFTER">-->
+<!--                            SELECT SEQ_BOARD_NO.CURRVAL-->
+<!--                        </selectKey>-->
 
-                        INSERT INTO FLEA_BOARD (BOARD_NO, PRICE, GOODS)
-                        VALUES (#{boardNo}, #{price}, #{goods});
-                    </insert>
+<!--                        INSERT INTO FLEA_BOARD (BOARD_NO, PRICE, GOODS)-->
+<!--                        VALUES (#{boardNo}, #{price}, #{goods});-->
+<!--                    </insert>-->
 
 
 <!--    // 이미지 여러개 삽입-->
@@ -74,11 +73,11 @@
         <foreach collection="list" item="img"
                  open="(" close=")" separator=" UNION ALL ">
             SELECT
-            NEXT_IMG_NO(),
-            #{img.imgPath},
-            #{img.imgRename},
-            #{img.imgOrder},
-            #{img.boardNo}
+                NEXT_IMG_NO(),
+                #{img.imgPath},
+                #{img.imgRename},
+                #{img.boardNo},
+                #{img.imgOrder}
             FROM DUAL
         </foreach>
     </insert>
@@ -112,6 +111,16 @@
           AND 	IMG_ORDER IN(${deleteOrderList})
     </delete>
 
+<!--    <delete id="deleteImage">-->
+<!--        DELETE-->
+<!--        FROM	"BOARD_IMG"-->
+<!--        WHERE	BOARD_NO = #{boardNo}-->
+<!--          AND 	IMG_ORDER IN-->
+<!--            <foreach item="order" collection="String...?" open="(" separator="," close=")">-->
+<!--                #{imgOrder}-->
+<!--            </foreach>-->
+<!--    </delete>-->
+
 
 <!--    // 이미지 1행 수정-->
     <update id="updateImage">
@@ -128,10 +137,9 @@
         INTO	"BOARD_IMG"
         VALUES (SEQ_IMG_NO.NEXTVAL,
                 #{imgPath},
-                #{imgOriginalName},
                 #{imgRename},
-                #{imgOrder},
-                #{boardNo}
+                #{boardNo},
+                #{imgOrder}
                )
     </insert>
 

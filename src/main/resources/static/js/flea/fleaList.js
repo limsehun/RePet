@@ -82,12 +82,7 @@ pageNoList?.forEach((item) => {
 // 글쓰기 버튼 클릭 시
 const insertBtn = document.querySelector("#insertBtn");
 
-if (insertBtn) {
-  insertBtn.addEventListener("click", () => {
-    // 현재 주소 : /flea/{boardNo}
-    // 요청 주소 : /flea/{boardNo}/insert
-    const boardNo = location.pathname.split("/")[2];
 
-    location.href = `/flea/${boardNo}/insert`;
-  });
-}
+  insertBtn?.addEventListener("click", () => {
+    location.href = `/editFlea/insert`;
+});

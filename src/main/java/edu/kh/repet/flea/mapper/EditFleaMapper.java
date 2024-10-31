@@ -30,7 +30,7 @@ public interface EditFleaMapper {
     int fleaUpdate(Flea inputFlea);
     
     // 기존에 존재하던 이미지 'DB' 에서 삭제 (서버 경로 폴더에는 여전히 존재)
-    int deleteImage(String deleteOrderList, int boardNo);
+    int deleteImage(@Param("deleteOrderList") String deleteOrderList, @Param("boardNo") int boardNo);
     
     // 이미지 1행 수정
     int updateImage(FleaImg img);

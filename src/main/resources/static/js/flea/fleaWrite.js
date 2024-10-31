@@ -106,12 +106,14 @@ for(let i = 0; i < inputImageList.length; i++) {
 }   // for end
 
 /* 제목, 내용 미작성 시 제출 불가 */
-const form = document.querySelector("#boardWriteFrm");
+const form = document.querySelector("#fleaWriteFrm");
 form.addEventListener("submit", e => {
 
   // 제목, 내용 input 얻어오기
   const boardTitle = document.querySelector("[name=boardTitle]");
   const boardContent = document.querySelector("[name=boardContent]");
+  const price = 0;
+  const goods = "테스트";
 
   if(boardTitle.value.trim().length === 0) {  // 제목 미작성
     alert("제목을 작성해 주세요");

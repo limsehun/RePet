@@ -133,15 +133,20 @@ FROM	"BOARD" B
 WHERE	BOARD_NO = 885
           AND		BOARD_CODE = 3;
 
-select * from BOARD where BOARD_CODE = 3;
+select * from BOARD where BOARD_CODE = 3 order by BOARD_NO desc ;
+
+
 
 
 
 INSERT INTO REPORT_BOARD
 VALUES (4, 1011, '테스트에요', DEFAULT, DEFAULT, 1);
 
+INSERT INTO MEMBER
+VALUES (SEQ_MEMBER_NO.nextval, '@.com', '$2a$10$uXKU/evWI2gdJTjfNVeaM.txw6Wjz4LzRYfc56cC8u/03ZQgiTVzm', '테스트','청계천',null, default, default, default);
 
-SELECT  * FROM BOARD WHERE BOARD_CODE = 3;
+commit ;
+SELECT  * FROM MEMBER;
 
 SELECT * FROM REPORT_BOARD;
 COMMIT;

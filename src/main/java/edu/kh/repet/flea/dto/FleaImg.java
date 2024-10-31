@@ -21,8 +21,8 @@ public class FleaImg {
     private int		imgNo;
     private String	imgPath;
     private String	imgRename;
-    private int     imgOrder;
     private int		boardNo;
+    private int     imgOrder;
     
     // 게시글 이미지 삽입 / 수정 시 사용할 필드
     private MultipartFile uploadFile;	// 개발 편의성 향상

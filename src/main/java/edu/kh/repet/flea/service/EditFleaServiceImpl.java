@@ -147,7 +147,7 @@ public class EditFleaServiceImpl implements EditFleaService {
         //    deleteOrderList 에 존재하는 순서의 이미지를 DELETE
         
         // deleteOrderList 에 작성된 값이 있다면
-        if(deleteOrderList != null && !deleteOrderList.equals("")) {
+        if(deleteOrderList != null && deleteOrderList.equals("") == false) {
             result = mapper.deleteImage(deleteOrderList, inputFlea.getBoardNo());
             
             // 삭제된 행이 없을 경우 ==> SQL 실패

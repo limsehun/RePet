@@ -1,4 +1,4 @@
-// 신고하기 버튼을 가져옴
+// 게시글 신고하기 버튼을 가져옴
 const reportBtn = document.querySelector("#reportBtn");
 
 // 신고하기 버튼 클릭 시 팝업 창 열기
@@ -15,6 +15,8 @@ reportBtn.addEventListener('click', function() {
         'width=500,height=600' // 창 크기 및 옵션
     );
 });
+
+
 
 
 const boardNo = location.pathname.split("/")[3];

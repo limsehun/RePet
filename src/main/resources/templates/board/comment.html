@@ -8,32 +8,29 @@
   <div class="comment-list-area">
     <ul id="commentList">
       <th:block th:each="comment : ${comments}">
-        <li class="comment-row" th:data-comment-no="${comment.commentNo}">
+        <li class="comment-row" data-comment-no="${comment.commentNo}">
           <p class="comment-writer">
-            <!-- 프로필 이미지 -->
-            <img th:src="${comment.profileImg != null ? comment.profileImg : '/images/user.png'}" alt="프로필 이미지">
-            <!-- 작성자 닉네임 -->
-            <span th:text="${comment.memberNickname}">닉네임</span>
-            <!-- 작성일 -->
-            <span class="comment-date" th:text="${comment.commentWriteDate}">2024.10.30</span>
+              <img th:src="${comment.profileImg != null ? comment.profileImg : '/images/user.png'}" alt="프로필 이미지">
+              <span th:text="${comment.memberNickname}">닉네임</span>
+              <span class="comment-date" th:text="${comment.commentWriteDate}">2024.10.30</span>
           </p>
-          <!-- 댓글 내용 -->
           <p class="comment-content" th:text="${comment.commentContent}">댓글 내용</p>
-          <!-- 버튼 영역 -->
           <div class="comment-btn-area">
-            
-            <!-- 로그인한 사용자와 댓글 작성자가 같을 때만 수정/삭제 버튼 보이기 -->
-            <th:block th:if="${session.loginMember != null and comment.memberNo == session.loginMember.memberNo}">
-              <button class="update-comment-btn">수정</button>
-              <button class="delete-comment-btn">삭제</button>
-            </th:block>
-            
-            <span class="report-area">
-              <i class="fa-regular fa-face-angry" id="comment-report"></i>
-            </span>
+              <!-- 로그인한 사용자와 댓글 작성자가 같을 때만 수정/삭제 버튼 보이기 -->
+              <th:block th:if="${session.loginMember != null and comment.memberNo == session.loginMember.memberNo}">
+                  <button class="update-comment-btn">수정</button>
+                  <button class="delete-comment-btn">삭제</button>
+              </th:block>
+      
+              <!-- 신고 아이콘 -->
+              <span class="report-area">
+                  <i class="fa-regular fa-face-angry" id="comment-report"></i>
+              </span>
           </div>
-        </li>
+      </li>
+      
       </th:block>
-    </ul>
+  </ul>
+  
   </div>
 </div>

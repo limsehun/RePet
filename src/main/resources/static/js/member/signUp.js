@@ -108,7 +108,7 @@ memberEmail.addEventListener("input", e => {
 
 
 const memberPw = document.querySelector("#memberPw");
-const memberPwCheck = document.querySelector("#memberPwCheck");
+// const memberPwCheck = document.querySelector("#memberPwCheck");
 const pwMessage = document.querySelector("#pwMessage");
 
 const pwCheckMessage = {};
@@ -153,45 +153,45 @@ memberPw.addEventListener("input", () => {
 
 
   // 비밀번호가 입력된 경우
-  if (memberPwCheck.value.trim().length > 0) {
-    checkPw(); 
-  }
+  // if (memberPwCheck.value.trim().length > 0) {
+  //   checkPw(); 
+  // }
 });
 
 /* ----- 비밀번호, 비밀번호 확인 같은지 검사하는 함수 ----- */
-function checkPw() {
+// function checkPw() {
 
-  // 같은 경우
-  if (memberPw.value === memberPwCheck.value) {
-    pwMessage.innerText = pwCheckMessage.check;
-    pwMessage.classList.add("confirm");
-    pwMessage.classList.remove("error");
-    checkObj.memberPwCheck = true;
-    return;
-  }
-  pwMessage.innerText = pwCheckMessage.error;
-  pwMessage.classList.add("error");
-  pwMessage.classList.remove("confirm");
-  checkObj.memberPwCheck = false;
-}
+//   // 같은 경우
+//   if (memberPw.value === memberPwCheck.value) {
+//     pwMessage.innerText = pwCheckMessage.check;
+//     pwMessage.classList.add("confirm");
+//     pwMessage.classList.remove("error");
+//     checkObj.memberPwCheck = true;
+//     return;
+//   }
+//   pwMessage.innerText = pwCheckMessage.error;
+//   pwMessage.classList.add("error");
+//   pwMessage.classList.remove("confirm");
+//   checkObj.memberPwCheck = false;
+// }
 
 /* ----- 비밀번호 확인이 입력 되었을 때  ----- */
-memberPwCheck.addEventListener("input", () => {
+// memberPwCheck.addEventListener("input", () => {
 
-  // 비밀번호 input에 작성된 값이 유효한 형식일때만 비교
-  if (checkObj.memberPw === true) {
-    checkPw();
-    return;
-  }
-  // 비밀번호 input에 작성된 값이 유효하지 않은 경우
-  checkObj.memberPwCheck = false;
-});
+//   // 비밀번호 input에 작성된 값이 유효한 형식일때만 비교
+//   if (checkObj.memberPw === true) {
+//     checkPw();
+//     return;
+//   }
+//   // 비밀번호 input에 작성된 값이 유효하지 않은 경우
+//   checkObj.memberPwCheck = false;
+// });
 
 
 
 /* ----- 닉네임 유효성 검사 ----- */
 // 1) 닉네임 유효성 검사에 사용되는 요소 얻어오기
-const memberNickname = document.querySelector("#memberNickname");
+const signUpMemberNickname = document.querySelector("#memberNickname");
 const checkBtn2 = document.querySelector("#check-btn2");
 const nickMessage = document.querySelector("#nickMessage");
 
@@ -203,11 +203,11 @@ nickCheck.duplication = "이미 사용중인 닉네임 입니다.";
 nickCheck.check = "사용 가능한 닉네임 입니다.";
 
 // 3) 닉네임 입력 시 마다 유효성 검사
-memberNickname.addEventListener("input", () => {
+signUpMemberNickname.addEventListener("input", () => {
 
 
 
-  const inputmemberNickname = memberNickname.value.trim();
+  const inputmemberNickname = signUpMemberNickname.value.trim();
 
   // 4) 입력된 닉네임이 없을 경우
   if (inputmemberNickname.length === 0) {
@@ -215,7 +215,7 @@ memberNickname.addEventListener("input", () => {
     // alert("nickMessage.classList");
     nickMessage.classList.remove("confirm", "error");
     checkObj.memberNickname = false;
-    memberNickname.value = "";
+    signUpMemberNickname.value = "";
     return;
   }
 

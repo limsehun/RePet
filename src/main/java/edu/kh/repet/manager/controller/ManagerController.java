@@ -41,6 +41,7 @@ public class ManagerController {
 	public int changeStatus(@RequestBody int memberNo) {
 		int result = service.changeStatus(memberNo);
 		
+		
 		return result;
 	}
 	

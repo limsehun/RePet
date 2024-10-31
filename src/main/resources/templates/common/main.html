@@ -162,10 +162,6 @@
   </main>
 
 
-  <th:block th:replace= "~{member/login}"></th:block>
-  <th:block th:replace= "~{member/signUp}"></th:block>
-  <!-- <th:block th:replace= "~{member/searchId}"></th:block> -->
-  <th:block th:replace= "~{member/searchPw}"></th:block>
 
   <script src="/js/main.js"></script>
 
@@ -173,16 +169,6 @@
     // th:inline="javascript"
     // - Java 데이터 -> JS 자료형을 자동 변환
   
-    // 로그인 되어 있으면 true, 아니면 false
-    const loginCheck =/*[[${session.loginMember != null}]]*/ false;
-  
-    // 로그인한 회원의 닉네임
-    const memberNickname
-      =/*[[${session.loginMember?.memberNickname}]]*/ null;
-  
-    const notificationDefaultImage = /*[[#{user.default.image}]]*/ "유저기본이미지";
-    // 상세 조회한 게시글 정보
-    const boardDetail = /*[[${board}]]*/ null;
   </script>
   
   <script src="/js/member/signUp.js"></script>

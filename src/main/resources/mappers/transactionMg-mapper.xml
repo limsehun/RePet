@@ -34,7 +34,13 @@
 			RNUM DESC
 	 </select>
 	 
-	 
+	 <update id="deleteManegement">
+	  	UPDATE "BOARD"  
+		SET 
+			BOARD_DEL_FL = 'Y'
+		WHERE BOARD_NO = #{boardNo}
+	  </update>
+		 
 	 
 	   <!-- 검색 조건이 맞는 게시글 수 조회 -->
 	 <select id="getSearchCount" resultType="_int">
@@ -86,18 +92,17 @@
   
 
 	 <select id="selectReportList" resultType="Board">
-	 			SELECT 
-		ROW_NUMBER() OVER (ORDER BY B.BOARD_NO ASC) AS "RNUM",
-		BOARD_TITLE,
-		REPORT_CATEGORY_CONTENT,
-		REPORT_WRITE_DATE,
-		MEMBER_NICKNAME,
-		REPORT_COUNT
+	 	SELECT 
+			ROW_NUMBER() OVER (ORDER BY B.BOARD_NO ASC) AS "RNUM",
+			BOARD_TITLE,
+			REPORT_CATEGORY_CONTENT,
+			REPORT_WRITE_DATE,
+			MEMBER_NICKNAME
 		
 		FROM "BOARD" B
 		JOIN "BOARD_TYPE" BT ON (B.BOARD_CODE = BT.BOARD_CODE)
 	  	JOIN "REPORT_BOARD" R ON (B.BOARD_NO = R.BOARD_NO)
-		JOIN "MEMBER" M ON (B.MEMBER_NO = M.MEMBER_NO)
+
 		JOIN "REPORT_CATEGORY" RC ON (RC.REPORT_CATEGORY = R.REPORT_CATEGORY)
 	
 		WHERE 
@@ -106,6 +111,13 @@
 			B.BOARD_CODE = 3  
 		ORDER BY 
 			RNUM DESC
+	  </select>
+	  
+	 <select id="reportCount" resultType="_int">
+	 	SELECT 
+			REPORT_COUNT
+		FROM "MEMBER" 
+		WHERE MEMBER_NO = #{memberNo}
 	  </select>
 
  

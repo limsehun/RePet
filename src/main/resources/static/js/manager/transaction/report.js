@@ -1,7 +1,6 @@
 /* 게시글 상세정보 모달 창 */
 const modalBackground = document.querySelector("#modalBackground");
 const closeModal = document.querySelector(".close-btn");
-const deleteBtn = document.querySelector(".delete-btn");
 const boardList = document.querySelector(".info-modal");
 
 let cachedBoardList = [];
@@ -11,11 +10,10 @@ closeModal.addEventListener("click", () => {
   modalBackground.style.display = "none";
 });
 
-
-
 // 게시글 리스트 가져오기
-const selectBoardList = (cp) => {
-  fetch(`/manager/transaction/selectManagement?cp=${cp}`)
+// 게시글 리스트 가져오기
+const selectReportBoardList = (cp) => {
+  fetch(`/manager/transaction/selectReport?cp=${cp}`)
     .then(response => {
       if (response.ok) return response.json();
       throw new Error("조회 오류");
@@ -23,7 +21,9 @@ const selectBoardList = (cp) => {
     .then(map => {
       const list = map.boardList;
       const pagination = map.pagination;
+      const reportCount = map.reportCount;
       cachedBoardList = list; // 캐시 저장
+      console.log(reportCount)
       renderItems(list, cp, pagination.limit || 10);
       renderPagination(pagination);
     })
@@ -33,38 +33,17 @@ const selectBoardList = (cp) => {
 // 상세 정보 모달 표시 함수
 const showBoardDetails = (boardNo) => {
   const board = cachedBoardList.find(item => item.boardNo === boardNo);
+  console.log(board);
   if (board) {
     document.querySelector(".board-title").innerText = board.boardTitle;
-    document.querySelector(".board-nickname").innerText = board.memberNickname;
-    document.querySelector(".board-write-date").innerText = board.boardWriteDate;
+
     // 추가 정보 표시
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = board.boardContent; // HTML 삽입
+    console.log(tempDiv);
     document.querySelector(".board-content").innerText = tempDiv.textContent; // 내용 설정
 
-    deleteBtn.addEventListener("click",() =>{
-      if(confirm("정말 삭제 하시겠습니까?") == false){
-        return;}
-
-      fetch("/manager/transaction/deleteManagement?boardNo="+boardNo)
-      .then(response=>{
-        if(response.ok)return response.json();
-        throw new Error("게시글 삭제 오류");
-      })
-      .then(result =>{
-        if(result > 0){
-          alert("삭제가 완료되었습니다.")
-          modalBackground.style.display = "none";
-          selectBoardList();
-        } else {
-          alert("삭제 실패");
-        }
-      })
-      .catch(error => console.error("에러 발생:", error));
-    });
-
     modalBackground.style.display = "flex"; // 모달 표시
-
   } else {
     console.error("해당 게시물의 정보를 찾을 수 없습니다.");
   }
@@ -97,14 +76,17 @@ const renderItems = (list, currentPage, limit) => {
 
     const td5 = document.createElement("td");
     td5.innerText = board.memberNickname;
-
+   
     const td6 = document.createElement("td");
+    td6.innerText = board.memberNickname;
+
+    const td7 = document.createElement("td");
     const detailBtn = document.createElement("button");
     detailBtn.innerText = "상세정보";
     detailBtn.onclick = () => showBoardDetails(board.boardNo);
     td6.append(detailBtn);
 
-    tr.append(td1, td2, td3, td4, td5, td6);
+    tr.append(td1, td2, td3, td4, td5, td6, td7);
     fragment.appendChild(tr); // Fragment에 추가
   });
 
@@ -147,11 +129,8 @@ const renderPagination = (pagination) => {
 
 
 
-//--------------------------------------------
-
 
 // DOMContentLoaded 이벤트
 document.addEventListener("DOMContentLoaded", () => {
-  selectBoardList(1);
-  modalBackground.style.display = "none";
+  selectReportBoardList(1);
 });

@@ -10,6 +10,8 @@ public interface TransactionService {
 
 	Map<String, Object> selectSearchList(int cp, Map<String, Object> paramMap);
 
+	int deleteManagement(int boardNo);
+
 	// 중고 신고게시판
 	Map<String, Object> selectReportList(int cp);
 
@@ -17,3 +19,5 @@ public interface TransactionService {
 
 
 }
+
+

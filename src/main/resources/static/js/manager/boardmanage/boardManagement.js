@@ -72,6 +72,54 @@ const renderItems = (list) => {
   });
 }
 
+const paginationBox = document.querySelector(".pagination");
+
+const renderPagination = (pagination) => {
+
+  // let paginationBox;
+
+  paginationBox.innerHTML = '';  // 기존 페이지 버튼 초기화
+
+  const createPageButton = (page, text, isActive = false) => {
+    const button = document.createElement("a");
+    button.href = "#";
+    button.classList.add("page-btn");
+    button.dataset.page = page;
+    button.textContent = text;
+
+    if (isActive) button.classList.add("active");
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      const cp = parseInt(event.target.dataset.page);
+
+      // 모든 페이지 버튼에서 active 클래스를 제거
+      document.querySelectorAll(".page-btn").forEach(btn => btn.classList.remove("active"));
+      
+      // 현재 클릭된 버튼에 active 클래스 추가
+      button.classList.add("active");
+
+      selectBoardList(cp);
+    });
+
+    return button;
+  };
+
+  // <<, < 버튼 추가
+  paginationBox.appendChild(createPageButton(1, "<<"));
+  paginationBox.appendChild(createPageButton(pagination.prevPage, "<"));
+
+  // 동적 페이지 번호 버튼 생성
+  for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+    const isActive = i === pagination.currentPage;
+    paginationBox.appendChild(createPageButton(i, i, isActive));
+  }
+
+  // >, >> 버튼 추가
+  paginationBox.appendChild(createPageButton(pagination.nextPage, ">"));
+  paginationBox.appendChild(createPageButton(pagination.maxPage, ">>"));
+};
+
 
 // DOMContentLoaded 이벤트
 document.addEventListener("DOMContentLoaded", () => {

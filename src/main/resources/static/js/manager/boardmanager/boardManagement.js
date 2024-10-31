@@ -18,6 +18,7 @@ let cachedBoardList = [];
 const boardList = document.querySelector("#boardList");
 
 // 게시물 조회 함수
+
 const selectBoardList = (cp) => {
   fetch(`/manager/board/selectBoardList?cp=${cp}`)
   .then(response => {
@@ -263,7 +264,3 @@ const renderPagination = (pagination) => {
 document.addEventListener("DOMContentLoaded", () => {
     selectBoardList(1);
 });
-
-
-
-

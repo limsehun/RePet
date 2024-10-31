@@ -16,9 +16,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BoardManagerServiceImpl implements BoardManagerService{
-	
-	private final BoardManagerMapper mapper;
-	
+   
+   private final BoardManagerMapper mapper;
+   
+
 
 	// 게시물 리스트 조회
 	@Override
@@ -65,6 +66,6 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		
 		return map;
 	}
-	
+
 
 }

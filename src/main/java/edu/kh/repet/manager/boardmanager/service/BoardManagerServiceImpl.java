@@ -1,5 +1,6 @@
 package edu.kh.repet.manager.boardmanager.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 
 	// 게시물 리스트 조회
 	@Override
-	public  List<Board> selectBoardList(int cp) {
+	public  Map<String, Object> selectBoardList(int cp) {
 		
 		int boardCount = mapper.boardCount();
 		
@@ -32,7 +33,17 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		
 		List<Board> boardList = mapper.selectBoardList(rowBounds);
 		
-		return boardList;
+		Map<String, Object> map = Map.of("boardList", boardList, "pagination", pagination);
+		
+		return map;
 	}
+	
+	
+	@Override
+	public int deleteBoard(int boardNo) {
+		return mapper.deleteBoard(boardNo);
+	}
+	
+	
 
 }

@@ -11,4 +11,6 @@ public interface ManagerService {
 
 	int changeStatus(int memberNo);
 
+	Map<String, Object> selectSearchList(int cp, Map<String, Object> paramMap);
+
 }

@@ -292,9 +292,6 @@ html, body {
   padding: 5px; /* 패딩 추가하여 클릭 영역 확대 */
 }
 
-.like-item-list {
-
-}
 
 
 
@@ -552,7 +549,7 @@ html, body {
   position: absolute; /* 상대 위치 */
   transform: translate(-50%, -50%); /* 중앙 정렬을 위해 이동 */
   top: 50%; /* 수직 중앙 */
-  left: 57%; /* 수평 중앙 */
+  left: 50%; /* 수평 중앙 */
   width: 90%; /* 너비를 90%로 설정하여 반응형으로 유지 */
   max-width: 600px; /* 최대 너비 설정 */
   max-height: 80%; /* 최대 높이를 설정하여 내용이 잘리도록 함 */

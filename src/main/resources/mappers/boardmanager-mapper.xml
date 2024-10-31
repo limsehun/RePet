@@ -3,8 +3,6 @@
 <!-- Mapper 인터페이스와 연결하는 방법 : namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이명 작성 -->
 <mapper namespace="edu.kh.repet.manager.boardmanager.mapper.BoardManagerMapper">
   
- 
-
 
 	<select id="boardCount" resultType="_int">
 		SELECT
@@ -16,7 +14,8 @@
 
 	<select id="selectBoardList" resultType="Board">
 		SELECT
-	    B.BOARD_NO, 
+	    B.BOARD_NO,
+	    B.BOARD_CODE,
 	    B.BOARD_TITLE, 
 	    B.BOARD_CONTENT, 
 	    B.BOARD_WRITE_DATE, 
@@ -28,9 +27,23 @@
 		    MEMBER M 
 		ON 
 		    B.MEMBER_NO = M.MEMBER_NO
+	    WHERE 
+    		B.BOARD_DEL_FL = 'N'
+    		AND
+    		B.BOARD_CODE = 2
 	</select>
-
-
+	
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard">
+       UPDATE 
+       	"BOARD"
+       SET 
+       	BOARD_DEL_FL = 'Y'
+       WHERE 
+       	BOARD_NO = #{boardNo}
+	</update>
+	
 
 
 

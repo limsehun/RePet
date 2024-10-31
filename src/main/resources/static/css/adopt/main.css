@@ -18,8 +18,12 @@ body {
 
 .adopt-header {
   width: 100%;
+<<<<<<< HEAD
   height: 70px;
   margin-top: 195px;
+=======
+  margin-top: 20px;
+>>>>>>> 8c1b4fcbc911b23147b50e619c511ef46c2a3ceb
   margin-bottom: 100px;
 }
 
@@ -34,7 +38,7 @@ main {
   flex-direction: column;
 }
 
-.session {
+.section {
   flex: 1; /* 세션도 남은 공간을 채우도록 설정 */
   padding-bottom: 200px ; /* 상하 패딩 조정 */
 }
@@ -327,4 +331,3 @@ p{
   font-weight: bold;
   margin-top: 15px; /* 제목 위 여백 */
 }
-

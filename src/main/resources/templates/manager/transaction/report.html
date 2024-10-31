@@ -40,7 +40,7 @@
                   <th>관리</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="info-modal">
                 
                 <!-- 게시글이 존재하지 않을 때 -->
                 <th:block th:if="${#lists.isEmpty(boardList)}">
@@ -76,49 +76,23 @@
                       <td th:text="*{memberNickname}">작성자</td>     
                       <td th:text="*{memberNickname}">신고 누적수</td>     
                       <td>
-                        <button class="manage-btn">상세정보</button>  
+                        <button class="manage-btn" onclick="openModal()">상세정보</button>  
                       </td>
               </tbody>
             </table>
           </div>
       
           <!-- 페이지네이션 -->
-          <!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
-          <div class="pagination-area" th:unless="${#lists.isEmpty(boardList)}">
-
-            <ul class="pagination" th:object="${pagination}">         
-              <!-- 첫 페이지로 이동 -->
-              <li><a >&lt;&lt;</a></li>         
-              <!-- 이전 목록 마지막 번호로 이동 -->
-              <li><a >&lt;</a></li>         
-              <!-- 특정 페이지로 이동 -->
-
-              <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
-
-                <!-- 현재 보고있는 페이지 -->
-                <li th:if="${i} == *{currentPage}"> 
-                  <a class="current" th:text="${i}">현재 페이지</a> 
-                </li>         
-                <!-- 보고있지 않은 페이지 -->
-                <li th:unless="${i} == *{currentPage}"> 
-                  <a th:text="${i}">이동할 수 있는 페이지</a> 
-                </li>         
-              </th:block>         
-              <!-- 다음 목록 시작 번호로 이동 -->
-              <li><a>&gt;</a></li>         
-              <!-- 끝 페이지로 이동 -->
-              <li><a>&gt;&gt;</a></li>
-            </ul>
+          <div class="pagination-area">
+            <div id="likePaginationBox" class="pagination"></div>
           </div>
+
 
         </div>
       </section>
     </main>
 
-    <script th:inline="javascript">
-      const pagination = /*[[${pagination}]]*/ "페이지네이션객체";
-    </script>
-    <script src="/js/manager/transaction/management.js"></script>
+    <script src="/js/manager/transaction/report.js"></script>
   </body>
 
 </html>

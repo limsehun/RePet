@@ -3,6 +3,8 @@
 <!-- Mapper 인터페이스와 연결하는 방법 : namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이명 작성 -->
 <mapper namespace="edu.kh.repet.manager.mapper.ManagerMapper">
   
+<<<<<<< HEAD
+=======
 	 <select id="getListCount" resultType="_int">
 	 	SELECT COUNT(*)
 	 	FROM "BOARD" B
@@ -148,6 +150,7 @@
 		RNUM DESC
 	 </select>
   
+>>>>>>> fe8d242a6ce56deed75a300eb4e16594289df196
 
 	<!-- 전체 회원 수 -->
 	<select id="selectMemberCount" resultType="_int">

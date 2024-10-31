@@ -7,7 +7,7 @@
   <title>관리자 페이지</title>
 
   <th:block th:replace="~{common/common}"></th:block>
-  <link rel="stylesheet" href="/css/manager/manager-style.css">
+  <!-- <link rel="stylesheet" href="/css/manager/manager-style.css"> -->
   <link rel="stylesheet" href="/css/manager/boardManager/boardManager.css">
 </head>
 
@@ -19,7 +19,7 @@
 
     <section class="main-content"> <!-- main-content 클래스를 section에 추가 -->
       <div class="admin-main"> <!-- div로 감싸서 구조화 -->
-        <h1>자유게시판 관리</h1>
+        <h1>게시판 댓글 신고 목록</h1>
 
         <!-- 검색 영역 -->
         <form class="search-area" th:action="@{{code}(code=${boardCode})}" method="get" id="boardSearch">
@@ -45,7 +45,7 @@
                 <th>내용</th>
                 <th>작성일</th>
                 <th>작성자</th>
-                <th>관리</th>
+                <th>신고 누적수</th>
               </tr>
             </thead>
 

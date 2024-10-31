@@ -66,8 +66,6 @@ public class SseController {
 		}
 	}
 	
-	
-	
 	@PostMapping("sse/warningAlarm")
 	public void warningNotification(
 			@RequestBody Notification notification,
@@ -91,7 +89,6 @@ public class SseController {
 			}
 		}
 	}
-	
 	
   @GetMapping("notification")
   public List<Notification> selectNotificationList(

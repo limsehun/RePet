@@ -48,6 +48,7 @@ const selectMemberList = (cp = 1) => {
 
         warningButton.innerText = '경고';
 
+
         // let currentIndex = 0; // Initialize currentIndex here
         // const statuses = ['정상', '경고', '탈퇴'];
 
@@ -55,7 +56,11 @@ const selectMemberList = (cp = 1) => {
         statusButton.style.color = member.memberDelFl === 'N' ? 'green' : 'red';
 
         td7.append(statusButton);
+
         td7.append(warningButton);
+
+        td7.append(warningBtn);
+
 
         tr.append(th1, td2, td3, td4, td5, td6, td7, td8);
         memberList.append(tr);
@@ -66,9 +71,6 @@ const selectMemberList = (cp = 1) => {
           if (btnText === '정상' && !confirm("탈퇴 하시겠습니까?")) {
             return;
           }
-
-
-
           /* 탈퇴 여부 변경 */
           fetch("/manager/changeStatus", {
             method: "PUT",
@@ -114,17 +116,22 @@ const selectMemberList = (cp = 1) => {
         }); // statusButton end
 
 
-        warningButton.addEventListener("click", () => {
 
-          sendNotification();
+        warningBtn.addEventListener("click", () => {
+          confirm("경고 메시지를 보내시겠습니까?");
+
+          // 게시글 작성자에게 알림 보내기
+          const content2
+            = `잘못된 게시글 작성으로 인해 경고 메시지를 보냅니다`;
+
+          sendNotification(
+            "warningAlarm",
+            location.pathname, // 게시글 상세 조회 페이지 주소
+            member.memberNo,
+            content2
+          );
 
         })
-
-
-
-
-
-
 
 
       });
@@ -189,3 +196,30 @@ const renderPagination = (pagination) => {
 document.addEventListener("DOMContentLoaded", () => {
   selectMemberList();
 });
+
+
+
+
+// 검색 
+(()=>{
+
+  // 쿼리스트링 모두 얻어와 관리하는 객체
+  const params = new URLSearchParams(location.search);
+
+  const key = params.get("key");
+  const query = params.get("query");
+
+  if(key === null) return; //검색이 아니면 함수 종료
+
+  document.querySelector("#searchQuery").value = query;
+
+  const options = document.querySelectorAll("#searchKey > option");
+  options.forEach( op => {
+    // op : <option> 태그
+    if(op.value === key){ // option의 valeu와 key가 같다면
+      op.selected = true; // selected 속성 추가
+      return;
+    }
+  })
+
+})();

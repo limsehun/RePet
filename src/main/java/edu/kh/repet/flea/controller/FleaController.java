@@ -230,7 +230,7 @@ public class FleaController {
      * @throws UnsupportedEncodingException
      */
     
-    @GetMapping("flea/{boardNo:[0-9]+}/goToList")
+    @GetMapping("{boardNo:[0-9]+}/goToList")
     public String goToList(
             @PathVariable("boardNo") int boardNo,
             @RequestParam Map<String, Object> paramMap
@@ -242,8 +242,7 @@ public class FleaController {
         int cp = service.getCurrentPage(paramMap);
 
         // 목록 조회 리다이렉트
-//        http://localhost/board/1?cp=3
-        String url = "redirect:/flea/?cp=" + cp;
+        String url = "redirect:/flea?cp=" + cp;
 
         // 검색인 경우 쿼리스트링 추가
         if(paramMap.get("key") != null) {
@@ -255,6 +254,7 @@ public class FleaController {
             
             url += "&key=" + paramMap.get("key") + "&query=" + query;
         }
+//        http://localhost/flea/1011/goToList?limit=10
         return url;
     }
 

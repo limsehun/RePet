@@ -32,8 +32,8 @@ public class Flea {
     private int    memberNo;
     private int    boardCode;
     
-    private String goods;
     private int    price;
+    private String goods;
     
     // MEMBER 테이블 JOIN 컬럼
     private String memberNickname;
@@ -48,5 +48,6 @@ public class Flea {
     
     // 특정 게시글의 이미지 목록을 저장할 필드
     private List<FleaImg> imageList;
+    
     
 }

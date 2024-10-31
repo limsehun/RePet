@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.Pagination;
 import edu.kh.repet.manager.transaction.mapper.TransactionMapper;
+import edu.kh.repet.member.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -62,6 +63,12 @@ public class TransactionServiceImpl implements TransactionService{
 	}
 	
 	
+	@Override
+	public int deleteManagement(int boardNo) {
+		return mapper.deleteManegement(boardNo);
+	}
+	
+	
 	// 중고 신고게시판
 	@Override
 	public Map<String, Object> selectReportList(int cp) {
@@ -99,6 +106,9 @@ public class TransactionServiceImpl implements TransactionService{
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardList", boardList);
 		map.put("pagination", pagination);
+		
+		int reportCount = mapper.reportCount(boardList);
+		map.put("reportCount", reportCount);
 		
 		return map;
 	}

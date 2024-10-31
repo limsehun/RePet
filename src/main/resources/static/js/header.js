@@ -111,6 +111,7 @@ const selectNotificationList = () => {
 
 
           location.href = alarm.notificationUrl;
+
         })
         const senderProfile = document.createElement("img");
         if (alarm.sendMemberProfileImg == null) senderProfile.src = notificationDefaultImage;  // 기본 이미지

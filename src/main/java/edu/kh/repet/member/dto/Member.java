@@ -30,4 +30,5 @@ public class Member {
   private int commentCount;
   
   private String statusContent;
+  private int reportCount;
 }

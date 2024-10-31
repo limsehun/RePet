@@ -45,6 +45,17 @@ public class BoardManagerController {
 	}
 	
 	
+	// 신고 게시물 리스트 조회
+	@ResponseBody
+	@GetMapping("reportBoardList")
+	public Map<String, Object> reportBoardList(
+				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
+			) {
+		
+		return service.reportBoardList(cp);
+	}
+	
+	
 	
 	// 게시물 삭제
 	@ResponseBody

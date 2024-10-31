@@ -5,7 +5,7 @@
 	Mapper 인터페이스와 연결하는 방법 :
 	namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이스명 작성
 -->
-<mapper namespace="edu.kh.project.main.mapper.MainMapper">
+<mapper namespace="edu.kh.repet.flea.mapper.FleaMapper">
 
     <resultMap type="Flea" id="flea_rm">
 
@@ -27,12 +27,12 @@
                 select="selectImageList"
                 column="BOARD_NO"
                 javaType="java.util.ArrayList"
-                ofType="BoardImg"
+                ofType="FleaImg"
         />
 
     </resultMap>
 
-    <select id="getListCount" resultType="_int">
+    <select id="getFleaListCount" resultType="_int">
         SELECT  COUNT(*)
         FROM    "BOARD"
         WHERE   BOARD_CODE = 3
@@ -135,7 +135,6 @@
         (SELECT PRICE FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS PRICE,
         (SELECT GOODS FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS GOODS,
 
-
         <![CDATA[
 						CASE
 							WHEN CURRENT_DATE - BOARD_WRITE_DATE < 1 / 24 / 60
@@ -185,6 +184,11 @@
             <when test='key == "w"'>
                 AND MEMBER_NICKNAME LIKE '%' || #{query} || '%'
             </when>
+
+            <!-- 품명 검색인 경우 -->
+            <when test='key == "g"'>
+                AND GOODS LIKE '%' || #{query} || '%'
+            </when>
         </choose>
 
         ORDER BY RNUM DESC
@@ -195,6 +199,7 @@
     <!-- 조회 결과를 board_rm 에 저장된 Type == Board에 저장하고
          + collection 태그를 수행해서 selectImageList 조회 후 Board.imageList 필드에 저장
     -->
+
     <select id="selectFleaDetail" resultMap="flea_rm">
         SELECT	BOARD_NO,
                   BOARD_TITLE,
@@ -215,7 +220,7 @@
                          AND		IMG_ORDER = 0
                   ) AS THUMBNAIL,
                   (SELECT PRICE FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS PRICE,
-                  (SELECT GOODS FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS GOODS,
+                  (SELECT GOODS FROM FLEA_BOARD F WHERE F.BOARD_NO = B.BOARD_NO) AS GOODS
 
         FROM	"BOARD" B
                     JOIN	"MEMBER" M ON (B.MEMBER_NO = M.MEMBER_NO)
@@ -226,7 +231,7 @@
     </select>
 
     <!-- 특정 게시글의 이미지를 order 순서로 조회 -->
-    <select id="selectImageList" resultType="BoardImg">
+    <select id="selectImageList" resultType="FleaImg">
         SELECT	*
         FROM	BOARD_IMG
         WHERE	BOARD_NO = #{boardNo}
@@ -246,11 +251,12 @@
             JOIN "MEMBER" USING(MEMBER_NO)
         </if>
 
+        <!-- 품명 검색인 경우 -->
         <if test='key == "g"'>
             JOIN FLEA_BOARD USING(BOARD_NO)
         </if>
 
-        WHERE	BOARD_CODE = #{boardCode}
+        WHERE	BOARD_CODE = 3
         AND		BOARD_DEL_FL = 'N'
 
         <choose>
@@ -285,7 +291,9 @@
         </choose>
 
         )
-        WHERE	BOARD_NO = 3
+        WHERE	BOARD_NO = #{boardNo}
     </select>
+
+
 
 </mapper>

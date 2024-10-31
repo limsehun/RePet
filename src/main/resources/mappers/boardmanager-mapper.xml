@@ -41,11 +41,55 @@
        SET 
           BOARD_DEL_FL = 'Y'
        WHERE 
-          BOARD_NO = #{boardNo}
-   </update>
-   
-   
-   
+       	BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	<select id="reportCount" resultType="_int">
+		SELECT 
+			COUNT(*)
+		FROM 
+		    REPORT_BOARD RB
+		JOIN 
+		    BOARD B ON RB.BOARD_NO = B.BOARD_NO
+		JOIN 
+		    MEMBER M ON B.MEMBER_NO = M.MEMBER_NO
+		WHERE 
+		    B.BOARD_DEL_FL = 'N'
+		    AND
+		    B.BOARD_CODE = 2
+	</select>
+	
+	
+	<select id="reportBoardList" resultType="ReportBoard">
+		SELECT 
+		    ROW_NUMBER() OVER (ORDER BY B.BOARD_NO ASC) AS "RNUM",
+		    B.BOARD_TITLE,
+		    RC.REPORT_CATEGORY_CONTENT,
+		    R.REPORT_WRITE_DATE,
+		    R.REPORT_CATEGORY AS REPORT_CATEGORY,
+		    M2.MEMBER_NICKNAME AS REPORT_NICKNAME,
+		    R.BOARD_NO
+		FROM 
+		    "BOARD" B
+		JOIN 
+		    "BOARD_TYPE" BT ON (B.BOARD_CODE = BT.BOARD_CODE)
+		JOIN 
+		    "REPORT_BOARD" R ON (B.BOARD_NO = R.BOARD_NO)
+		JOIN 
+		    "MEMBER" M ON (M.MEMBER_NO = B.MEMBER_NO)
+		JOIN 
+		    "REPORT_CATEGORY" RC ON (RC.REPORT_CATEGORY = R.REPORT_CATEGORY)
+		JOIN 
+		    "MEMBER" M2 ON (M2.MEMBER_NO = R.MEMBER_NO)  -- 신고한 회원의 닉네임
+		WHERE 
+		    B.BOARD_DEL_FL = 'N' 
+		AND   
+		    B.BOARD_CODE = 2 
+		ORDER BY 
+		    RNUM DESC
+	</select>
+	
 
 
 

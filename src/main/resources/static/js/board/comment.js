@@ -1,7 +1,5 @@
 
 
-
-
 $(document).ready(function() {
     // 댓글 등록 버튼 클릭 시
     $('#addComment').on('click', function() {
@@ -37,6 +35,19 @@ $(document).ready(function() {
                     alert("댓글이 성공적으로 등록되었습니다.");
                     $('#comment-content').val('');
                     loadComments(); // 댓글 등록 후 새로고침하여 목록 갱신
+                  
+              const content
+                    = `<string>${memberNickname}</string>님이
+              <strong>${boardDetail.boardTitle}</strong> 
+                                게시글에 댓글을 작성했습니다`;
+              
+                  console.log("// 게시글 작성자에게 알림 보내기");
+                  sendNotification(
+                    "insertComment",
+                    location.pathname, // 게시글 상세 조회 페이지 주소
+                    boardDetail.boardNo,
+                    content
+                  );
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {

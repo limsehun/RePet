@@ -38,6 +38,7 @@ public class EditFleaServiceImpl implements EditFleaService {
         
         // 1) 게시글 부분 (제목, 내용, 작성자, 게시판 종류) +  상품명, 가격
         int result = mapper.boardInsert(inputFlea);
+        
         System.out.println(inputFlea.getBoardNo());
         
         // 삽입 실패 시
@@ -46,28 +47,15 @@ public class EditFleaServiceImpl implements EditFleaService {
         // 삽입된 게시글 번호
         int boardNo = inputFlea.getBoardNo();
         
-        // 2) FLEA_BOARD 부분 INSERT
-        result = mapper.fleaInsert(inputFlea, boardNo);
+//         2) FLEA_BOARD 부분 INSERT
+//        result = mapper.fleaInsert(inputFlea, boardNo);
+        result = mapper.fleaInsert(inputFlea);
         
-        // 삽입 실패 시
+//         삽입 실패 시
         if(result == 0) return 0;
         
-        
-        
-        /*
-        
-<insert id="insertBoard">
-    INSERT INTO BOARD (BOARD_NO, BOARD_TITLE, BOARD_CONTENT, MEMBER_NO, BOARD_CODE)
-    VALUES (#{boardNo}, #{boardTitle}, #{boardContent}, #{memberNo}, #{boardCode})
-</insert>
-
-<insert id="insertFleaBoard">
-    INSERT INTO FLEA_BOARD (BOARD_NO, PRICE, GOODS, IMG_NO)
-    VALUES (#{boardNo}, #{price}, #{goods}, #{imgNo})
-</insert>
-        
-         */
-        
+        // 1,2 한번에 실행하는 코드 테스트
+//        int result = mapper.insertBoardAndFleaBoard(inputFlea);
         
         // ----------------------------------------------------------------------------------------------------
         
@@ -92,6 +80,7 @@ public class EditFleaServiceImpl implements EditFleaService {
                     .imgRename(rename)              // 변경명
                     .imgPath(webPath)               // 웹 접근 경로
                     .boardNo(boardNo)               // 게시글 번호
+                    .imgOrder(i)                    // 이미지 순서
                     .uploadFile(images.get(i))      // 실제 업로드된 이미지
                     .build();
             
@@ -158,14 +147,14 @@ public class EditFleaServiceImpl implements EditFleaService {
         //    deleteOrderList 에 존재하는 순서의 이미지를 DELETE
         
         // deleteOrderList 에 작성된 값이 있다면
-        if(deleteOrderList != null && !deleteOrderList.equals("")) {
+        if(deleteOrderList != null && deleteOrderList.equals("") == false) {
             result = mapper.deleteImage(deleteOrderList, inputFlea.getBoardNo());
             
             // 삭제된 행이 없을 경우 ==> SQL 실패
             // ===> 예외를 발생시켜서 전체 rollback
             if(result == 0) {
                 // 사용자 정의 예외
-                throw new FileDeleteFailException();
+                throw new FileDeleteFailException("이미지 삭제 실패");
             }
         }
         
@@ -187,6 +176,7 @@ public class EditFleaServiceImpl implements EditFleaService {
                     .imgRename(rename)              // 변경명
                     .imgPath(webPath)               // 웹 접근 경로
                     .boardNo(inputFlea.getBoardNo())// 게시글 번호
+                    .imgOrder(i)                    // 이미지 순서
                     .uploadFile(images.get(i))      // 실제 업로드된 이미지
                     .build();
             

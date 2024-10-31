@@ -12,6 +12,9 @@ public interface BoardManagerService {
 	int deleteBoard(int boardNo);
 
 	
+	// 신고 게시물 리스트
+	Map<String, Object> reportBoardList(int cp);
+
 
 
 

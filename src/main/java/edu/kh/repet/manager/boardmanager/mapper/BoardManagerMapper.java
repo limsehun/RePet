@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.repet.board.dto.Board;
+import edu.kh.repet.board.dto.ReportBoard;
 
 @Mapper
 public interface BoardManagerMapper {
@@ -22,6 +23,13 @@ public interface BoardManagerMapper {
 	int deleteBoard(int boardNo);
 
 	List<Board> selectBoardList(@Param("key") String key, @Param("query") String query, RowBounds rowBounds);
+
+
+	// 신고 누적 수
+	int reportCount();
+
+	// 신고 게시물 조회
+	List<ReportBoard> reportBoardList(RowBounds rowBounds);
 
 
 

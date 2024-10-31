@@ -1,5 +1,6 @@
 package edu.kh.repet.manager.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,4 +42,34 @@ public class ManagerServiceImpl implements ManagerService{
 		return mapper.changeStatus(memberNo);
 	}
 
+	
+	
+	@Override
+	public Map<String, Object> selectSearchList(int cp, Map<String, Object> paramMap) {
+		
+		int searchCount = mapper.getSearchCount(paramMap);
+		
+		// 2. Pagination 객체 생성 하기
+		Pagination pagination = new Pagination(cp, searchCount);
+		
+		
+		// 3. DB에서 cp(조회 하려는 페이지)에 해당하는 행을 조회
+		int limit = pagination.getLimit(); // 10
+		int offset = (cp - 1) * limit; // 이전 번호를 건너뜀
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		
+		// 4. 검색 결과 + Pagenation 객체를 Map으로 묶어서 반환
+		List<Member> memberList = mapper.selectSearchList(paramMap, rowBounds);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberList", memberList);
+		map.put("pagination", pagination);
+		
+		
+		return map;
+	}
+	
+	
+	
 }

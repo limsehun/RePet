@@ -530,7 +530,7 @@ newNickname.addEventListener("input", () => {
 
     checkObj.memberNickname = false;
 
-    memberNickname.value = ""; 
+    signUpMemberNickname.value = ""; 
 
     return;
   }

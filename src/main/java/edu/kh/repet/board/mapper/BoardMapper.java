@@ -68,6 +68,13 @@ public interface BoardMapper {
 
 	// 조회수 높은 게시글 5개 조회
 	List<Board> selectTop5Boards();
+
+
+	// 검색 결과 조회
+	List<Board> searchBoard( Map<String, Object> paramMap,  RowBounds rowBounds);
+
+	// 검색 결과 개수 확인
+	int getSearchCount(Map<String, Object> paramMap);
 	
 
 

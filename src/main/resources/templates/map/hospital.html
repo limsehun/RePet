@@ -1,41 +1,66 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>현재 위치와 동물병원</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
     <style>
-        #map { width: 100%; height: 500px; }
-        #location { margin-top: 10px; font-size: 14px; color: #333; }
+        /* 공통 레이아웃 */
+        body {margin: 0; padding: 0; box-sizing: border-box;}
+
+        header {position: fixed; top: 0; width: 100%; height: 70px; background: #f8f8f8;
+                z-index: 1000; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);}
+
+        /* 본문과 여백 추가 */
+        main {padding-top: 90px;/* header의 높이 + 여백을 추가하여 겹치지 않도록 설정 */}
+
+        h1 { font-size: 24px; text-align: center; margin: 20px 0;}
+
+        /* 지도와 위치 정보 스타일 */
+        #map { width: 80%; height: 500px; margin: 20px auto; }
     </style>
 </head>
-<body>
-    <div th:replace="~{common/header :: header}"></div>
 
-    <h1>내 현재 위치와 주변 동물병원</h1>
-    <div id="map" style="position: relative;">
-        <input type="text" id="search-input" placeholder="검색어를 입력하세요" style="position: absolute; top: 10px; left: 10px; z-index: 1000; padding: 5px;"/>
-        <button onclick="handleSearch()" style="position: absolute; top: 10px; left: 220px; z-index: 1000; padding: 5px;">검색</button>
-    </div>
-    <div id="location"></div>
+<body>
+    <!-- 상단 고정 메뉴 -->
+    <header>
+        <div th:replace="~{common/header :: header}"></div>
+    </header>
+
+    <main>
+        <h1>내 현재 위치와 주변 동물병원</h1>
+        <div id="map" style="position: relative;">
+            <input type="text" id="search-input" placeholder="검색어를 입력하세요"
+                style="position: absolute; top: 10px; left: 10px; z-index: 1000; padding: 5px;" />
+            <button onclick="handleSearch()"
+                style="position: absolute; top: 10px; left: 220px; z-index: 1000; padding: 5px;">검색</button>
+        </div>
+        <div id="location"></div>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
+        let sData;
+        let gData=[];
 
-    // 위치 정보를 가져오는 과정에서 오류가 발생했을 때 호출되는 함수
-    function showError(error) {
-        const errorMessages = {
-            [error.PERMISSION_DENIED]: "사용자가 위치 정보를 허용하지 않았습니다.",
-            [error.POSITION_UNAVAILABLE]: "위치 정보를 사용할 수 없습니다.",
-            [error.TIMEOUT]: "요청 시간이 초과되었습니다.",
-            [error.UNKNOWN_ERROR]: "알 수 없는 오류가 발생했습니다."
-        };
-        document.getElementById('location').innerHTML = errorMessages[error.code] || "알 수 없는 오류가 발생했습니다.";
-    }
 
-    // 네이버 지도 API 스크립트 로드
-    async function loadNaverMapScript() {
+
+        // 위치 정보를 가져오는 과정에서 오류가 발생했을 때 호출되는 함수
+        function showError(error) {
+            const errorMessages = {
+                [error.PERMISSION_DENIED]: "사용자가 위치 정보를 허용하지 않았습니다.",
+                [error.POSITION_UNAVAILABLE]: "위치 정보를 사용할 수 없습니다.",
+                [error.TIMEOUT]: "요청 시간이 초과되었습니다.",
+                [error.UNKNOWN_ERROR]: "알 수 없는 오류가 발생했습니다."
+            };
+            document.getElementById('location').innerHTML = errorMessages[error.code] || "알 수 없는 오류가 발생했습니다.";
+        }
+
+        // 네이버 지도 API 스크립트 로드
+        async function loadNaverMapScript() {
             try {
                 const response = await fetch('/api/naver-map-key');
                 if (!response.ok) throw new Error('네이버 지도 API 키를 가져오지 못했습니다.');
@@ -51,122 +76,183 @@
             }
         }
 
+        let map; // 전역 변수 선언
+        let initialMarkers = []; // 현재 위치 기반 마커 저장 배열
+        let initialMarkers2 = []; // 현재 위치 기반 마커 저장 배열
+        let searchMarkers = []; // 검색 결과 마커를 담는 배열
 
-    // 사용자 위치를 가져와 지도 초기화
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(initializeMap, showError);
-        } else {
-            document.getElementById('location').innerHTML = "이 브라우저는 Geolocation을 지원하지 않습니다.";
-        }
-    }
-
-    let map; // 전역 변수 선언
-
-    // 지도와 사용자 위치 마커 초기화
-    function initializeMap(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    document.getElementById('location').innerHTML = `위도: ${lat}, 경도: ${lon}`;
-
-    map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(lat, lon),
-        zoom: 15
-    });
-
-        // 사용자 위치 마커 표시
-        new naver.maps.Marker({
-            position: new naver.maps.LatLng(lat, lon),
-            map: map,
-            title: "내 위치",
-            icon: {
-                content: '<div style="background-color:red;width:20px;height:20px;border-radius:50%;"></div>',
-                anchor: new naver.maps.Point(10, 10)
+        // 사용자 위치를 가져와 지도 초기화
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(initializeMap, showError);
+            } else {
+                document.getElementById('location').innerHTML = "이 브라우저는 Geolocation을 지원하지 않습니다.";
             }
-        });
+        }
 
-        // 서울 및 경기 동물병원 데이터 가져와 마커 표시
-        fetchSeoulAnimalHospitals(map, lat, lon);
-        fetchGyeonggiAnimalHospitals(map, lat, lon);
-    }
+        // 지도와 사용자 위치 마커 초기화
+        function initializeMap(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById('location').innerHTML = `위도: ${lat}, 경도: ${lon}`;
 
-        // 서울 병원 정보 요청 및 JSON 파싱
+            map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(lat, lon),
+                zoom: 15
+            });
+
+            // 사용자 위치 마커 표시
+            new naver.maps.Marker({
+                position: new naver.maps.LatLng(lat, lon),
+                map: map,
+                title: "내 위치",
+                icon: {
+                    content: '<div style="background-color:red;width:20px;height:20px;border-radius:50%;"></div>',
+                    anchor: new naver.maps.Point(10, 10)
+                }
+            });
+
+            // 서울 및 경기 동물병원 데이터 가져와 마커 표시
+            fetchSeoulAnimalHospitals(map, lat, lon);
+            fetchGyeonggiAnimalHospitals(map, lat, lon);
+        }
+
+        // 서울 병원 정보 요청 및 JSON 파싱 후 콘솔에 출력(지도에 마커표시)
         function fetchSeoulAnimalHospitals(map, lat, lon) {
             fetch('/api/seoul-hospitals')
                 .then(response => response.json())
-                .then(data => parseSeoulHospitalData(data, map, lat, lon))
+                .then(data => {
+                    console.log("서울 API 응답 데이터:", data);
+                    parseSeoulHospitalData(data, map, lat, lon, initialMarkers);
+                })
                 .catch(error => console.error('서울 API 요청 오류:', error));
         }
 
-        // 경기도 병원 정보 요청 및 JSON 파싱
-        function fetchGyeonggiAnimalHospitals(map, lat, lon) {
-            fetch('/api/gyeonggi-hospitals')
-                .then(response => response.json())
-                .then(data => parseGyeonggiHospitalData(data, map, lat, lon))
-                .catch(error => console.error('경기 API 요청 오류:', error));
+        // 경기도 병원 정보 요청 및 JSON 파싱 후 콘솔에 출력(지도에 마커표시)
+        async function fetchGyeonggiAnimalHospitals(map, lat, lon) {
+            let pageIndex = 1;
+            let hasMoreData = true;
+            const hospitals = [];
+
+            while (hasMoreData) {
+                try {
+                    const response = await fetch(`/api/gyeonggi-hospitals?page=${pageIndex}`);
+                    if (!response.ok) {
+                        console.warn(`경기 API 요청 오류 (페이지 ${pageIndex}):`, response.statusText);
+                        hasMoreData = false;
+                        break;
+                    }
+
+                    const data = await response.json();
+                    console.log(`경기 API 응답 데이터 (페이지 ${pageIndex}):`, data);
+
+                    if (data && data.Animalhosptl && data.Animalhosptl[1] && data.Animalhosptl[1].row) {
+                        const currentHospitals = data.Animalhosptl[1].row;
+                        hospitals.push(...currentHospitals);
+
+                        if (currentHospitals.length < 1000) {
+                            hasMoreData = false;
+                        } else {
+                            pageIndex++;
+                        }
+                    } else {
+                        hasMoreData = false;
+                    }
+                } catch (error) {
+                    console.error(`경기 API 요청 중 오류 발생 (페이지 ${pageIndex}):`, error);
+                    hasMoreData = false;
+                }
+            }
+
+            console.log("경기 API 전체 병원 데이터:", hospitals);
+            parseGyeonggiHospitalData({ Animalhosptl: { row: hospitals } }, map, lat, lon, initialMarkers);
         }
 
 
+
         // 서울 동물병원 JSON 데이터 파싱 및 지도에 표시
-        function parseSeoulHospitalData(data, map, lat, lon) {
-    const hospitals = [];
+        function parseSeoulHospitalData(data, map, lat, lon, markersArray) {
+            const hospitals = [];
 
-    if (data && data.LOCALDATA_020301 && data.LOCALDATA_020301.row) {
-        data.LOCALDATA_020301.row.forEach(hospital => {
-            const name = hospital.BPLCNM || "병원 이름 없음";
-            const address = hospital.RDNWHLADDR || "주소 정보 없음";
-            const phone = hospital.SITETEL || "전화번호 정보 없음";
-            const status = hospital.TRDSTATENM; // 영업 상태 필드
-            const x = parseFloat(hospital.X);
-            const y = parseFloat(hospital.Y);
+            // 데이터와 row가 존재할 때만 진행
+            if (data && data.LOCALDATA_020301 && data.LOCALDATA_020301.row) {
+                data.LOCALDATA_020301.row.forEach(hospital => {
+                    const name = hospital.BPLCNM || "병원 이름 없음";
+                    const address = hospital.RDNWHLADDR || "주소 정보 없음";
+                    const phone = hospital.SITETEL || "전화번호 정보 없음";
+                    const status = hospital.TRDSTATENM;
+                    const x = parseFloat(hospital.X);
+                    const y = parseFloat(hospital.Y);
 
-            // '정상' 상태의 병원만 추가
-            if (status === "영업/정상" && !isNaN(x) && !isNaN(y)) {
-                try {
-                    const [longitude, latitude] = proj4(
-                        '+proj=tmerc +lat_0=38 +lon_0=127.00289027777778 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs',
-                        '+proj=longlat +datum=WGS84 +no_defs',
-                        [x, y]
-                    );
+                    // '영업/정상' 상태의 병원만 추가
+                    if (status === "영업/정상" && !isNaN(x) && !isNaN(y)) {
+                        try {
+                            const [longitude, latitude] = proj4(
+                                '+proj=tmerc +lat_0=38 +lon_0=127.00289027777778 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs',
+                                '+proj=longlat +datum=WGS84 +no_defs',
+                                [x, y]
+                            );
 
-                    const distance = getDistance(lat, lon, latitude, longitude);
-                    if (distance <= 5) hospitals.push({ name, address, phone, latitude, longitude, distance });
-                } catch (error) {
-                    console.error("좌표 변환 오류:", error);
+                            const distance = getDistance(lat, lon, latitude, longitude);
+                            if (distance <= 5) {
+                                hospitals.push({ name, address, phone, latitude, longitude, distance });
+                            }
+                        } catch (error) {
+                            console.error("좌표 변환 오류:", error);
+                        }
+                    }
+                });
+
+                // hospitals 배열이 비어 있지 않으면 displayHospitalsOnMap 호출
+                if (hospitals.length > 0) {
+                    sData = hospitals;
+                    displayHospitalsOnMap(map, hospitals, markersArray);
+                } else {
+                    console.warn("해당 조건에 맞는 서울 병원이 없습니다.");
                 }
+            } else {
+                console.warn("서울 병원 데이터가 없거나 잘못된 형식입니다.");
             }
-        });
-        displayHospitalsOnMap(map, hospitals);
-    }
-}
+        }
 
 
         // 경기도 동물병원 JSON 데이터 파싱 및 지도에 표시
-        function parseGyeonggiHospitalData(data, map, lat, lon) {
-    const hospitals = [];
+        function parseGyeonggiHospitalData(data, map, lat, lon, markersArray) {
+            const hospitals = [];
 
-    if (data && data.Animalhosptl && data.Animalhosptl.row) {
-        data.Animalhosptl.row.forEach(hospital => {
-            const name = hospital.BIZPLC_NM || "병원 이름 없음";
-            const address = hospital.REFINE_LOTNO_ADDR || "주소 정보 없음";
-            const phone = hospital.LOCPLC_FACLT_TELNO || "전화번호 정보 없음";
-            const status = hospital.BSN_STATE_NM; // 영업 상태 필드
-            const longitude = parseFloat(hospital.REFINE_WGS84_LOGT);
-            const latitude = parseFloat(hospital.REFINE_WGS84_LAT);
+            gData = [];
+            // data와 data.Animalhosptl이 존재하고, 그 안에 row 데이터가 존재할 때만 진행
+            if (data && data.Animalhosptl && data.Animalhosptl.row) {
+                data.Animalhosptl.row.forEach(hospital => {
+                    const name = hospital.BIZPLC_NM || "병원 이름 없음";
+                    const address = hospital.REFINE_LOTNO_ADDR || "주소 정보 없음";
+                    const phone = hospital.LOCPLC_FACLT_TELNO || "전화번호 정보 없음";
+                    const status = hospital.BSN_STATE_NM;
+                    const longitude = parseFloat(hospital.REFINE_WGS84_LOGT);
+                    const latitude = parseFloat(hospital.REFINE_WGS84_LAT);
 
-            // '정상' 상태의 병원만 추가
-            if (status === "정상" && !isNaN(longitude) && !isNaN(latitude)) {
-                const distance = getDistance(lat, lon, latitude, longitude);
-                if (distance <= 5) hospitals.push({ name, address, phone, latitude, longitude, distance });
+                    // '정상' 상태의 병원만 추가
+                    if (status === "정상" && !isNaN(longitude) && !isNaN(latitude)) {
+                        const distance = getDistance(lat, lon, latitude, longitude);
+
+                        gData.push({ name, address, phone, latitude, longitude, distance });
+                        if (distance <= 5) hospitals.push({ name, address, phone, latitude, longitude, distance });
+                    }
+                });
+                // hospitals 배열이 비어있지 않으면 displayHospitalsOnMap 호출
+                if (hospitals.length > 0) {
+                    
+                    displayHospitalsOnMap(map, hospitals, markersArray);
+                } else {
+                    console.warn("해당 조건에 맞는 경기도 병원이 없습니다.");
+                }
+            } else {
+                console.warn("경기도 병원 데이터가 없거나 잘못된 형식입니다.");
             }
-        });
-        displayHospitalsOnMap(map, hospitals);
-    }
-}
+        }
 
-        
-    // 두 지점 간의 거리 계산
-    function getDistance(lat1, lon1, lat2, lon2) {
+        // 두 지점 간의 거리 계산
+        function getDistance(lat1, lon1, lat2, lon2) {
             const R = 6371;
             const dLat = deg2rad(lat2 - lat1);
             const dLon = deg2rad(lon2 - lon1);
@@ -174,111 +260,191 @@
             return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         }
 
-    // 각도를 라디안으로 변환
-    function deg2rad(deg) {
-        return deg * (Math.PI / 180);
-    }
-
-    // 병원을 지도에 표시하는 함수
-    function displayHospitalsOnMap(map, hospitals) {
-    hospitals.forEach(hospital => {
-        const marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(hospital.latitude, hospital.longitude),
-            map: map,
-            title: hospital.name
-        });
-
-        const infoWindow = new naver.maps.InfoWindow({
-            content: `<div style="padding:10px;"><strong>${hospital.name}</strong><br>주소: ${hospital.address}<br>전화번호: ${hospital.phone}<br>거리: ${hospital.distance.toFixed(2)} km</div>`
-        });
-
-        // 마커에 마우스 오버 이벤트 추가
-        naver.maps.Event.addListener(marker, 'mouseover', () => {
-            infoWindow.open(map, marker); // 마우스를 올렸을 때 정보 창 열기
-        });
-
-        // 마커에서 마우스 아웃 이벤트 추가
-        naver.maps.Event.addListener(marker, 'mouseout', () => {
-            infoWindow.close(); // 마우스를 벗어났을 때 정보 창 닫기
-        });
-
-        naver.maps.Event.addListener(marker, 'click', () => window.open(`https://map.naver.com/p/search/${encodeURIComponent(hospital.name)}`, '_blank'));
-    });
-}
-
-// 네이버 검색 API 호출 함수
-async function searchLocation(keyword) {
-    try {
-        const response = await fetch(`/api/search?query=${encodeURIComponent(keyword)}`);
-
-        // 요청이 성공했을 때만 JSON 파싱 시도
-        if (response.ok) {
-            const data = await response.json();
-            const results = data.items;  // JSON에서 'items' 배열 추출
-            if (results && results.length > 0) {
-                displaySearchResultsOnMap(results);
-            } else {
-                alert("검색 결과가 없습니다.");
-            }
-        } else {
-            // 요청이 실패하면 텍스트로 오류 메시지 출력
-            const errorText = await response.text();
-            console.error("네이버 검색 API 요청 오류:", errorText);
-            alert("네이버 검색 API 호출 중 오류 발생: " + errorText);
+        // 각도를 라디안으로 변환
+        function deg2rad(deg) {
+            return deg * (Math.PI / 180);
         }
-    } catch (error) {
-        console.error("네이버 검색 API 요청 오류:", error);
-        alert("검색 중 오류가 발생했습니다.");
-    }
-}
+
+        // 병원을 지도에 표시하는 함수
+        function displayHospitalsOnMap(map, hospitals, markersArray) {
+            // 기존 마커 초기화
+            markersArray.forEach(marker => marker.setMap(null));
+            markersArray.length = 0;
+
+            hospitals.forEach(hospital => {
+                const marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(hospital.latitude, hospital.longitude),
+                    map: map,
+                    title: hospital.name
+                });
 
 
-// 검색 버튼 클릭 시 호출되는 함수
-function handleSearch() {
-    const keyword = document.getElementById("search-input").value.trim();
-    if (keyword) {
-        searchLocation(keyword);
-    } else {
-        alert("검색어를 입력해주세요.");
-    }
-}
+                const infoWindow = new naver.maps.InfoWindow({
+                    content: `<div style="padding:10px;"><strong>${hospital.name}</strong><br>주소: ${hospital.address}<br>전화번호: ${hospital.phone}<br>거리: ${hospital.distance.toFixed(2)} km</div>`
+                });
 
-let searchMarkers = []; // 검색 결과 마커를 담는 배열
+                // 마커에 마우스 오버 이벤트 추가
+                naver.maps.Event.addListener(marker, 'mouseover', () => {
+                    infoWindow.open(map, marker); // 마우스를 올렸을 때 정보 창 열기
+                });
 
-// 검색 결과를 지도에 표시하는 함수
-function displaySearchResultsOnMap(results) {
-    // 기존 검색 마커 제거
-    searchMarkers.forEach(marker => marker.setMap(null));
-    searchMarkers = []; // 배열 초기화
+                // 마커에서 마우스 아웃 이벤트 추가
+                naver.maps.Event.addListener(marker, 'mouseout', () => {
+                    infoWindow.close(); // 마우스를 벗어났을 때 정보 창 닫기
+                });
+                
+                markersArray.push(marker);
 
-    results.forEach(result => {
-        const latitude = parseFloat(result.mapy);
-        const longitude = parseFloat(result.mapx);
+                naver.maps.Event.addListener(marker, 'click', () => window.open(`https://map.naver.com/p/search/${encodeURIComponent(hospital.name)}`, '_blank'));
+            });
+        }
 
-        if (!isNaN(latitude) && !isNaN(longitude)) {
-            const marker = new naver.maps.Marker({
-                position: new naver.maps.LatLng(latitude, longitude),
-                map: map,
-                title: result.title
+        // 네이버 검색 API 호출 함수
+        async function searchLocation(keyword) {
+            try {
+                const list = [...sData ,...gData];
+
+                const filterList = list.filter(item => {
+                    return item.name.includes(keyword);
+                })
+
+
+                console.log(filterList);
+
+
+                if(filterList.length > 0){
+                    try{
+
+                        // map.setCenter(new naver.maps.LatLng(parseFloat(results[0].mapy), parseFloat(results[0].mapx)));
+
+                        const encodeList = filterList.map(item => {
+                            return {
+                                mapy : item.latitude,
+                                mapx : item.longitude,
+                                title : item.name,
+                                roadAddress : item.address
+                            }
+                        })
+
+                         // 지도 초기화
+                         map.setCenter(new naver.maps.LatLng(parseFloat(encodeList[0].mapy), parseFloat(encodeList[0].mapx)));
+                        
+                        // 초기 마커 비활성화
+                        initialMarkers.forEach(marker => marker.setMap(null));
+
+                        // 검색 결과 마커로 지도 표시
+                        displaySearchResultsOnMap(encodeList, initialMarkers);
+
+                    }catch(e){
+                        console.log(e)
+                    }
+
+                } else{
+                    alert("검색 결과 없음")
+                }
+
+
+                // const response = await fetch(`/api/search?query=${encodeURIComponent(keyword)}`);
+
+                // // 요청이 성공했을 때만 JSON 파싱 시도
+                // if (response.ok) {
+                //     const data = await response.json();
+                //     const results = data.items;  // JSON에서 'items' 배열 추출
+                //     if (results && results.length > 0) {
+                //         // 지도 초기화
+                //         map.setCenter(new naver.maps.LatLng(parseFloat(results[0].mapy), parseFloat(results[0].mapx)));
+
+                //         // 초기 마커 비활성화
+                //         initialMarkers.forEach(marker => marker.setMap(null));
+
+                //         // 검색 결과 마커로 지도 표시
+                //         displaySearchResultsOnMap(results, searchMarkers);
+                //     } else {
+                //         alert("검색 결과가 없습니다.");
+                //     }
+                // } else {
+                //     // 요청이 실패하면 텍스트로 오류 메시지 출력
+                //     const errorText = await response.text();
+                //     console.error("네이버 검색 API 요청 오류:", errorText);
+                //     alert("네이버 검색 API 호출 중 오류 발생: " + errorText);
+                // }
+            } catch (error) {
+                console.error("네이버 검색 API 요청 오류:", error);
+                alert("검색 중 오류가 발생했습니다.");
+            }
+        }
+
+
+        // // 검색 버튼 클릭 시 호출되는 함수
+        // function handleSearch() {
+        //     const keyword = document.getElementById("search-input").value.trim();
+        //     if (keyword) {
+        //         searchLocation(keyword);
+        //     } else {
+        //         alert("검색어를 입력해주세요.");
+        //     }
+        // }
+
+        // 검색 결과를 지도에 표시하는 함수
+        function displaySearchResultsOnMap(results, markersArray) {
+            // 기존 검색 결과 마커 초기화
+            markersArray.forEach(marker => marker.setMap(null));
+            markersArray.length = 0;
+
+            // // 기존 검색 마커 제거
+            // searchMarkers.forEach(marker => marker.setMap(null));
+            // searchMarkers = []; // 배열 초기화
+            let firstMarker;
+            results.forEach(result => {
+                console.log(result);
+                const latitude = parseFloat(result.mapy);
+                const longitude = parseFloat(result.mapx);
+
+               
+                if (!isNaN(latitude) && !isNaN(longitude)) {
+                    const marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(latitude, longitude),
+                        map: map,
+                        title: result.title
+                    });
+
+                    const infoWindow = new naver.maps.InfoWindow({
+                        content: `<div style="padding:10px;"><strong>${result.title}</strong><br>주소: ${result.roadAddress}</div>`
+                    });
+
+                    naver.maps.Event.addListener(marker, 'mouseover', () => infoWindow.open(map, marker));
+                    naver.maps.Event.addListener(marker, 'mouseout', () => infoWindow.close());
+                    markersArray.push(marker);
+                    naver.maps.Event.addListener(marker, 'click', () => window.open(`https://map.naver.com/p/search/${encodeURIComponent(result.roadAddress)}`, '_blank'));
+
+                    firstMarker = marker;
+                    // // 새로운 검색 마커 저장
+                    // searchMarkers.push(marker);
+                }
             });
 
             const infoWindow = new naver.maps.InfoWindow({
-                content: `<div style="padding:10px;"><strong>${result.title}</strong><br>주소: ${result.roadAddress}</div>`
+                content: `<div style="padding:10px;"><strong>${results[0].title}</strong><br>주소: ${results[0].roadAddress}</div>`
             });
 
-            naver.maps.Event.addListener(marker, 'mouseover', () => infoWindow.open(map, marker));
-            naver.maps.Event.addListener(marker, 'mouseout', () => infoWindow.close());
-            naver.maps.Event.addListener(marker, 'click', () => window.open(`https://map.naver.com/p/search/${encodeURIComponent(hospital.name)}`, '_blank'));
+            
+            infoWindow.open(map, firstMarker);
 
-            // 새로운 검색 마커 저장
-            searchMarkers.push(marker);
         }
-    });
-}
 
 
-    loadNaverMapScript();
-</script>
+        function handleSearch() {
+            const keyword = document.getElementById("search-input").value.trim();
+            if (keyword) {
+                searchLocation(keyword);
+            } else {
+                alert("검색어를 입력해주세요.");
+            }
+        }
+
+        loadNaverMapScript();
+    </script>
 
 </body>
+
 </html>

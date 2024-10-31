@@ -76,8 +76,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* 프로필 박스와 리스트를 상하로 분배 */
-  width: 1500px; /* 사이드바를 제외한 나머지 너비 */
+  justify-content: flex-start; /* 중앙에 정렬하되, 위에서 아래로 나열 */
+  width:100vh; /* 사이드바를 제외한 나머지 너비 */
+
   min-height: calc(100vh - 100px); /* 화면 전체 높이에서 헤더 높이 제외 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
 }

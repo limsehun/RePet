@@ -10,67 +10,31 @@ import java.util.List;
 @Mapper
 public interface EditFleaMapper {
     
-    /**
-     * 게시'글' 부분 INSERT
-     * @param inputFlea
-     * @return result
-     */
+    // 게시글 Board Table 부분 등록
     int boardInsert(Flea inputFlea);
     
-    /**
-     * '중고거래' 부분 INSERT
-     * @param inputFlea
-     * @param boardNo
-     * @return
-     */
-    int fleaInsert(@Param("inputFlea") Flea inputFlea, @Param("boardNo") int boardNo);
+    // Flea_Board Table 부분 등록
+    int fleaInsert(Flea inputFlea);
+//    int fleaInsert(Flea inputFlea, int boardNo);
     
+    // 테스트용
+//int insertBoardAndFleaBoard(Flea inputFlea);
     
-    /**
-     * 여러 이미지 한 번에 INSERT
-     * @param uploadList
-     * @return insertRows
-     */
+    // 이미지 여러개 삽입
     int insertUploadList(List<FleaImg> uploadList);
     
-    /**
-     * 게시글 삭제
-     * @param memberNo
-     * @param boardNo
-     * @return
-     */
+    // 게시글 삭제
     int fleaDelete(int memberNo, int boardNo);
     
-    // ----- 게시글 수정 -----
-    
-    /** 1-1
-     * 게시글 수정(제목/내용)
-     * @param inputFlea
-     * @return
-     */
+    // 게시글 부분 수정
     int fleaUpdate(Flea inputFlea);
     
-    /** 1-2
-     * 게시글 기존 이미지 삭제
-     * @param deleteOrderList
-     * @param boardNo
-     * @return
-     */
+    // 기존에 존재하던 이미지 'DB' 에서 삭제 (서버 경로 폴더에는 여전히 존재)
     int deleteImage(String deleteOrderList, int boardNo);
     
-    /** 3-1
-     * 이미지 1행 수정
-     * @param img
-     * @return
-     */
+    // 이미지 1행 수정
     int updateImage(FleaImg img);
     
-    /** 3-2
-     * 새로운 이미지 1행 삽입
-     * @param img
-     * @return
-     */
+    // 새 이미지 1행 삽입
     int insertImage(FleaImg img);
-    
-
 }

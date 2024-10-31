@@ -22,7 +22,7 @@ public class FleaServiceImpl implements FleaService {
     public Map<String, Object> selectFleaList(int cp) {
         
         // 1. boardCode 가 3인 게시글 전체 개수 조회
-        int listCount = mapper.getListCount();
+        int listCount = mapper.getFleaListCount();
         
         // listCount 와 cp를 이용해서 페이지네이션
         Pagination pagination = new Pagination(cp, listCount);

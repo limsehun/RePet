@@ -48,17 +48,35 @@
 				
 				
 				<when test="notificationType == 'warningAlarm'">
-					(SELECT MEMBER_NO 
-					 FROM "MEMBER"
-					 WHERE MEMBER_NO = #{pkNo})
+					#{pkNo}
 				</when>
-				
-				
-
 
 			</choose>
 		)
 	</insert>
+	
+	
+	
+			
+		<!-- 알림을 받아야하는 회원의 번호 + 안읽은 알람 개수 조회 -->
+	<select id="selectReceiveMember" resultType="map">
+		SELECT 
+			RECEIVE_MEMBER_NO "receiveMemberNo",
+			(SELECT COUNT(*) 
+			FROM "NOTIFICATION" SUB
+			WHERE SUB.RECEIVE_MEMBER_NO = MAIN.RECEIVE_MEMBER_NO 
+			AND SUB.NOTIFICATION_CHECK = 'N')
+			"notiCount"
+		FROM (
+			SELECT RECEIVE_MEMBER_NO
+				FROM "NOTIFICATION"
+			WHERE NOTIFICATION_NO =  #{notificationNo}
+		) MAIN
+	</select>
+			
+			
+			
+			
 			
 	<select id="selectNotificationList" resultType="Notification">
 		SELECT 
@@ -79,6 +97,8 @@
 		ORDER BY NOTIFICATION_NO DESC
 
 	</select>
+	
+	
 	
 	
 	<select id="notReadCheck" resultType="_int">

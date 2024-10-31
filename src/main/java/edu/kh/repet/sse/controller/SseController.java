@@ -67,31 +67,7 @@ public class SseController {
 	}
 	
 	
-	
-	@PostMapping("sse/warningAlarm")
-	public void warningNotification(
-			@RequestBody Notification notification,
-			@SessionAttribute("loginMember") Member loginMember) {
-		
-		notification.setSendMemberNo(loginMember.getMemberNo());
-		
-		Map<String, Object> map = service.insertNotification(notification);
-		
-		// 알림 받을 회원 번호
-		String clientId = map.get("receiveMemberNo").toString();
-		
-		SseEmitter emitter = emitters.get(clientId);
-		
-		// clientId가 일치하는 클라이언트가 있을 경우
-		if (emitter != null) {
-			try {
-				emitter.send(map);
-			} catch (Exception e) {
-				emitters.remove(clientId);
-			}
-		}
-	}
-	
+
 	
   @GetMapping("notification")
   public List<Notification> selectNotificationList(

@@ -83,7 +83,7 @@ public class FleaServiceImpl implements FleaService {
 
 /*
 
-  public class FleaPagination {
+  public class Pagination {
 
 	private int currentPage;		// 현재 페이지 번호
 	private int listCount;			// 전체 게시글 수

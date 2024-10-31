@@ -45,6 +45,15 @@
 				<when test="notificationType == 'chatting'">
 					#{pkNo}
 				</when>
+				
+				
+				<when test="notificationType == 'warningAlarm'">
+					(SELECT MEMBER_NO 
+					 FROM "MEMBER"
+					 WHERE MEMBER_NO = #{pkNo})
+				</when>
+				
+				
 
 
 			</choose>

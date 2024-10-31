@@ -200,10 +200,7 @@ public class BoardController {
 
 	
 	
-	@GetMapping("reportPopup")
-	public String reportPopup() {
-		return "/board/reportPopup";
-	}
+	
 
 
 

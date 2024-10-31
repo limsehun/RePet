@@ -77,156 +77,188 @@
    }
 
    /*  --------------------- Main-Content CSS --------------------- */
+/* 메인 레이아웃 */
+.main-content {
+  margin-left: 300px;
+  padding: 100px 30px 30px;
+  min-height: 100vh;
+  background-color: #fff;
+}
 
-   /* main-content 섹션 스타일 수정 */
-   .main-content {
-     margin-left: 300px;
-     /* 사이드바 너비만큼 */
-     padding: 100px 30px 50px;
-     /* 상단 헤더, 좌우 여백, 하단 여백 */
-     min-height: 100vh;
-     background-color: #fff;
-   }
+.admin-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
 
-   .admin-main {
-     max-width: 1200px;
-     margin: 0 auto;
-     width: 100%;
-   }
+/* 검색 영역 */
+.search-area {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
 
-   /* 테이블 컨테이너 수정 */
-   .table-container {
-     background-color: #F5E6CC;
-     border-radius: 5px;
-     padding: 20px;
-     margin-bottom: 20px;
-     overflow-x: auto;
-   }
+.search-input {
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 250px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
 
-   /* 테이블 스타일 수정 */
-   .admin-table {
-     width: 100%;
-     border-collapse: separate;
-     border-spacing: 0;
-   }
+.search-input:focus {
+  border-color: #E8D8C3;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(232, 216, 195, 0.2);
+}
 
-   .admin-table th,
-   .admin-table td {
-     padding: 15px;
-     text-align: left;
-     border-bottom: 1px solid #e0d9d0;
-     background-color: #F5E6CC;
-   }
+/* 테이블 컨테이너 */
+.table-container {
+  background-color: #F5E6CC;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  width: 100vh;
+  overflow-x: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-   .admin-table th {
-     font-weight: bold;
-     position: sticky;
-     top: 0;
-     z-index: 1;
-   }
+/* 테이블 스타일 */
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 15px;
+}
 
-   .admin-table tbody tr {
-     height: 50px;
-   }
+.admin-table th,
+.admin-table td {
+  padding: 18px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E8D8C3;
+  background-color: #F5E6CC;
+}
 
-   .admin-table tbody tr:hover {
-     background-color: #fff;
-   }
+.admin-table th {
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #333;
+}
 
-   /* 검색 영역 수정 */
-   .search-area {
-     margin-bottom: 20px;
-     display: flex;
-     justify-content: flex-end;
-   }
+.admin-table tbody tr {
+  height: 60px;
+  transition: background-color 0.2s ease;
+}
 
-   .search-input {
-     padding: 8px 15px;
-     border: 1px solid #ddd;
-     border-radius: 5px;
-     width: 200px;
-   }
+.admin-table tbody tr:hover {
+  background-color: #fff;
+}
 
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
 
-   /* ****** 현재 status-btn 시 적용되지 않는다******** */
-   #memberList #status-btn{
-     background: none;
-     /* 배경 제거 */
-     border: none;
-     /* 테두리 제거 */
-     font-size: 1.3em;
-     /* 글씨 크기 증가 (필요에 따라 조정) */
-     padding: 10px 20px;
-     /* 버튼의 여백 조정 (선택 사항) */
-     cursor: pointer;
-     /* 마우스 커서 변경 */
-     color: inherit;
-     /* 부모 요소의 글씨 색상 상속 */
-   }
+/* 상태 버튼 */
+.status-btn {
+  background: none;
+  border: none;
+  font-size: 1.3em;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
 
+.status-btn:hover {
+  opacity: 0.8;
+}
 
+/* 페이지네이션 */
+.pagination-area {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
 
-   /* 페이지네이션 수정 */
-   /* 페이지네이션 영역 스타일 */
-   .pagination-area {
-     display: flex;
-     justify-content: center;
-     margin: 30px 0;
-   }
+.pagination {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 0;
+}
 
-   /* 페이지네이션 기본 스타일 */
-   .pagination {
-     list-style: none;
-     display: flex;
-     gap: 5px;
-     align-items: center;
-     padding: 0;
-   }
+.pagination li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-   /* 페이지네이션 항목 스타일 */
-   .pagination li {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-   }
+.pagination a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 6px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
 
-   /* 페이지네이션 링크 스타일 */
-   .pagination a {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     min-width: 32px;
-     height: 32px;
-     padding: 0 6px;
-     border-radius: 4px;
-     color: #333;
-     text-decoration: none;
-     transition: all 0.2s ease;
-   }
+.pagination a:hover:not(.current) {
+  background-color: #E8D8C3;
+}
 
-   /* 일반 페이지 링크 호버 효과 */
-   .pagination a:hover:not(.current) {
-     background-color: #E8D8C3;
-   }
+.pagination .current {
+  background-color: #333;
+  color: white;
+  font-weight: 600;
+}
 
-   /* 현재 페이지 스타일 */
-   .pagination .current {
-     background-color: #333;
-     color: white;
-     font-weight: bold;
-   }
+.pagination li:first-child a,
+.pagination li:last-child a,
+.pagination li:nth-child(2) a,
+.pagination li:nth-last-child(2) a {
+  font-size: 18px;
+}
 
-   /* 이전/다음 페이지 화살표 스타일 */
-   .pagination li:first-child a,
-   .pagination li:last-child a,
-   .pagination li:nth-child(2) a,
-   .pagination li:nth-last-child(2) a {
-     font-size: 18px;
-   }
+.pagination .disabled a {
+  color: #ccc;
+  pointer-events: none;
+  background-color: transparent;
+}
 
-   /* 비활성화된 페이지네이션 링크 스타일 (필요한 경우) */
-   .pagination .disabled a {
-     color: #ccc;
-     pointer-events: none;
-     background-color: transparent;
-   }
+/* 반응형 스타일 */
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+    padding: 80px 20px 40px;
+  }
+  
+  .table-container {
+    padding: 15px;
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    padding: 15px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .pagination a {
+    min-width: 32px;
+    height: 32px;
+  }
+}

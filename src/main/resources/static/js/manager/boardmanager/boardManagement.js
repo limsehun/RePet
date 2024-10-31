@@ -12,6 +12,20 @@ closeModal.addEventListener("click",() => {
   modalBackground.style.display = "none";
 });
 
+/* 공통 데이터 요청 함수 */
+const fetchData = (url, cp) => {
+  return fetch(`${url}?cp=${cp}`)
+    .then(response => {
+      if (response.ok) return response.json();
+      throw new Error("조회 오류");
+    })
+    .catch(error => {
+      console.error("에러 발생:", error);
+      throw error;
+    });
+};
+
+
 let cachedBoardList = [];
 
 const boardList = document.querySelector("#boardList");

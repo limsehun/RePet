@@ -7,20 +7,23 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.repet.board.dto.Board;
+import edu.kh.repet.member.dto.Member;
 
 @Mapper
 public interface TransactionMapper {
 
-	// 전체 조회
+	// 중고 전체 조회
 	int getListCount();
 
 	List<Board> selectBoardList(RowBounds rowBounds);
 
-	// 검색 시 조회
 	int getSearchCount(Map<String, Object> paramMap);
 
 	List<Board> selectSearchList(Map<String, Object> paramMap, RowBounds rowBounds);
 
+	int deleteManegement(int boardNo);
+	
+	int reportCount(List<Board> boardList);
 	
 	
 	// 중고 신고 게시판
@@ -31,5 +34,8 @@ public interface TransactionMapper {
 	int getSearchReportCount(Map<String, Object> paramMap);
 
 	List<Board> selectSearchReportList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+
+
 	
 }

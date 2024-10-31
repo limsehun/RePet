@@ -18,10 +18,17 @@
   </header>
   
   <main>
-    <session>
-   
+    <section>
       <div>
-        <!-- 아이들 간단 조회 -->
+        <div>RePet 아이들</div>
+        <div class="category-menu">
+          <button class="dog">강아지</button>
+          <button class="cat">고양이</button>
+          <button class="others">기타</button>
+        </div>
+     </div>
+      <div>
+        <!-- 아이들 간단 조회 -->        
         <div id="pet-list" class="adopt-list">
 
           <div class="pet-card" id="adopt-card" th:each="adopt : ${adoptList}">
@@ -47,7 +54,7 @@
           <button id="more-adopt-card" class="plusBtn">더보기</button>
         </div>
         
-      </session>
+      </section>
     </main>
          
   <footer class="adopt-footer">
@@ -55,6 +62,7 @@
   </footer>
 
   <th:block th:replace= "~{adopt/detailModal}"></th:block>
+  <script src="/js/main.js"></script>
   <script src="/js/adopt/main.js"></script>
 </body>
 

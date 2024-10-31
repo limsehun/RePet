@@ -29,7 +29,7 @@
 			   
 		FROM "MEMBER" M
 		WHERE MEMBER_NO > 0
-		ORDER BY MEMBER_NO ASCmapper namespace
+		ORDER BY MEMBER_NO ASC
 	</select>
 	
 	

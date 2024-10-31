@@ -5,7 +5,7 @@
 	Mapper 인터페이스와 연결하는 방법 :
 	namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이스명 작성
 -->
-<mapper namespace="edu.kh.project.main.mapper.MainMapper">
+<mapper namespace="edu.kh.repet.flea.mapper.FleaMapper">
 
     <resultMap type="Flea" id="flea_rm">
 

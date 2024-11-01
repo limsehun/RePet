@@ -42,8 +42,6 @@ public interface TransactionMapper {
 
 	List<Board> selectSearchReportedList(RowBounds rowBounds);
 
-	List<Member> reportCount(List<ReportBoard> boardList);
-
 	int deleteReport(int boardNo);
 
 	int deleteReportBoard(int boardNo);

@@ -21,6 +21,7 @@ public class ReportBoard {
   private String reportWriteDate; // 신고 일자 (자동 설정)
   private int progressCode; // 신고 상태 (기본값 1)
   private int reportCategory; // 신고 카테고리
-  private String reportNickname; // 신고 카테고리
+  private String reportNickname; 
+  private int reportCount;
 
 }

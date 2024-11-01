@@ -26,6 +26,7 @@ public class BoardManagerController {
 	
 	private final BoardManagerService service;
 	
+	// 관리자 페이지로 이동
 	@GetMapping("boardManagement")
 	public String managerPage() {
 	    return "manager/board/boardManagement";
@@ -37,11 +38,22 @@ public class BoardManagerController {
 	@GetMapping("selectBoardList")
 	public Map<String, Object> selectBoardList(
 				@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-				@RequestParam(value = "key", required = false) String key,
-		    @RequestParam(value = "query", required = false) String query
+				@RequestParam Map<String, Object> paramMap
 			) {
+		Map<String, Object> map = null;
 		
-		return service.selectBoardList(cp, key, query);
+		if (paramMap.get("key") == null ) {
+      map = service.selectBoardList(cp);
+  } else {
+      map = service.searchBoard(cp, paramMap);
+  }
+		
+	// Map에 묶인 값 풀어놓기
+			List<Board> boardList = (List<Board>)map.get("boardList");
+			Pagination pagination = (Pagination)map.get("pagination");
+		
+		return map;
+		
 	}
 	
 	

@@ -39,11 +39,12 @@ public interface TransactionMapper {
 
 	List<ReportBoard> selectSearchReportList(Map<String, Object> paramMap, RowBounds rowBounds);
 
-	List<Board> reportCount(List<ReportBoard> boardList);
 
 	List<Board> selectReportedList(RowBounds rowBounds);
 
 	List<Board> selectSearchReportedList(RowBounds rowBounds);
+
+	List<Board> reportCount1(List<ReportBoard> boardList);
 
 
 

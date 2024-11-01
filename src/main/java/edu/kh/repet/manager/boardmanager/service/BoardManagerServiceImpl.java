@@ -27,11 +27,12 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		
 		int boardCount = mapper.boardCount();
 		
-		Pagination pagination = new Pagination(cp, boardCount, 10, 5);
+		Pagination pagination = new Pagination(cp, boardCount);
 		
+		int limit = pagination.getLimit();
 		int offset = (cp - 1) * pagination.getLimit();
 		
-		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		List<Board> boardList = mapper.selectBoardList(rowBounds);
 		
@@ -65,6 +66,27 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		System.out.println(map);
 		
 		return map;
+	}
+	
+	@Override
+	public Map<String, Object> searchBoard(int cp, Map<String, Object> paramMap) {
+		
+		int searchCount = mapper.getSearchCount(paramMap);
+		
+		Pagination pagination = new Pagination(cp , searchCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+	// 검색 조건에 맞는 게시물 리스트 조회
+    List<Board> boardList = mapper.searchBoardList(paramMap, rowBounds);
+
+    // 검색 결과를 Map으로 반환
+    Map<String, Object> resultMap = Map.of("boardList", boardList, "pagination", pagination);
+    
+    return resultMap;
 	}
 
 

@@ -15,14 +15,14 @@ import edu.kh.repet.board.dto.ReportBoard;
 public interface BoardManagerMapper {
 
 	// 게시물 수
-	int boardCount(@Param("key") String key, @Param("query") String query);
+	int boardCount();
 
 	// 게시물 전체 조회
 
 	// 게시물 삭제
 	int deleteBoard(int boardNo);
 
-	List<Board> selectBoardList(@Param("key") String key, @Param("query") String query, RowBounds rowBounds);
+	List<Board> selectBoardList(RowBounds rowBounds);
 
 
 	// 신고 누적 수
@@ -30,6 +30,10 @@ public interface BoardManagerMapper {
 
 	// 신고 게시물 조회
 	List<ReportBoard> reportBoardList(RowBounds rowBounds);
+
+	int getSearchCount(Map<String, Object> paramMap);
+
+	List<Board> searchBoardList(Map<String, Object> paramMap, RowBounds rowBounds);
 
 
 

@@ -108,8 +108,7 @@ const selectNotificationList = () => {
             })
 
           }
-
-
+          
           location.href = alarm.notificationUrl;
 
         })

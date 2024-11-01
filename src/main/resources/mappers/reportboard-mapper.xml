@@ -10,7 +10,7 @@
 		VALUES(
 			#{memberNo},
 			#{boardNo},
-			#{reportContent},
+			#{reportCategoryContent},
 			DEFAULT,
 			1,
 			#{reportCategory}

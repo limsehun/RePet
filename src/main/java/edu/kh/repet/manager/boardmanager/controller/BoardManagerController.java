@@ -1,5 +1,6 @@
 package edu.kh.repet.manager.boardmanager.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.kh.repet.board.dto.Board;
+import edu.kh.repet.board.dto.Pagination;
 import edu.kh.repet.manager.boardmanager.service.BoardManagerService;
 import lombok.RequiredArgsConstructor;
 

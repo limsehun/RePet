@@ -28,7 +28,7 @@
 			#{memberPw},
 			#{memberNickname}, 
 			#{memberAddress},
-			NULL, DEFAULT, DEFAULT)
+			NULL, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
 	

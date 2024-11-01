@@ -26,16 +26,16 @@
 <body>
     <!-- 상단 고정 메뉴 -->
     <header>
-        <div th:replace="~{common/header :: header}"></div>
+        <div th:replace="~{common/header}"></div>
     </header>
 
     <main>
         <h1>내 현재 위치와 주변 동물병원</h1>
         <div id="map" style="position: relative;">
             <input type="text" id="search-input" placeholder="검색어를 입력하세요"
-                style="position: absolute; top: 10px; left: 10px; z-index: 1000; padding: 5px;" />
+                style="position: absolute; top: 10px; left: 10px; z-index: 1000; padding: 5px; width: 200px;" />
             <button onclick="handleSearch()"
-                style="position: absolute; top: 10px; left: 220px; z-index: 1000; padding: 5px;">검색</button>
+                style="position: absolute; top: 10px; left: 220px; z-index: 1000; padding: 5px; width: 50px;">검색</button>
         </div>
         <div id="location"></div>
     </main>

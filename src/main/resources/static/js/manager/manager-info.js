@@ -59,7 +59,7 @@ const selectMemberList = (cp = 1) => {
 
         td7.append(warningButton);
 
-        td7.append(warningBtn);
+        // td7.append(warningBtn);
 
 
         tr.append(th1, td2, td3, td4, td5, td6, td7, td8);
@@ -117,7 +117,7 @@ const selectMemberList = (cp = 1) => {
 
 
 
-        warningBtn.addEventListener("click", () => {
+        warningButton.addEventListener("click", () => {
           confirm("경고 메시지를 보내시겠습니까?");
 
           // 게시글 작성자에게 알림 보내기

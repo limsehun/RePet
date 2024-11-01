@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- Mapper 인터페이스와 연결하는 방법 : namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이명 작성 -->
+<mapper namespace="edu.kh.repet.manager.commentmanager.mapper.CommentManagerMapper">
+
+
+    <select id="commentCount" resultType="_int">
+        SELECT
+            COUNT(*)
+        FROM
+            BOARD_COMMENT
+    </select>
+
+
+    <select id="selectCommentList" resultType="Comment">
+        SELECT
+            BC.COMMENT_NO,
+            BC.BOARD_TITLE,
+            BC.BOARD_CONTENT,
+            BC.BOARD_WRITE_DATE,
+            BC.READ_COUNT,
+            M.MEMBER_NICKNAME
+        FROM
+            BOARD_COMMENT BC
+        JOIN
+            MEMBER M
+        ON
+            BC.MEMBER_NO = M.MEMBER_NO
+        WHERE
+            B.BOARD_DEL_FL = 'N'
+          AND
+            B.BOARD_CODE = 2
+    </select>
+
+
+    <!-- 댓글 삭제 -->
+    <update id="deleteComment">
+        UPDATE
+            "BOARD_COMMENT"
+        SET
+            BOARD_DEL_FL = 'Y'
+        WHERE
+            BOARD_NO = #{boardNo}
+    </update>
+
+
+    <select id="reportCount" resultType="_int">
+        SELECT
+            COUNT(*)
+        FROM
+            REPORT_BOARD RB
+                JOIN
+            BOARD B ON RB.BOARD_NO = B.BOARD_NO
+                JOIN
+            MEMBER M ON B.MEMBER_NO = M.MEMBER_NO
+        WHERE
+            B.BOARD_DEL_FL = 'N'
+          AND
+            B.BOARD_CODE = 2
+    </select>
+
+
+    <select id="reportBoardList" resultType="ReportBoard">
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY B.BOARD_NO ASC) AS "RNUM",
+                B.BOARD_TITLE,
+            RC.REPORT_CATEGORY_CONTENT,
+            R.REPORT_WRITE_DATE,
+            R.REPORT_CATEGORY AS REPORT_CATEGORY,
+            M2.MEMBER_NICKNAME AS REPORT_NICKNAME,
+            R.BOARD_NO
+        FROM
+            "BOARD" B
+                JOIN
+            "BOARD_TYPE" BT ON (B.BOARD_CODE = BT.BOARD_CODE)
+                JOIN
+            "REPORT_BOARD" R ON (B.BOARD_NO = R.BOARD_NO)
+                JOIN
+            "MEMBER" M ON (M.MEMBER_NO = B.MEMBER_NO)
+                JOIN
+            "REPORT_CATEGORY" RC ON (RC.REPORT_CATEGORY = R.REPORT_CATEGORY)
+                JOIN
+            "MEMBER" M2 ON (M2.MEMBER_NO = R.MEMBER_NO)  -- 신고한 회원의 닉네임
+        WHERE
+            B.BOARD_DEL_FL = 'N'
+          AND
+            B.BOARD_CODE = 2
+        ORDER BY
+            RNUM DESC
+    </select>
+
+
+
+
+
+</mapper>
+
+

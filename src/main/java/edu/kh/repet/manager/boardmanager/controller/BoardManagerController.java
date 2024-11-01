@@ -83,7 +83,7 @@ public class BoardManagerController {
 	@GetMapping("boardReport")
 	public String boardReport() {
 		
-	    return "manager/board/board-report";
+	    return "manager/board/boardReport";
 	}
 	
 }

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+
+    <th:block th:replace="~{common/common}"></th:block>
+    <link rel="stylesheet" href="/css/manager/manager-style.css">
+  </head>
+
+  <body>
+    <main>
+      <th:block th:replace="~{common/header}"></th:block>
+      <th:block th:replace="~{manager/sideMenu}"></th:block>
+
+      <section class="main-content">  <!-- main-content 클래스를 section에 추가 -->
+        <div class="admin-main">      <!-- div로 감싸서 구조화 -->
+          <h1>게시물 신고 관리</h1>
+          
+          <!-- 검색 영역 -->
+          <form class="search-area" th:action="@{{code}(code=${boardCode})}" method="get" id="boardSearch">
+            <input type="text"class="search-input" name="query" id="searchQuery" placeholder="검색어를 입력해주세요.">
+            <button><img src="/images/search.png"></button>
+          </form>
+      
+          <!-- 테이블 영역 -->
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>제목</th>
+                  <th>신고내용</th>
+                  <th>신고일</th>
+                  <th>작성자</th>
+                  <th>신고 누적수</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody class="info-modal">
+                
+                <!-- 게시글이 존재하지 않을 때 -->
+                <th:block th:if="${#lists.isEmpty(boardList)}">
+                  <!-- #lists : 타임리프에서 제공하는 list 기능 제공 객체 -->
+                  <tr>
+                    <th colspan="6">게시글이 존재하지 않습니다.</th>
+                  </tr>
+                </th:block>
+
+
+                <!-- 게시글이 존재할 때 -->
+                <th:block th:unless="${#lists.isEmpty(boardList)}">
+                
+                  <tr th:each="board : ${boardList}" 
+                      th:object="${board}">
+                      <td th:text="*{rnum}">게시글 번호</td>     
+                      
+                      <td>
+                        <a th:unless = "${param.key}"
+                        th:href="@{/board/3/{boardNo} (boardNo=*{boardNo})}" 
+                        th:text="*{boardTitle}">게시글 제목</a>
+                        
+                        <!-- 검색인 경우 -->
+                        <a th:if = "${param.key}"
+                        th:href="@{/board/3/{boardNo} (boardNo=*{boardNo},
+                        key=${param.key}, query=${param.query})}" 
+                        th:text="*{boardTitle}">게시글 제목</a>
+                        
+                      </td>      
+                            
+                      <td th:text="*{boardContent}">신고 내용</td>     
+                      <td th:text="*{boardWriteDate}">신고일</td>     
+                      <td th:text="*{memberNickname}">작성자</td>     
+                      <td th:text="*{memberNickname}">신고 누적수</td>     
+                      <td>
+                        <button class="manage-btn" onclick="openModal()">상세정보</button>  
+                      </td>
+              </tbody>
+            </table>
+          </div>
+      
+          <!-- 페이지네이션 -->
+          <div class="pagination-area">
+            <div id="likePaginationBox" class="pagination"></div>
+          </div>
+
+          
+        </div>
+      </section>
+    </main>
+    
+    <th:block th:replace="~{manager/board/boardReportModal}"></th:block>
+    <script src="/js/manager/boardmanager/reportManagement.js"></script>
+  </body>
+
+</html>

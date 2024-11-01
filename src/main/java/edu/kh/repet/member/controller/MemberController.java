@@ -59,7 +59,7 @@ public class MemberController {
 	@GetMapping("signUp")
 	public String signUp() {
 		
-		return "common/main";
+		return "member/signUp";
 	}
 	
 	
@@ -86,7 +86,7 @@ public class MemberController {
 			path = "redirect:/";
 		}else {
 			message = "회원 가입 실패...";
-			path = "redirect:/";
+			path = "redirect:signup";
 		}
 		
 		ra.addFlashAttribute("message", message);		

@@ -57,9 +57,9 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
-		List<ReportBoard> reprotBoardList = mapper.reportBoardList(rowBounds);
+		List<ReportBoard> reportBoardList = mapper.reportBoardList(rowBounds);
 		
-		Map<String, Object> map = Map.of("reprotBoardList", reprotBoardList, "pagination", pagination, "reportCount", reportCount);
+		Map<String, Object> map = Map.of("reportBoardList", reportBoardList, "pagination", pagination, "reportCount", reportCount);
 		
 		System.out.println(map);
 		

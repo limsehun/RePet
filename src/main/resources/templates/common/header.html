@@ -15,7 +15,8 @@
       <a href="/flea">애완용품</a>
       <a href="/adopt/main">분양정보</a>
       <a href="/board/2">자유게시판</a>
-      <a href="/manager/manager-info" th:if="${session.loginMember}">관리자 페이지</a>
+      <a href="/manager/manager-info" 
+        th:if="${session.loginMember != null && session.loginMember.memberEmail == 'admin@admin.com'}">관리자 페이지</a>
     </nav>
 
 
@@ -83,4 +84,4 @@
   <th:block th:replace= "~{member/searchPw}"></th:block>
 </th:block>
 
-<script src="/js/header2.js"></script>
+<script src="/js/header.js"></script>

@@ -27,7 +27,7 @@ const connectSse = () => {
     const notificationCountArea
       = document.querySelector(".notification-count-area");
 
-    notificationCountArea.innerText = obj.likeCount;
+    notificationCountArea.innerText = obj.notiCount;
 
     /* 만약 알림 목록이 열려 있을 경우 */
     const notificationList
@@ -108,8 +108,7 @@ const selectNotificationList = () => {
             })
 
           }
-
-
+          
           location.href = alarm.notificationUrl;
 
         })

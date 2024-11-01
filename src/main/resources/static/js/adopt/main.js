@@ -149,12 +149,7 @@ const addEventModal = () => {
       // 모달을 화면에 추가
       document.body.appendChild(modal);
       openModal();
-      
-      const scrollPosition = modal.offsetTop;
-      window.scrollTo({
-        top : scrollPosition - 400,
-        behavior : "smooth"
-      })
+    
 
       // 모달 닫기 이벤트
       modal.querySelector(".close-btn").addEventListener("click", () => {
@@ -171,9 +166,10 @@ const addEventModal = () => {
 
 function openModal() {
   dtModalBg.classList.remove('popup-hidden');
-
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
   dtModalBg.classList.add('popup-hidden');
+  document.body.style.overflow = 'auto';
 }

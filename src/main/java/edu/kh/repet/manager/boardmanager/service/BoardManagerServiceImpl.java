@@ -10,16 +10,14 @@ import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.Pagination;
 import edu.kh.repet.board.dto.ReportBoard;
 import edu.kh.repet.manager.boardmanager.mapper.BoardManagerMapper;
-import edu.kh.repet.member.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class BoardManagerServiceImpl implements BoardManagerService{
-   
-   private final BoardManagerMapper mapper;
-   
-
+	
+	private final BoardManagerMapper mapper;
+	
 
 	// 게시물 리스트 조회
 	@Override
@@ -47,7 +45,7 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		return mapper.deleteBoard(boardNo);
 	}
 	
-	
+	// 중고 신고 계시판	
 	@Override
 	public Map<String, Object> reportBoardList(int cp) {
 		
@@ -68,6 +66,7 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		return map;
 	}
 	
+
 	@Override
 	public Map<String, Object> searchBoard(int cp, Map<String, Object> paramMap) {
 		
@@ -88,6 +87,7 @@ public class BoardManagerServiceImpl implements BoardManagerService{
     
     return resultMap;
 	}
+
 
 
 }

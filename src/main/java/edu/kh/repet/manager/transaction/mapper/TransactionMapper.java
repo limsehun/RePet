@@ -27,11 +27,10 @@ public interface TransactionMapper {
 	int deleteManegement(int boardNo);
 	
 
-	int reportCount(List<Board> boardList);
 	
 	
 	// 중고 신고 게시판
-	int getReportListCount();
+	int getSearchReportCount();
 
 	List<ReportBoard> selectReportList(RowBounds rowBounds);
 
@@ -40,11 +39,19 @@ public interface TransactionMapper {
 	List<ReportBoard> selectSearchReportList(Map<String, Object> paramMap, RowBounds rowBounds);
 
 
+
 	List<Board> selectReportedList(RowBounds rowBounds);
 
 	List<Board> selectSearchReportedList(RowBounds rowBounds);
 
+
 	List<Board> reportCount1(List<ReportBoard> boardList);
+
+	int deleteReport(int boardNo);
+
+	int deleteReportBoard(int boardNo);
+
+
 
 
 

@@ -2,10 +2,8 @@ package edu.kh.repet.manager.boardmanager.mapper;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.repet.board.dto.Board;
@@ -18,11 +16,10 @@ public interface BoardManagerMapper {
 	int boardCount();
 
 	// 게시물 전체 조회
+	List<Board> selectBoardList(RowBounds rowBounds);
 
 	// 게시물 삭제
 	int deleteBoard(int boardNo);
-
-	List<Board> selectBoardList(RowBounds rowBounds);
 
 
 	// 신고 누적 수
@@ -34,7 +31,6 @@ public interface BoardManagerMapper {
 	int getSearchCount(Map<String, Object> paramMap);
 
 	List<Board> searchBoardList(Map<String, Object> paramMap, RowBounds rowBounds);
-
 
 
 }

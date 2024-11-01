@@ -73,7 +73,7 @@ public class TransactionServiceImpl implements TransactionService{
 	// 중고 신고게시판
 	@Override
 	public Map<String, Object> selectReportList(int cp) {
-		int listCount = mapper.getReportListCount();
+		int listCount = mapper.getSearchReportCount();
 
 		Pagination pagination = new Pagination(cp, listCount);
 
@@ -117,12 +117,21 @@ public class TransactionServiceImpl implements TransactionService{
 		
 		List<Board> reportCount = mapper.reportCount1(boardList);
 		map.put("reportCount", reportCount);
-		
-		
-		
+
 		return map;
 	}
 	
+	
+	@Override
+	public int deleteReport(int boardNo) {
+		return mapper.deleteReport(boardNo);
+	}
+	
+	
+	@Override
+	public int deleteReportBoard(int boardNo) {
+		return mapper.deleteReportBoard(boardNo);
+	}
 	
 
 }

@@ -6,7 +6,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-body {
+.adopt-body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* 최소 높이를 뷰포트 높이로 설정 */
@@ -16,26 +16,27 @@ body {
   -moz-user-select: none;
 }
 
-.adopt-header {
+#adopt-header {
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 100px;
+  margin-top: 70px;
+  margin-bottom: 50px;
 }
 
+
 /* Main container styling */
-main {
+.adopt-main {
   flex: 1; /* flex-grow를 1로 설정하여 남은 공간을 채움 */
   max-width: 1500px;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 35px;
-  padding-bottom: 80px;
+  padding: 80px 35px 80px;
   display: flex;
   flex-direction: column;
 }
 
-.section {
+.adopt-section {
   flex: 1; /* 세션도 남은 공간을 채우도록 설정 */
-  padding-bottom: 200px ; /* 상하 패딩 조정 */
+  padding-bottom: 5px ; /* 상하 패딩 조정 */
 }
 
 /* RePet title and category menu */
@@ -115,7 +116,7 @@ main {
   text-align: center;
   background-color: #F5E6CC;
   font-size: 14px;
-  
+
   color: #666;
   margin-bottom: 8px;
 }
@@ -168,7 +169,7 @@ main {
   .adopt-list {
     grid-template-columns: 1fr;
   }
-    
+
   .category-menu button {
     padding: 6px 12px;
     margin-right: 10px;
@@ -194,11 +195,12 @@ main {
 
 .popup-container {
   z-index: 101;
-  position: relative; /* 상대 위치 */
+  position: fixed; /* 상대 위치 */
   background: white;
   padding: 40px 50px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 500px; /* 너비 설정 */
   width: 700px; /* 너비 설정 */
   max-height: 90vh;
   overflow-y: auto;
@@ -209,6 +211,7 @@ main {
   left: 50%;
   transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
 }
+
 
 
 .close-btn {
@@ -325,4 +328,13 @@ p{
 .info-title {
   font-weight: bold;
   margin-top: 15px; /* 제목 위 여백 */
+}
+
+
+/* Footer styling */
+.adopt-footer {
+  margin-top: auto; /* 푸터를 항상 컨텐츠 아래로 밀어냄 */
+  color: white;
+  text-align: center;
+  width: 100%;
 }

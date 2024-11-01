@@ -171,9 +171,10 @@ const addEventModal = () => {
 
 function openModal() {
   dtModalBg.classList.remove('popup-hidden');
-
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
   dtModalBg.classList.add('popup-hidden');
+  document.body.style.overflow = 'auto';
 }

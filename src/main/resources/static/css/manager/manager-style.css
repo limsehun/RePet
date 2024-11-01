@@ -134,24 +134,6 @@ html, body {
 
 .add{display: none;}
 
-.manage-btn{
-  padding: 6px 12px;
-  background-color: rgba(235, 235, 235, 1);
-  border: 1px solid #999;
-  border-radius: 10px;
-  color: #333;
-  font-size: 14px;
-  letter-spacing: -0.5px;
-  cursor: pointer;
-}
-
-.manage-btn:hover {
-  background-color: #ccc3c3;
-}
-
-.manage-btn:active {
-  background-color: #ccc3c3;
-}
 
 /* 검색 영역 수정 */
 .search-area {

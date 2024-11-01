@@ -1,15 +1,29 @@
 
 // -------------------------main 화면 버튼들- ---------------------------------
+const loginMember = false;
 
+// 애완 용품 페이지로 이동
+
+document.querySelector(".supBtn").addEventListener("click", () => {
+
+  window.location.href = "/flea"; // 로그인된 경우 이동
+
+});
+
+// 병원 페이지로 이동하는데 비로그인 시 불가
 document.querySelector("#hospital-btn").addEventListener("click", () => {
-  window.location.href = "/hospital";
+
+  window.location.href = "/hospital"; // 로그인된 경우 이동
+
 });
 
 document.querySelectorAll(".map-image").forEach((button) => {
   button.addEventListener("click", () => {
-    window.location.href = "/hospital";
-  });
 
+    window.location.href = "/hospital"; // 로그인된 경우 이동
+
+  });
+});
 
 const selectAdoptList = () => {
   fetch("/main/selectList")
@@ -38,13 +52,13 @@ const selectAdoptList = () => {
               나이: ${adopt.age}
             </p>
           </div>
-        `;''
+        `; ''
 
         document.querySelector(".adopt-list").appendChild(petCard);
-        });
+      });
 
-        // addEventModal();
- 
+      // addEventModal();
+
     })
     .catch(err => {
       console.error(err);

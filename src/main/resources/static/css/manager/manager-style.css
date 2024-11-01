@@ -106,7 +106,7 @@ html, body {
 }
 
 .admin-table td a{
-  color: #333;
+  color: #007bff;
 }
 
 .admin-table th,
@@ -368,6 +368,20 @@ html, body {
   cursor: pointer;
   color: blue;
   text-decoration: underline;
+}
+
+
+/* 링크 기본 스타일 */
+.clickable-link {
+  color: #007bff; /* 파란색 텍스트 */
+  text-decoration: underline; /* 밑줄 추가 */
+  cursor: pointer; /* 클릭 가능한 커서 */
+}
+
+/* 링크에 마우스를 올렸을 때 스타일 */
+.clickable-link:hover {
+  color: #0056b3; /* 더 짙은 파란색으로 변경 */
+  text-decoration: none; /* 밑줄 제거 */
 }
 
 

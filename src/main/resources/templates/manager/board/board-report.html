@@ -7,8 +7,8 @@
   <title>관리자 페이지</title>
 
   <th:block th:replace="~{common/common}"></th:block>
-  <!-- <link rel="stylesheet" href="/css/manager/manager-style.css"> -->
-  <link rel="stylesheet" href="/css/manager/boardManager/boardManager.css">
+  <link rel="stylesheet" href="/css/manager/manager-style.css">
+  <!-- <link rel="stylesheet" href="/css/manager/boardManager/boardManager.css"> -->
 </head>
 
 
@@ -71,56 +71,13 @@
         </div>
 
 
-        
-      <!-- 모달 백그라운드 -->
-      <div class="modal-background" id="modalBackground" style="display: none;">
-        <!-- 모달 컨테이너 -->
-        <div class="modal-container">
-          <!-- 모달 헤더 -->
-          <div class="modal-header">
-            <span class="modal-title">상세정보</span>
-            <div class="button-group">
-              <button class="delete-btn">삭제</button>
-              <button class="close-btn">닫기</button>
-            </div>
-          </div>
-
-          <!-- 정보 테이블 -->
-          <table class="info-table">
-            <tr>
-              <th>게시판명</th>
-              <td>자유게시판</td>
-            </tr>
-            <tr>
-              <th>작성자</th>
-              <td class="board-writer">길동이</td>
-            </tr>
-            <tr>
-              <th>날짜</th>
-              <td class="board-date">2024-10-22 15:30:22</td>
-            </tr>
-            <tr>
-              <th>제목</th>
-              <td class="board-title">개발</td>
-            </tr>
-            <tr>
-              <th>내용</th>
-              <td class="board-content">개발하자</td>
-            </tr>
-            <!-- <tr>
-              <th>이미지</th>
-              <td><a href="path/to/logo.png" class="board-image" target="_blank">logo.png(클릭시 이미지 경로로 이동)</a></td>
-            </tr> -->
-          </table>
-        </div>
-      </div>
-      <!-- 모달 백그라운드 -->
+        <th:block th:replace="~{manager/board/boardReportModal}"></th:block>
 
       </div>
     </section>
   </main>
 
-  <script src="/js/manager/boardmanager/boardManagement.js"></script>
+  <script src="/js/manager/boardmanager/reportManagement.js"></script>
 </body>
 
 </html>

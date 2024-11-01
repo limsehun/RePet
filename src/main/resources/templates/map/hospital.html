@@ -433,6 +433,45 @@
         }
 
 
+        // 네이버 검색 API 호출 함수
+        async function searchLocation(keyword) {
+            try {
+                // sData와 gData를 결합하여 검색 목록 생성
+                const list = [...sData ,...gData];
+
+                // 검색어를 포함하는 병원 필터링
+                const filterList = list.filter(item => {
+                    return item.name.includes(keyword);
+                });
+
+                if(filterList.length > 0){
+                    const encodeList = filterList.map(item => {
+                        return {
+                            mapy : item.latitude,
+                            mapx : item.longitude,
+                            title : item.name,
+                            roadAddress : item.address
+                        }
+                    });
+
+                    // 지도 중앙 위치 설정
+                    map.setCenter(new naver.maps.LatLng(parseFloat(encodeList[0].mapy), parseFloat(encodeList[0].mapx)));
+
+                    // 초기 마커 비활성화
+                    initialMarkers.forEach(marker => marker.setMap(null));
+
+                    // 검색 결과 마커로 지도 표시
+                    displaySearchResultsOnMap(encodeList, initialMarkers);
+                } else {
+                    alert("검색 결과가 없습니다.");
+                }
+            } catch (error) {
+                console.error("검색 중 오류가 발생했습니다:", error);
+                alert("검색 중 오류가 발생했습니다.");
+            }
+        }
+
+        // 검색 버튼 클릭 시 호출되는 함수
         function handleSearch() {
             const keyword = document.getElementById("search-input").value.trim();
             if (keyword) {
@@ -442,9 +481,14 @@
             }
         }
 
+        // 검색창에서 엔터 키가 눌리면 handleSearch 함수 호출
+        document.getElementById('search-input').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') { // 엔터 키 확인
+                handleSearch();
+            }
+        });
+
         loadNaverMapScript();
     </script>
-
 </body>
-
 </html>

@@ -12,22 +12,16 @@ document.querySelector(".supBtn").addEventListener("click", () => {
 
 // 병원 페이지로 이동하는데 비로그인 시 불가
 document.querySelector("#hospital-btn").addEventListener("click", () => {
-  if (!loginMember) {
 
-    confirm("로그인 후 사용 가능합니다."); // 사용자에게 알림
-  } else {
-    window.location.href = "/hospital"; // 로그인된 경우 이동
-  }
+  window.location.href = "/hospital"; // 로그인된 경우 이동
+
 });
 
 document.querySelectorAll(".map-image").forEach((button) => {
   button.addEventListener("click", () => {
-    if (!loginMember) {
 
-      confirm("로그인 후 사용 가능합니다."); // 사용자에게 알림
-    } else {
-      window.location.href = "/hospital"; // 로그인된 경우 이동
-    }
+    window.location.href = "/hospital"; // 로그인된 경우 이동
+
   });
 });
 

@@ -7,7 +7,7 @@
   <title>관리자 페이지</title>
 
   <th:block th:replace="~{common/common}"></th:block>
-  <link rel="stylesheet" href="/css/manager/manager-style.css">
+  <!-- <link rel="stylesheet" href="/css/manager/manager-style.css"> -->
   <link rel="stylesheet" href="/css/manager/boardManager/boardManager.css">
 </head>
 
@@ -22,7 +22,7 @@
         <h1>자유게시판 관리</h1>
 
         <!-- 검색 영역 -->
-        <form class="search-area" th:action="@{{code}(code=${boardCode})}" method="get" id="boardSearch">
+        <form class="search-area"  id="boardSearch">
 
           <select name="key" id="searchKey">
             <option value="t">제목</option>
@@ -64,7 +64,7 @@
           </table>
         </div>
         
-
+              
         <!-- 페이지네이션 -->
         <div class="pagination-area">
           <div id="likePaginationBox" class="pagination"></div>

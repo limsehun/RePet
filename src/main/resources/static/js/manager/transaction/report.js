@@ -81,6 +81,7 @@ const renderItems = (boardList, reportBoardList , currentPage, limit) => {
   const fragment = document.createDocumentFragment(); // Document Fragment 생성
 
   boardList.forEach((board, index) => {
+
     const tr = document.createElement("tr");
 
     const td1 = document.createElement("td");
@@ -156,4 +157,5 @@ const renderPagination = (pagination) => {
 document.addEventListener("DOMContentLoaded", () => {
   selectReportBoardList(1);
   modalBackground.style.display = "none";
+
 });

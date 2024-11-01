@@ -12,7 +12,7 @@
   <section>
     <nav>
       <a href="/hospital">병원정보</a>
-      <a href="#">애완용품</a>
+      <a href="/flea">애완용품</a>
       <a href="/adopt/main">분양정보</a>
       <a href="/board/2">자유게시판</a>
       <a href="/manager/manager-info" th:if="${session.loginMember}">관리자 페이지</a>
@@ -76,11 +76,11 @@
 </script>
 
 
-
-
-<th:block th:replace= "~{member/login}"></th:block>
-<th:block th:replace= "~{member/signUp}"></th:block>
-<!-- <th:block th:replace= "~{member/searchId}"></th:block> -->
-<th:block th:replace= "~{member/searchPw}"></th:block>
+<th:block th:unless="${session.loginMember}">
+  <th:block th:replace= "~{member/login}"></th:block>
+  <th:block th:replace= "~{member/signUp}"></th:block>
+  <!-- <th:block th:replace= "~{member/searchId}"></th:block> -->
+  <th:block th:replace= "~{member/searchPw}"></th:block>
+</th:block>
 
 <script src="/js/header2.js"></script>

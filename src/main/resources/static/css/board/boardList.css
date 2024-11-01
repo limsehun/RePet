@@ -1,16 +1,22 @@
+/* Warmer and welcoming styling for the board page */
+
 .board-page header {
   position: relative;
 }
 
-.board-name{
+.board-name {
   font-size: 30px;
   margin: 100px 0;
-  background-color: rgba(225, 107, 34, 0.512);
+  background-color: rgba(234, 172, 107, 0.8);
   margin-top: 100px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .left-title {
-  font-size: 24px;
+  font-size: 26px;
+  color: #5a3e1b;
+  font-weight: bold;
 }
 
 .board-name {
@@ -19,149 +25,168 @@
   align-items: center;
 }
 
-
-#log{
+#log {
   display: inline-block;
   font-size: 16px;
   padding: 5px;
+  color: #5a3e1b;
 }
 
 #board-search {
   text-align: center;
-  width: 500px;
-  height: 30px;
+  width: 600px;
+  height: 35px;
   margin-left: auto;
-  margin-bottom: 3px;
-  padding: 0 auto;
-
+  margin-bottom: 10px;
+  padding: 5px;
   display: flex;
   justify-content: right;
-  
 }
 
 #board-search * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  
-  
 }
 
-#board-search select{
-  width: 100px;
+#board-search select {
+  width: 120px;
+  border-radius: 5px;
+  border: 1px solid #b97b4a;
+  padding: 5px;
 }
 
-#board-search input{
+#board-search input {
   margin: 0 10px;
   padding-left: 10px;
-}  
+  border-radius: 5px;
+  border: 1px solid #b97b4a;
+  width: 250px;
+  height: 30px;
+}
 
-#board-search button{
-  
-  width: 80px;
-
+#board-search button {
+  width: 90px;
   font-weight: bold;
-  background-color: #a88045;
+  background-color: #d89056;
   border: none;
   color: white;
-
   cursor: pointer;
   border-radius: 15px;
-  
-
+  transition: background-color 0.3s ease;
 }
 
-a{
+#board-search button:hover {
+  background-color: #bf703a;
+}
+
+a {
   text-decoration: none;
-  color: black;
+  color: #5a3e1b;
 }
 
-a:hover{
+a:hover {
   text-decoration: underline;
+  color: #bf703a;
 }
 
-.board-list{
-  width: 1000px;
-  margin: 230px auto;
+.board-list {
+  width: 1100px;
+  margin: 150px auto;
+  background-color: #f8f1e9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.board-title{
-  margin-left: 30px;
-  font-size: 2.5em;
-}
-
-.list-wrapper{
+.list-wrapper {
   min-height: 670px;
   width: 100%;
 }
 
-.list-table{
+.list-table {
   width: 100%;
   padding: 20px;
   border-collapse: collapse;
 }
 
-.list-table > thead {background-color: rgb(207, 207, 207); color: rgb(0, 0, 0);}
+.list-table > thead {
+  background-color: #e0c3a3;
+  color: #5a3e1b;
+}
 
 .list-table tr {
   height: 60px;
 }
 
 .list-table > tbody > tr {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #d9b38c;
+  transition: background-color 0.3s ease;
 }
 
-.list-table tr > * { text-align: center;}
-.list-table tr > *:nth-of-type(1) { width: 10%; }
+.list-table > tbody > tr:hover {
+  background-color: #f3e1d1;
+}
 
-.list-table tr > td:nth-of-type(2){
+.list-table tr > * {
+  text-align: center;
+}
+
+.list-table tr > *:nth-of-type(1) {
+  width: 10%;
+}
+
+.list-table tr > td:nth-of-type(2) {
   width: 50%;
-  /* text-align: left; */
   padding-left: 50px;
-  text-decoration: none;
 }
 
-.list-table tr > *:nth-of-type(3){ width: 13%; }
-.list-table tr > *:nth-of-type(4){ width: 10%; }
-.list-table tr > *:nth-of-type(5){ width: 8%; }
+.list-table tr > *:nth-of-type(3) {
+  width: 13%;
+}
+
+.list-table tr > *:nth-of-type(4) {
+  width: 10%;
+}
+
+.list-table tr > *:nth-of-type(5) {
+  width: 8%;
+}
 
 .btn-area {
   height: 50px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 50px;
+  margin-right: 74px;
 }
 
 .btn-area > button {
   margin-right: 50px;
   margin-bottom: 51px;
-
-  width: 80px;
-  height: 40px;
-  background-color: #f5f5f5;
-
+  width: 100px;
+  height: 45px;
+  background-color: #e0c3a3;
   font-weight: bold;
-  color: #333;
-  border: 2px solid black;
-  border-radius: 5px;
-
+  color: #5a3e1b;
+  border: 2px solid #b97b4a;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-#insertBtn:hover{
-  background-color: #e0e0e0;
-  opacity: 1;
+#insertBtn:hover {
+  background-color: #d89056;
+  color: #ffffff;
 }
-
-
 
 .pagination-box {
   display: flex;
-  justify-content: center;  /* 페이지네이션 중앙 정렬 */
+  justify-content: center;
   align-items: center;
-  margin-top: 20px;  /* 페이지네이션 위쪽 여백 추가 */
-  margin-bottom: 71px;  /* 페이지네이션 아래쪽 여백 추가 */
+  margin-top: 20px;
+  margin-bottom: 71px;
   margin-right: 173px;
 }
 
@@ -170,7 +195,7 @@ a:hover{
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 10px;  /* 각 페이지 링크 사이의 간격 */
+  gap: 10px;
 }
 
 .pagination li {
@@ -181,21 +206,20 @@ a:hover{
   display: block;
   padding: 10px 15px;
   border-radius: 5px;
-  background-color: #f5f5f5;  /* 기본 배경색 */
+  background-color: #f5e4d0;
   text-decoration: none;
-  color: #333;  /* 기본 텍스트 색상 */
+  color: #5a3e1b;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pagination a:hover {
-  background-color: #e0e0e0;  /* 마우스를 올렸을 때 배경색 */
+  background-color: #d89056;
+  color: #ffffff;
 }
 
 .pagination a.current {
-  background-color: #007bff;  /* 현재 페이지 배경색 */
-  color: #ffffff;  /* 현재 페이지 텍스트 색상 */
-  cursor: default;  /* 현재 페이지는 클릭되지 않도록 */
+  background-color: #bf703a;
+  color: #ffffff;
+  cursor: default;
 }
-
-

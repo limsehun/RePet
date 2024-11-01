@@ -79,13 +79,11 @@
 		ORDER BY 
 			RNUM DESC
 	  </select>
-  
-  
-  
+
   
 	  <!-- 중고 신고 게시판 -->
 	  <select id="getReportListCount" resultType="_int">
-		SELECT COUNT(*)
+	  	SELECT COUNT(*)
 	  	FROM "BOARD" B
 	  	JOIN "BOARD_TYPE" BT ON (B.BOARD_CODE = BT.BOARD_CODE)
 	  	JOIN "REPORT_BOARD" R ON (B.BOARD_NO = R.BOARD_NO)
@@ -135,15 +133,14 @@
 	  JOIN "REPORT_BOARD" R ON (B.BOARD_NO = R.BOARD_NO)
 		JOIN "MEMBER" M ON (M.MEMBER_NO=B.MEMBER_NO)
 		JOIN "REPORT_CATEGORY" RC ON (RC.REPORT_CATEGORY = R.REPORT_CATEGORY)
-	
 		WHERE 
 			BOARD_DEL_FL = 'N' 
 		AND   
 			B.BOARD_CODE = 3  
-
 	  </select>
 	  
-	 <select id="reportCount" resultType="Member">
+	 <select id="reportCount" resultType="_int">
+
 	 	SELECT 
 			REPORT_COUNT
 		FROM "MEMBER" 
@@ -211,6 +208,7 @@
 		AND BOARD_TITLE LIKE '%' || #{query} || '%'
 		OR 	MEMBER_NICKNAME LIKE '%' || #{query} || '%'
 		OR	BOARD_CONTENT LIKE '%' || #{query} || '%'
+
 	 </select>
   
   	

@@ -14,17 +14,16 @@
     <main>
         <th:block th:replace="~{common/header}"></th:block>
 
-        <form action="insert" 
-            th:object="${flea}"
-            method="POST"  class="board-write" id="fleaWriteFrm" enctype="multipart/form-data">
-            <!--  enctype="multipart/form-data" : 파일을 제출할건데, 인코딩을 안하고 제출하겠다! -->
+        <form action="update" th:object="${flea}" method="POST"
+            class="board-write" id="boardUpdateFrm" enctype="multipart/form-data">  
 
             <h1 class="board-name" th:text="${boardName}">게시판 이름</h1>
 
             <!-- 제목 -->
             <h1 class="board-title">
-                <input type="text" name="boardTitle" placeholder="제목" value="">
+                <input type="text" name="boardTitle" placeholder="제목" th:value="${flea.boardTitle}">
             </h1>
+
 
             <!-- 업로드 이미지 영역 -->
             <h5>업로드 이미지</h5>
@@ -32,7 +31,7 @@
 
                 <div class="boardImg">
                     <label for="img1">
-                        <img class="preview" src="">
+                        <img class="preview">
                     </label>
                     <input type="file" name="images" class="inputImage" id="img1" accept="image/*">
                     <span class="delete-image">&times;</span>
@@ -40,7 +39,7 @@
 
                 <div class="boardImg">
                     <label for="img2">
-                        <img class="preview" src="">
+                        <img class="preview">
                     </label>
                     <input type="file" name="images" class="inputImage" id="img2" accept="image/*">
                     <span class="delete-image">&times;</span>
@@ -48,7 +47,7 @@
 
                 <div class="boardImg">
                     <label for="img3">
-                        <img class="preview" src="">
+                        <img class="preview">
                     </label>
                     <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
                     <span class="delete-image">&times;</span>
@@ -56,7 +55,7 @@
 
                 <div class="boardImg">
                     <label for="img4">
-                        <img class="preview" src="">
+                        <img class="preview">
                     </label>
                     <input type="file" name="images" class="inputImage" id="img4" accept="image/*">
                     <span class="delete-image">&times;</span>
@@ -65,25 +64,42 @@
 
             <!-- 내용 -->
             <div class="board-content">
-                <textarea name="boardContent"></textarea>   <!-- input -->
+                <textarea name="boardContent" th:text="*{boardContent}">게시글 내용</textarea>
             </div>
+
 
             <!-- 버튼 영역 -->
             <div class="board-btn-area">
                 <button type="submit" id="writebtn">등록</button>
             </div>
-            
+
+            <!-- 수정 성공 시 주소(쿼리스트링) 유지용도 -->
+            <input type="hidden" name="cp" th:value="${param.cp}">
         </form>
 
     </main>
 
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <script th:src="@{/js/flea/fleaWrite.js}"></script>
+    <script th:src="@{/js/flea/fleaUpdate.js}"></script>
+
+    [[${flea}]]
+    <!-- 이미지 미리보기 설정 -->
+    <script th:inline="javascript">
+        const imageList = /*[[${flea.imageList}]]*/ [];
+        console.log(imageList);
+
+        const previewList = document.querySelectorAll('img.preview');
+
+        for(let img of imageList){
+            previewList[img.imgOrder].src = img.imgPath + img.imgRename;
+
+            // 미리보기가 출력된 이미지 순서를
+            // orderList 에 추가
+            orderList.push(img.imgOrder);
+        }
+
+    </script>
 
 </body>
 </html>
-
-
-
-

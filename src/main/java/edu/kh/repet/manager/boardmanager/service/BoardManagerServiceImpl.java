@@ -46,7 +46,7 @@ public class BoardManagerServiceImpl implements BoardManagerService{
 		return mapper.deleteBoard(boardNo);
 	}
 	
-	
+	// 중고 신고 계시판	
 	@Override
 	public Map<String, Object> reportBoardList(int cp) {
 		

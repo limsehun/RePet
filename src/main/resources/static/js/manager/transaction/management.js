@@ -30,6 +30,8 @@ const selectBoardList = (cp) => {
     .catch(error => console.error("에러 발생:", error));
 }
 
+let alertFlag = false;
+
 // 상세 정보 모달 표시 함수
 const showBoardDetails = (boardNo) => {
   const board = cachedBoardList.find(item => item.boardNo === boardNo);
@@ -37,39 +39,48 @@ const showBoardDetails = (boardNo) => {
     document.querySelector(".board-title").innerText = board.boardTitle;
     document.querySelector(".board-nickname").innerText = board.memberNickname;
     document.querySelector(".board-write-date").innerText = board.boardWriteDate;
-    // 추가 정보 표시
+
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = board.boardContent; // HTML 삽입
     document.querySelector(".board-content").innerText = tempDiv.textContent; // 내용 설정
 
-    deleteBtn.addEventListener("click",() =>{
-      if(confirm("정말 삭제 하시겠습니까?") == false){
-        return;}
+    // 삭제 핸들러
+    const deleteHandler = () => {
+      if ( !alertFlag && confirm("정말 삭제 하시겠습니까?") === false) {
+        return;
+      }
+      alertFlag = true;
+      
+      fetch(`/manager/transaction/deleteManagement?boardNo=${boardNo}`)
+        .then(response => {
+          if (!response.ok) throw new Error("게시글 삭제 오류");
+          return response.json();
+        })
+        .then(result => {
+          if(alertFlag){
+            if (result > 0) {
+              alert("삭제가 완료되었습니다.");
+              modalBackground.style.display = "none";
+              selectBoardList(1);
+            } else {
+              alert("삭제 실패");
+            }
+            alertFlag = false;
+          }
+        })
+        .catch(error => console.error("에러 발생:", error));
+    };
 
-      fetch("/manager/transaction/deleteManagement?boardNo="+boardNo)
-      .then(response=>{
-        if(response.ok)return response.json();
-        throw new Error("게시글 삭제 오류");
-      })
-      .then(result =>{
-        if(result > 0){
-          alert("삭제가 완료되었습니다.")
-          modalBackground.style.display = "none";
-          selectBoardList(1);
-
-        } else {
-          alert("삭제 실패");
-        }
-      })
-      .catch(error => console.error("에러 발생:", error));
-    });
+    // 이전 이벤트 리스너 제거
+    deleteBtn.removeEventListener("click", deleteHandler);
+    // 새 이벤트 리스너 추가
+    deleteBtn.addEventListener("click", deleteHandler);
 
     modalBackground.style.display = "flex"; // 모달 표시
-
   } else {
     console.error("해당 게시물의 정보를 찾을 수 없습니다.");
   }
-}
+};
 
 
 

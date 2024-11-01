@@ -1,6 +1,7 @@
 /* 게시글 상세정보 모달 창 */
 const modalBackground = document.querySelector("#modalBackground");
 const closeModal = document.querySelector(".close-btn");
+const delBtn = document.querySelector(".delete-btn");
 const boardListElement  = document.querySelector(".info-modal");
 
 let cachedBoardList = [];
@@ -41,6 +42,9 @@ const selectReportBoardList = (cp) => {
     .catch(error => console.error("에러 발생:", error));
 }
 
+let alertFlag = false;
+
+
 // 상세 정보 모달 표시 함수
 const showBoardDetails = (boardNo) => {
   const board = cachedBoardList.find(item => item.boardNo === boardNo);
@@ -55,6 +59,70 @@ const showBoardDetails = (boardNo) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = board.boardContent; // HTML 삽입
     document.querySelector(".board-content").innerText = tempDiv.textContent; // 내용 설정
+
+     // 삭제 핸들러
+    const deleteHandler = () => {
+      alertFlag = true;
+      
+      fetch(`/manager/transaction/deleteReportBord?boardNo=${boardNo}`)
+        .then(response => {
+          if (!response.ok) throw new Error("게시글 삭제 오류");
+          return response.json();
+        })
+        .then(result => {
+          if(alertFlag){
+            if (result > 0) {
+              alert("삭제가 완료되었습니다.");
+              modalBackground.style.display = "none";
+              selectBoardList(1);
+            } else {
+              alert("삭제 실패");
+            }
+            alertFlag = false;
+          }
+        })
+        .catch(error => console.error("에러 발생:", error));
+    };
+
+
+    const ignoresHandler = () => {
+      if ( !alertFlag && confirm("정말 삭제 하시겠습니까?") === false) {
+        return;
+      }
+      alertFlag = true;
+      
+      fetch(`/manager/transaction/deleteReport?boardNo=${boardNo}`)
+        .then(response => {
+          if (!response.ok) throw new Error("게시글 삭제 오류");
+          return response.json();
+        })
+        .then(result => {
+          if(alertFlag){
+            if (result > 0) {
+              alert(":처리가 완료되었습니다.");
+              modalBackground.style.display = "none";
+              selectBoardList(1);
+            } else {
+              alert("처리 실패");
+            }
+            alertFlag = false;
+          }
+        })
+        .catch(error => console.error("에러 발생:", error));
+    };
+
+
+    // 이전 이벤트 리스너 제거
+    delBtn.removeEventListener("click", deleteHandler);
+    // 새 이벤트 리스너 추가
+    delBtn.addEventListener("click", deleteHandler);
+    // 이전 이벤트 리스너 제거
+    closeModal.removeEventListener("click", ignoresHandler);
+    // 새 이벤트 리스너 추가
+    closeModal.addEventListener("click", ignoresHandler);
+
+    modalBackground.style.display = "flex"; // 모달 표시
+
   }else {
     console.error("해당 게시물의 정보를 찾을 수 없습니다.");
   }

@@ -44,6 +44,10 @@ public interface TransactionMapper {
 
 	List<Member> reportCount(List<ReportBoard> boardList);
 
+	int deleteReport(int boardNo);
+
+	int deleteReportBoard(int boardNo);
+
 
 
 

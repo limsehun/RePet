@@ -36,12 +36,10 @@ public class BoardManagerController {
 	@ResponseBody
 	@GetMapping("selectBoardList")
 	public Map<String, Object> selectBoardList(
-				@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-				@RequestParam(value = "key", required = false) String key,
-		    @RequestParam(value = "query", required = false) String query
+				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
 			) {
 		
-		return service.selectBoardList(cp, key, query);
+		return service.selectBoardList(cp);
 	}
 	
 	

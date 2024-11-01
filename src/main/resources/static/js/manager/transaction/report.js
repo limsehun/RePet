@@ -161,6 +161,7 @@ const showBoardDetails = (boardNo) => {
       })
       .catch(error => console.error("에러 발생:", error));
     };
+    
     closeModal.addEventListener("click", ignoresHandler);
   } else {
     console.error("해당 게시물의 정보를 찾을 수 없습니다.");

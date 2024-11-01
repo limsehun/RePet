@@ -91,7 +91,7 @@ public class MemberController {
 		
 		ra.addFlashAttribute("message", message);		
 		
-		return "common/main";
+		return path;
 	}
 	
 	

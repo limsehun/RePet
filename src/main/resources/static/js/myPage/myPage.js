@@ -1,6 +1,5 @@
-
-
 /* ------------------------------ myPage-info JS  ------------------------------ */
+
 // 페이지네이션 렌더링 함수
 const renderPagination = (pagination, type) => {
   let paginationBox;
@@ -530,7 +529,7 @@ newNickname.addEventListener("input", () => {
 
     checkObj.memberNickname = false;
 
-    memberNickname.value = ""; 
+    signUpMemberNickname.value = ""; 
 
     return;
   }

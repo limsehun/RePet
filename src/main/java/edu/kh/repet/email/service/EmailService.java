@@ -9,6 +9,10 @@ public interface EmailService {
 	
 	int sendNewPw(String htmlName, String email);
 
+	int secessionMessage(String htmlName, String email);
+
+	int normalMessage(String html, String email);
+
 	
 
 }

@@ -1,102 +1,158 @@
-const closeBtn = document.querySelector(".close-button");
-const manageBtn = document.querySelector(".manage-btn");
-const modal = document.querySelector(".modal-overlay");
+/* 게시글 상세정보 모달 창 */
+const modalBackground = document.querySelector("#modalBackground");
+const closeModal = document.querySelector(".close-btn");
+const deleteBtn = document.querySelector(".delete-btn");
+const boardList = document.querySelector(".info-modal");
 
+let cachedBoardList = [];
 
-
-
-// 페이지 이동을 위한 버튼 모두 얻어오기
-const pageNoList = document.querySelectorAll(".pagination a");
-
-
-// 페이지 이동 버튼이 클릭 되었을 때
-pageNoList?.forEach( (item, index) => {
-
-  // 클릭 되었을 때
-  item.addEventListener("click", e => {
-    e.preventDefault();
-
-    if(item.classList.contains("current")){
-      return;
-    } 
-
-    // const -> let으로 변경
-    let pathname = location.pathname; // 현재 게시판 조회 요청 주소
-
-
-    switch(item.innerText){
-      case '<<' :  
-        pathname += "?cp=1";
-        break;
-
-      case '<'  :  
-        pathname += "?cp=" + pagination.prevPage;
-        break;
-
-      case '>'  : 
-        pathname += "?cp=" + pagination.nextPage;
-        break;
-
-      case '>>' : 
-        pathname += "?cp=" + pagination.maxPage;
-        break;
-
-      default: 
-        pathname += "?cp=" + item.innerText;
-    }
-
-    const params = new URLSearchParams(location.search);
- 
-    const query = params.get("query");
-
-    if(query !== null){ // 검색인 경우
-      pathname += `&query=${s}`;
-    }
-
-    // 페이지 이동
-    location.href = pathname;
-  });
+// 모달창 닫기
+closeModal.addEventListener("click", () => {
+  modalBackground.style.display = "none";
 });
 
-// ------------------------------------------------------------
 
 
-(()=>{
+// 게시글 리스트 가져오기
+const selectBoardList = (cp) => {
+  fetch(`/manager/transaction/selectManagement?cp=${cp}`)
+    .then(response => {
+      if (response.ok) return response.json();
+      throw new Error("조회 오류");
+    })
+    .then(map => {
+      const list = map.boardList;
+      const pagination = map.pagination;
+      cachedBoardList = list; // 캐시 저장
+      renderItems(list, cp, pagination.limit || 10);
+      renderPagination(pagination);
+    })
+    .catch(error => console.error("에러 발생:", error));
+}
 
-  // 쿼리스트링 모두 얻어와 관리하는 객체
-  const params = new URLSearchParams(location.search);
+// 상세 정보 모달 표시 함수
+const showBoardDetails = (boardNo) => {
+  const board = cachedBoardList.find(item => item.boardNo === boardNo);
+  if (board) {
+    document.querySelector(".board-title").innerText = board.boardTitle;
+    document.querySelector(".board-nickname").innerText = board.memberNickname;
+    document.querySelector(".board-write-date").innerText = board.boardWriteDate;
+    // 추가 정보 표시
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = board.boardContent; // HTML 삽입
+    document.querySelector(".board-content").innerText = tempDiv.textContent; // 내용 설정
 
-  const key = params.get("key");
-  const query = params.get("query");
+    deleteBtn.addEventListener("click",() =>{
+      if(confirm("정말 삭제 하시겠습니까?") == false){
+        return;}
 
-  if(key === null) return; // 검색이 아니면 함수 종료
+      fetch("/manager/transaction/deleteManagement?boardNo="+boardNo)
+      .then(response=>{
+        if(response.ok)return response.json();
+        throw new Error("게시글 삭제 오류");
+      })
+      .then(result =>{
+        if(result > 0){
+          alert("삭제가 완료되었습니다.")
+          modalBackground.style.display = "none";
+          selectBoardList(1);
 
-  // 검색어 화면에 출력하기
-  document.querySelector("#searchQuery").value = query;
+        } else {
+          alert("삭제 실패");
+        }
+      })
+      .catch(error => console.error("에러 발생:", error));
+    });
 
-  // 검색 조건 선택하기
-  const options = document.querySelectorAll("#searchKey > option");
+    modalBackground.style.display = "flex"; // 모달 표시
 
-  options.forEach( op => {
-    // op : <option> 태그
-    if(op.value === key){ // option의 valeu와 key가 같다면
-      op.selected = true; // selected 속성 추가
-      return;
-    }
-  })
-
-})();
+  } else {
+    console.error("해당 게시물의 정보를 찾을 수 없습니다.");
+  }
+}
 
 
 
-// -------------- 모달창 -------------------
+
+// 항목 렌더링 함수
+const renderItems = (list, currentPage, limit) => {
+  boardList.innerHTML = ''; // 기존 내용 초기화
+  const fragment = document.createDocumentFragment(); // Document Fragment 생성
+
+  list.forEach((board, index) => {
+    const tr = document.createElement("tr");
+
+    const td1 = document.createElement("td");
+    td1.innerText = ((currentPage - 1) * limit) + index + 1;
+
+    const td2 = document.createElement("td");
+    td2.innerText = board.boardTitle;
+
+    const td3 = document.createElement("td");
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = board.boardContent;
+    td3.textContent = tempDiv.textContent;
+
+    const td4 = document.createElement("td");
+    td4.innerText = board.boardWriteDate;
+
+    const td5 = document.createElement("td");
+    td5.innerText = board.memberNickname;
+
+    const td6 = document.createElement("td");
+    const detailBtn = document.createElement("button");
+    detailBtn.innerText = "상세정보";
+    detailBtn.onclick = () => showBoardDetails(board.boardNo);
+    td6.append(detailBtn);
+
+    tr.append(td1, td2, td3, td4, td5, td6);
+    fragment.appendChild(tr); // Fragment에 추가
+  });
+
+  boardList.appendChild(fragment); // 한번에 DOM에 추가
+}
+
+// 페이지네이션 렌더링
+const renderPagination = (pagination) => {
+  const paginationBox = document.querySelector(".pagination");
+  paginationBox.innerHTML = '';
+
+  const createPageButton = (page, text, isActive = false) => {
+    const button = document.createElement("a");
+    button.href = "#";
+    button.classList.add("page-btn");
+    button.dataset.page = page;
+    button.textContent = text;
+
+    if (isActive) button.classList.add("active");
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      selectBoardList(page);
+    });
+
+    return button;
+  };
+
+  paginationBox.appendChild(createPageButton(1, "<<"));
+  paginationBox.appendChild(createPageButton(pagination.prevPage, "<"));
+
+  for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+    const isActive = i === pagination.currentPage;
+    paginationBox.appendChild(createPageButton(i, i, isActive));
+  }
+
+  paginationBox.appendChild(createPageButton(pagination.nextPage, ">"));
+  paginationBox.appendChild(createPageButton(pagination.maxPage, ">>"));
+};
 
 
-manageBtn.addEventListener("click", () => {
-  modal.classList.remove("popup-hidden");
-})
 
-closeBtn.addEventListener("click", () => {
-  modal.classList.add("popup-hidden");
-})
+//--------------------------------------------
 
+
+// DOMContentLoaded 이벤트
+document.addEventListener("DOMContentLoaded", () => {
+  selectBoardList(1);
+  modalBackground.style.display = "none";
+});

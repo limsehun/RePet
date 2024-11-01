@@ -11,7 +11,7 @@ import java.util.Map;
 public interface FleaMapper {
     
     // boardCode 가 3인 게시글 전체 개수 조회
-    int getListCount();
+    int getFleaListCount();
     
     // DB 에서 cp에 해당하는 행 조회
     List<Flea> selectFleaList(RowBounds rowBounds);

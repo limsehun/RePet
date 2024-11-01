@@ -39,7 +39,7 @@
                   <th>관리</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="info-modal">
                 
                 <!-- 게시글이 존재하지 않을 때 -->
                 <th:block th:if="${#lists.isEmpty(boardList)}">
@@ -55,8 +55,8 @@
                   
                   <tr th:each="board : ${boardList}" 
                   th:object="${board}">
-                  <td th:text="*{rnum}">게시글 번호</td>     
-                  <td>
+                  <td class="num" th:text="*{rnum}">게시글 번호</td>     
+                  <td class="title">
                     <a th:unless = "${param.key}"
                     th:href="@{/board/3/{boardNo} (boardNo=*{boardNo})}" 
                     th:text="*{boardTitle}">게시글 제목</a>
@@ -68,43 +68,19 @@
                     th:text="*{boardTitle}">게시글 제목</a>
                     
                   </td>      
-                  <td th:text="*{boardContent}">게시글 내용</td>     
-                  <td th:text="*{boardWriteDate}">게시글 작성일</td>     
-                      <td th:text="*{memberNickname}">게시글 작성자</td>     
-                      <td>
-                        <button class="manage-btn">상세정보</button>  
-                      </td>
-                    </tbody>
-                  </table>
-                </div>
+                  <td class="content" th:text="*{boardContent}">게시글 내용</td>     
+                  <td class="date" th:text="*{boardWriteDate}">게시글 작성일</td>     
+                  <td class="nickname" th:text="*{memberNickname}">게시글 작성자</td>     
+                  <td>
+                    <button class="manage-btn" onclick="openModal()">상세정보</button>  
+                  </td>
+                </tbody>
+              </table>
+            </div>
                 
-                <!-- 페이지네이션 -->
-                <!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
-                <div class="pagination-area" th:unless="${#lists.isEmpty(boardList)}">
-                  
-                  <ul class="pagination" th:object="${pagination}">         
-              <!-- 첫 페이지로 이동 -->
-              <li><a >&lt;&lt;</a></li>         
-              <!-- 이전 목록 마지막 번호로 이동 -->
-              <li><a >&lt;</a></li>         
-              <!-- 특정 페이지로 이동 -->
-              
-              <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
-                
-                <!-- 현재 보고있는 페이지 -->
-                <li th:if="${i} == *{currentPage}"> 
-                  <a class="current" th:text="${i}">현재 페이지</a> 
-                </li>         
-                <!-- 보고있지 않은 페이지 -->
-                <li th:unless="${i} == *{currentPage}"> 
-                  <a th:text="${i}">이동할 수 있는 페이지</a> 
-                </li>         
-              </th:block>         
-              <!-- 다음 목록 시작 번호로 이동 -->
-              <li><a>&gt;</a></li>         
-              <!-- 끝 페이지로 이동 -->
-              <li><a>&gt;&gt;</a></li>
-            </ul>
+          <!-- 페이지네이션 -->
+          <div class="pagination-area">
+            <div id="likePaginationBox" class="pagination"></div>
           </div>
 
         </div>
@@ -112,9 +88,6 @@
     </main>
 
     <th:block th:replace="~{manager/transaction/boardInfo}"></th:block>
-    <script th:inline="javascript">
-      const pagination = /*[[${pagination}]]*/ "페이지네이션객체";
-    </script>
     <script src="/js/manager/transaction/management.js"></script>
   </body>
 

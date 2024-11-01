@@ -12,7 +12,7 @@
   <section>
     <nav>
       <a href="/hospital">병원정보</a>
-      <a href="#">애완용품</a>
+      <a href="/flea">애완용품</a>
       <a href="/adopt/main">분양정보</a>
       <a href="/board/2">자유게시판</a>
       <a href="/manager/manager-info" th:if="${session.loginMember}">관리자 페이지</a>
@@ -58,22 +58,29 @@
         <a href="/member/logout" id="logout">로그아웃</a>
       </div>
     </div>
+
+    
   </section>
 </header>
 
 
 <script th:inline="javascript">
 
-  const loginCheck =/*[[${session.loginMember != null}]]*/ false;
 
   // 로그인한 회원의 닉네임
   const memberNickname
     =/*[[${session.loginMember?.memberNickname}]]*/ null;
 
-  const notificationDefaultImage = /*[[#{user.default.image}]]*/ "유저기본이미지";
   // 상세 조회한 게시글 정보
   const boardDetail = /*[[${board}]]*/ null;
 </script>
 
-<script src="/js/header.js"></script>
 
+<th:block th:unless="${session.loginMember}">
+  <th:block th:replace= "~{member/login}"></th:block>
+  <th:block th:replace= "~{member/signUp}"></th:block>
+  <!-- <th:block th:replace= "~{member/searchId}"></th:block> -->
+  <th:block th:replace= "~{member/searchPw}"></th:block>
+</th:block>
+
+<script src="/js/header2.js"></script>

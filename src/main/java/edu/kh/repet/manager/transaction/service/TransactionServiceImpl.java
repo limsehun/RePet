@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.repet.board.dto.Board;
 import edu.kh.repet.board.dto.Pagination;
+import edu.kh.repet.board.dto.ReportBoard;
 import edu.kh.repet.manager.transaction.mapper.TransactionMapper;
+import edu.kh.repet.member.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -62,6 +64,12 @@ public class TransactionServiceImpl implements TransactionService{
 	}
 	
 	
+	@Override
+	public int deleteManagement(int boardNo) {
+		return mapper.deleteManegement(boardNo);
+	}
+	
+	
 	// 중고 신고게시판
 	@Override
 	public Map<String, Object> selectReportList(int cp) {
@@ -73,10 +81,15 @@ public class TransactionServiceImpl implements TransactionService{
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		List<Board> boardList = mapper.selectReportList(rowBounds);
+		List<ReportBoard> reportBoardList = mapper.selectReportList(rowBounds);
+		List<Board> boardList = mapper.selectReportedList(rowBounds);
+		
+		System.out.println(reportBoardList);
+		System.out.println(boardList);
 		
 		
 		Map<String, Object> map = new HashMap<>();
+		map.put("reportBoardList", reportBoardList);
 		map.put("boardList", boardList);
 		map.put("pagination", pagination);
 		
@@ -94,11 +107,20 @@ public class TransactionServiceImpl implements TransactionService{
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		List<Board> boardList = mapper.selectSearchReportList(paramMap, rowBounds);
+		List<ReportBoard> boardList = mapper.selectSearchReportList(paramMap, rowBounds);
+		List<Board>  reportBoardList = mapper.selectSearchReportedList(rowBounds);
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("boardList", boardList);
+		map.put("reportBoardList", reportBoardList);
 		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+		
+		List<Board> reportCount = mapper.reportCount(boardList);
+		map.put("reportCount", reportCount);
+		
+		
+		int reportCount = mapper.reportCount(boardList);
+		map.put("reportCount", reportCount);
 		
 		return map;
 	}

@@ -1,36 +1,38 @@
-<div class="modal-overlay popup-hidden" id="modalOverlay">
-  <div class="modal">
+<!-- 모달 백그라운드 -->
+<div class="modal-background" id="modalBackground">
+  <!-- 모달 컨테이너 -->
+  <div class="modal-container">
+    <!-- 모달 헤더 -->
     <div class="modal-header">
-      <h3 class="modal-title">상세정보</h3>
-      <span class="close-button" id="closeButton">×</span>
+      <span class="modal-title">상세정보</span>
+      <div class="button-group">
+        <button class="delete-btn" onclick="deleteItem()">삭제</button>
+        <button class="close-btn" onclick="closeModal()">닫기</button>
+      </div>
     </div>
-    <div class="modal-content">
-      <table class="detail-table">
-        <tr>
-          <td>게시판명</td>
-          <td id="boardName">자유게시판</td>
-        </tr>
-        <tr>
-          <td>작성자</td>
-          <td id="memberNickname">김등이</td>
-        </tr>
-        <tr>
-          <td>날짜</td>
-          <td id="boardWriteDate">2024-10-22 15:30:22</td>
-        </tr>
-        <tr>
-          <td>제목</td>
-          <td id="boardTitle">개발</td>
-        </tr>
-        <tr>
-          <td>내용</td>
-          <td id="boardContent">개발하자</td>
-        </tr>
-        <tr>
-          <td>이미지</td>
-          <td><a id="imageLink" href="#">logo.png(클릭시 이미지 경로로 이동)</a></td>
-        </tr>
-      </table>
-    </div>
+
+    <!-- 정보 테이블 -->
+    <table class="info-table">
+      <tr>
+        <th>게시판명</th>
+        <td>중고거래</td>
+      </tr>
+      <tr>
+        <th>작성자</th>
+        <td class="board-nickname">길동이</td>
+      </tr>
+      <tr>
+        <th>날짜</th>
+        <td class="board-write-date">2024-10-22 15:30:22</td>
+      </tr>
+      <tr>
+        <th>제목</th>
+        <td class="board-title">개발</td>
+      </tr>
+      <tr>
+        <th>내용</th>
+        <td class="board-content">개발하자</td>
+      </tr>
+    </table>
   </div>
 </div>

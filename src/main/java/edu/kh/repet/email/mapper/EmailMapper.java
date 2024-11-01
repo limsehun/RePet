@@ -8,4 +8,7 @@ public interface EmailMapper {
 
 	int updatePw(@Param("memberEmail") String email, @Param("encPw") String encPw);
 
+//	int updateDelFl(@Param("memberEmail") String email, 
+//									@Param("memberDelFl") String memberDelFl);
+
 }

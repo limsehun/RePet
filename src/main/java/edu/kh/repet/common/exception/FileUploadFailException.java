@@ -7,7 +7,7 @@ package edu.kh.repet.common.exception;
 public class FileUploadFailException extends RuntimeException {
 	
 	public FileUploadFailException() {
-		super("파일 업로드 실패");
+		super("이미지 업로드 실패");
 	}
 	
 	public FileUploadFailException(String message) {

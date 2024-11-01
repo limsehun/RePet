@@ -2,18 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="edu.kh.repet.flea.mapper.EditFleaMapper">
-
-    <!--
-		시퀀스를 이용해서 다음 boardNo를 생성한 후
-		제출된 Board 객체에 boardNo를 세팅!!!
-
-		왜? 동시에 시퀀스로 번호를 발생 시킬 가능성이 있기 떄문에
-		미리 번호를 생성
-
-		방법 : 얕은 복사의 특징(모두 원본 참조)(주소만 복사) 을 이용해서
-			   mapper에서 세팅한 값을 controller, service에서 사용 가능하게 함
-	-->
-
     <!--
         useGeneratedKeys 속성
         - DB에서 내부적으로 생성된 KEY(시퀀스)를 사용할 수 있는 상태 여부 지정
@@ -53,15 +41,33 @@
     </insert>
 
     <!-- 중고거래 부분 insert -->
-    <!-- @Param("inputFlea") Flea inputFlea, @Param("boardNo") int boardNo -->
+
+    <!--오류 발생시 mapper.java 이걸로 수정 ==> @Param("inputFlea") Flea inputFlea, @Param("boardNo") int boardNo -->
     <insert id="fleaInsert" parameterType="Flea">
         INSERT INTO "FLEA_BOARD"
-                    (PRICE, GOODS)
-        VALUES  (   #{price}, #{goods})
-        WHERE   BOARD_NO = #{board_no}
+                    (BOARD_NO, PRICE, GOODS)
+        VALUES  (#{boardNo}, #{price}, #{goods})
     </insert>
 
-    <!-- board_img 에 이미지 등록-->
+
+                <!-- 상단 두 SQL INSERT 문 두개를 동시에 진행가능한지 테스트 -->
+<!--                    <insert id="insertBoardAndFleaBoard" parameterType="Flea">-->
+<!--                        INSERT INTO BOARD (BOARD_NO, BOARD_TITLE, BOARD_CONTENT,-->
+<!--                        BOARD_WRITE_DATE, BOARD_UPDATE_DATE,-->
+<!--                        READ_COUNT, BOARD_DEL_FL, MEMBER_NO, BOARD_CODE)-->
+<!--                        VALUES (SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent},-->
+<!--                        CURRENT_DATE, NULL, 0, 'N', #{memberNo}, 3);-->
+
+<!--                        <selectKey keyProperty="boardNo" order="AFTER">-->
+<!--                            SELECT SEQ_BOARD_NO.CURRVAL-->
+<!--                        </selectKey>-->
+
+<!--                        INSERT INTO FLEA_BOARD (BOARD_NO, PRICE, GOODS)-->
+<!--                        VALUES (#{boardNo}, #{price}, #{goods});-->
+<!--                    </insert>-->
+
+
+<!--    // 이미지 여러개 삽입-->
     <insert id="insertUploadList">
         INSERT INTO "BOARD_IMG"
         <foreach collection="list" item="img"
@@ -70,81 +76,72 @@
                 NEXT_IMG_NO(),
                 #{img.imgPath},
                 #{img.imgRename},
-                #{img.boardNo}
+                #{img.boardNo},
+                #{img.imgOrder}
             FROM DUAL
         </foreach>
     </insert>
-    
 
 
-<!--
+<!--    // 게시글 삭제-->
+    <update id="fleaDelete">
+        UPDATE	BOARD
+        SET		BOARD_DEL_FL = 'Y'
+        WHERE	MEMBER_NO    = #{memberNo}
+          AND	BOARD_NO     = #{boardNo}
+    </update>
 
 
+<!--    // 게시글 부분 수정-->
+    <update id="fleaUpdate">
+        UPDATE	"BOARD"
+        SET		BOARD_TITLE   = #{boardTitle},
+                BOARD_CONTENT = #{boardContent}
+        WHERE	BOARD_CODE    = 3
+          AND	BOARD_NO      = #{boardNo}
+          AND	MEMBER_NO     = #{memberNo}
+    </update>
 
 
-    /**
-    * 게시글 삭제
-    * @param memberNo
-    * @param boardNo
-    * @return
-    */
-    int fleaDelete(int memberNo, int boardNo);
+<!--    // 기존에 존재하던 이미지 'DB' 에서 삭제 (서버 경로 폴더에는 여전히 존재)-->
+    <delete id="deleteImage">
+        DELETE
+        FROM	"BOARD_IMG"
+        WHERE	BOARD_NO = #{boardNo}
+          AND 	IMG_ORDER IN(${deleteOrderList})
+    </delete>
+
+<!--    <delete id="deleteImage">-->
+<!--        DELETE-->
+<!--        FROM	"BOARD_IMG"-->
+<!--        WHERE	BOARD_NO = #{boardNo}-->
+<!--          AND 	IMG_ORDER IN-->
+<!--            <foreach item="order" collection="String...?" open="(" separator="," close=")">-->
+<!--                #{imgOrder}-->
+<!--            </foreach>-->
+<!--    </delete>-->
 
 
+<!--    // 이미지 1행 수정-->
+    <update id="updateImage">
+        UPDATE	"BOARD_IMG"
+        SET		IMG_RENAME        = #{imgRename}
+        WHERE	BOARD_NO          = #{boardNo}
+          AND	IMG_ORDER         = #{imgOrder}
+    </update>
 
 
+<!--    // 새 이미지 1행 삽입-->
+    <insert id="insertImage">
+        INSERT
+        INTO	"BOARD_IMG"
+        VALUES (SEQ_IMG_NO.NEXTVAL,
+                #{imgPath},
+                #{imgRename},
+                #{boardNo},
+                #{imgOrder}
+               )
+    </insert>
 
 
-
-
-
-    /** 1-1
-    * 게시글 수정(제목/내용)
-    * @param inputFlea
-    * @return
-    */
-    int fleaUpdate(Flea inputFlea);
-
-
-
-
-
-
-
-
-
-    /** 1-2
-    * 게시글 기존 이미지 삭제
-    * @param deleteOrderList
-    * @param boardNo
-    * @return
-    */
-    int deleteImage(String deleteOrderList, int boardNo);
-
-
-
-
-
-
-
-    /** 3-1
-    * 이미지 1행 수정
-    * @param img
-    * @return
-    */
-    int updateImage(FleaImg img);
-
-
-
-
-
-
-    /** 3-2
-    * 새로운 이미지 1행 삽입
-    * @param img
-    * @return
-    */
-    int insertImage(FleaImg img);
-
--->
 </mapper>

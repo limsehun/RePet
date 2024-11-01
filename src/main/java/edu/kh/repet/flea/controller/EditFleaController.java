@@ -32,13 +32,14 @@ public class EditFleaController {
      * 게시글 작성 화면 전환
      * @return
      */
-    @GetMapping("flea/insert")
+    @GetMapping("insert")
     public String fleaInsert() {
         return "flea/fleaWrite";
     }
     
     
-    @PostMapping("flea/insert")
+    // 게시글 등록
+    @PostMapping("insert")
     public String fleaInsert(
             @ModelAttribute Flea inputFlea,
             @SessionAttribute("loginMember") Member loginMember,
@@ -79,12 +80,14 @@ public class EditFleaController {
         return "redirect:" + path;
     }
     
+    
+    // 게시글 삭제
     @PostMapping("delete")
     public String fleaDelete(
             @RequestParam("boardNo") int boardNo,
             @SessionAttribute("loginMember") Member loginMember,
             RedirectAttributes ra
-//            ,@RequestHeader("referer") String referer
+            ,@RequestHeader("referer") String referer
     ) {
         
         /*
@@ -92,7 +95,6 @@ public class EditFleaController {
            http: /   /  localhost  /   flea  / 2020/
 		     0   / 1 /      2      /    3    /  4  /   5
          */
-//        String regExp = "/flea/[0-9]+";  수정정 예정
          
         // 2) 서비스 호출 후 결과(게시글 번호) 반환
         int confirm = service.fleaDelete(loginMember.getMemberNo(), boardNo);
@@ -114,23 +116,21 @@ public class EditFleaController {
         return "redirect:" + path;
     }
     
-    /**
-     * 게시글 수정 화면 전환
-     */
-    @PostMapping("flea/{boardNo}/updateView")
+
+    // 게시글 수정 화면 전환
+    @PostMapping("{boardNo}/updateView")
     public String updateView(
             @PathVariable("boardNo") int boardNo,
             @SessionAttribute("loginMember") Member loginMember,
             RedirectAttributes ra,
             Model model
     ) {
-        int boardCode = 3;
-        // boardCode, boardNo 가 일치하는 글 조회
-        Map<String, Integer> map = Map.of("boardCode", boardCode, "boardNo", boardNo);
         
-//        Flea flea = fleaService.selectDetail(map);
+        // flea_rm 때문에 map 형식을 유지해야함
+        Map<String, Integer> map = Map.of("boardNo", boardNo);
         
-        Flea flea = null;
+        Flea flea = fleaService.selectFleaDetail(map);
+        
         // 게시글이 존재하지 않는 경우
         if(flea == null) {
             ra.addFlashAttribute("message", "해당 게시글이 존재하지 않습니다.");
@@ -141,7 +141,7 @@ public class EditFleaController {
         if(flea.getMemberNo() != loginMember.getMemberNo()) {
             ra.addFlashAttribute("message", "글 작성자만 수정 가능합니다");
             
-            return String.format("redirect:/board/%d/%d", boardCode, boardNo);		// 상세 조회
+            return String.format("redirect:/flea/%d", boardNo);		// 상세 조회
         }
         
         // 게시글이 존재하고
@@ -151,7 +151,7 @@ public class EditFleaController {
         return "flea/fleaUpdate";
     }
     
-    @PostMapping("flea/{boardNo:[0-9]+}/update")
+    @PostMapping("{boardNo:[0-9]+}/update")
     public String fleaUpdate(
             @PathVariable("boardNo") int boardNo,
             @ModelAttribute Flea inputFlea,     // 제출된 파라미터 중에서 name 속성값이 같으면 저장하는 커멘드 객체
@@ -160,13 +160,12 @@ public class EditFleaController {
             @RequestParam(value="deleteOrderList", required = false) String deleteOrderList,
             RedirectAttributes ra
     ) {
-        int boardCode = 3;
         
         // 1. 커멘드 객체 inputBoard 에 로그인한 회원 번호 추가
         inputFlea.setMemberNo(loginMember.getMemberNo());
         
         // inputFlea 에 세팅된 값
-        // : boardCode = 3, boardNo, boardTitle, boardContent, memberNo
+        // : boardNo, boardTitle, boardContent, memberNo
         
         // 2. 게시글 수정 서비스 호출 후 결과 반환
         int result = service.fleaUpdate(inputFlea, images, deleteOrderList);

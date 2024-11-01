@@ -54,7 +54,7 @@ const selectBoardList = (cp) => {
       cachedBoardList = list;
 
 
-      renderBoardItems(list, cp, limit);
+      renderItems(list, cp, limit);
       renderPagination(pagination, selectBoardList);
     })
     .catch((error) => console.error("에러 발생:", error));

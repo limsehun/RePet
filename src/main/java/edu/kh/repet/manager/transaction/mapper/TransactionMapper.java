@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.repet.board.dto.Board;
+
+import edu.kh.repet.board.dto.ReportBoard;
+
 import edu.kh.repet.member.dto.Member;
 
 @Mapper
@@ -23,17 +26,24 @@ public interface TransactionMapper {
 
 	int deleteManegement(int boardNo);
 	
+
 	int reportCount(List<Board> boardList);
 	
 	
 	// 중고 신고 게시판
 	int getReportListCount();
 
-	List<Board> selectReportList(RowBounds rowBounds);
+	List<ReportBoard> selectReportList(RowBounds rowBounds);
 
 	int getSearchReportCount(Map<String, Object> paramMap);
 
-	List<Board> selectSearchReportList(Map<String, Object> paramMap, RowBounds rowBounds);
+	List<ReportBoard> selectSearchReportList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	List<Board> reportCount(List<ReportBoard> boardList);
+
+	List<Board> selectReportedList(RowBounds rowBounds);
+
+	List<Board> selectSearchReportedList(RowBounds rowBounds);
 
 
 

@@ -182,7 +182,6 @@ html, body {
 
 
 
-
    /* ****** 현재 status-btn 시 적용되지 않는다******** */
 
    #memberList #status-btn ,   #memberList #warning-btn{
@@ -269,7 +268,6 @@ html, body {
    }
 
 
-
 /*----  상세정보 모달창 ----*/
  /* 모달 백그라운드 */
  .modal-background {
@@ -327,6 +325,12 @@ html, body {
   right: 0;
 }
 
+.report-button-group {
+  display: flex;
+  gap: 5px; /* 닫기와 삭제 버튼 간격 */
+  flex-direction: row-reverse;
+}
+
 .close-btn, .delete-btn {
   background-color: #ddd;
   border: none;
@@ -365,6 +369,7 @@ html, body {
   color: blue;
   text-decoration: underline;
 }
+
 
 
 /*----  신고상세정보 모달창 ----*/

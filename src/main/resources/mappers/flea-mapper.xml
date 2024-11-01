@@ -293,8 +293,7 @@
         )
         WHERE	BOARD_NO = #{boardNo}
     </select>
-    
-    <select id=""
+
 
 
 

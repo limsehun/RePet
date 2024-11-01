@@ -8,7 +8,7 @@
     <title>관리자 페이지</title>
 
     <th:block th:replace="~{common/common}"></th:block>
-    <link rel="stylesheet" href="/css/manager/manager-style.css">
+    <link rel="stylesheet" href="/css/manager/management-style.css">
   </head>
 
   <body>
@@ -74,7 +74,7 @@
                       <td th:text="*{boardContent}">신고 내용</td>     
                       <td th:text="*{boardWriteDate}">신고일</td>     
                       <td th:text="*{memberNickname}">작성자</td>     
-                      <td th:text="*{memberNickname}">신고 누적수</td>     
+                      <td th:text="*{reportCount}">신고 누적수</td>     
                       <td>
                         <button class="manage-btn" onclick="openModal()">상세정보</button>  
                       </td>

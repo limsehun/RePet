@@ -2,7 +2,7 @@
 const modalBackground = document.querySelector("#modalBackground");
 const closeModal = document.querySelector(".close-btn");
 const deleteBtn = document.querySelector(".delete-btn");
-const boardList = document.querySelector("#memberList");
+const boardList = document.querySelector(".info-modal");
 
 
 // 모달창 닫기
@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectBoardList(1); // 검색 시 페이지를 1로 고정
   });
 });
+
 let cachedBoardList = [];
 
 
@@ -53,8 +54,7 @@ const selectBoardList = (cp) => {
       // 검색 결과로 리스트를 초기화
       cachedBoardList = list;
 
-
-      renderBoardItems(list, cp, limit);
+      renderItems(list, cp, limit);
       renderPagination(pagination, selectBoardList);
     })
     .catch((error) => console.error("에러 발생:", error));
@@ -139,7 +139,10 @@ const renderItems = (list, currentPage, limit) => {
     td1.innerText = ((currentPage - 1) * limit) + index + 1;
 
     const td2 = document.createElement("td");
-    td2.innerText = board.boardTitle;
+    const titleLink = document.createElement("a"); 
+    titleLink.href = `/board/3/${board.boardNo}`; 
+    titleLink.innerText = board.boardTitle;
+
 
     const td3 = document.createElement("td");
     const tempDiv = document.createElement("div");
@@ -156,6 +159,9 @@ const renderItems = (list, currentPage, limit) => {
     const detailBtn = document.createElement("button");
     detailBtn.innerText = "상세정보";
     detailBtn.onclick = () => showBoardDetails(board.boardNo);
+    
+    titleLink.classList.add("clickable-link");
+    td2.appendChild(titleLink);
     td6.append(detailBtn);
 
     tr.append(td1, td2, td3, td4, td5, td6);

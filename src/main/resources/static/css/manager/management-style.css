@@ -226,10 +226,6 @@ html, body {
   -moz-user-select: none;
 }
 
-.admin-table td a{
-  color: #007bff;
-}
-
 .admin-table th,
 .admin-table td {
   padding: 15px;
@@ -255,6 +251,24 @@ html, body {
 
 .add{display: none;}
 
+.manage-btn{
+  padding: 6px 12px;
+  background-color: rgba(235, 235, 235, 1);
+  border: 1px solid #999;
+  border-radius: 10px;
+  color: #333;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+}
+
+.manage-btn:hover {
+  background-color: #ccc3c3;
+}
+
+.manage-btn:active {
+  background-color: #ccc3c3;
+}
 
 /* 검색 영역 수정 */
 .search-area {
@@ -404,29 +418,5 @@ html, body {
   font-weight: normal;
 }
 
-.info-table td a {
-  color: #333;
-  text-decoration: none;
-}
 
-/* 클릭 시 이미지 이동 텍스트 스타일 */
-.image-link {
-  cursor: pointer;
-  color: blue;
-  text-decoration: underline;
-}
-
-
-/* 링크 기본 스타일 */
-.clickable-link {
-  color: #007bff; /* 파란색 텍스트 */
-  text-decoration: underline; /* 밑줄 추가 */
-  cursor: pointer; /* 클릭 가능한 커서 */
-}
-
-/* 링크에 마우스를 올렸을 때 스타일 */
-.clickable-link:hover {
-  color: #0056b3; /* 더 짙은 파란색으로 변경 */
-  text-decoration: none; /* 밑줄 제거 */
-}
 

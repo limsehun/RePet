@@ -115,6 +115,8 @@ public class TransactionServiceImpl implements TransactionService{
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
 		
+		List<Member> reportCount = mapper.reportCount(boardList);
+		map.put("reportCount", reportCount);
 		
 		
 		return map;

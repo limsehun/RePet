@@ -2,35 +2,66 @@
 const modalBackground = document.querySelector("#modalBackground");
 const closeModal = document.querySelector(".close-btn");
 const deleteBtn = document.querySelector(".delete-btn");
-const boardList = document.querySelector(".info-modal");
+const boardList = document.querySelector("#memberList");
 
-let cachedBoardList = [];
 
 // 모달창 닫기
 closeModal.addEventListener("click", () => {
   modalBackground.style.display = "none";
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  // 게시물 리스트 조회 초기화
+  selectBoardList(1);
+  
+  // 검색 폼 서브밋 이벤트 처리
+  const searchForm = document.querySelector("#boardSearch");
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // 폼 기본 제출 막기
+    selectBoardList(1); // 검색 시 페이지를 1로 고정
+  });
+});
+let cachedBoardList = [];
 
 
-// 게시글 리스트 가져오기
+
+
+
+// 게시물 조회 함수
 const selectBoardList = (cp) => {
-  fetch(`/manager/transaction/selectManagement?cp=${cp}`)
-    .then(response => {
+  // 검색 폼 데이터 가져오기
+  const key = document.querySelector("#searchKey").value;
+  const query = document.querySelector("#searchQuery").value;
+
+  // URL에 검색 파라미터 추가
+  let url = `/manager/transaction/selectManagement?cp=${cp}`;
+  if (key && query) {
+    url += `&key=${encodeURIComponent(key)}&query=${encodeURIComponent(query)}`;
+  }
+
+  fetch(url)
+    .then((response) => {
+      // 응답 성공 시 JSON형태의 응답 데이터를 JS 객체로 변경 
       if (response.ok) return response.json();
       throw new Error("조회 오류");
     })
-    .then(map => {
+    .then((map) => {
       const list = map.boardList;
       const pagination = map.pagination;
-      cachedBoardList = list; // 캐시 저장
-      renderItems(list, cp, pagination.limit || 10);
-      renderPagination(pagination);
+      const limit = pagination.limit || 10;
+      console.log(map);
+      // 검색 결과로 리스트를 초기화
+      cachedBoardList = list;
+
+
+      renderBoardItems(list, cp, limit);
+      renderPagination(pagination, selectBoardList);
     })
-    .catch(error => console.error("에러 발생:", error));
-}
+    .catch((error) => console.error("에러 발생:", error));
+};
 
 let alertFlag = false;
+
 
 // 상세 정보 모달 표시 함수
 const showBoardDetails = (boardNo) => {
@@ -90,6 +121,17 @@ const renderItems = (list, currentPage, limit) => {
   boardList.innerHTML = ''; // 기존 내용 초기화
   const fragment = document.createDocumentFragment(); // Document Fragment 생성
 
+  if (list.length === 0) {
+    // 검색 결과가 없는 경우 처리
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.setAttribute("colspan", "6");
+    td.innerText = "검색 결과가 없습니다.";
+    tr.appendChild(td);
+    boardList.appendChild(tr);
+    return;
+  }
+
   list.forEach((board, index) => {
     const tr = document.createElement("tr");
 
@@ -127,6 +169,9 @@ const renderItems = (list, currentPage, limit) => {
 const renderPagination = (pagination) => {
   const paginationBox = document.querySelector(".pagination");
   paginationBox.innerHTML = '';
+
+  const key = document.querySelector("#searchKey").value;
+  const query = document.querySelector("#searchQuery").value;
 
   const createPageButton = (page, text, isActive = false) => {
     const button = document.createElement("a");

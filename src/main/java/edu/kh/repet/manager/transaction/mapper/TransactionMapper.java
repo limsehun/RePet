@@ -38,15 +38,23 @@ public interface TransactionMapper {
 
 	List<ReportBoard> selectSearchReportList(Map<String, Object> paramMap, RowBounds rowBounds);
 
+
+
 	List<Board> selectReportedList(RowBounds rowBounds);
 
 	List<Board> selectSearchReportedList(RowBounds rowBounds);
 
+
+
+	List<Board> reportCount1(List<ReportBoard> boardList);
+
 	List<Member> reportCount(List<ReportBoard> boardList);
+
 
 	int deleteReport(int boardNo);
 
 	int deleteReportBoard(int boardNo);
+
 
 
 

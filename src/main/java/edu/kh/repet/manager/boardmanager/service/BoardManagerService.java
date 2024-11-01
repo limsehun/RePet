@@ -14,6 +14,9 @@ public interface BoardManagerService {
 	// 신고 게시물 리스트
 	Map<String, Object> reportBoardList(int cp);
 
+	Map<String, Object> searchBoard(int cp, Map<String, Object> paramMap);
+
+
 
 
 }

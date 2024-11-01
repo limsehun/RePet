@@ -1,5 +1,6 @@
 package edu.kh.repet.flea.dto;
 
+import java.util.Comparator;
 import java.util.List;
 
 import edu.kh.repet.board.dto.BoardImg;
@@ -50,4 +51,13 @@ public class Flea {
     private List<FleaImg> imageList;
     
     
+    public String getThumbnail() {
+        if (imageList == null || imageList.isEmpty()) {
+            return null;  // No images available
+        }
+        FleaImg thumbnailImg = imageList.stream()
+                .min(Comparator.comparingInt(FleaImg::getImgOrder))
+                .orElse(null);
+        return thumbnailImg != null ? thumbnailImg.getImgPath() + thumbnailImg.getImgRename() : null;
+    }
 }

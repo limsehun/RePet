@@ -113,8 +113,14 @@ public class ApiController {
 
     // 서울 동물병원 데이터 제공
     @GetMapping("/seoul-hospitals")
-    public ResponseEntity<String> getSeoulHospitals() {
-        String url = "http://openapi.seoul.go.kr:8088/" + seoulApiKey + "/json/LOCALDATA_020301/1/1000";
+    public ResponseEntity<String> getSeoulHospitals(@RequestParam("page") int pageIndex) {
+        // 서울 공공 데이터 API URL 설정
+        int startIndex = (pageIndex - 1) * 1000 + 1;  // 예: 페이지 1일 때 시작 인덱스 1, 페이지 2일 때 시작 인덱스 1001
+        int endIndex = pageIndex * 1000;               // 예: 페이지 1일 때 종료 인덱스 1000, 페이지 2일 때 종료 인덱스 2000
+
+        String url = "http://openapi.seoul.go.kr:8088/" + seoulApiKey + "/json/LOCALDATA_020301/"
+                     + startIndex + "/" + endIndex;
+        
         System.out.println("서울 병원 데이터 요청 URL: " + url); // URL 출력 로그
 
         try {

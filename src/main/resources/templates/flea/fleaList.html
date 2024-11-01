@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${boardName}">게시판 이름</title>
+    <title>애완용품 중고거래 게시판</title>
 
     <th:block th:replace="~{common/common}"></th:block>
 
@@ -19,20 +19,42 @@
 
     <section class="flea-list">
 
-        <h1 class="board-name" th:text="${boardName}">게시판 이름</h1>
+        <h1 class="board-name">애완용품 중고거래 게시판</h1>
+
+        <section>
+            <article class="search-area">
+                <form action="#" method="GET">
+                    <fieldset>
+
+                        <!-- autocomplete="off" : 자동완성 off -->
+                        <input type="search"
+                               id="query"
+                               name="query"
+                               placeholder="검색어를 입력해 주세요."
+                               autocomplete="off"
+                        >
+
+                        <!-- 제목 검색 -->
+                        <input type="hidden" name="key" value="t">
+
+                        <!-- 검색 버튼 -->
+                        <button id="searchBtn" class="fa-solid fa-magnifying-glass"></button>
+
+                    </fieldset>
+                </form>
+
+                <!-- 검색 결과 -->
+                <ul id="searchResult" class="close"></ul>
+
+            </article>
+        </section>
+
+        <h3 style="margin:30px"
+            th:if="${param.query}"
+            th:text="${param.query}">검색결과</h3>
 
         <div class="list-wrapper">
             <table class="list-table">
-
-                <thead>
-                <tr>
-                    <th>글번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                </tr>
-                </thead>
 
                 <tbody>
                 <!-- 게시글이 존재하지 않을 때 -->
@@ -47,8 +69,22 @@
                     <tr th:each="flea : ${fleaList}">
                         <td th:text="${flea.boardNo}">게시글 번호</td>
                         <td>
-                            <img th:if="${flea.thumbnail}" th:src="${flea.thumbnail}" class="list-thumbnail" />
-                            <a th:href="@{/flea/{boardNo}(boardNo=${flea.boardNo})}" th:text="${flea.boardTitle}">게시글 제목</a>
+                            <img th:if="${flea.thumbnail}"
+                                 th:src="${flea.thumbnail}" class="list-thumbnail" />
+
+                            <!-- 검색 아닌 경우 -->
+                            <a th:unless="${param.key}"
+                               th:href="@{/flea/{boardNo}(boardNo=${flea.boardNo})}"
+                               th:text="${flea.boardTitle}">게시글 제목</a>
+
+                            <!-- 검색인 경우 -->
+                            <a  th:if="${param.key}"
+                                th:href="@{/flea/{boardNo} (
+                                boardNo = ${flea.boardNo},
+                                key=${param.key}, query=${param.query}
+                                )}"
+                                th:text="${flea.boardTitle}">게시글 제목</a>
+
                         </td>
                         <td th:text="${flea.memberNickname}">닉네임</td>
                         <td th:text="${flea.boardWriteDate}">작성일</td>

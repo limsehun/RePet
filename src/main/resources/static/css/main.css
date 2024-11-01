@@ -78,6 +78,7 @@
       background-color: transparent;
       cursor: pointer;
       margin-bottom: 10px;
+      color: black;
     }
 
     .header>nav {
@@ -528,7 +529,6 @@
  .abandoned-sup-section h2 {
    margin-bottom: 20px;
    font-size: 24px;
-   color: #333;
  }
 
 

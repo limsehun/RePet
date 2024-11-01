@@ -85,4 +85,20 @@ public class TransactionManagerController {
 		return map;
 	}
 	
+	
+	@ResponseBody
+	@GetMapping("deleteReport")
+	public int deleteReport(
+		@RequestParam("boardNo") int boardNo){
+		return service.deleteReport(boardNo);
+	}
+	
+	@ResponseBody
+	@GetMapping("deleteReportBoard")
+	public int deleteReportBoard(
+			@RequestParam("boardNo") int boardNo){
+		return service.deleteReportBoard(boardNo);
+	}
+	
+	
 }

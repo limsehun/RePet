@@ -17,6 +17,10 @@ public interface TransactionService {
 
 	Map<String, Object> selectSearchReportList(int cp, Map<String, Object> paramMap);
 
+	int deleteReport(int boardNo);
+
+	int deleteReportBoard(int boardNo);
+
 
 }
 

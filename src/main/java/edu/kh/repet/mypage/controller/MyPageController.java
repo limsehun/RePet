@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -204,6 +205,8 @@ public class MyPageController {
  				@SessionAttribute("loginMember") Member loginMember,
  				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
  			) {
+ 		
+ 		// 페이지 네이션 수정
  		
  		return service.selectCommentList(loginMember.getMemberNo(), cp);
  	}

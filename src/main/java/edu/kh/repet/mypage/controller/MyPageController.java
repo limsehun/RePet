@@ -206,8 +206,8 @@ public class MyPageController {
  				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
  			) {
  		
- 		// 페이지 네이션 수정
  		
+ 		// 페이지 네이션 수정
  		return service.selectCommentList(loginMember.getMemberNo(), cp);
  	}
   

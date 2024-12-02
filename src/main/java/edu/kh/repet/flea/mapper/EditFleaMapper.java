@@ -24,7 +24,7 @@ public interface EditFleaMapper {
     int insertUploadList(List<FleaImg> uploadList);
     
     // 게시글 삭제
-    int fleaDelete(int memberNo, int boardNo);
+    int fleaDelete(@Param ("memberNo") int memberNo, @Param("boardNo") int boardNo);
     
     // 게시글 부분 수정
     int fleaUpdate(Flea inputFlea);

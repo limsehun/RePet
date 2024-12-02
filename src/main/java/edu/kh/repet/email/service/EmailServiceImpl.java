@@ -210,7 +210,7 @@ public class EmailServiceImpl implements EmailService {
 
 		// templates/email 폴더에서 htmlName과 같은
 		// .html 파일 내용을 읽어와 String으로 변환
-		return templateEngine.process("email/" + htmlName, context);
+		return templateEngine.process("flea/email/" + htmlName, context);
 
 	}
 

@@ -14,18 +14,14 @@ import edu.kh.repet.board.dto.ReportBoard;
 public interface BoardManagerMapper {
 
 	// 게시물 수
-	int boardCount();
-
+  int boardCount();
 	// 게시물 전체 조회
-	List<Board> selectBoardList(RowBounds rowBounds);
-
+  List<Board> selectBoardList(RowBounds rowBounds);
 	// 게시물 삭제
 	int deleteBoard(int boardNo);
 
-
 	// 신고 누적 수
 	int reportCount();
-
 	// 신고 게시물 조회
 	List<ReportBoard> reportBoardList(RowBounds rowBounds);
 

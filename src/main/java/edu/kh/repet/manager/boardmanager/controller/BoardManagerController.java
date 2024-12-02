@@ -35,6 +35,7 @@ public class BoardManagerController {
 	@GetMapping("selectBoardList")
 	public Map<String, Object> selectBoardList(
 
+
 				@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
 				@RequestParam Map<String, Object> paramMap
 
@@ -50,9 +51,12 @@ public class BoardManagerController {
 	// Map에 묶인 값 풀어놓기
 			List<Board> boardList = (List<Board>)map.get("boardList");
 			Pagination pagination = (Pagination)map.get("pagination");
+
+		return service.selectBoardList(cp);
+
+// 		return map;
 		
-		return map;
-		
+
 
 	}
 	

@@ -32,11 +32,17 @@
     <main>
         <h1>내 현재 위치와 주변 동물병원</h1>
         <div id="map" style="position: relative;">
+<!--             <input type="text" id="search-input" placeholder="검색어를 입력하세요" 
+                style="position: absolute; top: 10px; left: 10px; z-index: 50; padding: 5px; background-color: rgb(211, 211, 211); width: 200px;"  />
+				<button onclick="handleSearch()"
+				    style="position: absolute; top: 10px; left: 220px; z-index: 50; padding: 5px; background-color: rgb(30, 28, 28); width: 50px; color: white;">검색</button> -->
+
 
             <input type="text" id="search-input" placeholder="검색어를 입력하세요" 
                 style="position: absolute; top: 10px; left: 10px; z-index: 50; padding: 5px; background-color: rgb(211, 211, 211); width: 200px;"  />
             <button onclick="handleSearch()"
                 style="position: absolute; top: 10px; left: 220px; z-index: 50; padding: 5px; background-color: rgb(30, 28, 28); width: 50px;">검색</button>
+
 
         </div>
         <div id="location"></div>

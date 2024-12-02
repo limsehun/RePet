@@ -8,7 +8,7 @@
     <title>관리자 페이지</title>
 
     <th:block th:replace="~{common/common}"></th:block>
-    <link rel="stylesheet" href="/css/manager/management-style.css">
+    <link rel="stylesheet" href="/css/manager/manager-style.css">
   </head>
 
   <body>
@@ -18,7 +18,7 @@
 
       <section class="main-content">  <!-- main-content 클래스를 section에 추가 -->
         <div class="admin-main">      <!-- div로 감싸서 구조화 -->
-          <h1>중고거래 게시글 관리</h1>
+          <h1>게시물 신고 관리</h1>
           
           <!-- 검색 영역 -->
           <form class="search-area" th:action="@{{code}(code=${boardCode})}" method="get" id="boardSearch">
@@ -74,7 +74,7 @@
                       <td th:text="*{boardContent}">신고 내용</td>     
                       <td th:text="*{boardWriteDate}">신고일</td>     
                       <td th:text="*{memberNickname}">작성자</td>     
-                      <td th:text="*{reportCount}">신고 누적수</td>     
+                      <td th:text="*{memberNickname}">신고 누적수</td>     
                       <td>
                         <button class="manage-btn" onclick="openModal()">상세정보</button>  
                       </td>
@@ -87,12 +87,13 @@
             <div id="likePaginationBox" class="pagination"></div>
           </div>
 
-
+          
         </div>
       </section>
     </main>
-    <th:block th:replace="~{manager/transaction/reportInfo}"></th:block>
-    <script src="/js/manager/transaction/report.js"></script>
+    
+    <th:block th:replace="~{manager/board/boardReportModal}"></th:block>
+    <script src="/js/manager/boardmanager/reportManagement.js"></script>
   </body>
 
 </html>

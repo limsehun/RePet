@@ -6,7 +6,7 @@ function findAddress() {
       var addr = ''; // 주소 변수
 
 
-      if (data.userSelectedType === 'R') { 
+      if (data.userSelectedType === 'R') {
         addr = data.roadAddress;
       } else {
         addr = data.jibunAddress;
@@ -67,14 +67,14 @@ memberEmail.addEventListener("input", e => {
     memberEmailMessage.innerText = memberEmailCM.invaild; // 유효 X 메시지
     memberEmailMessage.classList.add("error");
     memberEmailMessage.classList.remove("confirm");
-    checkObj.memberEmail = false; 
+    checkObj.memberEmail = false;
     return;
   }
 
 
   fetch("/member/memberEmailCheck?memberEmail=" + inputmemberEmail)
     .then(response => {
-      if (response.ok) { 
+      if (response.ok) {
         return response.text()
       }
 
@@ -115,8 +115,8 @@ const pwCheckMessage = {};
 pwCheckMessage.normal = "영어,숫자,특수문자 1글자 이상, 6~20자 사이.";
 pwCheckMessage.invaild = "유효하지 않은 비밀번호 형식입니다.";
 pwCheckMessage.vaild = "유효한 비밀번호 형식입니다.";
-pwCheckMessage.error = "비밀번호가 일치하지 않습니다.";
-pwCheckMessage.check = "비밀번호가 일치 합니다.";
+// pwCheckMessage.error = "비밀번호가 일치하지 않습니다.";
+// pwCheckMessage.check = "비밀번호가 일치 합니다.";
 
 
 memberPw.addEventListener("input", () => {
@@ -133,8 +133,8 @@ memberPw.addEventListener("input", () => {
 
 
   const lengthCheck = inputPw.length >= 6 && inputPw.length <= 20;
-  const letterCheck = /[a-zA-Z]/.test(inputPw); 
-  const numberCheck = /\d/.test(inputPw); 
+  const letterCheck = /[a-zA-Z]/.test(inputPw);
+  const numberCheck = /\d/.test(inputPw);
   const specialCharCheck = /[\!\@\#\_\-]/.test(inputPw);
 
   // 조건이 하나라도 만족하지 못하면
@@ -175,7 +175,7 @@ memberPw.addEventListener("input", () => {
 //   checkObj.memberPwCheck = false;
 // }
 
-/* ----- 비밀번호 확인이 입력 되었을 때  ----- */
+// /* ----- 비밀번호 확인이 입력 되었을 때  ----- */
 // memberPwCheck.addEventListener("input", () => {
 
 //   // 비밀번호 input에 작성된 값이 유효한 형식일때만 비교
@@ -267,19 +267,19 @@ signUpForm.addEventListener("submit", e => {
 
   // for(let key in 객체)
   // -> 반복마다 객체의 키 값을 하나씩 꺼내서 key 변수에 저장
-  
+
   // 유효성 검사 체크리스트 객체에서 하나씩 꺼내서
   // false인 경우가 있는지 검사
-  for(let key in checkObj){ 
-    if( checkObj[key] === false){ // 유효하지 않은 경우
+  for (let key in checkObj) {
+    if (checkObj[key] === false) { // 유효하지 않은 경우
       let str; // 출력할 메시지 저장
 
-      switch(key){
-        case "memberEmail"     : str = "이메일이 유효하지 않습니다";        break;
-        case "memberNickname"  : str = "닉네임이 유효하지 않습니다";        break;
-        case "memberPw"        : str = "비밀번호가 유효하지 않습니다";      break;
-        case "memberPwConfirm" : str = "비밀번호 확인이 일치하지 않습니다"; break;
-    break;
+      switch (key) {
+        case "memberEmail": str = "이메일이 유효하지 않습니다"; break;
+        case "memberNickname": str = "닉네임이 유효하지 않습니다"; break;
+        case "memberPw": str = "비밀번호가 유효하지 않습니다"; break;
+        case "memberPwConfirm": str = "비밀번호 확인이 일치하지 않습니다"; break;
+          break;
       }
       alert(str); // 경고 출력
 
@@ -293,28 +293,28 @@ signUpForm.addEventListener("submit", e => {
 });
 
 
-  /* 주소 유효성 검사 */
-  // - 모두 작성 또는 모두 미작성
+/* 주소 유효성 검사 */
+// - 모두 작성 또는 모두 미작성
 
-  // const addr = document.querySelectorAll("[name = memberAddress]");
+// const addr = document.querySelectorAll("[name = memberAddress]");
 
-  // let empty = 0; // 비어있는 input의 개수
-  // let notEmpty = 0; // 비어있지 않은 input의 개수
+// let empty = 0; // 비어있는 input의 개수
+// let notEmpty = 0; // 비어있지 않은 input의 개수
 
-  // // for ~ of 향상된 for문
-  // for (let item of addr) {
-  //   let len = item.value.trim().length; // 작성된 값의 길이
+// // for ~ of 향상된 for문
+// for (let item of addr) {
+//   let len = item.value.trim().length; // 작성된 값의 길이
 
-  //   if (len > 0) notEmpty++; // 비어있지 않은 경우
-  //   else empty++;    // 비어있을 경우
-  // }
+//   if (len > 0) notEmpty++; // 비어있지 않은 경우
+//   else empty++;    // 비어있을 경우
+// }
 
-  // // empty, notEmpty 중 3이 하나도 없을 경우
-  // if (empty < 3 && notEmpty < 3) {
-  //   alert("주소가 유효하지 않습니다(모두 작성 또는 미작성)");
-  //   e.preventDefault();
-  //   return;
-  // }
+// // empty, notEmpty 중 3이 하나도 없을 경우
+// if (empty < 3 && notEmpty < 3) {
+//   alert("주소가 유효하지 않습니다(모두 작성 또는 미작성)");
+//   e.preventDefault();
+//   return;
+// }
 
 // });
 

@@ -132,5 +132,11 @@ public class TransactionServiceImpl implements TransactionService{
 	}
 	
 	
+	@Override
+	public int deleteReportBoard(int boardNo) {
+		return mapper.deleteReportBoard(boardNo);
+	}
+	
+
 
 }

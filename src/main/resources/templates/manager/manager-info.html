@@ -17,7 +17,7 @@
 
     <section class="main-content"> <!-- main-content 클래스를 section에 추가 -->
       <div class="admin-main"> <!-- div로 감싸서 구조화 -->
-        <h1>중고거래 게시글 관리</h1>
+        <h1>회원 목록</h1>
 
         <!-- 검색 영역 -->
         <!-- <form class="search-area" th:action="@{{code}(code=${boardCode})}" method="get" id="boardSearch">
@@ -34,7 +34,7 @@
         </form> -->
 
         <!-- 검색 영역 -->
-        <form class="search-area" th:action="@{{code}(code=${boardCode})}" method="get" id="boardSearch">
+        <form class="search-area" id="boardSearch">
           <input type="text" class="search-input" name="query" id="searchQuery" placeholder="검색어를 입력해주세요.">
           <button><img src="/images/search.png"></button>
         </form>
@@ -81,7 +81,7 @@
   </main>
 
   <!-- <script src="/js/manager/transaction/management.js"></script> -->
-  <script src="/js/manager/manager-info.js"></script>
+  <script src="/js/manager/transaction/manager-info.js"></script>
 </body>
 
 </html>

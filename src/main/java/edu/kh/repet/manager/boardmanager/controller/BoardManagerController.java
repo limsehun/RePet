@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +23,7 @@ public class BoardManagerController {
 	
 	private final BoardManagerService service;
 	
+	// 관리자 페이지로 이동
 	@GetMapping("boardManagement")
 	public String managerPage() {
 	    return "manager/board/boardManagement";
@@ -36,10 +34,30 @@ public class BoardManagerController {
 	@ResponseBody
 	@GetMapping("selectBoardList")
 	public Map<String, Object> selectBoardList(
-				@RequestParam(value="cp", required = false, defaultValue = "1") int cp
+
+
+				@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+				@RequestParam Map<String, Object> paramMap
+
 			) {
+		Map<String, Object> map = null;
 		
+		if (paramMap.get("key") == null ) {
+      map = service.selectBoardList(cp);
+  } else {
+      map = service.searchBoard(cp, paramMap);
+  }
+		
+	// Map에 묶인 값 풀어놓기
+			List<Board> boardList = (List<Board>)map.get("boardList");
+			Pagination pagination = (Pagination)map.get("pagination");
+
 		return service.selectBoardList(cp);
+
+// 		return map;
+		
+
+
 	}
 	
 	
@@ -72,10 +90,8 @@ public class BoardManagerController {
 	@GetMapping("boardReport")
 	public String boardReport() {
 		
-	    return "manager/board/board-report";
+	    return "manager/board/boardReport";
 	}
-	
-	
 	
 }
 	

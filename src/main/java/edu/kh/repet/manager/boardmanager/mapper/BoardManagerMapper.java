@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.repet.board.dto.Board;
@@ -20,11 +19,15 @@ public interface BoardManagerMapper {
   List<Board> selectBoardList(RowBounds rowBounds);
 	// 게시물 삭제
 	int deleteBoard(int boardNo);
+
 	// 신고 누적 수
 	int reportCount();
 	// 신고 게시물 조회
 	List<ReportBoard> reportBoardList(RowBounds rowBounds);
 
+	int getSearchCount(Map<String, Object> paramMap);
+
+	List<Board> searchBoardList(Map<String, Object> paramMap, RowBounds rowBounds);
 
 
 }

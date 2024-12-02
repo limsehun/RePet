@@ -45,13 +45,15 @@ public class TransactionManagerController {
 		
 		Map<String, Object> map = null;
 		
-		log.debug("paramMap : {}", paramMap);
 		// 검색이 아닌 경우 == 일반 목록 조회
 		if(paramMap.get("key") == null) {
 			map = service.selectBoardList(cp);
 		} else { // 검색한 경우
 			map = service.selectSearchList(cp, paramMap);
 		}
+		
+		List<Board> boardList = (List<Board>)map.get("boardList");
+		Pagination pagination = (Pagination)map.get("pagination");
 		
 		
 		return map;
@@ -84,5 +86,21 @@ public class TransactionManagerController {
 		
 		return map;
 	}
+	
+	
+	@ResponseBody
+	@GetMapping("deleteReport")
+	public int deleteReport(
+		@RequestParam("boardNo") int boardNo){
+		return service.deleteReport(boardNo);
+	}
+	
+	@ResponseBody
+	@GetMapping("deleteReportBoard")
+	public int deleteReportBoard(
+			@RequestParam("boardNo") int boardNo){
+		return service.deleteReportBoard(boardNo);
+	}
+	
 	
 }

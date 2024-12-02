@@ -278,8 +278,6 @@ signUpForm.addEventListener("submit", e => {
         case "memberEmail": str = "이메일이 유효하지 않습니다"; break;
         case "memberNickname": str = "닉네임이 유효하지 않습니다"; break;
         case "memberPw": str = "비밀번호가 유효하지 않습니다"; break;
-        case "memberPwConfirm": str = "비밀번호 확인이 일치하지 않습니다"; break;
-          break;
       }
       alert(str); // 경고 출력
 

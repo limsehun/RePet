@@ -54,6 +54,7 @@ const selectBoardList = (cp) => {
       // 검색 결과로 리스트를 초기화
       cachedBoardList = list;
 
+
       renderItems(list, cp, limit);
       renderPagination(pagination, selectBoardList);
     })

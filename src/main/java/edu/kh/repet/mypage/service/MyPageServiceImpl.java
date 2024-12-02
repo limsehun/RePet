@@ -241,7 +241,6 @@ public class MyPageServiceImpl implements MyPageService {
 		List<Board> commentList = mapper.selectCommentList(memberNo, rowBounds);
 		
 		
-		
 		Map<String, Object> map = Map.of("commentList", commentList, "pagination", pagination);
 		
 		return map;

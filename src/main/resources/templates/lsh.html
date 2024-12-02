@@ -1,0 +1,85 @@
+<!-- <!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>지도</title>
+    <script type="text/javascript"
+        src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9z29tjhpn2&submodules=geocoder"></script>
+    <link rel="stylesheet" href="/css/board/boardDetail-style.css">
+    <link rel="stylesheet" href="/css/board/comment-style.css">
+</head>
+
+<body>
+
+    <div id="map" style="width:700px;height:700px;margin:0 auto"></div>
+    <script>
+        // 1. 지도 생성
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.3595704, 127.105399), // 기본 중심 좌표 설정
+            zoom: 15, // 줌 레벨
+            mapTypeControl: true // 지도 유형 컨트롤을 활성화
+        });
+
+        // 2. 주소로 좌표 검색하는 함수
+        function searchAddressToCoordinate(address) {
+            naver.maps.Service.geocode({ query: address }, function (status, response) {
+                if (status === naver.maps.Service.Status.ERROR) {
+                    return alert('Something went wrong!');
+                }
+
+                if (response.v2.meta.totalCount === 0) {
+                    return alert('검색 결과가 없습니다.');
+                }
+
+                var item = response.v2.addresses[0], // 첫 번째 검색 결과 선택
+                    point = new naver.maps.Point(item.x, item.y); // 좌표로 변환
+
+                // 지도 중심을 검색된 좌표로 이동
+                map.setCenter(point);
+
+                // 마커 추가 (검색된 좌표에)
+                var marker = new naver.maps.Marker({
+                    position: point,
+                    map: map
+                });
+
+                // 인포 윈도우 생성 (검색된 주소 정보 표시)
+                var infoWindow = new naver.maps.InfoWindow({
+                    content: '<div style="padding:10px;">' + address + '</div>'
+                });
+
+                // 마커 클릭 시 인포 윈도우 열기
+                naver.maps.Event.addListener(marker, "click", function () {
+                    infoWindow.open(map, marker);
+                });
+
+                // 바로 인포 윈도우 열기
+                infoWindow.open(map, marker);
+            });
+        }
+
+       // 서버에서 주소를 가져오는 함수 (AJAX)
+       function LoginAdress() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/getAddress', true); // 서버에 주소 데이터를 요청하는 API
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var address = xhr.responseText; // 서버에서 받은 주소
+                    searchAddressToCoordinate(address); // 받은 주소로 좌표 검색
+                }
+            };
+            xhr.send();
+        }
+
+        // 페이지 로드 시 서버에서 주소를 가져와 지도에 반영
+        window.onload = function () {
+            fetchAddressFromServer(); // 서버에서 주소 데이터를 받아와 지도에 표시
+        };
+    </script>
+
+</body>
+
+</html> -->

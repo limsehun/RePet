@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.repet.hospital.mapper.ApiMapper">
+
+	<select id="selectHospitalList" resultType="map">
+		SELECT
+			HOSPITAL_NO "hospitalNo",
+			HOSPITAL_NAME "hospitalName",
+			HOSPITAL_TEL "hospitalTel",
+			HOSPITAL_ADDRESS "hospitalAddress",
+			LATITUDE "latitude",
+			LONGITUDE "longitude"
+		FROM HOSPITAL
+		WHERE HOSPITAL_ADDRESS LIKE #{region} || '%'
+	</select>
+</mapper>
